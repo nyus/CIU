@@ -17,14 +17,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Eq0-Rf-Yyq">
-                                <rect key="frame" x="0.0" y="0.0" width="150" height="568"/>
+                                <rect key="frame" x="0.0" y="20" width="150" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="5BY-Rq-yH7"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="102" id="lve-PI-GwB">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="avatarCell" rowHeight="102" id="lve-PI-GwB">
                                         <rect key="frame" x="0.0" y="22" width="150" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lve-PI-GwB" id="yO7-X1-jxp">
@@ -51,14 +50,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="60W-K5-fMn" id="eWS-bF-ACR">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="9PV-6N-A8a">
-                                        <rect key="frame" x="0.0" y="168" width="150" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9PV-6N-A8a" id="QqF-KN-x7l">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHj-Ma-2t6">
+                                                    <rect key="frame" x="54" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -68,7 +67,7 @@
                                 </connections>
                             </tableView>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-Ve-11G">
-                                <rect key="frame" x="200" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="100" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -82,10 +81,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="8ni-1f-edL"/>
+                            <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="8ni-1f-edL"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Eq0-Rf-Yyq" secondAttribute="bottom" id="Psv-BU-AfO"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2Bz-Ve-11G" secondAttribute="bottom" id="h9b-jP-i0j"/>
-                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="200" id="lNX-Jj-osM"/>
+                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="lNX-Jj-osM"/>
                             <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="xiW-bv-fmE"/>
                             <constraint firstItem="2Bz-Ve-11G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="xqb-WS-Flh"/>
                         </constraints>
