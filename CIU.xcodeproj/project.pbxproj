@@ -23,6 +23,7 @@
 		652BABAC199D3CCA009F5F5A /* CIUTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BABAB199D3CCA009F5F5A /* CIUTests.m */; };
 		6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F5199D422A00629B48 /* StartupViewController.m */; };
 		6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F8199D4CAF00629B48 /* TabbarController.m */; };
+		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		6564F1F5199D422A00629B48 /* StartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartupViewController.m; sourceTree = "<group>"; };
 		6564F1F7199D4CAF00629B48 /* TabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarController.h; sourceTree = "<group>"; };
 		6564F1F8199D4CAF00629B48 /* TabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarController.m; sourceTree = "<group>"; };
+		6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewController.h; sourceTree = "<group>"; };
+		6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +132,8 @@
 				6564F1F5199D422A00629B48 /* StartupViewController.m */,
 				6564F1F7199D4CAF00629B48 /* TabbarController.h */,
 				6564F1F8199D4CAF00629B48 /* TabbarController.m */,
+				6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */,
+				6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */,
 				652BAB97199D3CCA009F5F5A /* ViewController.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
+				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
 			);
