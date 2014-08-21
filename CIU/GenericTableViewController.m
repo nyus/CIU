@@ -7,8 +7,17 @@
 //
 
 #import "GenericTableViewController.h"
-
+@interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@end
 @implementation GenericTableViewController
+
+-(void)pullDataFromLocal{
+    //override by subclass
+}
+
+-(void)pullDataFromServer{
+    //override by subclass
+}
 
 -(void)loadRemoteDataForVisibleCells{
     //override by subclass
