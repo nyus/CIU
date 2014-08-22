@@ -43,6 +43,8 @@
 		6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F5199D422A00629B48 /* StartupViewController.m */; };
 		6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F8199D4CAF00629B48 /* TabbarController.m */; };
 		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
+		6564F24419A7835000629B48 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6564F24319A7835000629B48 /* MapKit.framework */; };
+		6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,9 @@
 		6564F1F8199D4CAF00629B48 /* TabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarController.m; sourceTree = "<group>"; };
 		6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewController.h; sourceTree = "<group>"; };
 		6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewController.m; sourceTree = "<group>"; };
+		6564F24319A7835000629B48 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6564F24519A78D1100629B48 /* LifestyleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleDetailViewController.h; sourceTree = "<group>"; };
+		6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6564F24419A7835000629B48 /* MapKit.framework in Frameworks */,
 				5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */,
 				5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */,
 				5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */,
@@ -150,6 +156,8 @@
 			children = (
 				501A5E4D19A5756D0050BFA6 /* LifestyleTableViewController.h */,
 				501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */,
+				6564F24519A78D1100629B48 /* LifestyleDetailViewController.h */,
+				6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */,
 			);
 			name = Lifestyle;
 			sourceTree = "<group>";
@@ -185,6 +193,7 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6564F24319A7835000629B48 /* MapKit.framework */,
 				5040548719A6CFB40050853A /* StoreKit.framework */,
 				5040548519A6CFAE0050853A /* QuartzCore.framework */,
 				5040548319A6CFAA0050853A /* MobileCoreServices.framework */,
@@ -373,6 +382,7 @@
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
+				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,

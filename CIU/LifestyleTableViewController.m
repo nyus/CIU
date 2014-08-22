@@ -93,7 +93,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
                     if ([category.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
                         [category populateFromParseojbect:parseObject];
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index.integerValue inSection:0];
-                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 }else{
                     //insert
@@ -102,6 +102,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
                     [self.dataSource addObject:category];
                     NSIndexPath *path = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
                     [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [[SharedDataManager sharedInstance] saveContext];
                 }
             }
         }

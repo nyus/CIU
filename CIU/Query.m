@@ -66,5 +66,8 @@ For Profile:
     }];
 }
 
+-(void)fetchObjectsOfType:(NSString *)type center:(CLLocationCoordinate2D)center radius:(float)radius completion:(void (^)(NSError *, NSArray *))completionBlock{
+    self.query = [PFQuery queryWithClassName:type];
+}
 
 @end
