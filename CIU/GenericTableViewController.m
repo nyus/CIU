@@ -11,6 +11,12 @@
 @end
 @implementation GenericTableViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self pullDataFromLocal];
+    [self pullDataFromServer];
+}
+
 -(void)pullDataFromLocal{
     //override by subclass
 }
@@ -23,8 +29,12 @@
     //override by subclass
 }
 
--(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
     //override by subclass
+}
+
+-(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    [self cancelRequestsForIndexpath:indexPath];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{}

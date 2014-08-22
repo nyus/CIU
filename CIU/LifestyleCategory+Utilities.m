@@ -14,7 +14,7 @@
     self.createdAt = parseObject.createdAt;
     self.updatedAt = parseObject.updatedAt;
     self.name = parseObject[@"name"];
-    self.iconURL = parseObject[@"iconURL"];
+//    self.iconURL = parseObject[@"iconURL"];
     self.importance = parseObject[@"importance"];
 }
 @end

@@ -9,9 +9,12 @@
 #import "LifestyleTableViewController.h"
 #import "LifestyleCategory.h"
 #import "LifestyleCategory+Utilities.h"
+#import "Query.h"
+#import "Helper.h"
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 @interface LifestyleTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableDictionary *queries;
 @end
 
 @implementation LifestyleTableViewController
@@ -34,6 +37,11 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.queries= [NSMutableDictionary dictionary];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,6 +49,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Override
 
 -(void)pullDataFromLocal{
     
@@ -50,13 +60,13 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:LifestyleCategoryName];
     // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"SELF.importance"
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"importance"
                                                                    ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects != nil) {
+    if (fetchedObjects.count!=0) {
         [self.dataSource addObjectsFromArray:fetchedObjects];
         [self.tableView reloadData];
     }
@@ -84,7 +94,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
                     if ([category.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
                         [category populateFromParseojbect:parseObject];
                     }
-                    self.tableView reloadRowsAtIndexPaths:<#(NSArray *)#> withRowAnimation:<#(UITableViewRowAnimation)#>
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index.integerValue inSection:0];
+                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }else{
                     //insert
                     LifestyleCategory *category = [NSEntityDescription insertNewObjectForEntityForName:LifestyleCategoryName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
@@ -98,32 +109,83 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     }];
 }
 
-#pragma mark - Table view data source
+-(void)loadRemoteDataForVisibleCells{
+    for (UITableViewCell *cell in self.tableView.visibleCells) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        LifestyleCategory *category = self.dataSource[indexPath.row];
+        NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
+        
+        if (cell.imageView.image != nil || [Helper isLocalImageExist:imageName isHighRes:NO]) {
+            continue;
+        }
+        
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+        Query *query = [[Query alloc] init];
+        __block UITableViewCell *weakCell = cell;
+        [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
+            if (!error) {
+                weakCell.imageView.image = image;
+                
+            }else{
+                weakCell.imageView.image = nil;
+            }
+        }];
+        [self.queries setObject:query forKey:indexPath];
+    }
 }
+
+-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
+    Query *query = [self.queries objectForKey:indexPath];
+    if (query) {
+        [query cancelRequest];
+    }
+    [self.queries removeObjectForKey:indexPath];
+}
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+ 
+    return self.dataSource.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *categoryCell = @"categoryCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
     
-    // Configure the cell...
+    LifestyleCategory *category = self.dataSource[indexPath.row];
+    cell.textLabel.text = category.name;
     
+    //reset in case its being reused
+    cell.imageView.image = nil;
+    //see if there is local cache
+    NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
+    
+    UIImage *image = [Helper getLocalImageWithName:imageName isHighRes:NO];
+    //update UI
+    if (image) {
+        cell.imageView.image = image;
+    }else{
+        if (!tableView.decelerating && !tableView.dragging) {
+            
+            __block UITableViewCell *weakCell = cell;
+            Query *query = [[Query alloc] init];
+            [self.queries setObject:query forKey:indexPath];
+            [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                if (!error) {
+                    weakCell.imageView.image = image;
+                }else{
+                    weakCell.imageView.image = nil;
+                }
+            }];
+        }
+    }
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

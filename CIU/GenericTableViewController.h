@@ -13,5 +13,6 @@
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
 -(void)loadRemoteDataForVisibleCells;
+-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath;
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
