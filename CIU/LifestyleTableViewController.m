@@ -54,9 +54,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 -(void)pullDataFromLocal{
     
-    if (!self.dataSource) {
-        self.dataSource = [NSMutableArray array];
-    }
+    self.dataSource = nil;
+    self.dataSource = [NSMutableArray array];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:LifestyleCategoryName];
     // Specify how the fetched objects should be sorted
@@ -93,9 +92,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
                     //only if we need to update
                     if ([category.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
                         [category populateFromParseojbect:parseObject];
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index.integerValue inSection:0];
+                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     }
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index.integerValue inSection:0];
-                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }else{
                     //insert
                     LifestyleCategory *category = [NSEntityDescription insertNewObjectForEntityForName:LifestyleCategoryName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
