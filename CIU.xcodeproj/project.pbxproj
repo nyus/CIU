@@ -30,6 +30,7 @@
 		50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5219A8FA3000398BA4 /* NSString+Map.m */; };
 		50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */; };
 		50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */; };
+		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C2FBFE19A92E7D009395A0 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
@@ -98,6 +99,8 @@
 		50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFQuery+Utilities.m"; sourceTree = "<group>"; };
 		50B83F9519A96A42007BE9F7 /* LifestyleObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LifestyleObject+Utilities.h"; sourceTree = "<group>"; };
 		50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LifestyleObject+Utilities.m"; sourceTree = "<group>"; };
+		50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMKPointAnnotation.h; sourceTree = "<group>"; };
+		50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMKPointAnnotation.m; sourceTree = "<group>"; };
 		50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+Utilities.h"; sourceTree = "<group>"; };
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
 		50C2FBFC19A92E7A009395A0 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 				501A5E6219A57D800050BFA6 /* LifestyleCategory.h */,
 				501A5E6319A57D800050BFA6 /* LifestyleCategory.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
+				50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */,
+				50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
+				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,

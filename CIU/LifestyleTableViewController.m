@@ -11,6 +11,7 @@
 #import "LifestyleCategory+Utilities.h"
 #import "Query.h"
 #import "Helper.h"
+#import "LifestyleDetailViewController.h"
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 @interface LifestyleTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -184,6 +185,14 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         }
     }
     return cell;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    UITableViewCell *cell = (UITableViewCell *)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    LifestyleCategory *category = self.dataSource[indexPath.row];
+    LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
+    vc.categoryName = category.name;
 }
 
 /*

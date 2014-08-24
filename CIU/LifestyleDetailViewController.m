@@ -15,6 +15,7 @@
 #import "NSPredicate+Utilities.h"
 #import "LifestyleObject.h"
 #import "LifestyleObject+Utilities.h"
+#import "CustomMKPointAnnotation.h"
 #define MILE_PER_DELTA 69.0
 #warning do setups to be able to use MapKit in the app store.https://developer.apple.com/library/ios/documentation/userexperience/Conceptual/LocationAwarenessPG/MapKit/MapKit.html#//apple_ref/doc/uid/TP40009497-CH3-SW1. see "Displaying Maps" section: To use the features of the Map Kit framework, turn on the Maps capability in your Xcode project (doing so also adds the appropriate entitlement to your App ID). Note that the only way to distribute a maps-based app is through the iOS App Store or Mac App Store. If you’re unfamiliar with entitlements, code signing, and provisioning, start learning about them in App Distribution Quick Start. For general information about the classes of the Map Kit framework, see Map Kit Framework Reference.
 
@@ -42,7 +43,7 @@
     self.dataSource = nil;
     self.dataSource = [NSMutableArray array];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:self.categoryName];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Specify criteria for filtering which objects to fetch
     NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
     [fetchRequest setPredicate:predicate];
@@ -50,15 +51,22 @@
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects.count>0) {
+        
+        [self.dataSource addObjectsFromArray:fetchedObjects];
+        
+        //new annotaions to add
+        NSMutableArray *coors = [NSMutableArray array];
         for (LifestyleObject * managedObject in fetchedObjects) {
 
-            MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+            CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
             pin.coordinate = CLLocationCoordinate2DMake(managedObject.latitude.doubleValue, managedObject.longitude.doubleValue);
             pin.title = managedObject.name;
             pin.subtitle = managedObject.category;
-            [self.dataSource addObject:pin];
+            pin.needAnimation = NO;
+            [coors addObject:pin];
+            
         }
-        [self.mapView addAnnotations:self.dataSource];
+        [self.mapView addAnnotations:coors];
     }
 }
 
@@ -73,10 +81,10 @@
     [self.query fetchObjectsOfClassName:self.categoryName region:region completion:^(NSError *error, NSArray *results) {
         if (!error && results.count>0) {
             
-            NSDictionary *map;
+            NSMutableDictionary *map;
             for (int i =0; i<self.dataSource.count; i++) {
                 if (!map) {
-                    map = [NSDictionary dictionary];
+                    map = [NSMutableDictionary dictionary];
                 }
                 LifestyleObject *life = self.dataSource[i];
                 [map setValue:[NSNumber numberWithInt:i] forKey:life.objectId];
@@ -87,7 +95,7 @@
             
             for (PFObject *object in results) {
                 
-                NSNumber *lifeIndex = [map valueForKey:object[@"objectId"]];
+                NSNumber *lifeIndex = [map valueForKey:object.objectId];
                 if (lifeIndex) {
                     //update value
                     LifestyleObject *life = self.dataSource[lifeIndex.intValue];
@@ -100,10 +108,11 @@
                     [life populateFromObject:object];
                     
                     CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
-                    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+                    CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
                     pin.coordinate = coordinate;
                     pin.title = object[@"name"];
                     pin.subtitle = object[@"category"];
+                    pin.needAnimation = YES;
                     [coors addObject:pin];
                 }
             }
@@ -124,6 +133,7 @@
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered{
     if (fullyRendered) {
         NSLog(@"fetch data");
+        [self fetchLocalDataWithRegion:mapView.region];
         [self fetchServerDataWithRegion:mapView.region];
     }
 }
@@ -177,9 +187,10 @@
         MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         if (!view) {
             view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-            view.animatesDrop = YES;
+            CustomMKPointAnnotation *an = (CustomMKPointAnnotation *)annotation;
+            view.animatesDrop = an.needAnimation;
             view.canShowCallout = YES;
-            view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//            view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         }
         return view;
     }
