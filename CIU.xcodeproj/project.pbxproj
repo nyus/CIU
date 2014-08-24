@@ -26,6 +26,12 @@
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
+		50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 50B28C4E19A8EFB700398BA4 /* royalOak.gpx */; };
+		50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5219A8FA3000398BA4 /* NSString+Map.m */; };
+		50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */; };
+		50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */; };
+		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
+		50C2FBFE19A92E7D009395A0 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
 		652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
@@ -85,6 +91,17 @@
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		50B28C4E19A8EFB700398BA4 /* royalOak.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = royalOak.gpx; sourceTree = "<group>"; };
+		50B28C5119A8FA3000398BA4 /* NSString+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Map.h"; sourceTree = "<group>"; };
+		50B28C5219A8FA3000398BA4 /* NSString+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Map.m"; sourceTree = "<group>"; };
+		50B28C5419A90ACB00398BA4 /* PFQuery+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFQuery+Utilities.h"; sourceTree = "<group>"; };
+		50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFQuery+Utilities.m"; sourceTree = "<group>"; };
+		50B83F9519A96A42007BE9F7 /* LifestyleObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LifestyleObject+Utilities.h"; sourceTree = "<group>"; };
+		50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LifestyleObject+Utilities.m"; sourceTree = "<group>"; };
+		50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+Utilities.h"; sourceTree = "<group>"; };
+		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
+		50C2FBFC19A92E7A009395A0 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
+		50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -171,9 +188,25 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
+		50B28C5019A8FA2100398BA4 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				50B28C5119A8FA3000398BA4 /* NSString+Map.h */,
+				50B28C5219A8FA3000398BA4 /* NSString+Map.m */,
+				50B28C5419A90ACB00398BA4 /* PFQuery+Utilities.h */,
+				50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */,
+				50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */,
+				50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */,
+				50B83F9519A96A42007BE9F7 /* LifestyleObject+Utilities.h */,
+				50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				50B28C4E19A8EFB700398BA4 /* royalOak.gpx */,
 				652BAB86199D3CCA009F5F5A /* CIU */,
 				652BABA5199D3CCA009F5F5A /* CIUTests */,
 				652BAB7F199D3CCA009F5F5A /* Frameworks */,
@@ -217,6 +250,9 @@
 		652BAB86199D3CCA009F5F5A /* CIU */ = {
 			isa = PBXGroup;
 			children = (
+				50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */,
+				50C2FBFC19A92E7A009395A0 /* LifestyleObject.h */,
+				50B28C5019A8FA2100398BA4 /* Category */,
 				501A5E6D19A6B1F40050BFA6 /* FPLogger.m */,
 				501A5E6C19A6B1D80050BFA6 /* FPLogger.h */,
 				501A5E6F19A6CBE00050BFA6 /* Helper.h */,
@@ -355,6 +391,7 @@
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
 				652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */,
+				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */,
+				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
 				652BAB97199D3CCA009F5F5A /* ViewController.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
@@ -383,11 +421,15 @@
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
+				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
+				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
+				50C2FBFE19A92E7D009395A0 /* LifestyleObject.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
+				50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

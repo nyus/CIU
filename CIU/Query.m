@@ -23,6 +23,7 @@ For Profile:
 #import <Parse/Parse.h>
 #import "FPLogger.h"
 #import "Helper.h"
+#import "PFQuery+Utilities.h"
 @interface Query()
 @property (nonatomic, strong) PFFile *fileRequest;
 @property (nonatomic, strong) PFQuery *query;
@@ -66,8 +67,18 @@ For Profile:
     }];
 }
 
--(void)fetchObjectsOfType:(NSString *)type center:(CLLocationCoordinate2D)center radius:(float)radius completion:(void (^)(NSError *, NSArray *))completionBlock{
-    self.query = [PFQuery queryWithClassName:type];
-}
 
+-(void)fetchObjectsOfClassName:(NSString *)type region:(MKCoordinateRegion)region completion:(void (^)(NSError *, NSArray *))completionBlock{
+    //fetch objects within the specified region
+    self.query = [[PFQuery alloc] initWithClassName:type];
+    [self.query addBoundingCoordinatesConstraintForRegion:region];
+    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        completionBlock(error,objects);
+    }];
+}
 @end
+
+
+
+
+
