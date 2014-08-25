@@ -20,12 +20,13 @@
 #define MILE_PER_DELTA 69.0
 #warning do setups to be able to use MapKit in the app store.https://developer.apple.com/library/ios/documentation/userexperience/Conceptual/LocationAwarenessPG/MapKit/MapKit.html#//apple_ref/doc/uid/TP40009497-CH3-SW1. see "Displaying Maps" section: To use the features of the Map Kit framework, turn on the Maps capability in your Xcode project (doing so also adds the appropriate entitlement to your App ID). Note that the only way to distribute a maps-based app is through the iOS App Store or Mac App Store. If you’re unfamiliar with entitlements, code signing, and provisioning, start learning about them in App Distribution Quick Start. For general information about the classes of the Map Kit framework, see Map Kit Framework Reference.
 
-@interface LifestyleDetailViewController()<MKMapViewDelegate>{
+@interface LifestyleDetailViewController()<MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
 }
 @property (nonatomic, strong) Query *query;
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *mapViewDataSource;
+@property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @end
 
 @implementation LifestyleDetailViewController
@@ -39,6 +40,7 @@
                forControlEvents:UIControlEventValueChanged];
     segmentedControl.selectedSegmentIndex = 0;
     self.navigationItem.titleView = segmentedControl;
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -59,8 +61,8 @@
 
 -(void)fetchLocalDataWithRegion:(MKCoordinateRegion)region{
     
-    self.dataSource = nil;
-    self.dataSource = [NSMutableArray array];
+    self.mapViewDataSource = nil;
+    self.mapViewDataSource = [NSMutableArray array];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Specify criteria for filtering which objects to fetch
@@ -71,7 +73,7 @@
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects.count>0) {
         
-        [self.dataSource addObjectsFromArray:fetchedObjects];
+        [self.mapViewDataSource addObjectsFromArray:fetchedObjects];
         
         //new annotaions to add
         NSMutableArray *coors = [NSMutableArray array];
@@ -102,11 +104,11 @@
         if (!error && results.count>0) {
             
             NSMutableDictionary *map;
-            for (int i =0; i<self.dataSource.count; i++) {
+            for (int i =0; i<self.mapViewDataSource.count; i++) {
                 if (!map) {
                     map = [NSMutableDictionary dictionary];
                 }
-                LifestyleObject *life = self.dataSource[i];
+                LifestyleObject *life = self.mapViewDataSource[i];
                 [map setValue:[NSNumber numberWithInt:i] forKey:life.objectId];
             }
             
@@ -118,7 +120,7 @@
                 NSNumber *lifeIndex = [map valueForKey:object.objectId];
                 if (lifeIndex) {
                     //update value
-                    LifestyleObject *life = self.dataSource[lifeIndex.intValue];
+                    LifestyleObject *life = self.mapViewDataSource[lifeIndex.intValue];
                     if ([life.updatedAt compare:object.updatedAt] == NSOrderedAscending) {
                         [life populateFromObject:object];
                     }
@@ -126,7 +128,7 @@
                     //insert new item
                     LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [life populateFromObject:object];
-                    [self.dataSource addObject:life];
+                    [self.mapViewDataSource addObject:life];
                     
                     CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
                     CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
@@ -153,8 +155,8 @@
 #pragma mark - map delegate
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered{
-    if (fullyRendered) {
-        NSLog(@"fetch data");
+    
+    if (fullyRendered && mapView.alpha == 1.0) {
         [self fetchLocalDataWithRegion:mapView.region];
         [self fetchServerDataWithRegion:mapView.region];
     }
@@ -173,6 +175,10 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error{
+    
+    if (mapView.alpha == 0) {
+        return;
+    }
     
     if ([error domain] == kCLErrorDomain) {
         
@@ -218,13 +224,23 @@
     }
 }
 
-//future expansion
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
     CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
     lifestyleToPass = annotation.lifetstyleObject;
     //push to detail
     [self performSegueWithIdentifier:@"toObjectDetail" sender:self];
 }
+
+#pragma mark - tableview delegate
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toObjectDetail"]) {
