@@ -26,13 +26,15 @@
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
+		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
+		5092160E19AA463700304EDD /* LifestyleObjectDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160D19AA463700304EDD /* LifestyleObjectDetailTableViewController.m */; };
+		5092161519AA58E900304EDD /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092161419AA58E900304EDD /* LifestyleObject.m */; };
 		50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 50B28C4E19A8EFB700398BA4 /* royalOak.gpx */; };
 		50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5219A8FA3000398BA4 /* NSString+Map.m */; };
 		50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */; };
 		50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */; };
 		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
-		50C2FBFE19A92E7D009395A0 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
 		652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
@@ -92,6 +94,12 @@
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
+		5092160A19AA45AD00304EDD /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
+		5092160C19AA463700304EDD /* LifestyleObjectDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObjectDetailTableViewController.h; sourceTree = "<group>"; };
+		5092160D19AA463700304EDD /* LifestyleObjectDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObjectDetailTableViewController.m; sourceTree = "<group>"; };
+		5092161319AA58E900304EDD /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
+		5092161419AA58E900304EDD /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		50B28C4E19A8EFB700398BA4 /* royalOak.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = royalOak.gpx; sourceTree = "<group>"; };
 		50B28C5119A8FA3000398BA4 /* NSString+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Map.h"; sourceTree = "<group>"; };
 		50B28C5219A8FA3000398BA4 /* NSString+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Map.m"; sourceTree = "<group>"; };
@@ -103,8 +111,6 @@
 		50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMKPointAnnotation.m; sourceTree = "<group>"; };
 		50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+Utilities.h"; sourceTree = "<group>"; };
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
-		50C2FBFC19A92E7A009395A0 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
-		50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -178,6 +184,8 @@
 				501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */,
 				6564F24519A78D1100629B48 /* LifestyleDetailViewController.h */,
 				6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */,
+				5092160C19AA463700304EDD /* LifestyleObjectDetailTableViewController.h */,
+				5092160D19AA463700304EDD /* LifestyleObjectDetailTableViewController.m */,
 			);
 			name = Lifestyle;
 			sourceTree = "<group>";
@@ -189,6 +197,25 @@
 				501A5E6719A583B10050BFA6 /* LifestyleCategory+Utilities.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		5092160F19AA479B00304EDD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */,
+				6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */,
+				50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */,
+				50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */,
+				5092160919AA45AD00304EDD /* GenericTableViewCell.h */,
+				5092160A19AA45AD00304EDD /* GenericTableViewCell.m */,
+				501A5E6D19A6B1F40050BFA6 /* FPLogger.m */,
+				501A5E6C19A6B1D80050BFA6 /* FPLogger.h */,
+				501A5E6F19A6CBE00050BFA6 /* Helper.h */,
+				501A5E7019A6CBE00050BFA6 /* Helper.m */,
+				501A5E6919A6B10D0050BFA6 /* Query.h */,
+				501A5E6A19A6B10D0050BFA6 /* Query.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		50B28C5019A8FA2100398BA4 /* Category */ = {
@@ -253,15 +280,8 @@
 		652BAB86199D3CCA009F5F5A /* CIU */ = {
 			isa = PBXGroup;
 			children = (
-				50C2FBFD19A92E7D009395A0 /* LifestyleObject.m */,
-				50C2FBFC19A92E7A009395A0 /* LifestyleObject.h */,
+				5092160F19AA479B00304EDD /* Classes */,
 				50B28C5019A8FA2100398BA4 /* Category */,
-				501A5E6D19A6B1F40050BFA6 /* FPLogger.m */,
-				501A5E6C19A6B1D80050BFA6 /* FPLogger.h */,
-				501A5E6F19A6CBE00050BFA6 /* Helper.h */,
-				501A5E7019A6CBE00050BFA6 /* Helper.m */,
-				501A5E6919A6B10D0050BFA6 /* Query.h */,
-				501A5E6A19A6B10D0050BFA6 /* Query.m */,
 				501A5E6519A5839E0050BFA6 /* Category */,
 				501A5E5919A57B4D0050BFA6 /* SharedDataManager.h */,
 				501A5E5A19A57B4D0050BFA6 /* SharedDataManager.m */,
@@ -277,13 +297,11 @@
 				6564F1F5199D422A00629B48 /* StartupViewController.m */,
 				6564F1F7199D4CAF00629B48 /* TabbarController.h */,
 				6564F1F8199D4CAF00629B48 /* TabbarController.m */,
-				6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */,
-				6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */,
 				501A5E6219A57D800050BFA6 /* LifestyleCategory.h */,
 				501A5E6319A57D800050BFA6 /* LifestyleCategory.m */,
+				5092161319AA58E900304EDD /* LifestyleObject.h */,
+				5092161419AA58E900304EDD /* LifestyleObject.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
-				50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */,
-				50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -419,6 +437,7 @@
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
 				652BAB97199D3CCA009F5F5A /* ViewController.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
+				5092160E19AA463700304EDD /* LifestyleObjectDetailTableViewController.m in Sources */,
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
@@ -428,9 +447,10 @@
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
+				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
-				50C2FBFE19A92E7D009395A0 /* LifestyleObject.m in Sources */,
+				5092161519AA58E900304EDD /* LifestyleObject.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,

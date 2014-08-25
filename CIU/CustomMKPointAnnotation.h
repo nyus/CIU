@@ -7,7 +7,8 @@
 //
 
 #import <MapKit/MapKit.h>
-
+@class LifestyleObject;
 @interface CustomMKPointAnnotation : MKPointAnnotation
 @property (nonatomic) BOOL needAnimation;
+@property (nonatomic, strong) LifestyleObject *lifetstyleObject;
 @end

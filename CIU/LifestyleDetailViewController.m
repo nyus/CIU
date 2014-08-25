@@ -16,11 +16,13 @@
 #import "LifestyleObject.h"
 #import "LifestyleObject+Utilities.h"
 #import "CustomMKPointAnnotation.h"
+#import "LifestyleObjectDetailTableViewController.h"
 #define MILE_PER_DELTA 69.0
 #warning do setups to be able to use MapKit in the app store.https://developer.apple.com/library/ios/documentation/userexperience/Conceptual/LocationAwarenessPG/MapKit/MapKit.html#//apple_ref/doc/uid/TP40009497-CH3-SW1. see "Displaying Maps" section: To use the features of the Map Kit framework, turn on the Maps capability in your Xcode project (doing so also adds the appropriate entitlement to your App ID). Note that the only way to distribute a maps-based app is through the iOS App Store or Mac App Store. If you’re unfamiliar with entitlements, code signing, and provisioning, start learning about them in App Distribution Quick Start. For general information about the classes of the Map Kit framework, see Map Kit Framework Reference.
 
 @interface LifestyleDetailViewController()<MKMapViewDelegate>{
     BOOL mapRenderedOnStartup;
+    LifestyleObject *lifestyleToPass;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -30,12 +32,29 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.mapView.showsUserLocation = YES;
+
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
+    [segmentedControl addTarget:self
+                         action:@selector(segmentedControlTapped:)
+               forControlEvents:UIControlEventValueChanged];
+    segmentedControl.selectedSegmentIndex = 0;
+    self.navigationItem.titleView = segmentedControl;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.mapView.showsUserLocation = NO;
+}
+
+-(void)segmentedControlTapped:(UISegmentedControl *)sender{
+    //list view
+    if (sender.selectedSegmentIndex==0) {
+        
+    }else{
+    //map view
+        self.mapView.showsUserLocation = YES;
+        self.mapView.alpha = 1.0f;
+    }
 }
 
 -(void)fetchLocalDataWithRegion:(MKCoordinateRegion)region{
@@ -62,6 +81,7 @@
             pin.coordinate = CLLocationCoordinate2DMake(managedObject.latitude.doubleValue, managedObject.longitude.doubleValue);
             pin.title = managedObject.name;
             pin.subtitle = managedObject.category;
+            pin.lifetstyleObject = managedObject;
             pin.needAnimation = NO;
             [coors addObject:pin];
             
@@ -106,12 +126,14 @@
                     //insert new item
                     LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [life populateFromObject:object];
+                    [self.dataSource addObject:life];
                     
                     CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
                     CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
                     pin.coordinate = coordinate;
                     pin.title = object[@"name"];
                     pin.subtitle = object[@"category"];
+                    pin.lifetstyleObject = life;
                     pin.needAnimation = YES;
                     [coors addObject:pin];
                 }
@@ -190,7 +212,7 @@
             CustomMKPointAnnotation *an = (CustomMKPointAnnotation *)annotation;
             view.animatesDrop = an.needAnimation;
             view.canShowCallout = YES;
-//            view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         }
         return view;
     }
@@ -198,6 +220,16 @@
 
 //future expansion
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
+    CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
+    lifestyleToPass = annotation.lifetstyleObject;
     //push to detail
+    [self performSegueWithIdentifier:@"toObjectDetail" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"toObjectDetail"]) {
+        LifestyleObjectDetailTableViewController *vc = (LifestyleObjectDetailTableViewController *)segue.destinationViewController;
+        vc.lifestyleObject = lifestyleToPass;
+    }
 }
 @end
