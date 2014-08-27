@@ -26,6 +26,7 @@
     LifestyleObject *lifestyleToPass;
     BOOL hasDoneInitialTBFetch;
     BOOL noMoreNewFetchedData;
+    BOOL offlineMode;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
@@ -163,21 +164,35 @@
 #pragma mar - all method table view needs
 
 -(void)fetchLocalDataForList{
+
+    if (!self.tableViewDataSource) {
+        self.tableViewDataSource = [NSMutableArray array];
+    }
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
     // Specify criteria for filtering which objects to fetch
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.", <#arguments#>];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",self.categoryName];
     [fetchRequest setPredicate:predicate];
     // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"<#key#>"
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
                                                                    ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    //
+    fetchRequest.fetchLimit = 20;
+    fetchRequest.fetchOffset = self.tableViewDataSource.count;
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        
+    if (fetchedObjects.count>0) {
+        int originalCount = self.tableViewDataSource.count;
+        NSMutableArray *indexPathsArray = [NSMutableArray array];
+        for (int i =originalCount; i<originalCount+fetchedObjects.count; i++) {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+            [indexPathsArray addObject:path];
+        }
+        [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
+        [self.tableView insertRowsAtIndexPaths:indexPathsArray withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -257,11 +272,7 @@
 //    [self cancelRequestsForIndexpath:indexPath];
 //}
 //
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if ([cell.reuseIdentifier isEqualToString:@"loadingCell"] && hasDoneInitialTBFetch == YES) {
-//        [self fetchServerDataForList];
-//    }
-//}
+
 //
 //-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self cancelNetworkRequestForCell:cell atIndexPath:indexPath];
@@ -277,17 +288,35 @@
 //    }
 //}
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //have reach the last cell. fetch more
+    if (indexPath.row == self.tableViewDataSource.count-1 && self.tableViewDataSource.count >=20) {
+        if (offlineMode) {
+            [self fetchLocalDataForList];
+        }else{
+            [self fetchServerDataForList];
+        }
+    }
+    
+    //    if ([cell.reuseIdentifier isEqualToString:@"loadingCell"] && hasDoneInitialTBFetch == YES) {
+    //        [self fetchServerDataForList];
+    //    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (hasDoneInitialTBFetch == NO) {
         //loading cell
         return 1;
     }else{
-        if(noMoreNewFetchedData || self.tableViewDataSource.count<20){
-            return self.tableViewDataSource.count;
-        }else{
-            return self.tableViewDataSource.count+1;
-        }
+        
+        return self.tableViewDataSource.count;
+//        if(noMoreNewFetchedData || self.tableViewDataSource.count<20){
+//            return self.tableViewDataSource.count;
+//        }else{
+//            return self.tableViewDataSource.count+1;
+//        }
     }
 }
 
