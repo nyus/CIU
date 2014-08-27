@@ -11,4 +11,5 @@
 @class PFQuery;
 @interface PFQuery (Utilities)
 -(void)addBoundingCoordinatesConstraintForRegion:(MKCoordinateRegion)region;
+-(void)addBoundingCoordinatesWithDistanceToCenter:(float)distance;
 @end

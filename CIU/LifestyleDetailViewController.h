@@ -10,5 +10,6 @@
 #import <MapKit/MapKit.h>
 @interface LifestyleDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSString *categoryName;
 @end

@@ -9,6 +9,9 @@
 #import "LifestyleObjectDetailTableViewController.h"
 #import "LifestyleObject.h"
 #import "GenericTableViewCell.h"
+#import "LifestyleObject+Utilities.h"
+#import "SharedDataManager.h"
+#import <Parse/Parse.h>
 #define CONTENT_LABEL_WIDTH 280.0f
 @interface LifestyleObjectDetailTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -28,6 +31,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self buildDataSource];
+}
+
+-(void)syncWithServer{
+    PFQuery *query = [[PFQuery alloc] initWithClassName:@"LifestyleObject"];
+    [query whereKey:@"objectId" equalTo:self.lifestyleObject.objectId];
+    [query whereKey:@"updatedAt" greaterThan:self.lifestyleObject.updatedAt];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error && object) {
+            [self.lifestyleObject populateFromObject:object];
+            [[SharedDataManager sharedInstance] saveContext];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self buildDataSource];
+                [self.tableView reloadData];
+            });
+        }
+    }];
+}
+
+-(void)buildDataSource{
+    
     self.dataSource = [NSMutableArray array];
     //name, phone, website, address, hours, introduction
     if (self.lifestyleObject.name) {

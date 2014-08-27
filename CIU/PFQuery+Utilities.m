@@ -22,4 +22,11 @@
     [self whereKey:@"longitude" lessThanOrEqualTo:[NSNumber numberWithDouble:lonMax]];
 }
 
+/*
+ distance: unit is mile
+ */
+-(void)addBoundingCoordinatesWithDistanceToCenter:(float)distance{
+
+}
+
 @end

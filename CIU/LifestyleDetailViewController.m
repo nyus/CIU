@@ -17,12 +17,15 @@
 #import "LifestyleObject+Utilities.h"
 #import "CustomMKPointAnnotation.h"
 #import "LifestyleObjectDetailTableViewController.h"
+#import "PFQuery+Utilities.h"
 #define MILE_PER_DELTA 69.0
 #warning do setups to be able to use MapKit in the app store.https://developer.apple.com/library/ios/documentation/userexperience/Conceptual/LocationAwarenessPG/MapKit/MapKit.html#//apple_ref/doc/uid/TP40009497-CH3-SW1. see "Displaying Maps" section: To use the features of the Map Kit framework, turn on the Maps capability in your Xcode project (doing so also adds the appropriate entitlement to your App ID). Note that the only way to distribute a maps-based app is through the iOS App Store or Mac App Store. If you’re unfamiliar with entitlements, code signing, and provisioning, start learning about them in App Distribution Quick Start. For general information about the classes of the Map Kit framework, see Map Kit Framework Reference.
 
 @interface LifestyleDetailViewController()<MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
+    BOOL hasDoneInitialTBFetch;
+    BOOL noMoreNewFetchedData;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
@@ -43,6 +46,11 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self fetchServerDataForList];
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.mapView.showsUserLocation = NO;
@@ -51,7 +59,7 @@
 -(void)segmentedControlTapped:(UISegmentedControl *)sender{
     //list view
     if (sender.selectedSegmentIndex==0) {
-        
+
     }else{
     //map view
         self.mapView.showsUserLocation = YES;
@@ -152,6 +160,151 @@
     }];
 }
 
+#pragma mar - all method table view needs
+
+-(void)fetchLocalDataForList{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    // Specify criteria for filtering which objects to fetch
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.", <#arguments#>];
+    [fetchRequest setPredicate:predicate];
+    // Specify how the fetched objects should be sorted
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"<#key#>"
+                                                                   ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        
+    }
+}
+
+-(void)fetchServerDataForList{
+    __block LifestyleDetailViewController *weakSelf = self;
+    PFQuery *query = [[PFQuery alloc] initWithClassName:self.categoryName];
+    [query orderByDescending:@"name"];
+    [query addBoundingCoordinatesWithDistanceToCenter:30];
+    query.limit = 20;
+    query.skip = self.tableViewDataSource.count;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error && objects>0) {
+            
+            noMoreNewFetchedData = NO;
+            
+            if(!weakSelf.tableViewDataSource){
+                weakSelf.tableViewDataSource = [NSMutableArray array];
+            }
+            
+            //construct array of indexPath and store parse data to local
+            NSMutableArray *indexpathArray = [NSMutableArray array];
+             int originalCount = weakSelf.tableViewDataSource.count;
+            for (int i =0; i<objects.count; i++) {
+                PFObject *parseObject = objects[i];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
+                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
+                request.predicate = predicate;
+                NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
+                LifestyleObject *life;
+                if (array.count == 1) {
+                    life = array[0];
+                    [life populateFromObject:parseObject];
+                }else{
+                    life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    [life populateFromObject:parseObject];
+                }
+                
+                NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
+                [indexpathArray addObject:path];
+                
+                [weakSelf.tableViewDataSource addObject:life];
+            }
+            
+            [[SharedDataManager sharedInstance] saveContext];
+        
+           
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView beginUpdates];
+                if (originalCount != [weakSelf.tableView numberOfRowsInSection:0]) {
+                    //remove the loading cell
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:[weakSelf.tableView numberOfRowsInSection:0]-1 inSection:0];
+                    [weakSelf.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
+                }
+                [weakSelf.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView endUpdates];
+            });
+        }else{
+            noMoreNewFetchedData = YES;
+        }
+        
+        if (hasDoneInitialTBFetch==NO) {
+            hasDoneInitialTBFetch = YES;
+        }
+    }];
+}
+
+//-(void)loadRemoteDataForVisibleCells{
+//    
+//}
+//
+//-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
+//
+//}
+//
+//-(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+//    [self cancelRequestsForIndexpath:indexPath];
+//}
+//
+//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if ([cell.reuseIdentifier isEqualToString:@"loadingCell"] && hasDoneInitialTBFetch == YES) {
+//        [self fetchServerDataForList];
+//    }
+//}
+//
+//-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [self cancelNetworkRequestForCell:cell atIndexPath:indexPath];
+//}
+//
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    [self loadRemoteDataForVisibleCells];
+//}
+//
+//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    if (!decelerate) {
+//        [self loadRemoteDataForVisibleCells];
+//    }
+//}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    if (hasDoneInitialTBFetch == NO) {
+        //loading cell
+        return 1;
+    }else{
+        if(noMoreNewFetchedData || self.tableViewDataSource.count<20){
+            return self.tableViewDataSource.count;
+        }else{
+            return self.tableViewDataSource.count+1;
+        }
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *regularCell = @"cell";
+    static NSString *loadingCell = @"loadingCell";
+    if(hasDoneInitialTBFetch==NO || indexPath.row == self.tableViewDataSource.count){
+        return [tableView dequeueReusableCellWithIdentifier:loadingCell forIndexPath:indexPath];
+    }else{
+        LifestyleObject *object = self.tableViewDataSource[indexPath.row];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
+        cell.textLabel.text = object.name;
+        cell.detailTextLabel.text = object.address;
+        return cell;
+    }
+}
+
 #pragma mark - map delegate
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered{
@@ -229,16 +382,6 @@
     lifestyleToPass = annotation.lifetstyleObject;
     //push to detail
     [self performSegueWithIdentifier:@"toObjectDetail" sender:self];
-}
-
-#pragma mark - tableview delegate
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
 }
 
 
