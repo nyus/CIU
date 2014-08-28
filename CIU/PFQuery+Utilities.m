@@ -8,6 +8,7 @@
 
 #import "PFQuery+Utilities.h"
 #import <Parse/Parse.h>
+#import "Helper.h"
 @implementation PFQuery (Utilities)
 
 //coordinates of fetched objects would be within the region
@@ -25,8 +26,9 @@
 /*
  distance: unit is mile
  */
--(void)addBoundingCoordinatesWithDistanceToCenter:(float)distance{
-
+-(void)addBoundingCoordinatesToCenter:(CLLocationCoordinate2D)center withinDistance:(float)distance{
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+    [self addBoundingCoordinatesConstraintForRegion:region];
 }
 
 @end

@@ -35,6 +35,7 @@
 		50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */; };
 		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
+		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
 		652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
@@ -111,6 +112,8 @@
 		50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMKPointAnnotation.m; sourceTree = "<group>"; };
 		50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+Utilities.h"; sourceTree = "<group>"; };
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
+		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -202,6 +205,8 @@
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				50F5F6F919AEAA0000DC9735 /* Reachability.h */,
+				50F5F6FA19AEAA0000DC9735 /* Reachability.m */,
 				6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */,
 				6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */,
 				50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */,
@@ -443,6 +448,7 @@
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
+				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,

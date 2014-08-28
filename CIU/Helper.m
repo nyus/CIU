@@ -53,4 +53,9 @@ static Helper *_helper;
         }
     });
 }
+
++(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, 5*1609, 5*1609);
+    return region;
+}
 @end

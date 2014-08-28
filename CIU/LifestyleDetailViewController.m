@@ -18,10 +18,11 @@
 #import "CustomMKPointAnnotation.h"
 #import "LifestyleObjectDetailTableViewController.h"
 #import "PFQuery+Utilities.h"
+#import "Reachability.h"
+#import "Helper.h"
 #define MILE_PER_DELTA 69.0
-#warning do setups to be able to use MapKit in the app store.https://developer.apple.com/library/ios/documentation/userexperience/Conceptual/LocationAwarenessPG/MapKit/MapKit.html#//apple_ref/doc/uid/TP40009497-CH3-SW1. see "Displaying Maps" section: To use the features of the Map Kit framework, turn on the Maps capability in your Xcode project (doing so also adds the appropriate entitlement to your App ID). Note that the only way to distribute a maps-based app is through the iOS App Store or Mac App Store. If you’re unfamiliar with entitlements, code signing, and provisioning, start learning about them in App Distribution Quick Start. For general information about the classes of the Map Kit framework, see Map Kit Framework Reference.
 
-@interface LifestyleDetailViewController()<MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
+@interface LifestyleDetailViewController()<CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
     BOOL hasDoneInitialTBFetch;
@@ -29,8 +30,11 @@
     BOOL offlineMode;
 }
 @property (nonatomic, strong) Query *query;
+@property (nonatomic, strong) PFQuery *pfQuery;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
+@property (nonatomic, strong) Reachability *internetReachability;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
 @implementation LifestyleDetailViewController
@@ -45,15 +49,29 @@
     segmentedControl.selectedSegmentIndex = 0;
     self.navigationItem.titleView = segmentedControl;
     
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+	[self.internetReachability startNotifier];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self fetchServerDataForList];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    if (![Reachability canReachInternet]) {
+        
+        [self fetchLocalDataForList];
+    }else{
+        if (!self.locationManager) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            [self.locationManager startUpdatingLocation];
+        }
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     self.mapView.showsUserLocation = NO;
 }
 
@@ -172,8 +190,22 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
     // Specify criteria for filtering which objects to fetch
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",self.categoryName];
-    [fetchRequest setPredicate:predicate];
+    //1 mile = 1609 meters
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+    NSPredicate *predicate2;
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+        predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    }
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",self.categoryName];
+    if (predicate2) {
+        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,predicate2]];
+        fetchRequest.predicate = compoundPredicate;
+    }else{
+        fetchRequest.predicate = predicate1;
+    }
+    
     // Specify how the fetched objects should be sorted
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
                                                                    ascending:YES];
@@ -196,14 +228,21 @@
     }
 }
 
--(void)fetchServerDataForList{
+-(void)fetchServerDataForListAroundCenter:(CLLocationCoordinate2D)center{
+    
+    if (self.pfQuery) {
+        [self.pfQuery cancel];
+        self.pfQuery = nil;
+    }
+    
     __block LifestyleDetailViewController *weakSelf = self;
-    PFQuery *query = [[PFQuery alloc] initWithClassName:self.categoryName];
-    [query orderByDescending:@"name"];
-    [query addBoundingCoordinatesWithDistanceToCenter:30];
-    query.limit = 20;
-    query.skip = self.tableViewDataSource.count;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    self.pfQuery = [[PFQuery alloc] initWithClassName:self.categoryName];
+    [self.pfQuery orderByDescending:@"name"];
+    [self.pfQuery addBoundingCoordinatesToCenter:center withinDistance:5];
+    self.pfQuery.limit = 20;
+    self.pfQuery.skip = self.tableViewDataSource.count;
+    [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects>0) {
             
@@ -260,6 +299,46 @@
     }];
 }
 
+#pragma mark -- Location manager
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    //the most recent location update is at the end of the array.
+    CLLocation *location = (CLLocation *)[locations lastObject];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude],@"latitude",[NSNumber numberWithDouble:location.coordinate.longitude],@"longitude", nil];
+    [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"userLocation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self fetchServerDataForListAroundCenter:location.coordinate];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    
+    if ([error domain] == kCLErrorDomain) {
+        
+        // We handle CoreLocation-related errors here
+        switch ([error code]) {
+                // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
+                // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
+            case kCLErrorDenied:{
+                NSLog(@"fail to locate user: permission denied");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Go to Settings > Privacy > Location Services to enable location service" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                [alert show];
+                break;
+            }
+                
+            case kCLErrorLocationUnknown:{
+                NSLog(@"fail to locate user: location unknown");
+                break;
+            }
+                
+            default:
+                NSLog(@"fail to locate user: %@",error.localizedDescription);
+                break;
+        }
+    } else {
+        // We handle all non-CoreLocation errors here
+    }
+}
+
 //-(void)loadRemoteDataForVisibleCells{
 //    
 //}
@@ -295,7 +374,8 @@
         if (offlineMode) {
             [self fetchLocalDataForList];
         }else{
-            [self fetchServerDataForList];
+#warning change
+//            [self fetchServerDataForList];
         }
     }
     
@@ -420,4 +500,19 @@
         vc.lifestyleObject = lifestyleToPass;
     }
 }
+
+#pragma mark -- reachability 
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note
+{
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    if ([curReach currentReachabilityStatus] != NotReachable) {
+        
+    }
+}
+
 @end
