@@ -21,13 +21,14 @@
 #import "Reachability.h"
 #import "Helper.h"
 #define MILE_PER_DELTA 69.0
-
+static NSString *kLocationServiceDisabledAlert = @"To display information around you, please turn on location services at Settings > Privacy > Location Services";
 @interface LifestyleDetailViewController()<CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
     BOOL hasDoneInitialTBFetch;
     BOOL noMoreNewFetchedData;
     BOOL offlineMode;
+    CLLocation *previousLocation;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) PFQuery *pfQuery;
@@ -78,11 +79,17 @@
 -(void)segmentedControlTapped:(UISegmentedControl *)sender{
     //list view
     if (sender.selectedSegmentIndex==0) {
-
+        [UIView animateWithDuration:.3 animations:^{
+            self.tableView.alpha = 1.0f;
+            self.mapView.alpha = 0.0f;
+        }];
     }else{
     //map view
         self.mapView.showsUserLocation = YES;
-        self.mapView.alpha = 1.0f;
+        [UIView animateWithDuration:.3 animations:^{
+            self.tableView.alpha = 0.0f;
+            self.mapView.alpha = 1.0f;
+        }];
     }
 }
 
@@ -235,12 +242,14 @@
     
     if (self.pfQuery) {
         [self.pfQuery cancel];
+        NSLog(@"cancel query:%@",self.query);
         self.pfQuery = nil;
     }
     
     __block LifestyleDetailViewController *weakSelf = self;
     
     self.pfQuery = [[PFQuery alloc] initWithClassName:self.categoryName];
+    NSLog(@"launch query:%@",self.query);
     [self.pfQuery orderByDescending:@"name"];
     [self.pfQuery addBoundingCoordinatesToCenter:center withinDistance:5];
     self.pfQuery.limit = 20;
@@ -307,6 +316,16 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //the most recent location update is at the end of the array.
     CLLocation *location = (CLLocation *)[locations lastObject];
+    
+    //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
+    if (previousLocation) {
+        CLLocationDistance distance = [location distanceFromLocation:previousLocation];
+        if(distance/1609 < 10){
+            return;
+        }
+    }
+    previousLocation = location;
+    
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude],@"latitude",[NSNumber numberWithDouble:location.coordinate.longitude],@"longitude", nil];
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"userLocation"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -323,8 +342,10 @@
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Go to Settings > Privacy > Location Services to enable location service" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
+                hasDoneInitialTBFetch = YES;
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
                 break;
             }
                 
@@ -342,34 +363,6 @@
     }
 }
 
-//-(void)loadRemoteDataForVisibleCells{
-//    
-//}
-//
-//-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
-//
-//}
-//
-//-(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-//    [self cancelRequestsForIndexpath:indexPath];
-//}
-//
-
-//
-//-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [self cancelNetworkRequestForCell:cell atIndexPath:indexPath];
-//}
-//
-//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [self loadRemoteDataForVisibleCells];
-//}
-//
-//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    if (!decelerate) {
-//        [self loadRemoteDataForVisibleCells];
-//    }
-//}
-
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //have reach the last cell. fetch more
@@ -377,14 +370,13 @@
         if (offlineMode) {
             [self fetchLocalDataForList];
         }else{
-#warning change
-//            [self fetchServerDataForList];
+            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+            if (dictionary) {
+                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+                [self fetchServerDataForListAroundCenter:center];
+            }
         }
     }
-    
-    //    if ([cell.reuseIdentifier isEqualToString:@"loadingCell"] && hasDoneInitialTBFetch == YES) {
-    //        [self fetchServerDataForList];
-    //    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -393,13 +385,7 @@
         //loading cell
         return 1;
     }else{
-        
         return self.tableViewDataSource.count;
-//        if(noMoreNewFetchedData || self.tableViewDataSource.count<20){
-//            return self.tableViewDataSource.count;
-//        }else{
-//            return self.tableViewDataSource.count+1;
-//        }
     }
 }
 
@@ -441,10 +427,6 @@
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error{
     
-    if (mapView.alpha == 0) {
-        return;
-    }
-    
     if ([error domain] == kCLErrorDomain) {
         
         // We handle CoreLocation-related errors here
@@ -453,7 +435,7 @@
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Go to Settings > Privacy > Location Services to enable location service" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
                 break;
             }
