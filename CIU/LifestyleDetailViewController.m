@@ -216,6 +216,9 @@
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    hasDoneInitialTBFetch = YES;
+    
     if (fetchedObjects.count>0) {
         int originalCount = self.tableViewDataSource.count;
         NSMutableArray *indexPathsArray = [NSMutableArray array];
