@@ -13,4 +13,7 @@
 +(void)saveImageToLocal:(NSData *)data forImageName:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(BOOL)isLocalImageExist:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center;
+
+//image processing
++(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size;
 @end

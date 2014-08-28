@@ -60,4 +60,23 @@ static Helper *_helper;
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, 30*1609, 30*1609);
     return region;
 }
+
+#pragma mark - image processing
+
++(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+    CGRect imageRect;
+    if(image.size.width<image.size.height){
+        //handle portrait photos
+        float newWidth = image.size.width * size.height/image.size.height;
+        imageRect = CGRectMake((size.width-newWidth)/2, 0.0, newWidth, size.height);
+    }else{
+        imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
+    }
+    [image drawInRect:imageRect];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return scaledImage;
+}
 @end

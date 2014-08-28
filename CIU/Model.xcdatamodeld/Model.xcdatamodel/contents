@@ -22,8 +22,20 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="StatusObject" representedClassName="StatusObject" syncable="YES">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="likeCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="posterUsername" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="LifestyleCategory" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="LifestyleObject" positionX="-9" positionY="153" width="128" height="225"/>
+        <element name="StatusObject" positionX="-27" positionY="144" width="128" height="180"/>
     </elements>
 </model>
