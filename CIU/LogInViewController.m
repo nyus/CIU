@@ -33,7 +33,6 @@
     if (user && user.isAuthenticated) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning

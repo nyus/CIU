@@ -50,6 +50,7 @@
 		652BABA2199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
 		652BABAA199D3CCA009F5F5A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652BABA8199D3CCA009F5F5A /* InfoPlist.strings */; };
 		652BABAC199D3CCA009F5F5A /* CIUTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BABAB199D3CCA009F5F5A /* CIUTests.m */; };
+		652CF13719B1188500FE0AC0 /* CIUapp_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 652CF13619B1188500FE0AC0 /* CIUapp_icon.png */; };
 		6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F5199D422A00629B48 /* StartupViewController.m */; };
 		6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F8199D4CAF00629B48 /* TabbarController.m */; };
 		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
@@ -161,6 +162,7 @@
 		652BABA7199D3CCA009F5F5A /* CIUTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIUTests-Info.plist"; sourceTree = "<group>"; };
 		652BABA9199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652BABAB199D3CCA009F5F5A /* CIUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIUTests.m; sourceTree = "<group>"; };
+		652CF13619B1188500FE0AC0 /* CIUapp_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CIUapp_icon.png; sourceTree = "<group>"; };
 		6564F1F4199D422A00629B48 /* StartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartupViewController.h; sourceTree = "<group>"; };
 		6564F1F5199D422A00629B48 /* StartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartupViewController.m; sourceTree = "<group>"; };
 		6564F1F7199D4CAF00629B48 /* TabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarController.h; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				652CF13619B1188500FE0AC0 /* CIUapp_icon.png */,
 				65C4F0BD19AFB2B8004452C3 /* comment_icon.png */,
 				65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */,
 				50B28C4E19A8EFB700398BA4 /* royalOak.gpx */,
@@ -580,6 +583,7 @@
 				65C4F10019AFBBEA004452C3 /* ELCAssetPicker.xib in Resources */,
 				65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */,
 				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,
+				652CF13719B1188500FE0AC0 /* CIUapp_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

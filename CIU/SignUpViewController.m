@@ -10,10 +10,10 @@
 #import <Parse/Parse.h>
 #import "LogInViewController.h"
 #import "FPLogger.h"
-@interface SignUpViewController (){
+@interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
-
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
 
 @implementation SignUpViewController
@@ -59,6 +59,45 @@
         }];
 
     }];
+}
+
+- (IBAction)avatarImageViewTapped:(id)sender {
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take A Photo",@"Add From Gallery", nil];
+    [actionsheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    //0 take a photo, 1 add from gallery
+    
+    if (buttonIndex == 0) {
+        [self launchCameraPicker];
+    }else if (buttonIndex ==1){
+        [self launchGalleryPicker];
+    }else{
+
+    }
+}
+
+- (void) launchCameraPicker {
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (!self.imagePicker) {
+            self.imagePicker = [[UIImagePickerController alloc] init];
+            self.imagePicker.delegate = self;
+        }
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.allowsEditing = NO;
+        self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+    }
+}
+
+- (void) launchGalleryPicker {
+    if (self.imagePicker) {
+        self.imagePicker = [[UIImagePickerController alloc] init];
+        self.imagePicker.delegate = self;
+    }
+    
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender {
