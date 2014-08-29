@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GenericTableViewController.h"
-@interface StatusViewController : GenericTableViewController
+@interface StatusViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

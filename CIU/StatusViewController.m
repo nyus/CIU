@@ -8,7 +8,6 @@
 
 #import "StatusViewController.h"
 #import "StatusTableViewCell.h"
-#import "Status.h"
 #import <Parse/Parse.h>
 #import "ComposeNewStatusViewController.h"
 #import "LogInViewController.h"
@@ -26,7 +25,7 @@
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
-@interface StatusViewController ()<StatusObjectDelegate,UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate>{
+@interface StatusViewController ()<UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>{
     
     StatusTableViewCell *cellToRevive;
     UIRefreshControl *refreshControl;
@@ -35,6 +34,7 @@
     NSString *statusIdToPass;
     CGRect commentViewOriginalFrame;
 }
+
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
+    self.view = self.tableView;
     //add refresh control
     [self addRefreshControll];
 }
@@ -147,12 +147,6 @@
 #pragma mark - Table view data source
 
 #pragma mark - UITableViewDelete
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -292,6 +286,43 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self cancelNetworkRequestForCell:cell atIndexPath:indexPath];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self loadRemoteDataForVisibleCells];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self loadRemoteDataForVisibleCells];
+    }
+}
+
+-(void)loadRemoteDataForVisibleCells{
+    for (StatusTableViewCell *cell in self.tableView.visibleCells) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        //get avatar
+        StatusObject *status = self.dataSource[indexPath.row];
+        PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
+            cell.statusCellAvatarImageView.image = image;
+        }];
+        
+        if(!self.avatarQueries){
+            self.avatarQueries = [NSMutableDictionary dictionary];
+        }
+        [self.avatarQueries setObject:query1 forKey:indexPath];
+        
+        //get post images
+        PFQuery *query2 = [self getServerPostImageForCellAtIndexpath:indexPath];
+        if (!self.postImageQueries) {
+            self.postImageQueries = [NSMutableDictionary dictionary];
+        }
+        [self.postImageQueries setObject:query2 forKey:indexPath];
+    }
+}
+
 -(PFQuery *)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
     
     __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -299,7 +330,8 @@
     Status *status = self.dataSource[indexPath.row];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"status" equalTo:status.pfObject];
+#warning
+//    [query whereKey:@"status" equalTo:status.pfObject];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count!=0) {
             if (cell==nil) {
@@ -339,6 +371,7 @@
         [self.postImageQueries removeObjectForKey:indexPath];
     }
 }
+
 #pragma mark - StatusTableCellDelegate
 
 -(void)swipeGestureRecognizedOnCell:(StatusTableViewCell *)cell{
@@ -349,7 +382,7 @@
         return;
     }
     
-    Status *status = self.dataSource[indexPath.row];
+    StatusObject *status = self.dataSource[indexPath.row];
     
     if (!commentVC) {
         commentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"commentView"];
@@ -361,7 +394,7 @@
     }
     [commentVC clearCommentTableView];
     commentVC.statusTBCell = cell;
-    commentVC.statusObjectId = status.objectid;
+    commentVC.statusObjectId = status.objectId;
     commentVC.view.frame = CGRectMake(320, cell.frame.origin.y-44, 320, cell.frame.size.height);
     //dont allow interaction with tableview
     self.tableView.userInteractionEnabled = NO;
@@ -393,41 +426,6 @@
     
     [self swipeGestureRecognizedOnCell:cell];
 
-}
-
--(void)reviveAnimationDidEndOnCell:(StatusTableViewCell *)cell withProgress:(float)percentage{
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    Status *status = self.dataSource[indexPath.row];
-    int timeToAdd = (POST_TOTAL_LONGEVITY - status.countDownTime)*percentage;
-    
-    //add time to the status locally
-    status.countDownTime += timeToAdd;
-    NSLog(@"percentage %f, added %d seconds",percentage, timeToAdd);
-    //
-    PFQuery *queryStatusObj = [[PFQuery alloc] initWithClassName:@"Status"];
-    [queryStatusObj whereKey:@"objectId" equalTo:status.objectid];
-    [queryStatusObj getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error) {
-            object[@"expirationTimeInSec"] = [NSNumber numberWithInt:status.countDownTime];
-            object[@"expirationDate"] = [NSDate dateWithTimeInterval:status.countDownTime sinceDate:[NSDate date]];
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [FPLogger record:[NSString stringWithFormat:@"revive status: %@ succeeded",object]];
-                }else{
-                    [FPLogger record:[NSString stringWithFormat:@"revive status: %@ failed",object]];
-                }
-            }];
-        }else{
-            [FPLogger record:[NSString stringWithFormat:@"cannot find post with id %@ to revive",object.objectId]];
-        }
-    }];
-    
-    //add 1 to the revive count
-    int reviveCount = cell.reviveCountLabel.text.intValue;
-    cell.reviveCountLabel.text = [NSString stringWithFormat:@"%d",reviveCount+1];
-    [status.pfObject setObject:[NSNumber numberWithInt:reviveCount+1] forKey:@"reviveCount"];
-    [status.pfObject saveInBackground];
 }
 
 #pragma mark - UIActionSheetDelegate
