@@ -2,7 +2,7 @@
 //  StatusObject.h
 //  CIU
 //
-//  Created by Huang, Jason on 8/28/14.
+//  Created by Sihang on 8/29/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -13,13 +13,14 @@
 @interface StatusObject : NSManagedObject
 
 @property (nonatomic, retain) NSString * avatar;
+@property (nonatomic, retain) NSNumber * commentCount;
 @property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSNumber * likeCount;
 @property (nonatomic, retain) NSString * message;
+@property (nonatomic, retain) NSString * objectId;
+@property (nonatomic, retain) NSNumber * photoCount;
 @property (nonatomic, retain) NSString * picture;
 @property (nonatomic, retain) NSString * posterUsername;
-@property (nonatomic, retain) NSString * objectId;
-@property (nonatomic, retain) NSNumber * likeCount;
-@property (nonatomic, retain) NSNumber * commentCount;
-@property (nonatomic, retain) NSNumber * photoCount;
+@property (nonatomic, retain) NSNumber * statusCellHeight;
 
 @end

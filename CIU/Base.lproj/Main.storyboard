@@ -144,12 +144,12 @@
                     <connections>
                         <segue destination="w3S-5W-69p" kind="relationship" relationship="viewControllers" id="JeI-MT-HiS"/>
                         <segue destination="T9w-Lu-orH" kind="relationship" relationship="viewControllers" id="4BQ-mN-q2e"/>
-                        <segue destination="Fqe-zD-iga" kind="relationship" relationship="viewControllers" id="sBg-kN-E2G"/>
+                        <segue destination="KA3-Gm-CME" kind="relationship" relationship="viewControllers" id="39g-fy-1Ih"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAM-UC-4lY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="921" y="78"/>
+            <point key="canvasLocation" x="942" y="18"/>
         </scene>
         <!--Lifestyle Table View Controller - Lifestyle-->
         <scene sceneID="3hz-4f-FE8">
@@ -559,6 +559,7 @@
                             <constraint firstAttribute="trailing" secondItem="cxM-wO-5Eo" secondAttribute="trailing" id="hgr-2E-8RK"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Suprise" id="nl6-HT-QIH"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Suprise" id="3cd-Vu-Euk">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="xCn-3A-sa9">
@@ -575,12 +576,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Vx-Ri-TUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1933" y="536"/>
+            <point key="canvasLocation" x="1439" y="428"/>
         </scene>
         <!--Compose New Status View Controller - Compose-->
         <scene sceneID="bd3-1m-REd">
             <objects>
-                <viewController id="qlb-rj-1I4" customClass="ComposeNewStatusViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="composeStatus" id="qlb-rj-1I4" customClass="ComposeNewStatusViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A3M-kJ-dCg"/>
                         <viewControllerLayoutGuide type="bottom" id="BmU-L4-7cT"/>
@@ -746,26 +747,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VwB-0E-gAN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2055" y="-177"/>
-        </scene>
-        <!--Navigation Controller - Item-->
-        <scene sceneID="Gj1-LZ-EMh">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fqe-zD-iga" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5yf-Ko-LLS"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cou-oB-YY3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="KA3-Gm-CME" kind="relationship" relationship="rootViewController" id="LQP-bk-DPq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aiG-fb-FhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1476" y="536"/>
+            <point key="canvasLocation" x="1897" y="428"/>
         </scene>
         <!--Comment Status View Controller-->
         <scene sceneID="mJd-yc-oO5">
@@ -928,7 +910,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TSp-aa-IxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2456" y="-177"/>
+            <point key="canvasLocation" x="2306" y="428"/>
         </scene>
     </scenes>
     <resources>

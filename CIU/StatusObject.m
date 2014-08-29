@@ -2,7 +2,7 @@
 //  StatusObject.m
 //  CIU
 //
-//  Created by Huang, Jason on 8/28/14.
+//  Created by Sihang on 8/29/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -12,13 +12,14 @@
 @implementation StatusObject
 
 @dynamic avatar;
+@dynamic commentCount;
 @dynamic createdAt;
+@dynamic likeCount;
 @dynamic message;
+@dynamic objectId;
+@dynamic photoCount;
 @dynamic picture;
 @dynamic posterUsername;
-@dynamic objectId;
-@dynamic likeCount;
-@dynamic commentCount;
-@dynamic photoCount;
+@dynamic statusCellHeight;
 
 @end

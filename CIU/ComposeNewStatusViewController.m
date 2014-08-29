@@ -253,11 +253,7 @@
             //save to server
             PFObject *newStatus = [PFObject objectWithClassName:@"Status"];
             newStatus[@"message"] = self.textView.text;
-            newStatus[@"expirationTimeInSec"] = [NSNumber numberWithInt:[pickerDataSource[[self.pickerView selectedRowInComponent:0]] intValue] *60];
-            newStatus[@"expirationDate"] = [[NSDate date] dateByAddingTimeInterval:[pickerDataSource[[self.pickerView selectedRowInComponent:0]] intValue]*60];
             newStatus[@"posterUsername"] = [[PFUser currentUser] username];
-            newStatus[@"revivable"] = [NSNumber numberWithBool:self.revivableSwitch.on];
-            newStatus[@"reviveCount"]=@0;
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
         
@@ -282,32 +278,10 @@
                             }
                         }];
                     }
-                    
-                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                    NSNumber *numberPosts = [defaults objectForKey:@"numberofposts"];
-                    if (numberPosts==nil) {
-                        [defaults setObject:@1 forKey:@"numberofposts"];
-                    }else{
-                        [defaults setObject:[NSNumber numberWithInt:numberPosts.intValue+1] forKey:@"numberofposts"];
-                    }
-                    
-                    [defaults synchronize];
                 }else{
                     [newStatus saveEventually];
                 }
             }];
-            //save to local
-            [[SharedDataManager sharedInstance] saveContext];
-            
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSNumber *numberPosts = [defaults objectForKey:@"numberofposts"];
-            //first time use
-            if (!numberPosts) {
-                [defaults setObject:[NSNumber numberWithInt:1] forKey:@"numberofposts"];
-            }else{
-                [defaults setObject:[NSNumber numberWithInt:numberPosts.intValue+1] forKey:@"numberofposts"];
-            }
-            [defaults synchronize];
         });
     }];
 }

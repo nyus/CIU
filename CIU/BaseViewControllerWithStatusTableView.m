@@ -56,7 +56,7 @@
     // Dispose of any resources that can be recreated.
     for(Status *status in self.dataSource){
         //cancel download
-        [status.picture cancel];
+//        [status.picture cancel];
     }
 }
 
@@ -240,36 +240,36 @@
 }
 
 -(void)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
-    
-    __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.statusCellPhotoImageView showLoadingActivityIndicator];
-    Status *status = self.dataSource[indexPath.row];
-    
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"status" equalTo:status.pfObject];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count!=0) {
-            if (cell==nil) {
-                cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-            }
-            for (PFObject *photoObject in objects) {
-                PFFile *image = photoObject[@"image"];
-                [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-                        NSLog(@"add items for indexpath %@",indexPath);
-                        
-                        UIImage *image = [UIImage imageWithData:data];
-                        if (!cell.collectionViewImagesArray) {
-                            cell.collectionViewImagesArray = [NSMutableArray array];
-                        }
-                        NSLog(@"add photo for indexpath: %@",indexPath);
-                        [cell.collectionViewImagesArray addObject:image];
-                        [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
-                    }
-                }];
-            }
-        }
-    }];
+#warning 
+//    __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+//    [cell.statusCellPhotoImageView showLoadingActivityIndicator];
+//    Status *status = self.dataSource[indexPath.row];
+//    
+//    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
+//    [query whereKey:@"status" equalTo:status.pfObject];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error && objects.count!=0) {
+//            if (cell==nil) {
+//                cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+//            }
+//            for (PFObject *photoObject in objects) {
+//                PFFile *image = photoObject[@"image"];
+//                [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//                    if (!error) {
+//                        NSLog(@"add items for indexpath %@",indexPath);
+//                        
+//                        UIImage *image = [UIImage imageWithData:data];
+//                        if (!cell.collectionViewImagesArray) {
+//                            cell.collectionViewImagesArray = [NSMutableArray array];
+//                        }
+//                        NSLog(@"add photo for indexpath: %@",indexPath);
+//                        [cell.collectionViewImagesArray addObject:image];
+//                        [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
+//                    }
+//                }];
+//            }
+//        }
+//    }];
 }
 
 @end

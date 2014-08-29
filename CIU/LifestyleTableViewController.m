@@ -38,10 +38,16 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.queries= [NSMutableDictionary dictionary];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    //we add a right bar button item on statusViewcOntroller. since all the tabs are sharing the same navigation bar, here we take out the right item
+    //add right bar item(compose)
+    UITabBarController *tab=self.navigationController.viewControllers[0];
+    tab.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)didReceiveMemoryWarning

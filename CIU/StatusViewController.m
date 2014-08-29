@@ -21,10 +21,12 @@
 #import <CoreData/CoreData.h>
 #import "SharedDataManager.h"
 #import "StatusObject.h"
+#import "ComposeNewStatusViewController.h"
+#import "SpinnerImageView.h"
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
-@interface StatusViewController ()<StatusObjectDelegate,UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate>{
+@interface StatusViewController ()<StatusObjectDelegate,UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate>{
     
     StatusTableViewCell *cellToRevive;
     UIRefreshControl *refreshControl;
@@ -33,8 +35,9 @@
     NSString *statusIdToPass;
     CGRect commentViewOriginalFrame;
 }
-
-
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableDictionary *avatarQueries;
+@property (nonatomic, strong) NSMutableDictionary *postImageQueries;
 @end
 
 @implementation StatusViewController
@@ -42,29 +45,20 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    [self.view addGestureRecognizer:tapGesture];
-    
     //add refresh control
     [self addRefreshControll];
-    
-    //register for UIApplicationWillEnterForegroundNotification notification since timer will not work in the background for more than 10 mins. when user comes back, we refresh table view to update the status count down time
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
-}
-
--(void)handleApplicationWillEnterForeground{
-//    [self fetchNewStatusWithCount:25 remainingTime:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    //add right bar item(compose)
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped:)];
+    UITabBarController *tab=self.navigationController.viewControllers[0];
+    tab.navigationItem.rightBarButtonItem = item;
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    //stop observing UIApplicationWillEnterForegroundNotification
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+-(void)composeButtonTapped:(UIBarButtonItem *)sender{
+    ComposeNewStatusViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"composeStatus"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -79,16 +73,16 @@
 }
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    [self fetchNewStatusWithCount:25 remainingTime:nil];
+    [self fetchNewStatusWithCount:20 remainingTime:nil];
 }
 
 -(void)fetchNewStatusWithCount:(int)count remainingTime:(NSNumber *)remainingTimeInSec{
-    
     
     __block StatusViewController *weakSelf= self;
     PFQuery *query = [PFQuery queryWithClassName:@"Status"];
     query.limit = count;
     [query orderByDescending:@"createdAt"];
+    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
     NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchStatusDate"];
     if (lastFetchStatusDate) {
         [query whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
@@ -101,9 +95,11 @@
                 weakSelf.dataSource = [NSMutableArray array];
             }
             
+            //the purpose of temp is to make sure last created status goes to the top of the tableivew with an algo of O(n). if we insert new items into the old array, it would be O(n^2)
+            NSMutableArray *temp = [NSMutableArray array];
+            
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
-            int originalCount = weakSelf.dataSource.count;
             for (int i =0; i<objects.count; i++) {
                 
                 PFObject *pfObject = objects[i];
@@ -117,24 +113,25 @@
                 status.commentCount = pfObject[@"commentCount"];
                 status.photoCount = pfObject[@"photoCount"];
                 
-//                [status populateFromObject:parseObject];
+                [temp addObject:status];
                 
-                NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
+                NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
                 [indexpathArray addObject:path];
                 
-                [weakSelf.dataSource addObject:status];
+                if (i==objects.count-1) {
+                    [[NSUserDefaults standardUserDefaults] setObject:pfObject.createdAt forKey:@"lastFetchStatusDate"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
             }
+            //the purpose of temp is to make sure last created status goes to the top of the tableivew with an algo of O(n). if we insert new items into the old array, it would be O(n^2)
+            [temp addObjectsFromArray:weakSelf.dataSource];
+            weakSelf.dataSource = nil;
+            weakSelf.dataSource = temp;
             
             [[SharedDataManager sharedInstance] saveContext];
             
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView beginUpdates];
-                if (originalCount != [weakSelf.tableView numberOfRowsInSection:0]) {
-                    //remove the loading cell
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:[weakSelf.tableView numberOfRowsInSection:0]-1 inSection:0];
-                    [weakSelf.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
-                }
                 [weakSelf.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [weakSelf.tableView endUpdates];
             });
@@ -144,78 +141,204 @@
             NSLog(@"0 items fetched from parse");
         }
         [refreshControl endRefreshing];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastFetchStatusDate"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }];
-}
-
-#pragma mark - Status Object Delegate Timer Count Down
-
--(void)statusObjectTimeUpWithObject:(Status *)object{
-    NSInteger index = [self.dataSource indexOfObject:object];
-    StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    if ([cell.statusCellMessageLabel.text isEqualToString:object.message]) {
-        //        [cell blurCell];
-        [self removeStoredHeightForStatus:object];
-        [self.dataSource removeObject:object];
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
-        //if there is no status anymore, need to reload to show the background cell
-        if(self.dataSource.count == 0){
-            //setting self.dataSource to nil prevents talbeview from crashing.
-            self.dataSource = nil;
-            [self.tableView reloadData];
-        }
-    }
 }
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    return [super numberOfSectionsInTableView:tableView];
-//}
+#pragma mark - UITableViewDelete
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [super tableView:tableView numberOfRowsInSection:section];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     
-    //for non background cell
-    if(self.dataSource && self.dataSource.count != 0){
-        [[self.dataSource objectAtIndex:indexPath.row] startTimer];
-        
-        //update the count down text
-        StatusTableViewCell *scell = (StatusTableViewCell *)cell;
-        Status *object = self.dataSource[indexPath.row];
-        if ([scell.statusCellMessageLabel.text isEqualToString: object.message] && object.countDownTime == 0) {
+    return self.dataSource.count;
+}
+
+//hides the liine separtors when data source has 0 objects
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    StatusObject *status = self.dataSource[indexPath.row];
+    
+    __block StatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageAndPhotoCell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+    cell.delegate = self;
+    //pass a reference so in statusTableViewCell can use status.hash to access stuff
+    //    cell.status = status;
+    
+    //message
+    cell.statusCellMessageLabel.text = status.message;
+    
+    //username
+    cell.statusCellUsernameLabel.text = status.posterUsername;
+    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
+    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
+    
+    //cell date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm MM/dd/yy"];
+    NSString *str = [formatter stringFromDate:status.createdAt];
+    cell.statusCellDateLabel.text = str;
+    
+    //comment count
+    cell.commentCountLabel.text = status.commentCount.stringValue;
+    
+    
+    // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
+    cell.statusCellAvatarImageView.image = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
+    if (avatar) {
+        cell.statusCellAvatarImageView.image = avatar;
+    }else{
+        if (tableView.isDecelerating == NO && tableView.isDragging == NO) {
+           PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                cell.statusCellAvatarImageView.image = image;
+            }];
             
-            [self.dataSource removeObjectAtIndex:indexPath.row];
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-            
-            if(self.dataSource.count == 0){
-                self.dataSource = nil;
-                [self.tableView reloadData];
+            if(!self.avatarQueries){
+                self.avatarQueries = [NSMutableDictionary dictionary];
             }
+            [self.avatarQueries setObject:query forKey:indexPath];
+        }
+    }
+    
+    //get post image
+    if(status.photoCount.intValue>0){
+        cell.collectionView.dataSource = cell;
+        if (cell.collectionViewImagesArray!=nil) {
+            [cell.collectionView reloadData];
+        }else{
+            
+            if (tableView.isDecelerating == NO && tableView.isDragging == NO){
+                PFQuery *query = [self getServerPostImageForCellAtIndexpath:indexPath];
+                if (!self.postImageQueries) {
+                    self.postImageQueries = [NSMutableDictionary dictionary];
+                }
+                [self.postImageQueries setObject:query forKey:indexPath];
+            }
+        }
+    }
+    return cell;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    StatusObject *status = self.dataSource[indexPath.row];
+    if (status.statusCellHeight) {
+        return status.statusCellHeight.floatValue;
+    }else{
+        return 200;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(!self.dataSource || self.dataSource.count == 0){
+        return BACKGROUND_CELL_HEIGHT;
+    }else{
+        
+        StatusObject *status = self.dataSource[indexPath.row];
+        
+        //is cell height has been calculated, return it
+        if (status.statusCellHeight) {
+            
+            return status.statusCellHeight.floatValue;
+            
+        }else{
+            
+            //determine height of label(message must exist)
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
+            //number of lines must be set to zero so that sizeToFit would work correctly
+            label.numberOfLines = 0;
+            label.font = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:17];
+            label.text = [status message];
+            CGSize aSize = [label sizeThatFits:label.frame.size];
+            
+            float labelHeight = aSize.height;//ceilf(ceilf(size.width) / CELL_MESSAGE_LABEL_WIDTH)*ceilf(size.height)+10;
+            
+            //determine if there is a picture
+            float pictureHeight = 0;;
+            NSNumber *photoCount = status.photoCount;
+            if (photoCount.intValue==0) {
+                pictureHeight = 0;
+            }else{
+                //204 height of picture image view
+                pictureHeight = 204;
+            }
+            
+            float cellHeight = ORIGIN_Y_CELL_MESSAGE_LABEL + labelHeight;
+            if (pictureHeight !=0) {
+                cellHeight += 10 + pictureHeight;
+            }
+            
+            cellHeight = cellHeight+10;
+            
+            status.statusCellHeight = [NSNumber numberWithFloat:cellHeight];
+            return cellHeight;
         }
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+-(PFQuery *)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
+    
+    __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [cell.statusCellPhotoImageView showLoadingActivityIndicator];
+    Status *status = self.dataSource[indexPath.row];
+    
+    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
+    [query whereKey:@"status" equalTo:status.pfObject];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects.count!=0) {
+            if (cell==nil) {
+                cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            }
+            for (PFObject *photoObject in objects) {
+                PFFile *image = photoObject[@"image"];
+                [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        NSLog(@"add items for indexpath %@",indexPath);
+                        
+                        UIImage *image = [UIImage imageWithData:data];
+                        if (!cell.collectionViewImagesArray) {
+                            cell.collectionViewImagesArray = [NSMutableArray array];
+                        }
+                        NSLog(@"add photo for indexpath: %@",indexPath);
+                        [cell.collectionViewImagesArray addObject:image];
+                        [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
+                    }
+                }];
+            }
+        }
+    }];
+    
+    return query;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+-(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    PFQuery *avatarQ = [self.avatarQueries objectForKey:indexPath];
+    PFQuery *postimageQ = [self.postImageQueries objectForKey:indexPath];
+    if (avatarQ) {
+        [avatarQ cancel];
+        [self.avatarQueries removeObjectForKey:indexPath];
+    }
+    if (postimageQ) {
+        [postimageQ cancel];
+        [self.postImageQueries removeObjectForKey:indexPath];
+    }
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44.0f;
-}
-
 #pragma mark - StatusTableCellDelegate
 
 -(void)swipeGestureRecognizedOnCell:(StatusTableViewCell *)cell{

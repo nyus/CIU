@@ -32,10 +32,11 @@
         <attribute name="photoCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="posterUsername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="statusCellHeight" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
         <element name="LifestyleCategory" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="LifestyleObject" positionX="-9" positionY="153" width="128" height="225"/>
-        <element name="StatusObject" positionX="-27" positionY="144" width="128" height="180"/>
+        <element name="StatusObject" positionX="-27" positionY="144" width="128" height="195"/>
     </elements>
 </model>

@@ -283,6 +283,8 @@
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */,
+				65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */,
 				65C4F0B819AFB21D004452C3 /* StatusTableViewCell.h */,
 				65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */,
 				50F5F6F919AEAA0000DC9735 /* Reachability.h */,
@@ -433,8 +435,6 @@
 				65C4F11119AFBD53004452C3 /* SignUpViewController.m */,
 				65C4F10D19AFBD21004452C3 /* LogInViewController.h */,
 				65C4F10E19AFBD21004452C3 /* LogInViewController.m */,
-				65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */,
-				65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */,
 				65C4F10719AFBC63004452C3 /* BaseViewControllerWithStatusTableView.h */,
 				65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */,
 				65C4F0E419AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.h */,
@@ -770,10 +770,15 @@
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CIU/FastPost",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -788,10 +793,15 @@
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CIU/FastPost",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
