@@ -481,6 +481,12 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toObjectDetail"]) {
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+            LifestyleObject *life = self.tableViewDataSource[indexPath.row];
+            lifestyleToPass = life;
+        }
         LifestyleObjectDetailTableViewController *vc = (LifestyleObjectDetailTableViewController *)segue.destinationViewController;
         vc.lifestyleObject = lifestyleToPass;
     }

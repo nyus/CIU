@@ -230,6 +230,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="UNi-oq-vOg"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="3TL-Zk-qc1">
                                         <rect key="frame" x="0.0" y="66" width="320" height="44"/>
@@ -1192,4 +1195,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="UNi-oq-vOg"/>
+    </inferredMetricsTieBreakers>
 </document>
