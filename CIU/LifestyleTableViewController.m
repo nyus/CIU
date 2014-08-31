@@ -39,6 +39,17 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.queries= [NSMutableDictionary dictionary];
     
+    PFUser *user = [PFUser currentUser];
+    if (!user || !user.isAuthenticated) {
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        [self presentViewController:vc animated:NO completion:nil];
+    }
+//    id hasLoggedIn = [[NSUserDefaults standardUserDefaults] objectForKey:@"hasLoggedIn"];
+//    if (!hasLoggedIn) {
+//        
+//        
+//    }
+//    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

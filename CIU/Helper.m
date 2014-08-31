@@ -116,7 +116,7 @@ static Helper *_helper;
             [object setObject:username forKey:@"username"];
             [object setObject:file forKey:@"image"];
             [object setObject:[NSNumber numberWithBool:isHighRes] forKey:@"isHighRes"];
-            [object saveInBackground];
+            [object saveEventually];
         }
     }];
 }

@@ -20,19 +20,23 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.activityIndicator.hidden = YES;
-    self.title = @"dwndlr";
     
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.backBarButtonItem = nil;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    PFUser *user = [PFUser currentUser];
-    if (user && user.isAuthenticated) {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
+//    PFUser *user = [PFUser currentUser];
+//    if (user && user.isAuthenticated) {
+//        [self dismissViewControllerAnimated:NO completion:nil];
+//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -151,7 +155,10 @@
         
         [PFUser requestPasswordResetForEmailInBackground:[alertView textFieldAtIndex:0].text block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please check your email to rest your password." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
             }else{
                 NSLog(@"password reset failed");
             }

@@ -10,9 +10,11 @@
 #import <Parse/Parse.h>
 #import "LogInViewController.h"
 #import "FPLogger.h"
+#import "Helper.h"
 @interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageviewTopSpaceToTopLayoutConstraint;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
 
@@ -32,6 +34,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.activityIndicator.hidden = YES;
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,7 +99,7 @@
 }
 
 - (void) launchGalleryPicker {
-    if (self.imagePicker) {
+    if (!self.imagePicker) {
         self.imagePicker = [[UIImagePickerController alloc] init];
         self.imagePicker.delegate = self;
     }
@@ -102,6 +110,15 @@
 
 - (IBAction)signUpButtonTapped:(id)sender {
     
+    //dismiss keyboard
+    [self.view endEditing:YES];
+    
+    if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
+        self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+        [UIView animateWithDuration:.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
     
     NSString *userNameString =[self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailString =[self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -115,6 +132,8 @@
             [self.activityIndicator startAnimating];
         });
         
+        //
+        __block SignUpViewController *weakSelf = self;
         //compound query. OR two conditions together
         PFQuery *username = [[PFQuery alloc] initWithClassName:[PFUser parseClassName]];
         [username whereKey:@"username" equalTo:userNameString];
@@ -131,57 +150,137 @@
                 newUser.email = emailString;
                 newUser.username = userNameString;
                 newUser.password = passWordString;
-
+                [newUser setObject:weakSelf.firstNameTextField.text forKey:@"firstName"];
+                [newUser setObject:weakSelf.lastNameTextField.text forKey:@"lastName"];
+                
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
                     if(succeeded){
                         
-                        [self.activityIndicator stopAnimating];
+                        //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
+                        NSData *highResData = UIImagePNGRepresentation(weakSelf.avatarImageView.image);
+                        UIImage *scaled = [Helper scaleImage:weakSelf.avatarImageView.image downToSize:weakSelf.avatarImageView.frame.size];
+                        NSData *lowResData = UIImagePNGRepresentation(scaled);
+                        //save to both local and server
+                        [Helper saveAvatar:highResData forUser:userNameString isHighRes:YES];
+                        [Helper saveAvatar:lowResData forUser:userNameString isHighRes:NO];
                         
-                        signUpSuccessAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Congrats! You have successfully signed up!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        signUpSuccessAlert.tag = 0;
-                        [signUpSuccessAlert show];
-                        [self performSelector:@selector(showStatusTableView) withObject:nil afterDelay:.5];
-                        
+                        //UI work
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakSelf.activityIndicator stopAnimating];
+                            signUpSuccessAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Congrats! You have successfully signed up!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                            signUpSuccessAlert.tag = 0;
+                            [signUpSuccessAlert show];
+                            [weakSelf performSelector:@selector(showStatusTableView) withObject:nil afterDelay:.5];
+                        });
                     }else{
 
-                        [self.activityIndicator stopAnimating];
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Sign up failed. Please try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                        alert.tag = 1;
-                        [alert show];
-
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakSelf.activityIndicator stopAnimating];
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Sign up failed. Please try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                            alert.tag = 1;
+                            [alert show];
+                        });
                     }
                 }];
                 
             }else{
-                
-                [self.activityIndicator stopAnimating];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email or username is already registered. Please try again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alert show];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.activityIndicator stopAnimating];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email or username is already registered. Please try again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
             }
         }];
     }
 }
 
 - (IBAction)backToLoginButtonTapped:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+#warning
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9a-zA-Z._]"];
+//    BOOL flag = [predicate evaluateWithObject:string];
+//    if (!flag) {
+//        return NO;
+//    }else{
+//        return YES;
+//    }
+    return YES;
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (textField == self.emailTextField) {
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+            [UIView animateWithDuration:.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }
+    }else if (textField == self.firstNameTextField){
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+            [UIView animateWithDuration:.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }
+    }else if (textField == self.lastNameTextField){
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+            [UIView animateWithDuration:.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }
+    }else if (textField == self.usernameTextField){
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=0) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = 0;
+            [UIView animateWithDuration:.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }
+    }else if(textField == self.passwordTextField){
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=-20) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant =-20;
+            [UIView animateWithDuration:.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
+        }
+    }
+    return YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
+    textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (textField == self.emailTextField) {
-        textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        [self.firstNameTextField becomeFirstResponder];
+    }else if (textField == self.firstNameTextField){
+
+        [self.lastNameTextField becomeFirstResponder];
+    }else if (textField == self.lastNameTextField){
+
         [self.usernameTextField becomeFirstResponder];
     }else if (textField == self.usernameTextField){
-        textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+ 
         [self.passwordTextField becomeFirstResponder];
-    }
-    else if(textField == self.passwordTextField){
-        textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        [textField resignFirstResponder];
+    }else if(textField == self.passwordTextField){
+
+        [self signUpButtonTapped:nil];
     }
     
     return NO;
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *original = info[@"UIImagePickerControllerOriginalImage"];
+    self.avatarImageView.image = original;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 @end

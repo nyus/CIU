@@ -7,6 +7,9 @@
 //
 
 #import "StartupViewController.h"
+#import "AvatarAndUsernameTableViewCell.h"
+#import "Helper.h"
+#import <Parse/Parse.h>
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
     SideBarStatusOpen=1
@@ -96,6 +99,13 @@ NS_ENUM(NSUInteger, SideBarStatus){
     UITableViewCell *cell;
     if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"avatarCell" forIndexPath:indexPath];
+        __block AvatarAndUsernameTableViewCell *c = (AvatarAndUsernameTableViewCell *)cell;
+        [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
+            if (!error) {
+                c.avatarImageView.image = image;
+            }
+        }];
+        c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
     }else{
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     }
