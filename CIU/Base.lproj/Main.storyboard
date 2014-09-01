@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="width" constant="150" id="5BY-Rq-yH7"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="avatarCell" rowHeight="102" id="lve-PI-GwB" customClass="AvatarAndUsernameTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="avatarCell" rowHeight="102" id="lve-PI-GwB" customClass="AvatarAndUsernameTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="150" height="102"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lve-PI-GwB" id="yO7-X1-jxp">
@@ -37,7 +37,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gw8-B3-Z6a">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gw8-B3-Z6a">
                                                     <rect key="frame" x="40" y="23" width="70" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -963,9 +963,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-qP-GMO">
-                                <rect key="frame" x="221" y="256" width="20" height="20"/>
-                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQT-fB-mtH">
                                 <rect key="frame" x="73" y="251" width="175" height="30"/>
                                 <color key="backgroundColor" red="0.10588236149999999" green="0.82745105029999999" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
@@ -998,7 +995,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fG4-WT-exN">
-                                <rect key="frame" x="73" y="297" width="175" height="30"/>
+                                <rect key="frame" x="73" y="301" width="175" height="30"/>
                                 <color key="backgroundColor" red="0.10588236149999999" green="0.82745105029999999" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
                                 <state key="normal" title="Forgot Password">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1007,15 +1004,29 @@
                                     <action selector="forgotPasswrodTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="Qo5-si-Ygh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
+                                <rect key="frame" x="73" y="351" width="175" height="46"/>
+                                <state key="normal" backgroundImage="fbLogin.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginWithFBTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="zwf-qe-tbh"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-qP-GMO">
+                                <rect key="frame" x="150" y="411" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FBy-xG-C41" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="125" id="GQq-gh-Q8w"/>
                             <constraint firstItem="Pnw-q4-MRY" firstAttribute="top" secondItem="yjy-Z9-Wae" secondAttribute="bottom" constant="21" id="HxN-U0-0SO"/>
-                            <constraint firstItem="fG4-WT-exN" firstAttribute="top" secondItem="FQT-fB-mtH" secondAttribute="bottom" constant="16" id="ILU-v7-k4c"/>
+                            <constraint firstItem="fG4-WT-exN" firstAttribute="top" secondItem="FQT-fB-mtH" secondAttribute="bottom" constant="20" id="ILU-v7-k4c"/>
+                            <constraint firstAttribute="centerX" secondItem="QAe-qP-GMO" secondAttribute="centerX" id="KBy-oE-YMh"/>
+                            <constraint firstItem="QAe-qP-GMO" firstAttribute="top" secondItem="daT-oh-yvo" secondAttribute="bottom" constant="14" id="Krb-yR-WZD"/>
                             <constraint firstItem="7Xw-aj-aGp" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="133" id="PU7-QG-ckw"/>
                             <constraint firstItem="efv-aF-JGG" firstAttribute="top" secondItem="7Xw-aj-aGp" secondAttribute="bottom" constant="20" id="SLD-5K-jgH"/>
-                            <constraint firstItem="QAe-qP-GMO" firstAttribute="top" secondItem="FQT-fB-mtH" secondAttribute="bottom" constant="-25" id="VCP-VJ-Hin"/>
+                            <constraint firstItem="daT-oh-yvo" firstAttribute="leading" secondItem="fG4-WT-exN" secondAttribute="leading" id="TFW-la-O15"/>
                             <constraint firstItem="txJ-Qd-1nF" firstAttribute="top" secondItem="c6W-Fi-ugg" secondAttribute="bottom" id="VSt-e9-BmQ"/>
                             <constraint firstItem="FBy-xG-C41" firstAttribute="top" secondItem="txJ-Qd-1nF" secondAttribute="bottom" constant="-1" id="XHJ-j8-UFE"/>
                             <constraint firstItem="FQT-fB-mtH" firstAttribute="top" secondItem="Pnw-q4-MRY" secondAttribute="bottom" constant="20" id="Yzl-FG-4HD"/>
@@ -1023,9 +1034,10 @@
                             <constraint firstItem="FQT-fB-mtH" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="73" id="cWf-md-XMq"/>
                             <constraint firstItem="Pnw-q4-MRY" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="73" id="ejO-yW-kPD"/>
                             <constraint firstItem="fG4-WT-exN" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="73" id="gZ7-g5-4fX"/>
-                            <constraint firstItem="QAe-qP-GMO" firstAttribute="leading" secondItem="FQT-fB-mtH" secondAttribute="trailing" constant="-27" id="joK-10-YWU"/>
+                            <constraint firstItem="daT-oh-yvo" firstAttribute="trailing" secondItem="fG4-WT-exN" secondAttribute="trailing" id="m6W-Ww-Ag4"/>
                             <constraint firstItem="txJ-Qd-1nF" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="120" id="mqZ-k9-eo1"/>
                             <constraint firstAttribute="trailing" secondItem="fG4-WT-exN" secondAttribute="trailing" constant="72" id="pjM-fo-NPS"/>
+                            <constraint firstItem="daT-oh-yvo" firstAttribute="top" secondItem="fG4-WT-exN" secondAttribute="bottom" constant="20" id="t32-NK-Kom"/>
                             <constraint firstItem="yjy-Z9-Wae" firstAttribute="top" secondItem="FBy-xG-C41" secondAttribute="bottom" constant="30" id="upD-40-wlS"/>
                             <constraint firstAttribute="trailing" secondItem="7Xw-aj-aGp" secondAttribute="trailing" constant="132" id="zI2-Pd-DwN"/>
                         </constraints>
@@ -1218,6 +1230,7 @@
         <image name="camera.png" width="256" height="256"/>
         <image name="comment_icon.png" width="30" height="30"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
+        <image name="fbLogin.png" width="202" height="46"/>
         <image name="revine_icon.png" width="228" height="43"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

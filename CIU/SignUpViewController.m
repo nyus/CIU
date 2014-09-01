@@ -61,11 +61,8 @@
         }
         
         [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
-        [self dismissViewControllerAnimated:NO completion:^{
-            [self.loginVC dismissViewControllerAnimated:NO completion:^{
-            }];
-        }];
-
+        [self dismissViewControllerAnimated:NO completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
     }];
 }
 

@@ -10,6 +10,8 @@
 #import "AvatarAndUsernameTableViewCell.h"
 #import "Helper.h"
 #import <Parse/Parse.h>
+#import <MessageUI/MFMailComposeViewController.h>
+
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
     SideBarStatusOpen=1
@@ -18,21 +20,45 @@ NS_ENUM(NSUInteger, SideBarStatus){
 #define SIDE_BAR_CLOSE_DISTANCE 0.0f
 #define AVATAR_CELL_HEIGHT 102.0f
 #define OTHER_CELL_HEIGHT 44.0f
-@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate>{
+@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate>{
     CGPoint previousPoint;
 }
+@property (nonatomic, strong) NSArray *dataSource;
 @end
 
 @implementation StartupViewController
 
+-(void)viewDidLoad{
+    
+    PFUser *user = [PFUser currentUser];
+    if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self reloadTableView];
+    }
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
+    
+    PFUser *user = [PFUser currentUser];
+    if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self reloadTableView];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)handleDismissLogin{
+    [self reloadTableView];
+}
+
+-(void)reloadTableView{
+    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About CIU",@"Rate CIU",@"Feedback",@"Share CIU", nil];
+    [self.tableView reloadData];
 }
 
 - (IBAction)handlePanContainerView:(UIPanGestureRecognizer *)sender {
@@ -91,7 +117,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 
 #pragma mark - UITableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,9 +133,39 @@ NS_ENUM(NSUInteger, SideBarStatus){
         }];
         c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
     }else{
+        
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.textLabel.text = self.dataSource[indexPath.row];
+        
     }
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //Profile
+    if (indexPath.row == 0) {
+        
+    }
+    //About CIU
+    else if (indexPath.row == 1){
+        
+    }
+    //Rate CIU
+    else if (indexPath.row == 2){
+        NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/appid"];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+    //Feedback
+    else if(indexPath.row == 3){
+        MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+        [vc setToRecipients:@[@"8miletech@gmail.com"]];
+        vc.mailComposeDelegate = self;
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    //share this app
+    else{
+    
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -126,5 +182,11 @@ NS_ENUM(NSUInteger, SideBarStatus){
     }else{
         return OTHER_CELL_HEIGHT;
     }
+}
+
+#pragma mark - MFMail
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

@@ -9,6 +9,7 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "SignUpViewController.h"
+#import "Helper.h"
 @interface LogInViewController ()<UIAlertViewDelegate>
 
 @end
@@ -31,18 +32,109 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-//    PFUser *user = [PFUser currentUser];
-//    if (user && user.isAuthenticated) {
-//        [self dismissViewControllerAnimated:NO completion:nil];
-//    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)loginWithFBTapped:(id)sender {
+    
+    // Set permissions required from the facebook user account
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_location",@"email"];
+    
+    [self.activityIndicator startAnimating]; // Show loading indicator until login is finished
+    __block LogInViewController *weakSelf = self;
+    // Login PFUser using Facebook
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        [self.activityIndicator stopAnimating]; // Hide loading indicator
+        
+        if (!user) {
+            NSString *errorMessage = nil;
+            if (!error) {
+                NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                errorMessage = @"Uh oh. The user cancelled the Facebook login.";
+            } else {
+                NSLog(@"Uh oh. An error occurred: %@", error);
+                errorMessage = [error localizedDescription];
+            }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error"
+                                                            message:errorMessage
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"Dismiss", nil];
+            [alert show];
+        } else {
+            if (user.isNew) {
+                NSLog(@"User with facebook signed up and logged in!");
+            } else {
+                NSLog(@"User with facebook logged in!");
+            }
+            
+            FBRequest *request = [FBRequest requestForMe];
+            [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                if (!error) {
+                    /*
+                     {
+                     "first_name" = DrThridteen;
+                     gender = male;
+                     id = 1529017197309951;
+                     "last_name" = Mile;
+                     link = "https://www.facebook.com/app_scoped_user_id/1529017197309951/";
+                     locale = "en_US";
+                     location =     {
+                     id = 114586701886732;
+                     name = "Detroit, Michigan";
+                     };
+                     name = "DrThridteen Mile";
+                     timezone = "-4";
+                     "updated_time" = "2014-09-01T13:53:28+0000";
+                     verified = 1;
+                     }
+                    */
+                    // result is a dictionary with the user's Facebook data
+                    NSDictionary *userData = (NSDictionary *)result;
+                    
+                    NSString *facebookID = userData[@"id"];
+                    NSString *firstName = userData[@"first_name"];
+                    NSString *lastName = userData[@"last_name"];
+                    NSString *location = userData[@"location"][@"name"];
+                    NSString *gender = userData[@"gender"];
+                    NSString *email = userData[@"email"];
+                    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+                    
+                    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+                    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                       queue:[NSOperationQueue mainQueue]
+                                           completionHandler:
+                     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                         if (connectionError == nil && data != nil) {
+                             
+                             NSLog(@"username %@",user.username);
+                             // Set the image in the header imageView
+                             [Helper saveAvatar:data forUser:user.username isHighRes:YES];
+                             UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
+                             [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
+                         }
+                     }];
+                    
+                    // Now add the data to the UI elements
+                    PFUser *me = [PFUser currentUser];
+                    [me setObject:facebookID forKey:@"facebookID"];
+                    [me setObject:firstName forKey:@"firstName"];
+                    [me setObject:lastName forKey:@"lastName"];
+                    [me setObject:@YES forKey:@"isFacebookUser"];
+                    [me setObject:location forKey:@"location"];
+                    [me setObject:email forKey:@"email"];
+                    [me setObject:gender forKey:@"gender"];
+                    [me saveEventually];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
+        }
+    }];
 }
 
 - (IBAction)logInButtonTapped:(id)sender {
@@ -78,6 +170,7 @@
                     [PFUser logInWithUsernameInBackground:object[@"username"] password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
                         if (!error) {
                             [self showStatusTableView];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
                         }else{
                             [self showIncorrectPasswordOrFieldWithName:@"email"];
                         }

@@ -40,16 +40,28 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
-    if (!user || !user.isAuthenticated) {
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
-        [self presentViewController:vc animated:NO completion:nil];
+    if (!user || !user.isAuthenticated || ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self showLoginViewController];
     }
-//    id hasLoggedIn = [[NSUserDefaults standardUserDefaults] objectForKey:@"hasLoggedIn"];
-//    if (!hasLoggedIn) {
-//        
-//        
-//    }
-//    
+
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // handle successful response
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+            NSLog(@"The facebook session was invalidated");
+            
+            [self showLoginViewController];
+        } else {
+            NSLog(@"Some other error: %@", error);
+        }
+    }];
+}
+
+-(void)showLoginViewController{
+    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
