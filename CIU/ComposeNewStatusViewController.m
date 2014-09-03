@@ -256,7 +256,11 @@
             newStatus[@"posterUsername"] = [[PFUser currentUser] username];
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
-        
+            NSNumber *photoID;
+            if (collectionViewDataSource.count!=0) {
+                photoID = [NSNumber numberWithFloat:self.textView.text.hash];
+                newStatus[@"photoID"] = photoID;
+            }
             //save to parse
             [newStatus saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
@@ -268,7 +272,7 @@
                         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
                                 PFObject *object = [[PFObject alloc] initWithClassName:@"Photo"];
-                                [object setObject:newStatus forKey:@"status"];
+                                [object setObject:photoID forKey:@"photoID"];
                                 [object setObject:photo forKey:@"image"];
                                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                     if (!succeeded) {

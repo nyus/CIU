@@ -29,6 +29,7 @@
 		5044A12519B22632007C1200 /* 60.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12219B22632007C1200 /* 60.png */; };
 		5044A12619B22632007C1200 /* 40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12319B22632007C1200 /* 40.png */; };
 		5044A12719B22632007C1200 /* 29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12419B22632007C1200 /* 29.png */; };
+		505ED20619B69B990047D385 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 505ED20519B69B990047D385 /* StatusObject.m */; };
 		50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 50675BC019B41F8A00845CD9 /* fbLogin.png */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
@@ -84,7 +85,6 @@
 		65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */; };
 		65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F819AFBBEA004452C3 /* Overlay.png */; };
 		65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */; };
-		65C4F10619AFBC07004452C3 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10519AFBC07004452C3 /* StatusObject.m */; };
 		65C4F10919AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */; };
 		65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */; };
 		65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10E19AFBD21004452C3 /* LogInViewController.m */; };
@@ -132,6 +132,8 @@
 		5044A12219B22632007C1200 /* 60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 60.png; sourceTree = "<group>"; };
 		5044A12319B22632007C1200 /* 40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40.png; sourceTree = "<group>"; };
 		5044A12419B22632007C1200 /* 29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29.png; sourceTree = "<group>"; };
+		505ED20419B69B990047D385 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
+		505ED20519B69B990047D385 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		50675BC019B41F8A00845CD9 /* fbLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogin.png; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
@@ -222,8 +224,6 @@
 		65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
 		65C4F0F819AFBBEA004452C3 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
-		65C4F10419AFBC07004452C3 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
-		65C4F10519AFBC07004452C3 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		65C4F10719AFBC63004452C3 /* BaseViewControllerWithStatusTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewControllerWithStatusTableView.h; sourceTree = "<group>"; };
 		65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewControllerWithStatusTableView.m; sourceTree = "<group>"; };
 		65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerImageView.h; sourceTree = "<group>"; };
@@ -336,6 +336,8 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				505ED20419B69B990047D385 /* StatusObject.h */,
+				505ED20519B69B990047D385 /* StatusObject.m */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				50675BC019B41F8A00845CD9 /* fbLogin.png */,
 				5044A12219B22632007C1200 /* 60.png */,
@@ -412,8 +414,6 @@
 				5092161319AA58E900304EDD /* LifestyleObject.h */,
 				5092161419AA58E900304EDD /* LifestyleObject.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
-				65C4F10419AFBC07004452C3 /* StatusObject.h */,
-				65C4F10519AFBC07004452C3 /* StatusObject.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -627,7 +627,6 @@
 				65C4F10919AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentStatusViewController.m in Sources */,
-				65C4F10619AFBC07004452C3 /* StatusObject.m in Sources */,
 				652BAB97199D3CCA009F5F5A /* ViewController.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
 				65C4F0FD19AFBBEA004452C3 /* ELCAssetTablePicker.m in Sources */,
@@ -636,6 +635,7 @@
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,
+				505ED20619B69B990047D385 /* StatusObject.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				65C4F0B719AFB201004452C3 /* StatusViewController.m in Sources */,

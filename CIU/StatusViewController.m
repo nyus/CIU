@@ -33,6 +33,7 @@
     CommentStatusViewController *commentVC;
     NSString *statusIdToPass;
     CGRect commentViewOriginalFrame;
+    NSFetchRequest *fetchRequest;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -44,9 +45,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.view = self.tableView;
-    //add refresh control
+//    self.view = self.tableView;
+//    //add refresh control
     [self addRefreshControll];
+    [self fetchStatusFromLocal];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -54,6 +56,9 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped:)];
     UITabBarController *tab=self.navigationController.viewControllers[0];
     tab.navigationItem.rightBarButtonItem = item;
+    
+    
+    [self fetchNewStatusWithCount:20 remainingTime:nil];
 }
 
 -(void)composeButtonTapped:(UIBarButtonItem *)sender{
@@ -74,6 +79,37 @@
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
     [self fetchNewStatusWithCount:20 remainingTime:nil];
+}
+
+-(void)fetchStatusFromLocal{
+    if (!fetchRequest) {
+        fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+        [fetchRequest setEntity:entity];
+        // Specify how the fetched objects should be sorted
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+                                                                       ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    }
+    
+    fetchRequest.fetchLimit = 10;
+    fetchRequest.fetchOffset = self.dataSource.count;
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects.count>0) {
+        if (!self.dataSource) {
+            self.dataSource = [NSMutableArray array];
+        }
+        [self.dataSource addObjectsFromArray:fetchedObjects];
+        
+        NSMutableArray *indexPathArray = [NSMutableArray array];
+        for (int i =0; i<fetchedObjects.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [indexPathArray addObject:indexPath];
+        }
+        [self.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 -(void)fetchNewStatusWithCount:(int)count remainingTime:(NSNumber *)remainingTimeInSec{
@@ -103,7 +139,7 @@
             for (int i =0; i<objects.count; i++) {
                 
                 PFObject *pfObject = objects[i];
-                StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                 status.objectId = pfObject.objectId;
                 status.message = [pfObject objectForKey:@"message"];
                 status.createdAt = pfObject.createdAt;
@@ -112,13 +148,13 @@
                 status.likeCount = pfObject[@"likeCount"];
                 status.commentCount = pfObject[@"commentCount"];
                 status.photoCount = pfObject[@"photoCount"];
-                
+                status.photoID = pfObject[@"photoID"];
                 [temp addObject:status];
                 
                 NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
                 [indexpathArray addObject:path];
                 
-                if (i==objects.count-1) {
+                if (i==0) {
                     [[NSUserDefaults standardUserDefaults] setObject:pfObject.createdAt forKey:@"lastFetchStatusDate"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
@@ -167,10 +203,10 @@
     
     StatusObject *status = self.dataSource[indexPath.row];
     
-    __block StatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageAndPhotoCell" forIndexPath:indexPath];
+    __block StatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.delegate = self;
+//    cell.delegate = self;
     //pass a reference so in statusTableViewCell can use status.hash to access stuff
     //    cell.status = status;
     
@@ -229,10 +265,10 @@
     return cell;
 }
 
-
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     StatusObject *status = self.dataSource[indexPath.row];
-    if (status.statusCellHeight) {
+    //status.statusCellHeight defaults to 0, so cant check nil
+    if (status.statusCellHeight.floatValue != 0) {
         return status.statusCellHeight.floatValue;
     }else{
         return 200;
@@ -247,7 +283,7 @@
         StatusObject *status = self.dataSource[indexPath.row];
         
         //is cell height has been calculated, return it
-        if (status.statusCellHeight) {
+        if (status.statusCellHeight.floatValue != 0 ) {
             
             return status.statusCellHeight.floatValue;
             
@@ -303,23 +339,36 @@
 -(void)loadRemoteDataForVisibleCells{
     for (StatusTableViewCell *cell in self.tableView.visibleCells) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        //get avatar
         StatusObject *status = self.dataSource[indexPath.row];
-        PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
-            cell.statusCellAvatarImageView.image = image;
-        }];
         
-        if(!self.avatarQueries){
-            self.avatarQueries = [NSMutableDictionary dictionary];
+        //get avatar
+        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
+        if (avatar) {
+            cell.statusCellAvatarImageView.image = avatar;
+        }else{
+            PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                cell.statusCellAvatarImageView.image = image;
+            }];
+            if(!self.avatarQueries){
+                self.avatarQueries = [NSMutableDictionary dictionary];
+            }
+            [self.avatarQueries setObject:query1 forKey:indexPath];
         }
-        [self.avatarQueries setObject:query1 forKey:indexPath];
         
-        //get post images
-        PFQuery *query2 = [self getServerPostImageForCellAtIndexpath:indexPath];
-        if (!self.postImageQueries) {
-            self.postImageQueries = [NSMutableDictionary dictionary];
+        //get post image
+        if(status.photoCount.intValue>0){
+            cell.collectionView.dataSource = cell;
+            if (cell.collectionViewImagesArray!=nil) {
+                [cell.collectionView reloadData];
+            }else{
+                //get post images
+                PFQuery *query2 = [self getServerPostImageForCellAtIndexpath:indexPath];
+                if (!self.postImageQueries) {
+                    self.postImageQueries = [NSMutableDictionary dictionary];
+                }
+                [self.postImageQueries setObject:query2 forKey:indexPath];
+            }
         }
-        [self.postImageQueries setObject:query2 forKey:indexPath];
     }
 }
 
@@ -327,11 +376,10 @@
     
     __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [cell.statusCellPhotoImageView showLoadingActivityIndicator];
-    Status *status = self.dataSource[indexPath.row];
+    StatusObject *status = self.dataSource[indexPath.row];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-#warning
-//    [query whereKey:@"status" equalTo:status.pfObject];
+    [query whereKey:@"photoID" equalTo:status.photoID];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count!=0) {
             if (cell==nil) {

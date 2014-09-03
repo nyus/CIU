@@ -40,10 +40,10 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
-    if (!user || !user.isAuthenticated || ![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+    if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
         [self showLoginViewController];
     }
-
+    
     FBRequest *request = [FBRequest requestForMe];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
