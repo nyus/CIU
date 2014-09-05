@@ -380,18 +380,23 @@
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
     [query whereKey:@"photoID" equalTo:status.photoID];
+    [query whereKey:@"isHighRes" equalTo:@NO];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count!=0) {
             if (cell==nil) {
                 cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             }
+            
+            static int index = 0;
             for (PFObject *photoObject in objects) {
                 PFFile *image = photoObject[@"image"];
                 [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
-                        NSLog(@"add items for indexpath %@",indexPath);
                         
                         UIImage *image = [UIImage imageWithData:data];
+#warning only support low res photo for now. in the future when the user can tap to see high res photos, we add support for high res
+                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:[NSString stringWithFormat:@"%@%d",status.photoID,index] isHighRes:NO];
+                        index++;
                         if (!cell.collectionViewImagesArray) {
                             cell.collectionViewImagesArray = [NSMutableArray array];
                         }

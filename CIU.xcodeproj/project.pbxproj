@@ -29,9 +29,9 @@
 		5044A12519B22632007C1200 /* 60.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12219B22632007C1200 /* 60.png */; };
 		5044A12619B22632007C1200 /* 40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12319B22632007C1200 /* 40.png */; };
 		5044A12719B22632007C1200 /* 29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12419B22632007C1200 /* 29.png */; };
-		505ED20619B69B990047D385 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 505ED20519B69B990047D385 /* StatusObject.m */; };
 		50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 50675BC019B41F8A00845CD9 /* fbLogin.png */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
+		507A679E19B7CB690022C2B9 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A679D19B7CB690022C2B9 /* StatusObject.m */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
 		5092160E19AA463700304EDD /* LifestyleObjectDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160D19AA463700304EDD /* LifestyleObjectDetailTableViewController.m */; };
 		5092161519AA58E900304EDD /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092161419AA58E900304EDD /* LifestyleObject.m */; };
@@ -132,10 +132,10 @@
 		5044A12219B22632007C1200 /* 60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 60.png; sourceTree = "<group>"; };
 		5044A12319B22632007C1200 /* 40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40.png; sourceTree = "<group>"; };
 		5044A12419B22632007C1200 /* 29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29.png; sourceTree = "<group>"; };
-		505ED20419B69B990047D385 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
-		505ED20519B69B990047D385 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		50675BC019B41F8A00845CD9 /* fbLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogin.png; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		507A679C19B7CB690022C2B9 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
+		507A679D19B7CB690022C2B9 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
 		5092160A19AA45AD00304EDD /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
 		5092160C19AA463700304EDD /* LifestyleObjectDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObjectDetailTableViewController.h; sourceTree = "<group>"; };
@@ -336,8 +336,8 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
-				505ED20419B69B990047D385 /* StatusObject.h */,
-				505ED20519B69B990047D385 /* StatusObject.m */,
+				507A679C19B7CB690022C2B9 /* StatusObject.h */,
+				507A679D19B7CB690022C2B9 /* StatusObject.m */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				50675BC019B41F8A00845CD9 /* fbLogin.png */,
 				5044A12219B22632007C1200 /* 60.png */,
@@ -635,10 +635,10 @@
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,
-				505ED20619B69B990047D385 /* StatusObject.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				65C4F0B719AFB201004452C3 /* StatusViewController.m in Sources */,
+				507A679E19B7CB690022C2B9 /* StatusObject.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
