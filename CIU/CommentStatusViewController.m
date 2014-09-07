@@ -18,6 +18,8 @@
 #define COMMENT_LABEL_WIDTH 234.0f
 #define NO_COMMENT_CELL_HEIGHT 250.0f
 #define CELL_IMAGEVIEW_MAX_Y 35+10
+
+static UIImage *defaultAvatar;
 typedef NS_ENUM(NSUInteger, Direction){
     DirectionUp,
     DirectionDown,
@@ -55,19 +57,6 @@ typedef NS_ENUM(NSUInteger, Direction){
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    if (!leftSwipeGesture) {
-        leftSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-        leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-        [self.view addGestureRecognizer:leftSwipeGesture];
-    }
-    
-    if (!rightSwipeGesture) {
-        rightSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
-        rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-        [self.view addGestureRecognizer:rightSwipeGesture];
-    }
-    
     isLoading = YES;
 }
 
@@ -82,49 +71,46 @@ typedef NS_ENUM(NSUInteger, Direction){
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [self.view removeGestureRecognizer:leftSwipeGesture];
-    [self.view removeGestureRecognizer:rightSwipeGesture];
-    leftSwipeGesture = nil;
-    rightSwipeGesture = nil;
+    defaultAvatar = nil;
 }
 
--(void)handleSwipe:(UISwipeGestureRecognizer *)swipe{
-    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [self animateToDismissSelfWithDirection:DirectionLeft];
-    }else if (swipe.direction == UISwipeGestureRecognizerDirectionRight){
-        [self animateToDismissSelfWithDirection:DirectionRight];
-    }
-}
+//-(void)handleSwipe:(UISwipeGestureRecognizer *)swipe{
+//    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+//        [self animateToDismissSelfWithDirection:DirectionLeft];
+//    }else if (swipe.direction == UISwipeGestureRecognizerDirectionRight){
+//        [self animateToDismissSelfWithDirection:DirectionRight];
+//    }
+//}
 
--(void)animateToDismissSelfWithDirection:(Direction)direction{
-    [self.textView resignFirstResponder];
-    self.enterMessageContainerView.hidden = YES;
-    
-    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        
-        if (direction == DirectionUp) {
-            self.view.frame = CGRectMake(0, -self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-        }else if (direction == DirectionDown){
-            self.view.frame = CGRectMake(0, self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-        }else if(direction == DirectionLeft){
-            self.view.frame = CGRectMake(-self.view.frame.size.width,
-                                         self.view.frame.origin.y,
-                                         self.view.frame.size.width,
-                                         self.view.frame.size.height);
-        }else{
-            self.view.frame = CGRectMake(self.view.frame.size.width,
-                                         self.view.frame.origin.y,
-                                         self.view.frame.size.width,
-                                         self.view.frame.size.height);
-        }
-        
-        self.statusVC.shadowView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        self.enterMessageContainerView.hidden= NO;
-        isAnimating = NO;
-        self.statusVC.tableView.userInteractionEnabled = YES;
-    }];
-}
+//-(void)animateToDismissSelfWithDirection:(Direction)direction{
+//    [self.textView resignFirstResponder];
+//    self.enterMessageContainerView.hidden = YES;
+//    
+//    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        
+//        if (direction == DirectionUp) {
+//            self.view.frame = CGRectMake(0, -self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+//        }else if (direction == DirectionDown){
+//            self.view.frame = CGRectMake(0, self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+//        }else if(direction == DirectionLeft){
+//            self.view.frame = CGRectMake(-self.view.frame.size.width,
+//                                         self.view.frame.origin.y,
+//                                         self.view.frame.size.width,
+//                                         self.view.frame.size.height);
+//        }else{
+//            self.view.frame = CGRectMake(self.view.frame.size.width,
+//                                         self.view.frame.origin.y,
+//                                         self.view.frame.size.width,
+//                                         self.view.frame.size.height);
+//        }
+//        
+//        self.statusVC.shadowView.alpha = 0.0f;
+//    } completion:^(BOOL finished) {
+//        self.enterMessageContainerView.hidden= NO;
+//        isAnimating = NO;
+//        self.statusVC.tableView.userInteractionEnabled = YES;
+//    }];
+//}
 
 -(void)clearReference{
     self.statusTBCell = nil;
@@ -193,6 +179,8 @@ typedef NS_ENUM(NSUInteger, Direction){
     //create a new Comment object
     PFObject *object = [[PFObject alloc] initWithClassName:@"Comment"];
     object[@"senderUsername"]= [PFUser currentUser].username;
+    object[@"firstName"] = [[PFUser currentUser] objectForKey:@"firstName"];
+    object[@"lastName"] = [[PFUser currentUser] objectForKey:@"lastName"];
     object[@"contentString"] = self.textView.text;
     object[@"statusId"] = self.statusObjectId;
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -200,9 +188,12 @@ typedef NS_ENUM(NSUInteger, Direction){
             [object saveEventually];
         }
     }];
-    
     [self.dataSource addObject:object];
-    [self.tableView reloadData];
+    
+    //insert into table view
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     
     //clear out
     self.textView.text = nil;
@@ -281,27 +272,24 @@ typedef NS_ENUM(NSUInteger, Direction){
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[@"contentString"];
-        
+        cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[@"firstName"],comment[@"lastName"]];
         // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
-        BOOL isLocalCache = NO;
-#warning 
-//        cell.avatarImageView.image = [UIImage imageNamed:@"default-user-icon-profile.png"];
-//        UIImage *image = [Helper getLocalAvatarForUser:comment[@"senderUsername"] avatarType:AvatarTypeMid isHighRes:NO];
-//        if (image) {
-//            isLocalCache = YES;
-//            cell.avatarImageView.image = image;
-//        }else{
-//            if (tableView.isDecelerating == NO && tableView.isDragging == NO && cell.avatarImageView.image == nil) {
-//                [Helper getServerAvatarForUser:comment[@"senderUsername"] avatarType:AvatarTypeMid isHighRes:NO completion:^(NSError *error, UIImage *image) {
-//                    cell.avatarImageView.image = image;
-//                }];
-//            }
-//        }
-        
-//        [Helper getAvatarForUser:comment[@"senderUsername"] avatarType:AvatarTypeMid forImageView:cell.avatarImageView];
+        if (!defaultAvatar) {
+            defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
+        }
+        cell.avatarImageView.image = defaultAvatar;
+        UIImage *image = [Helper getLocalAvatarForUser:comment[@"senderUsername"] isHighRes:NO];
+        if (image) {
+            cell.avatarImageView.image = image;
+        }else{
+            if (tableView.isDecelerating == NO && tableView.isDragging == NO && cell.avatarImageView.image == nil) {
+                [Helper getServerAvatarForUser:comment[@"senderUsername"] isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                    cell.avatarImageView.image = image;
+                }];
+            }
+        }
         return cell;
     }
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -334,28 +322,28 @@ typedef NS_ENUM(NSUInteger, Direction){
 
 #pragma mark - UIScrollViewDelegate
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (!isAnimating && scrollView.contentOffset.y<0) {
-        isAnimating = YES;
-        //dismiss view
-        [self animateToDismissSelfWithDirection:DirectionDown];
-    }
-
-    if (!isAnimating && ((scrollView.contentSize.height<scrollView.frame.size.height && scrollView.contentOffset.y>0) ||
-        (scrollView.contentSize.height>=scrollView.frame.size.height && scrollView.contentOffset.y>scrollView.contentSize.height-scrollView.frame.size.height))) {
-        isAnimating = YES;
-        [self animateToDismissSelfWithDirection:DirectionUp];
-    }
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (!isAnimating && scrollView.contentOffset.y<0) {
+//        isAnimating = YES;
+//        //dismiss view
+//        [self animateToDismissSelfWithDirection:DirectionDown];
+//    }
+//
+//    if (!isAnimating && ((scrollView.contentSize.height<scrollView.frame.size.height && scrollView.contentOffset.y>0) ||
+//        (scrollView.contentSize.height>=scrollView.frame.size.height && scrollView.contentOffset.y>scrollView.contentSize.height-scrollView.frame.size.height))) {
+//        isAnimating = YES;
+//        [self animateToDismissSelfWithDirection:DirectionUp];
+//    }
+//}
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [self loadImagesForOnscreenRows];
+//    [self loadImagesForOnscreenRows];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (!decelerate)
 	{
-        [self loadImagesForOnscreenRows];
+//        [self loadImagesForOnscreenRows];
     }
 }
 
@@ -365,18 +353,19 @@ typedef NS_ENUM(NSUInteger, Direction){
         return;
     }
     NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-#warning
-//    for (NSIndexPath *indexPath in visiblePaths)
-//    {
-//        __block AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-//        PFObject *comment = self.dataSource[indexPath.row];
-//        BOOL avatar = [Helper isLocalAvatarExistForUser:comment[@"senderUsername"] avatarType:AvatarTypeMid isHighRes:NO];
-//        if (!avatar) {
-//            [Helper getServerAvatarForUser:comment[@"senderUsername"] avatarType:AvatarTypeMid isHighRes:NO completion:^(NSError *error, UIImage *image) {
-//                cell.avatarImageView.image = image;
-//            }];
-//        }
-//    }
+    
+    for (NSIndexPath *indexPath in visiblePaths)
+    {
+        __block AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        PFObject *comment = self.dataSource[indexPath.row];
+        BOOL avatar = [Helper isLocalAvatarExistForUser:comment[@"senderUsername"]  isHighRes:NO];
+        if (!avatar) {
+            [Helper getServerAvatarForUser:comment[@"senderUsername"] isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                cell.avatarImageView.image = image;
+            }];
+        }
+    }
 }
 
 -(void)scrollTextViewToShowCursor{

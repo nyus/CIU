@@ -11,10 +11,27 @@
 @end
 @implementation GenericTableViewController
 
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
+//    [self addRefreshControll];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self pullDataFromLocal];
     [self pullDataFromServer];
+}
+
+
+-(void)addRefreshControll{
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+}
+
+-(void)refreshControlTriggered:(UIRefreshControl *)sender{
+    //override by subclass
 }
 
 -(void)pullDataFromLocal{

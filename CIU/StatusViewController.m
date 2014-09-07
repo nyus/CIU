@@ -25,6 +25,7 @@
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
+static UIImage *defaultAvatar;
 @interface StatusViewController ()<UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>{
     
     StatusTableViewCell *cellToRevive;
@@ -49,6 +50,7 @@
 //    //add refresh control
     [self addRefreshControll];
     [self fetchStatusFromLocal];
+    [self fetchNewStatusWithCount:20 remainingTime:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -56,9 +58,6 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped:)];
     UITabBarController *tab=self.navigationController.viewControllers[0];
     tab.navigationItem.rightBarButtonItem = item;
-    
-    
-    [self fetchNewStatusWithCount:20 remainingTime:nil];
 }
 
 -(void)composeButtonTapped:(UIBarButtonItem *)sender{
@@ -206,7 +205,7 @@
     __block StatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
-//    cell.delegate = self;
+    cell.delegate = self;
     //pass a reference so in statusTableViewCell can use status.hash to access stuff
     //    cell.status = status;
     
@@ -229,7 +228,10 @@
     
     
     // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
-    cell.statusCellAvatarImageView.image = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    if (!defaultAvatar) {
+        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    }
+    cell.statusCellAvatarImageView.image = defaultAvatar;
     UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
     if (avatar) {
         cell.statusCellAvatarImageView.image = avatar;
@@ -335,6 +337,11 @@
         [self loadRemoteDataForVisibleCells];
     }
 }
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    StatusTableViewCell *cell = (StatusTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    [self commentButtonTappedOnCell:cell];
+//}
 
 -(void)loadRemoteDataForVisibleCells{
     for (StatusTableViewCell *cell in self.tableView.visibleCells) {
@@ -477,8 +484,10 @@
 
 -(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell{
     
-    [self swipeGestureRecognizedOnCell:cell];
-
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    StatusObject *status = self.dataSource[indexPath.row];
+    statusIdToPass = status.objectId;
+    [self performSegueWithIdentifier:@"toCommentView" sender:cell];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -504,7 +513,7 @@
 #pragma mark - UISegue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toCommentStatus"]){
+    if ([segue.identifier isEqualToString:@"toCommentView"]){
         CommentStatusViewController *vc = (CommentStatusViewController *)segue.destinationViewController;
         vc.statusObjectId = statusIdToPass;
     }
