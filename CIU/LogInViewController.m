@@ -52,13 +52,11 @@
         if (!user) {
             NSString *errorMessage = nil;
             if (!error) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
-                errorMessage = @"Uh oh. The user cancelled the Facebook login.";
+                errorMessage = @"You've cancelled the Facebook login.";
             } else {
-                NSLog(@"Uh oh. An error occurred: %@", error);
                 errorMessage = [error localizedDescription];
             }
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Log In Error"
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                             message:errorMessage
                                                            delegate:nil
                                                   cancelButtonTitle:nil
