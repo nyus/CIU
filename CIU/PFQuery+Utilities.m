@@ -26,7 +26,7 @@
 /*
  distance: unit is mile
  */
--(void)addBoundingCoordinatesToCenter:(CLLocationCoordinate2D)center withinDistance:(float)distance{
+-(void)addBoundingCoordinatesToCenter:(CLLocationCoordinate2D)center{
     MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
     [self addBoundingCoordinatesConstraintForRegion:region];
 }

@@ -2,7 +2,7 @@
 //  StatusObject.m
 //  CIU
 //
-//  Created by Sihang on 9/2/14.
+//  Created by Sihang on 9/3/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -18,9 +18,9 @@
 @dynamic message;
 @dynamic objectId;
 @dynamic photoCount;
+@dynamic photoID;
 @dynamic picture;
 @dynamic posterUsername;
 @dynamic statusCellHeight;
-@dynamic photoID;
 
 @end

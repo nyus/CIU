@@ -256,17 +256,18 @@
             newStatus[@"posterUsername"] = [[PFUser currentUser] username];
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
-            NSNumber *photoID;
+            NSString *photoID;
             if (collectionViewDataSource.count!=0) {
-                photoID = [NSNumber numberWithFloat:self.textView.text.hash];
+                photoID =[NSString stringWithFormat:@"%d",self.textView.text.hash];
                 newStatus[@"photoID"] = photoID;
             }
-            //save to parse
+            //save to parse and local
             [newStatus saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     
                     //picture
                     for(UIImage *image in collectionViewDataSource){
+                        
                         UIImage *scaled = [Helper scaleImage:image downToSize:CGSizeMake(CELL_IMAGEVIEW_SIZE_WIDTH, CELL_IMAGEVIEW_SIZE_HEIGHT)];
                         PFFile *photo = [PFFile fileWithData:UIImagePNGRepresentation(scaled)];
                         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -274,6 +275,7 @@
                                 PFObject *object = [[PFObject alloc] initWithClassName:@"Photo"];
                                 [object setObject:photoID forKey:@"photoID"];
                                 [object setObject:photo forKey:@"image"];
+                                [object setObject:@NO forKey:@"isHighRes"];
                                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                     if (!succeeded) {
                                         [object saveEventually];

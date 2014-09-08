@@ -242,16 +242,14 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     
     if (self.pfQuery) {
         [self.pfQuery cancel];
-        NSLog(@"cancel query:%@",self.query);
         self.pfQuery = nil;
     }
     
     __block LifestyleDetailViewController *weakSelf = self;
     
     self.pfQuery = [[PFQuery alloc] initWithClassName:self.categoryName];
-    NSLog(@"launch query:%@",self.query);
     [self.pfQuery orderByDescending:@"name"];
-    [self.pfQuery addBoundingCoordinatesToCenter:center withinDistance:5];
+    [self.pfQuery addBoundingCoordinatesToCenter:center];
     self.pfQuery.limit = 20;
     self.pfQuery.skip = self.tableViewDataSource.count;
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

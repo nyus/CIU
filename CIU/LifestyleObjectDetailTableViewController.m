@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     [self buildDataSource];
+    [self syncWithServer];
 }
 
 -(void)syncWithServer{
@@ -78,6 +79,7 @@
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.introduction,@"Introduction", nil];
         [self.dataSource addObject:dict];
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
