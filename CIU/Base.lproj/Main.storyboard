@@ -443,7 +443,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" rowHeight="55" id="qW7-e3-13v" customClass="EventTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Event Name" rowHeight="55" id="qW7-e3-13v" customClass="EventTableViewCell">
                                         <rect key="frame" x="0.0" y="86" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qW7-e3-13v" id="UV2-gW-0az">
@@ -465,8 +465,31 @@
                                             <outlet property="nameTextField" destination="FgN-bC-ZQu" id="dVv-LZ-MUo"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="descriptionCell" rowHeight="175" id="qAQ-OJ-Iae" customClass="EventTableViewCell">
-                                        <rect key="frame" x="0.0" y="141" width="320" height="175"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Event Location" rowHeight="55" id="1o5-gu-QJt" customClass="EventTableViewCell">
+                                        <rect key="frame" x="0.0" y="141" width="320" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1o5-gu-QJt" id="6Wi-5f-c0m">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-Pq-1lZ">
+                                                    <rect key="frame" x="20" y="10" width="280" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="locationTextFieldChanged:" destination="1o5-gu-QJt" eventType="editingDidEnd" id="bm5-LU-ZE7"/>
+                                                        <action selector="nameTextFieldChanged:" destination="1o5-gu-QJt" eventType="editingChanged" id="pFY-Gf-F1Y"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameTextField" destination="Vtg-Pq-1lZ" id="18D-fe-cqy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Event Description" rowHeight="175" id="qAQ-OJ-Iae" customClass="EventTableViewCell">
+                                        <rect key="frame" x="0.0" y="196" width="320" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qAQ-OJ-Iae" id="lVd-cG-n0Q">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
@@ -485,8 +508,8 @@
                                             <outlet property="descriptionTextView" destination="TFP-RI-fz3" id="3v8-dn-dto"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timeCell" rowHeight="190" id="Ojq-ke-Gq0" customClass="EventTableViewCell">
-                                        <rect key="frame" x="0.0" y="316" width="320" height="190"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Event Date and Time" rowHeight="190" id="Ojq-ke-Gq0" customClass="EventTableViewCell">
+                                        <rect key="frame" x="0.0" y="371" width="320" height="190"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ojq-ke-Gq0" id="vpZ-Al-JdT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>

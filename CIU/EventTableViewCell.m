@@ -32,6 +32,9 @@
 - (IBAction)nameTextFieldChanged:(id)sender {
     [self.delegate nameTextFieldEdited:sender];
 }
+- (IBAction)locationTextFieldChanged:(id)sender {
+    [self.delegate locationTextFieldChanged:sender];
+}
 
 -(void)textViewDidChange:(UITextView *)textView{
     [self.delegate descriptionTextViewEdidited:textView];

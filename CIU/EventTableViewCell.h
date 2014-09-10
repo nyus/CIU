@@ -11,6 +11,7 @@
 -(void)nameTextFieldEdited:(UITextField *)textField;
 -(void)descriptionTextViewEdidited:(UITextView *)textView;
 -(void)datePickerValueChanged:(UIDatePicker *)datePicker;
+-(void)locationTextFieldChanged:(UITextField *)textField;
 @end
 
 @interface EventTableViewCell : UITableViewCell
