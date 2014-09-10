@@ -415,7 +415,7 @@ static UIImage *defaultAvatar;
             }
         }
     }];
-    
+       
     return query;
 }
 
