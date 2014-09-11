@@ -17,12 +17,12 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *textPhotoSeparatorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UISwitch *revivableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopSpacingConstraint;
 - (IBAction)attachPhotoButtonTapped:(id)sender;
 - (IBAction)setTimeButtonTapped:(id)sender;
 - (IBAction)sendButtonTapped:(id)sender;
 - (IBAction)cancelButtonTapped:(id)sender;
-- (IBAction)revivableSwitchChanged:(id)sender;
+- (IBAction)anonymousSwitchChanged:(id)sender;
 
 @end

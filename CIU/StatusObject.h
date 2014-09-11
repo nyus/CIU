@@ -2,7 +2,7 @@
 //  StatusObject.h
 //  CIU
 //
-//  Created by Sihang on 9/3/14.
+//  Created by Huang, Jason on 9/11/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -23,5 +23,6 @@
 @property (nonatomic, retain) NSString * picture;
 @property (nonatomic, retain) NSString * posterUsername;
 @property (nonatomic, retain) NSNumber * statusCellHeight;
+@property (nonatomic, retain) NSNumber * anonymous;
 
 @end

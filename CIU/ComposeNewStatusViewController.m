@@ -256,6 +256,7 @@
             newStatus[@"posterUsername"] = [[PFUser currentUser] username];
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
+            newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
             NSString *photoID;
             if (collectionViewDataSource.count!=0) {
                 photoID =[NSString stringWithFormat:@"%d",self.textView.text.hash];
@@ -296,7 +297,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)revivableSwitchChanged:(id)sender {
+- (IBAction)anonymousSwitchChanged:(id)sender {
+    
 }
 
 #pragma mark - UIActionSheetDelegate

@@ -36,7 +36,6 @@
 		5044A12719B22632007C1200 /* 29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12419B22632007C1200 /* 29.png */; };
 		50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 50675BC019B41F8A00845CD9 /* fbLogin.png */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
-		507A679E19B7CB690022C2B9 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A679D19B7CB690022C2B9 /* StatusObject.m */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
 		507F2F7019BB46BB00E8275F /* surprise28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6F19BB46BB00E8275F /* surprise28.png */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
@@ -98,6 +97,7 @@
 		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
 		65D93E4E19C230660044A48A /* 8miletechlogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4D19C230660044A48A /* 8miletechlogo.jpg */; };
 		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
+		65D93E5719C242840044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5619C242840044A48A /* StatusObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,8 +153,6 @@
 		5044A12419B22632007C1200 /* 29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29.png; sourceTree = "<group>"; };
 		50675BC019B41F8A00845CD9 /* fbLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogin.png; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		507A679C19B7CB690022C2B9 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
-		507A679D19B7CB690022C2B9 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
 		507F2F6F19BB46BB00E8275F /* surprise28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surprise28.png; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
@@ -255,6 +253,8 @@
 		65D93E4D19C230660044A48A /* 8miletechlogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 8miletechlogo.jpg; path = ../../Desktop/8miletechlogo.jpg; sourceTree = "<group>"; };
 		65D93E5219C239170044A48A /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		65D93E5519C242840044A48A /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
+		65D93E5619C242840044A48A /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,14 +399,14 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				65D93E5519C242840044A48A /* StatusObject.h */,
+				65D93E5619C242840044A48A /* StatusObject.m */,
 				65D93E4D19C230660044A48A /* 8miletechlogo.jpg */,
 				65D93E4B19C22F510044A48A /* aboutus_image.jpg */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
 				507F2F6F19BB46BB00E8275F /* surprise28.png */,
 				507F2F6D19BB46AF00E8275F /* event28.png */,
-				507A679C19B7CB690022C2B9 /* StatusObject.h */,
-				507A679D19B7CB690022C2B9 /* StatusObject.m */,
 				50675BC019B41F8A00845CD9 /* fbLogin.png */,
 				5044A12219B22632007C1200 /* 60.png */,
 				5044A12319B22632007C1200 /* 40.png */,
@@ -678,7 +678,6 @@
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				65C4F0B719AFB201004452C3 /* StatusViewController.m in Sources */,
-				507A679E19B7CB690022C2B9 /* StatusObject.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
@@ -694,6 +693,7 @@
 				65C4F0D719AFBAFB004452C3 /* Status.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
+				65D93E5719C242840044A48A /* StatusObject.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,

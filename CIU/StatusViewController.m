@@ -148,6 +148,7 @@ static UIImage *defaultAvatar;
                 status.commentCount = pfObject[@"commentCount"];
                 status.photoCount = pfObject[@"photoCount"];
                 status.photoID = pfObject[@"photoID"];
+                status.anonymous = pfObject[@"anonymous"];
                 [temp addObject:status];
                 
                 NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
@@ -213,9 +214,13 @@ static UIImage *defaultAvatar;
     cell.statusCellMessageLabel.text = status.message;
     
     //username
-    cell.statusCellUsernameLabel.text = status.posterUsername;
-    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
-    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
+    if (status.anonymous.boolValue) {
+        cell.statusCellUsernameLabel.text = @"Anonymous";
+    }else{
+        cell.statusCellUsernameLabel.text = status.posterUsername;
+    }
+//    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
+//    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
     
     //cell date
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -226,25 +231,27 @@ static UIImage *defaultAvatar;
     //comment count
     cell.commentCountLabel.text = status.commentCount.stringValue;
     
-    
     // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
     if (!defaultAvatar) {
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     cell.statusCellAvatarImageView.image = defaultAvatar;
-    UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
-    if (avatar) {
-        cell.statusCellAvatarImageView.image = avatar;
-    }else{
-        if (tableView.isDecelerating == NO && tableView.isDragging == NO) {
-           PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                cell.statusCellAvatarImageView.image = image;
-            }];
-            
-            if(!self.avatarQueries){
-                self.avatarQueries = [NSMutableDictionary dictionary];
+    
+    if (!status.anonymous.boolValue) {
+        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
+        if (avatar) {
+            cell.statusCellAvatarImageView.image = avatar;
+        }else{
+            if (tableView.isDecelerating == NO && tableView.isDragging == NO) {
+                PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                    cell.statusCellAvatarImageView.image = image;
+                }];
+                
+                if(!self.avatarQueries){
+                    self.avatarQueries = [NSMutableDictionary dictionary];
+                }
+                [self.avatarQueries setObject:query forKey:indexPath];
             }
-            [self.avatarQueries setObject:query forKey:indexPath];
         }
     }
     
