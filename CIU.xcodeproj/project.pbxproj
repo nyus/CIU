@@ -97,6 +97,7 @@
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
 		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
 		65D93E4E19C230660044A48A /* 8miletechlogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4D19C230660044A48A /* 8miletechlogo.jpg */; };
+		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +253,8 @@
 		65C4F11119AFBD53004452C3 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		65D93E4B19C22F510044A48A /* aboutus_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = aboutus_image.jpg; path = ../../Desktop/aboutus_image.jpg; sourceTree = "<group>"; };
 		65D93E4D19C230660044A48A /* 8miletechlogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 8miletechlogo.jpg; path = ../../Desktop/8miletechlogo.jpg; sourceTree = "<group>"; };
+		65D93E5219C239170044A48A /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
+		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +459,8 @@
 		652BAB86199D3CCA009F5F5A /* CIU */ = {
 			isa = PBXGroup;
 			children = (
+				65D93E5219C239170044A48A /* AboutUsViewController.h */,
+				65D93E5319C239170044A48A /* AboutUsViewController.m */,
 				65C4F0E719AFBBEA004452C3 /* ELCImagePicker */,
 				5092160F19AA479B00304EDD /* Classes */,
 				50B28C5019A8FA2100398BA4 /* Category */,
@@ -695,6 +700,7 @@
 				503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */,
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
 				503AF35A19BC97F10023EC02 /* Event.m in Sources */,
+				65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* StatusTableViewCell.m in Sources */,
 				5092161519AA58E900304EDD /* LifestyleObject.m in Sources */,
