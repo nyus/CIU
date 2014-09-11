@@ -148,7 +148,8 @@ NS_ENUM(NSUInteger, SideBarStatus){
     }
     //About CIU
     else if (indexPath.row == 1){
-        
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"aboutus"];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     //Rate CIU
     else if (indexPath.row == 2){

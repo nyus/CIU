@@ -95,6 +95,8 @@
 		65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */; };
 		65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10E19AFBD21004452C3 /* LogInViewController.m */; };
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
+		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
+		65D93E4E19C230660044A48A /* 8miletechlogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4D19C230660044A48A /* 8miletechlogo.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +250,8 @@
 		65C4F10E19AFBD21004452C3 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		65C4F11019AFBD53004452C3 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		65C4F11119AFBD53004452C3 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		65D93E4B19C22F510044A48A /* aboutus_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = aboutus_image.jpg; path = ../../Desktop/aboutus_image.jpg; sourceTree = "<group>"; };
+		65D93E4D19C230660044A48A /* 8miletechlogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 8miletechlogo.jpg; path = ../../Desktop/8miletechlogo.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +396,8 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				65D93E4D19C230660044A48A /* 8miletechlogo.jpg */,
+				65D93E4B19C22F510044A48A /* aboutus_image.jpg */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
 				507F2F6F19BB46BB00E8275F /* surprise28.png */,
@@ -622,8 +628,10 @@
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
 				50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */,
 				5044A12619B22632007C1200 /* 40.png in Resources */,
+				65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */,
 				65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */,
 				65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */,
+				65D93E4E19C230660044A48A /* 8miletechlogo.jpg in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
 				65C4F0FF19AFBBEA004452C3 /* ELCAlbumPickerController.xib in Resources */,
 				652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */,

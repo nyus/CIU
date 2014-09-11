@@ -110,6 +110,203 @@
             </objects>
             <point key="canvasLocation" x="118" y="25"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="NPU-SB-DHA">
+            <objects>
+                <viewController id="XbT-pN-baN" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rk4-Ka-fyb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Tw-ZU-JoD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="481"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="920"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="aboutus_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
+                                                <rect key="frame" x="10" y="20" width="300" height="178"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                                <rect key="frame" x="18" y="206" width="285" height="155"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Chinese in USA (CIU)">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=", ">
+                                                        <attributes>
+                                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">the best Chinese lifestyle application for your mobile devices in USA – All in your palm of your hand. Whether you are looking for a authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is you best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
+                                                        <attributes>
+                                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="8miletechlogo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
+                                                <rect key="frame" x="103" y="376" width="115" height="61"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                                <rect key="frame" x="10" y="450" width="300" height="347"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="8Mile Tech">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <mutableString key="content"> team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off. 
+</mutableString>
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Our mission">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <mutableString key="content"> is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</mutableString>
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <mutableString key="userLabel">Label - 8Mile Tech team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off.  Our mission is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</mutableString>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl">
+                                                <rect key="frame" x="20" y="807" width="280" height="200"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="General contact:">
+                                                        <attributes>
+                                                            <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">Info@8MileTech.com
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Technology Inquiry: ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">Sihang@8MileTech.com
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Business Inquiry:">
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" Ronan@8miletech.com ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Job Application:">
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" Jobs@8MileTech.com">
+                                                        <attributes>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="920" id="6HZ-ut-6KB"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="96V-EO-T14"/>
+                                    <constraint firstAttribute="bottom" secondItem="utY-MJ-PRu" secondAttribute="bottom" id="TQG-Y7-yIu"/>
+                                    <constraint firstAttribute="trailing" secondItem="utY-MJ-PRu" secondAttribute="trailing" id="Unh-ky-tET"/>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="top" secondItem="N7J-qZ-UaZ" secondAttribute="top" id="bzv-Y0-P7j"/>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="leading" secondItem="N7J-qZ-UaZ" secondAttribute="leading" id="zLe-dY-qDz"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="top" secondItem="8Tw-ZU-JoD" secondAttribute="top" id="nxr-dL-QFD"/>
+                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="leading" secondItem="8Tw-ZU-JoD" secondAttribute="leading" id="qMm-Tj-ycm"/>
+                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="centerY" secondItem="8Tw-ZU-JoD" secondAttribute="centerY" id="qsN-8s-cPr"/>
+                            <constraint firstAttribute="trailing" secondItem="N7J-qZ-UaZ" secondAttribute="trailing" id="zsk-Qz-xWW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nbU-S9-33w">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="cy5-RZ-ooz"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="678" y="624"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="UzB-rm-fx4">
             <objects>
@@ -809,7 +1006,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Vx-Ri-TUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="822"/>
+            <point key="canvasLocation" x="1966" y="822"/>
         </scene>
         <!--Compose New Status View Controller - Compose-->
         <scene sceneID="bd3-1m-REd">
@@ -1472,9 +1669,29 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1969" y="-270"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Whe-cu-xkF">
+            <objects>
+                <navigationController storyboardIdentifier="aboutus" id="rkr-DL-D5g" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dED-cD-m7O">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XbT-pN-baN" kind="relationship" relationship="rootViewController" id="4Vx-b2-Z4L"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bn4-ot-mYS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="273" y="624"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="8miletechlogo.jpg" width="1089" height="486"/>
         <image name="CIUapp_icon.png" width="500" height="500"/>
+        <image name="aboutus_image.jpg" width="300" height="178"/>
         <image name="camera.png" width="256" height="256"/>
         <image name="comment_icon.png" width="30" height="30"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
