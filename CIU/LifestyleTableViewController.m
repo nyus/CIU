@@ -219,7 +219,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     LifestyleCategory *category = self.dataSource[indexPath.row];
     LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
-    vc.categoryName = category.name;
+    //delete the white spaces
+    vc.categoryName = [category.name stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 @end
