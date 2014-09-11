@@ -46,11 +46,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -67,6 +68,11 @@
 //    [UIView animateWithDuration:.3 animations:^{
         [self.view layoutIfNeeded];
 //    }];
+}
+
+-(void)handleKeyboardWillHide:(NSNotification *)notification{
+    self.tableviewBottomSpaceToBottomLayoutConstraint.constant =0;
+    [self.view layoutIfNeeded];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -100,24 +106,16 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.translatesAutoresizingMaskIntoConstraints = NO;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        
-        //to self
-        NSArray *width = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[label(%d)]",(int)tableView.frame.size.width-40] options:0 metrics:nil views:@{@"label":cell.textLabel}];
-        [cell addConstraints:width];
-        
-        //to parent
-        NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[label]" options:0 metrics:nil views:@{@"label":cell.textLabel}];
-        NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[label]" options:0 metrics:nil views:@{@"label":cell.textLabel}];
-        [cell.contentView addConstraints:horizontal];
-        [cell.contentView addConstraints:vertical];
-        
+        cell.textLabel.numberOfLines = 5;//this will make the cell textlabel to accomondate text
         cell.textLabel.text = self.optionsTBViewDatasource[indexPath.row];
-
         return cell;
     }else{
         EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.dataSource[indexPath.section] forIndexPath:indexPath];
         if (indexPath.section == 0) {
-            [cell.nameTextField becomeFirstResponder];
+            //this is because when we show options tb view, we first dismiss keyboard, then call layout if needed, and tableview gets reloaded, so keyboard will come up again.
+            if(self.optionsTBViewShadow.alpha==0.0f){
+                [cell.nameTextField becomeFirstResponder];
+            }
         }else if (indexPath.section == 1){
             
             
@@ -191,14 +189,14 @@
         //verify location
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-            if (!error) {
+            if (!error && placemarks.count>0) {
                 
                 if (!self.optionsTBViewShadow) {
                     self.optionsTBViewShadow = [[UIView alloc] initWithFrame:self.view.frame];
                     self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
                     self.optionsTBViewShadow.alpha = 0.7f;
                     [self.optionsTBViewShadow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)]];
-                    self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(100, 200, 200, 200) style:UITableViewStylePlain];
+                    self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2-100, 280, 200) style:UITableViewStylePlain];
                     self.optionsTBView.delegate = self;
                     self.optionsTBView.dataSource = self;
                     [self.optionsTBViewShadow addSubview:self.optionsTBView];
@@ -214,12 +212,15 @@
                     NSDictionary *dict = placeMark.addressDictionary;
                     NSMutableString *text = [[NSMutableString alloc] init];
                     for (NSString *string in dict[@"FormattedAddressLines"]) {
-                        [text stringByAppendingString:string];
+                        [text appendString:string];
                     }
                     [self.optionsTBViewDatasource addObject:text];
                 }
                 [self.optionsTBView reloadData];
                 
+                //dismiss keyboard
+                [self.view endEditing:YES];
+                //bring up table view
                 [UIView animateWithDuration:.3 animations:^{
                     self.optionsTBViewShadow.alpha = 1.0f;
                 }];
@@ -260,6 +261,12 @@
                 });
             }
         }];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView==self.optionsTBView) {
+        
     }
 }
 
