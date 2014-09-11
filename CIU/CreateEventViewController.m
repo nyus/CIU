@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableviewBottomSpaceToBottomLayoutConstraint;
 @property (strong, nonatomic) NSArray *dataSource;
+@property (strong, nonatomic) NSMutableArray *optionsTBViewDatasource;
+@property (strong, nonatomic) UITableView *optionsTBView;
+@property (strong, nonatomic) UIView *optionsTBViewShadow;
 @end
 
 @implementation CreateEventViewController
@@ -37,7 +40,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.dataSource = [NSArray arrayWithObjects:@"Event Name",@"Event Location",@"Event Date and Time",@"Event Description", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"Event Name",@"Event Location",@"Event Description",@"Event Date and Time", nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -67,50 +70,86 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataSource.count;
+    if (tableView==self.optionsTBView) {
+        return 1;
+    }else{
+        return self.dataSource.count;
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    if (tableView==self.optionsTBView) {
+        return self.optionsTBViewDatasource.count;
+    }else{
+        return 1;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return self.dataSource[section];
+    if (tableView==self.optionsTBView) {
+        return @"Did you mean?";
+    }else{
+        return self.dataSource[section];
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    static NSString *nameCell = @"Event Name";
-//    static NSString *descriptionCell = @"Event Description";
-//    static NSString *timeCell = @"Event Date and Time";
-//    static NSString *whereCell = @"Event Location";
-    EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.dataSource[indexPath.section] forIndexPath:indexPath];
-    if (indexPath.section == 0) {
-        [cell.nameTextField becomeFirstResponder];
-    }else if (indexPath.section == 1){
+
+    if (tableView==self.optionsTBView) {
+    
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.translatesAutoresizingMaskIntoConstraints = NO;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
         
+        //to self
+        NSArray *width = [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[label(%d)]",(int)tableView.frame.size.width-40] options:0 metrics:nil views:@{@"label":cell.textLabel}];
+        [cell addConstraints:width];
         
-    }else if (indexPath.section == 2){
-        cell.descriptionTextView.layer.cornerRadius = 3.0f;
-        cell.descriptionTextView.layer.borderWidth = 0.5f;
-        cell.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        //to parent
+        NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[label]" options:0 metrics:nil views:@{@"label":cell.textLabel}];
+        NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[label]" options:0 metrics:nil views:@{@"label":cell.textLabel}];
+        [cell.contentView addConstraints:horizontal];
+        [cell.contentView addConstraints:vertical];
+        
+        cell.textLabel.text = self.optionsTBViewDatasource[indexPath.row];
+
+        return cell;
     }else{
+        EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.dataSource[indexPath.section] forIndexPath:indexPath];
+        if (indexPath.section == 0) {
+            [cell.nameTextField becomeFirstResponder];
+        }else if (indexPath.section == 1){
+            
+            
+        }else if (indexPath.section == 2){
+            cell.descriptionTextView.layer.cornerRadius = 3.0f;
+            cell.descriptionTextView.layer.borderWidth = 0.5f;
+            cell.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        }else{
+            
+            cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            cell.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:15552000];//half a year from now
+        }
         
-        cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:0];
-        cell.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:15552000];//half a year from now
+        cell.delegate = self;
+        
+        return cell;
     }
-    
-    cell.delegate = self;
-    
-    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0 || indexPath.section == 1) {
-        return 55.0f;
-    }else if (indexPath.section == 2){
-        return 175.0f;
+    if (tableView==self.optionsTBView) {
+        NSString *string = self.optionsTBViewDatasource[indexPath.row];
+        CGRect rect = [string boundingRectWithSize:CGSizeMake(tableView.frame.size.width-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:NULL];
+        return rect.size.height + 20;
     }else{
-        return 190.0f;
+        if (indexPath.section==0 || indexPath.section == 1) {
+            return 55.0f;
+        }else if (indexPath.section == 2){
+            return 175.0f;
+        }else{
+            return 190.0f;
+        }
     }
 }
 
@@ -123,32 +162,67 @@
     if (![Reachability canReachInternet]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like you do not have internet access. Please try again later." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     if (!eventName){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event name!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event name!" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     if(!eventDate){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event date." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event date." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     if(!eventContent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please tell us a bit more about the event." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please tell us a bit more about the event." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }
     
     if (!eventLocation) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify the location of the event." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify the location of the event." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
+        return;
     }else{
         //verify location
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             if (!error) {
                 
+                if (!self.optionsTBViewShadow) {
+                    self.optionsTBViewShadow = [[UIView alloc] initWithFrame:self.view.frame];
+                    self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
+                    self.optionsTBViewShadow.alpha = 0.7f;
+                    [self.optionsTBViewShadow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)]];
+                    self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(100, 200, 200, 200) style:UITableViewStylePlain];
+                    self.optionsTBView.delegate = self;
+                    self.optionsTBView.dataSource = self;
+                    [self.optionsTBViewShadow addSubview:self.optionsTBView];
+                    [self.view addSubview:self.optionsTBViewShadow];
+                }
+                if (self.optionsTBViewDatasource) {
+                    
+                    self.optionsTBViewDatasource = nil;
+                }
+                
+                self.optionsTBViewDatasource = [NSMutableArray array];
+                for (CLPlacemark *placeMark in placemarks) {
+                    NSDictionary *dict = placeMark.addressDictionary;
+                    NSMutableString *text = [[NSMutableString alloc] init];
+                    for (NSString *string in dict[@"FormattedAddressLines"]) {
+                        [text stringByAppendingString:string];
+                    }
+                    [self.optionsTBViewDatasource addObject:text];
+                }
+                [self.optionsTBView reloadData];
+                
+                [UIView animateWithDuration:.3 animations:^{
+                    self.optionsTBViewShadow.alpha = 1.0f;
+                }];
                 
 //                CLPlacemark *placemark =
 //                CLLocation *location = [placemarks[0] location];
@@ -181,12 +255,18 @@
 //                }];
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like the event location is invalid. Please double check." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like the event location is invalid. Please check again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                     [alert show];
                 });
             }
         }];
     }
+}
+
+-(void)handleTapOnOptionsTableViewShadow{
+    [UIView animateWithDuration:.3 animations:^{
+        self.optionsTBViewShadow.alpha = 0.0f;
+    }];
 }
 
 -(void)dismissSelf{
