@@ -99,6 +99,7 @@
 		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
 		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
 		65D93E5719C242840044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5619C242840044A48A /* StatusObject.m */; };
+		65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5919C358DE0044A48A /* NSString+Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,6 +259,8 @@
 		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		65D93E5519C242840044A48A /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
 		65D93E5619C242840044A48A /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
+		65D93E5819C358DE0044A48A /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
+		65D93E5919C358DE0044A48A /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +400,8 @@
 				50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */,
 				503AF34C19BB6D660023EC02 /* Event+Utilities.h */,
 				503AF34D19BB6D660023EC02 /* Event+Utilities.m */,
+				65D93E5819C358DE0044A48A /* NSString+Utilities.h */,
+				65D93E5919C358DE0044A48A /* NSString+Utilities.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -697,6 +702,7 @@
 				65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */,
 				65C4F0D719AFBAFB004452C3 /* Status.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
+				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				65D93E5719C242840044A48A /* StatusObject.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,

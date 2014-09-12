@@ -16,6 +16,7 @@
 #import "ELCAlbumPickerController.h"
 #import "ELCAssetTablePicker.h"
 #import "Helper.h"
+#import "NSString+Utilities.h"
 
 #define CELL_IMAGEVIEW_SIZE_HEIGHT 204.0f
 #define CELL_IMAGEVIEW_SIZE_WIDTH 280.0f
@@ -259,7 +260,7 @@
             newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
             NSString *photoID;
             if (collectionViewDataSource.count!=0) {
-                photoID =[NSString stringWithFormat:@"%d",self.textView.text.hash];
+                photoID =[NSString generateUniqueId];
                 newStatus[@"photoID"] = photoID;
             }
             //save to parse and local

@@ -401,7 +401,7 @@ static UIImage *defaultAvatar;
                 cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             }
             
-            static int index = 0;
+            __block int index = status.photoCount.intValue-1;
             for (PFObject *photoObject in objects) {
                 PFFile *image = photoObject[@"image"];
                 [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -409,8 +409,11 @@ static UIImage *defaultAvatar;
                         
                         UIImage *image = [UIImage imageWithData:data];
 #warning only support low res photo for now. in the future when the user can tap to see high res photos, we add support for high res
-                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:[NSString stringWithFormat:@"%@%d",status.photoID,index] isHighRes:NO];
-                        index++;
+                        NSString *name = [NSString stringWithFormat:@"%@%d",status.photoID,index];
+                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
+                        index--;
+                        NSLog(@"name is %@",name);
+                        
                         if (!cell.collectionViewImagesArray) {
                             cell.collectionViewImagesArray = [NSMutableArray array];
                         }

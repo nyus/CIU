@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSMutableArray *optionsTBViewDatasource;
 @property (strong, nonatomic) UITableView *optionsTBView;
 @property (strong, nonatomic) HitTestView *optionsTBViewShadow;
+@property (strong, nonatomic) NSArray *placeMarksArray;
+@property (strong, nonatomic) NSIndexPath *selectedPlaceMarkIndexPath;
 @property (nonatomic) BOOL locationValidated;
 @end
 
@@ -191,35 +193,34 @@
         
         if (self.locationValidated) {
                 //publish
-                CLPlacemark *placemark =
-                CLLocation *location = [placemarks[0] location];
+            CLPlacemark *placemark = self.placeMarksArray[self.selectedPlaceMarkIndexPath.row];
+            CLLocation *location = placemark.location;
+            PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
+            [event setObject:eventName forKey:@"eventName"];
+            [event setObject:eventContent forKey:@"eventContent"];
+            [event setObject:eventDate forKey:@"eventDate"];
+            [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
+            [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
+            [event setObject:eventLocation forKey:@"eventLocation"];
+            [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
+            [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
+            [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
+            [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
 
-                PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
-                [event setObject:eventName forKey:@"eventName"];
-                [event setObject:eventContent forKey:@"eventContent"];
-                [event setObject:eventDate forKey:@"eventDate"];
-                [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
-                [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
-                [event setObject:eventLocation forKey:@"eventLocation"];
-                [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
-                [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
-                [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
-                [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [alert show];
+                        [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:.2];
+                    });
+                }else{
 
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                            [alert show];
-                            [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:.2];
-                        });
-                    }else{
-
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                            [alert show];
-                        });
-                    }
-                }];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [alert show];
+                    });
+                }
+            }];
         }else{
             //verify location
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
@@ -240,11 +241,11 @@
                         [self.optionsTBViewShadow addSubview:self.optionsTBView];
                         [self.view addSubview:self.optionsTBViewShadow];
                     }
+                    
                     if (self.optionsTBViewDatasource) {
-                        
                         self.optionsTBViewDatasource = nil;
                     }
-                    
+                    self.placeMarksArray = placemarks;
                     self.optionsTBViewDatasource = [NSMutableArray array];
                     for (CLPlacemark *placeMark in placemarks) {
                         NSDictionary *dict = placeMark.addressDictionary;
@@ -277,6 +278,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView==self.optionsTBView) {
         self.locationValidated = YES;
+        self.selectedPlaceMarkIndexPath = indexPath;
         EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
         [self hideOptionsTBViewShadow];
