@@ -10,6 +10,7 @@
 #import "EventTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
+#import "HitTestView.h"
 @interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
     NSString *eventContent;
@@ -22,7 +23,8 @@
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *optionsTBViewDatasource;
 @property (strong, nonatomic) UITableView *optionsTBView;
-@property (strong, nonatomic) UIView *optionsTBViewShadow;
+@property (strong, nonatomic) HitTestView *optionsTBViewShadow;
+@property (nonatomic) BOOL locationValidated;
 @end
 
 @implementation CreateEventViewController
@@ -186,101 +188,130 @@
         [alert show];
         return;
     }else{
-        //verify location
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-            if (!error && placemarks.count>0) {
-                
-                if (!self.optionsTBViewShadow) {
-                    self.optionsTBViewShadow = [[UIView alloc] initWithFrame:self.view.frame];
-                    self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
-                    self.optionsTBViewShadow.alpha = 0.7f;
-//                    [self.optionsTBViewShadow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)]];
-                    self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2-100, 280, 200) style:UITableViewStylePlain];
-                    self.optionsTBView.delegate = self;
-                    self.optionsTBView.dataSource = self;
-                    [self.optionsTBViewShadow addSubview:self.optionsTBView];
-                    [self.view addSubview:self.optionsTBViewShadow];
-                }
-                if (self.optionsTBViewDatasource) {
-                    
-                    self.optionsTBViewDatasource = nil;
-                }
-                
-                self.optionsTBViewDatasource = [NSMutableArray array];
-                for (CLPlacemark *placeMark in placemarks) {
-                    NSDictionary *dict = placeMark.addressDictionary;
-                    NSMutableString *text = [[NSMutableString alloc] init];
-                    for (NSString *string in dict[@"FormattedAddressLines"]) {
-                        [text appendString:string];
+        
+        if (self.locationValidated) {
+                //publish
+                CLPlacemark *placemark =
+                CLLocation *location = [placemarks[0] location];
+
+                PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
+                [event setObject:eventName forKey:@"eventName"];
+                [event setObject:eventContent forKey:@"eventContent"];
+                [event setObject:eventDate forKey:@"eventDate"];
+                [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
+                [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
+                [event setObject:eventLocation forKey:@"eventLocation"];
+                [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
+                [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
+                [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
+                [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                            [alert show];
+                            [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:.2];
+                        });
+                    }else{
+
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                            [alert show];
+                        });
                     }
-                    [self.optionsTBViewDatasource addObject:text];
-                }
-                [self.optionsTBView reloadData];
-                
-                //dismiss keyboard
-                [self.view endEditing:YES];
-                //bring up table view
-                [UIView animateWithDuration:.3 animations:^{
-                    self.optionsTBViewShadow.alpha = 1.0f;
                 }];
-                
-//                CLPlacemark *placemark =
-//                CLLocation *location = [placemarks[0] location];
-//
-//                PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
-//                [event setObject:eventName forKey:@"eventName"];
-//                [event setObject:eventContent forKey:@"eventContent"];
-//                [event setObject:eventDate forKey:@"eventDate"];
-//                [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
-//                [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
-//                [event setObject:eventLocation forKey:@"eventLocation"];
-//                [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
-//                [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
-//                [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
-//                [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                    if (succeeded) {
-//                        
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//                            [alert show];
-//                            [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:.2];
-//                        });
-//                    }else{
-//                        
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//                            [alert show];
-//                        });
-//                    }
-//                }];
-            }else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like the event location is invalid. Please check again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                    [alert show];
-                });
-            }
-        }];
+        }else{
+            //verify location
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+                if (!error && placemarks.count>0) {
+                    
+                    if (!self.optionsTBViewShadow) {
+                        self.optionsTBViewShadow = [[HitTestView alloc] initWithFrame:self.view.frame];
+                        self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
+                        self.optionsTBViewShadow.alpha = 0.7f;
+                        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)];
+                        tap.delegate = self;
+                        [self.optionsTBViewShadow addGestureRecognizer:tap];
+                        self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2-100, 280, 200) style:UITableViewStylePlain];
+                        self.optionsTBView.delegate = self;
+                        self.optionsTBView.dataSource = self;
+                        
+                        [self.optionsTBViewShadow addSubview:self.optionsTBView];
+                        [self.view addSubview:self.optionsTBViewShadow];
+                    }
+                    if (self.optionsTBViewDatasource) {
+                        
+                        self.optionsTBViewDatasource = nil;
+                    }
+                    
+                    self.optionsTBViewDatasource = [NSMutableArray array];
+                    for (CLPlacemark *placeMark in placemarks) {
+                        NSDictionary *dict = placeMark.addressDictionary;
+                        NSMutableString *text = [[NSMutableString alloc] init];
+                        for (NSString *string in dict[@"FormattedAddressLines"]) {
+                            [text appendString:string];
+                        }
+                        [self.optionsTBViewDatasource addObject:text];
+                    }
+                    [self.optionsTBView reloadData];
+                    
+                    //dismiss keyboard
+                    [self.view endEditing:YES];
+                    //bring up table view
+                    [UIView animateWithDuration:.3 animations:^{
+                        self.optionsTBViewShadow.alpha = 1.0f;
+                    }];
+                    
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like the event location is invalid. Please check again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                        [alert show];
+                    });
+                }
+            }];
+        }
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView==self.optionsTBView) {
-        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        self.locationValidated = YES;
+        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
+        [self hideOptionsTBViewShadow];
     }
 }
 
--(void)handleTapOnOptionsTableViewShadow{
+-(void)hideOptionsTBViewShadow{
     [UIView animateWithDuration:.3 animations:^{
         self.optionsTBViewShadow.alpha = 0.0f;
     }];
+}
+
+-(void)handleTapOnOptionsTableViewShadow{
+    [self hideOptionsTBViewShadow];
 }
 
 -(void)dismissSelf{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    UIView *touchedView = touch.view;
+    //dont let tap intercept tapping on options table view
+    if(![touchedView isKindOfClass:[HitTestView class]]){
+        return NO;
+    }
+    return YES;
+}
+
+//-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+//    if([gestureRecognizer.view isKindOfClass:[HitTestView class]]){
+//        return NO;
+//    }
+//    return YES;
+//}
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     
     return YES;
@@ -300,6 +331,7 @@
 }
 
 -(void)locationTextFieldChanged:(UITextField *)textField{
+    self.locationValidated = NO;
     eventLocation = textField.text;
 }
 @end
