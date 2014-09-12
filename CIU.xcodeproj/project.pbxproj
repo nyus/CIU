@@ -98,8 +98,8 @@
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
 		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
 		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
-		65D93E5719C242840044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5619C242840044A48A /* StatusObject.m */; };
 		65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5919C358DE0044A48A /* NSString+Utilities.m */; };
+		65D93E6019C382F40044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5F19C382F40044A48A /* StatusObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,10 +257,10 @@
 		65D93E4B19C22F510044A48A /* aboutus_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = aboutus_image.jpg; path = ../../Desktop/aboutus_image.jpg; sourceTree = "<group>"; };
 		65D93E5219C239170044A48A /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
-		65D93E5519C242840044A48A /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
-		65D93E5619C242840044A48A /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		65D93E5819C358DE0044A48A /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
 		65D93E5919C358DE0044A48A /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
+		65D93E5E19C382F40044A48A /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
+		65D93E5F19C382F40044A48A /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,9 +409,9 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				65D93E5E19C382F40044A48A /* StatusObject.h */,
+				65D93E5F19C382F40044A48A /* StatusObject.m */,
 				5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */,
-				65D93E5519C242840044A48A /* StatusObject.h */,
-				65D93E5619C242840044A48A /* StatusObject.m */,
 				65D93E4B19C22F510044A48A /* aboutus_image.jpg */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
@@ -693,6 +693,7 @@
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
+				65D93E6019C382F40044A48A /* StatusObject.m in Sources */,
 				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
@@ -704,7 +705,6 @@
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
-				65D93E5719C242840044A48A /* StatusObject.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,

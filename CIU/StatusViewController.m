@@ -256,9 +256,16 @@ static UIImage *defaultAvatar;
     }
     
     //get post image
+    //clear out images for use
+    cell.collectionViewImagesArray = nil;
+    [cell.collectionView reloadData];
+    
     if(status.photoCount.intValue>0){
         cell.collectionView.dataSource = cell;
-        if (cell.collectionViewImagesArray!=nil) {
+        
+        NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
+        if (postImages.count>0) {
+            cell.collectionViewImagesArray = postImages;
             [cell.collectionView reloadData];
         }else{
             
@@ -345,11 +352,6 @@ static UIImage *defaultAvatar;
     }
 }
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    StatusTableViewCell *cell = (StatusTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    [self commentButtonTappedOnCell:cell];
-//}
-
 -(void)loadRemoteDataForVisibleCells{
     for (StatusTableViewCell *cell in self.tableView.visibleCells) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -358,11 +360,15 @@ static UIImage *defaultAvatar;
         //get avatar
         UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
         if (avatar) {
+            
             cell.statusCellAvatarImageView.image = avatar;
+            
         }else{
+            
             PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
                 cell.statusCellAvatarImageView.image = image;
             }];
+            
             if(!self.avatarQueries){
                 self.avatarQueries = [NSMutableDictionary dictionary];
             }
@@ -371,8 +377,10 @@ static UIImage *defaultAvatar;
         
         //get post image
         if(status.photoCount.intValue>0){
-            cell.collectionView.dataSource = cell;
-            if (cell.collectionViewImagesArray!=nil) {
+            
+            NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
+            if (postImages.count>0) {
+                cell.collectionViewImagesArray = postImages;
                 [cell.collectionView reloadData];
             }else{
                 //get post images
@@ -390,7 +398,7 @@ static UIImage *defaultAvatar;
     
     __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [cell.statusCellPhotoImageView showLoadingActivityIndicator];
-    StatusObject *status = self.dataSource[indexPath.row];
+    __block StatusObject *status = self.dataSource[indexPath.row];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
     [query whereKey:@"photoID" equalTo:status.photoID];
@@ -408,16 +416,13 @@ static UIImage *defaultAvatar;
                     if (!error) {
                         
                         UIImage *image = [UIImage imageWithData:data];
-#warning only support low res photo for now. in the future when the user can tap to see high res photos, we add support for high res
                         NSString *name = [NSString stringWithFormat:@"%@%d",status.photoID,index];
                         [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
                         index--;
-                        NSLog(@"name is %@",name);
                         
                         if (!cell.collectionViewImagesArray) {
                             cell.collectionViewImagesArray = [NSMutableArray array];
                         }
-                        NSLog(@"add photo for indexpath: %@",indexPath);
                         [cell.collectionViewImagesArray addObject:image];
                         [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
                     }

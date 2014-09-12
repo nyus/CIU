@@ -190,6 +190,23 @@ static Helper *_helper;
     });
 }
 
++(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId totalCount:(int)totalCount isHighRes:(BOOL)isHighRes{
+    NSMutableArray *array = [NSMutableArray array];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = paths[0];
+    for (int i=0; i<totalCount; i++) {
+        NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%d%@",photoId,i,isHighRes?@"1":@"0"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            
+            //use local saved avatar right away, then see if the avatar has been updated on the server
+            NSData *imageData = [[NSFileManager defaultManager] contentsAtPath:path];
+            UIImage *image = [UIImage imageWithData:imageData];
+            [array addObject:image];
+        }
+    }
+    
+    return array;
+}
 //Map
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center{
     //1 mile = 1609 meters

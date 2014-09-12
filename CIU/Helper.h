@@ -26,6 +26,7 @@
 +(void)saveImageToLocal:(NSData *)data forImageName:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(BOOL)isLocalImageExist:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center;
++(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId totalCount:(int)totalCount isHighRes:(BOOL)isHighRes;
 //image processing
 +(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size;
 @end

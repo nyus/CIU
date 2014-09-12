@@ -2,7 +2,7 @@
 //  StatusObject.m
 //  CIU
 //
-//  Created by Huang, Jason on 9/11/14.
+//  Created by Huang, Jason on 9/12/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
