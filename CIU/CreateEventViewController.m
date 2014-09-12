@@ -10,7 +10,7 @@
 #import "EventTableViewCell.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
-@interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate>{
+@interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
     NSString *eventContent;
     NSDate *eventDate;
@@ -195,7 +195,7 @@
                     self.optionsTBViewShadow = [[UIView alloc] initWithFrame:self.view.frame];
                     self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
                     self.optionsTBViewShadow.alpha = 0.7f;
-                    [self.optionsTBViewShadow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)]];
+//                    [self.optionsTBViewShadow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)]];
                     self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2-100, 280, 200) style:UITableViewStylePlain];
                     self.optionsTBView.delegate = self;
                     self.optionsTBView.dataSource = self;
@@ -266,7 +266,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView==self.optionsTBView) {
-        
+        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
     }
 }
 
@@ -280,6 +281,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    
+    return YES;
+}
 #pragma mark - event table view cell delegate
 
 -(void)nameTextFieldEdited:(UITextField *)textField{

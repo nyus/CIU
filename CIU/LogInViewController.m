@@ -54,6 +54,20 @@
             if (!error) {
                 errorMessage = @"You've cancelled the Facebook login.";
             } else {
+                
+                FBRequest *request = [FBRequest requestForMe];
+                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    if (!error) {
+                        // handle successful response
+                    } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                                isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+                        NSLog(@"The facebook session was invalidated");
+//                        [self logoutButtonAction:nil];
+                    } else {
+                        NSLog(@"Some other error: %@", error);
+                    }
+                }];
+                
                 errorMessage = [error localizedDescription];
             }
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil

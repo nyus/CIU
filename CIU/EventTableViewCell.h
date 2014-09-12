@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (assign, nonatomic) id<EventTableViewCellDelegate>delegate;
+@property (weak, nonatomic) IBOutlet UITextField *locationTextField;
 
 //event table view
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;

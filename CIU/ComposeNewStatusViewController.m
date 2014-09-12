@@ -277,6 +277,7 @@
                                 [object setObject:photoID forKey:@"photoID"];
                                 [object setObject:photo forKey:@"image"];
                                 [object setObject:@NO forKey:@"isHighRes"];
+                                [object setObject:[PFUser currentUser].username forKey:@"username"];
                                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                     if (!succeeded) {
                                         [object saveEventually];
