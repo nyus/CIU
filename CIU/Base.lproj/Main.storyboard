@@ -382,7 +382,7 @@
                             <outlet property="delegate" destination="w3S-5W-69p" id="mGK-fd-EX7"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Lifestyle" id="Q0k-Hn-hMA"/>
+                    <tabBarItem key="tabBarItem" title="Lifestyle" image="lifestyle.png" id="Q0k-Hn-hMA"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -991,7 +991,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <constraint firstAttribute="trailing" secondItem="cxM-wO-5Eo" secondAttribute="trailing" id="hgr-2E-8RK"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Suprise" image="surprise28.png" id="nl6-HT-QIH"/>
+                    <tabBarItem key="tabBarItem" title="Suprise" image="surprise.png" id="nl6-HT-QIH"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Suprise" id="3cd-Vu-Euk">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="xCn-3A-sa9">
@@ -1010,7 +1010,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Vx-Ri-TUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1966" y="822"/>
+            <point key="canvasLocation" x="1409" y="744"/>
         </scene>
         <!--Compose New Status View Controller - Compose-->
         <scene sceneID="bd3-1m-REd">
@@ -1715,8 +1715,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event28.png" width="28" height="28"/>
         <image name="fbLogin.png" width="202" height="46"/>
+        <image name="lifestyle.png" width="28" height="26"/>
         <image name="revine_icon.png" width="228" height="43"/>
-        <image name="surprise28.png" width="28" height="28"/>
+        <image name="surprise.png" width="28" height="21"/>
         <image name="yes.png" width="80" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
