@@ -382,7 +382,9 @@
                             <outlet property="delegate" destination="w3S-5W-69p" id="mGK-fd-EX7"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Lifestyle" image="lifestyle.png" id="Q0k-Hn-hMA"/>
+                    <tabBarItem key="tabBarItem" title="Lifestyle" image="lifestyle1.png" id="Q0k-Hn-hMA">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -472,7 +474,9 @@
                             <constraint firstItem="Dyu-G3-vyr" firstAttribute="top" secondItem="zpI-qw-K9r" secondAttribute="bottom" constant="-44" id="zbN-zl-CBy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="FVe-rv-FSj"/>
+                    <navigationItem key="navigationItem" id="FVe-rv-FSj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="IUg-h8-bGZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Dyu-G3-vyr" id="apP-kC-kbB"/>
                         <outlet property="tableView" destination="8ZR-dD-Gu2" id="PEb-6B-YeN"/>
@@ -1715,7 +1719,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event28.png" width="28" height="28"/>
         <image name="fbLogin.png" width="202" height="46"/>
-        <image name="lifestyle.png" width="28" height="26"/>
+        <image name="lifestyle1.png" width="28" height="28"/>
         <image name="revine_icon.png" width="228" height="43"/>
         <image name="surprise.png" width="28" height="21"/>
         <image name="yes.png" width="80" height="80"/>
