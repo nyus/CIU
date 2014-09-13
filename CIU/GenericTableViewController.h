@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "SharedDataManager.h"
 @interface GenericTableViewController : UITableViewController
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+//@property (nonatomic, strong) UIRefreshControl *refreshControl;
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
 -(void)loadRemoteDataForVisibleCells;

@@ -99,6 +99,9 @@
     if (tableView==self.optionsTBView) {
         return @"Did you mean?";
     }else{
+        if ([self.dataSource[section] isEqualToString:@"Event Location"]) {
+            return [self.dataSource[section] stringByAppendingString:@"(注明门牌号，路名和城市)"];
+        }
         return self.dataSource[section];
     }
 }
@@ -211,7 +214,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
                         [alert show];
-                        [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:.2];
+                        [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
                     });
                 }else{
 
@@ -250,9 +253,19 @@
                     for (CLPlacemark *placeMark in placemarks) {
                         NSDictionary *dict = placeMark.addressDictionary;
                         NSMutableString *text = [[NSMutableString alloc] init];
-                        for (NSString *string in dict[@"FormattedAddressLines"]) {
-                            [text appendString:string];
+                        if (dict[@"Street"]) {
+                            [text appendFormat:@"%@, ",dict[@"Street"]];
                         }
+                        if(dict[@"City"]){
+                            [text appendFormat:@"%@, ",dict[@"City"]];
+                        }
+                        if (dict[@"State"]) {
+                            [text appendFormat:@"%@",dict[@"State"]];
+                        }
+
+//                        for (NSString *string in dict[@"FormattedAddressLines"]) {
+//                            [text appendFormat:@"%@ ",string];
+//                        }
                         [self.optionsTBViewDatasource addObject:text];
                     }
                     [self.optionsTBView reloadData];
@@ -281,6 +294,7 @@
         self.selectedPlaceMarkIndexPath = indexPath;
         EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
+        eventLocation = self.optionsTBViewDatasource[indexPath.row];
         [self hideOptionsTBViewShadow];
     }
 }
@@ -295,7 +309,11 @@
     [self hideOptionsTBViewShadow];
 }
 
--(void)dismissSelf{
+-(void)dismissSelf:(id)object{
+    if ([object isKindOfClass:[UIAlertView class]]) {
+        UIAlertView *alert = (UIAlertView *)object;
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

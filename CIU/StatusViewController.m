@@ -264,7 +264,7 @@ static UIImage *defaultAvatar;
         cell.collectionView.dataSource = cell;
         
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
-        if (postImages.count>0) {
+        if (postImages.count == status.photoCount.intValue) {
             cell.collectionViewImagesArray = postImages;
             [cell.collectionView reloadData];
         }else{
@@ -379,7 +379,7 @@ static UIImage *defaultAvatar;
         if(status.photoCount.intValue>0){
             
             NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
-            if (postImages.count>0) {
+            if (postImages.count == status.photoCount.intValue) {
                 cell.collectionViewImagesArray = postImages;
                 [cell.collectionView reloadData];
             }else{
@@ -424,7 +424,11 @@ static UIImage *defaultAvatar;
                             cell.collectionViewImagesArray = [NSMutableArray array];
                         }
                         [cell.collectionViewImagesArray addObject:image];
-                        [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [cell.collectionView reloadData];
+//                            [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
+                        });
+                        
                     }
                 }];
             }

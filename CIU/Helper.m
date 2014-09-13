@@ -194,7 +194,7 @@ static Helper *_helper;
     NSMutableArray *array = [NSMutableArray array];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = paths[0];
-    for (int i=0; i<totalCount; i++) {
+    for (int i=totalCount-1; i>=0; i--) {
         NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%d%@",photoId,i,isHighRes?@"1":@"0"];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             

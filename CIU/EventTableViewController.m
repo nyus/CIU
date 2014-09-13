@@ -29,6 +29,13 @@ static NSString *managedObjectName = @"Event";
     [super viewDidLoad];
     //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
     self.tableView.contentInset = UIEdgeInsetsMake(64, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
+    [self addRefreshControll];
+}
+
+-(void)addRefreshControll{
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -58,7 +65,7 @@ static NSString *managedObjectName = @"Event";
 
 #pragma mark - Override
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
-    
+    __block EventTableViewController *weakSelf = self;
     PFQuery *query = [[PFQuery alloc] initWithClassName:managedObjectName];
     [query orderByDescending:@"createdAt"];
     [query addBoundingCoordinatesToCenter:center];
@@ -94,6 +101,10 @@ static NSString *managedObjectName = @"Event";
                 }
             }
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.refreshControl endRefreshing];
+        });
     }];
 }
 
@@ -129,7 +140,9 @@ static NSString *managedObjectName = @"Event";
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{}
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    [self pullDataFromServer];
+    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+    [self pullDataFromServerAroundCenter:center];
 }
 
 #pragma mark - Table view
@@ -154,6 +167,44 @@ static NSString *managedObjectName = @"Event";
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    Event *event = self.dataSource[indexPath.row];
+    //status.statusCellHeight defaults to 0, so cant check nil
+    if (event.cellHeight.floatValue != 0) {
+        return event.cellHeight.floatValue;
+    }else{
+        return 200;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    Event *event = self.dataSource[indexPath.row];
+    
+    //is cell height has been calculated, return it
+    if (event.cellHeight.floatValue != 0 ) {
+        
+        return event.cellHeight.floatValue;
+        
+    }else{
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]};
+        CGSize size = CGSizeMake(273, MAXFLOAT);
+        CGRect nameRect = [event.eventName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        if(!self.dateFormatter){
+            self.dateFormatter = [[NSDateFormatter alloc] init];
+            self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+            self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+        }
+        CGRect dateRect = [[self.dateFormatter stringFromDate:event.eventDate] boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect locationRect = [event.eventLocation boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect descriptionRect = [event.eventContent boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        
+        event.cellHeight = [NSNumber numberWithFloat:CGRectGetMaxY(nameRect)+5+dateRect.size.height+5+locationRect.size.height+5+descriptionRect.size.height+20];
+        [[SharedDataManager sharedInstance] saveContext];
+        return event.cellHeight.floatValue;
+    }
+
+}
 #pragma mark -- Location manager
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{

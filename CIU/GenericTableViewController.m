@@ -25,6 +25,7 @@
 
 
 -(void)addRefreshControll{
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];

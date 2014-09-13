@@ -18,6 +18,7 @@
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
 		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
 		5036C09B19C260D0008E6208 /* 8miletechlogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */; };
+		5038A13019C47FA700D91354 /* CodeSnippets in Resources */ = {isa = PBXBuildFile; fileRef = 5038A12F19C47FA600D91354 /* CodeSnippets */; };
 		503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventTableViewController.m */; };
 		503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34D19BB6D660023EC02 /* Event+Utilities.m */; };
 		503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35019BB7F970023EC02 /* EventTableViewCell.m */; };
@@ -135,6 +136,7 @@
 		501A5E7019A6CBE00050BFA6 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		501A5E7219A6CE610050BFA6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8miletechlogo.jpg; sourceTree = "<group>"; };
+		5038A12F19C47FA600D91354 /* CodeSnippets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeSnippets; sourceTree = "<group>"; };
 		503AF34319BB678D0023EC02 /* EventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewController.h; sourceTree = "<group>"; };
 		503AF34419BB678D0023EC02 /* EventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewController.m; sourceTree = "<group>"; };
 		503AF34C19BB6D660023EC02 /* Event+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+Utilities.h"; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				5038A12F19C47FA600D91354 /* CodeSnippets */,
 				65D93E6919C38EE20044A48A /* lifestyle1.png */,
 				65D93E6119C386CF0044A48A /* events.png */,
 				65D93E6219C386CF0044A48A /* surprise.png */,
@@ -662,6 +665,7 @@
 				65C4F0FF19AFBBEA004452C3 /* ELCAlbumPickerController.xib in Resources */,
 				652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */,
 				65C4F10019AFBBEA004452C3 /* ELCAssetPicker.xib in Resources */,
+				5038A13019C47FA700D91354 /* CodeSnippets in Resources */,
 				507F2F7019BB46BB00E8275F /* surprise28.png in Resources */,
 				65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */,
 				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,

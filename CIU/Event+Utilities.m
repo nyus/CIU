@@ -15,9 +15,12 @@
     self.objectId = object.objectId;
     self.eventName = object[@"eventName"];
     self.eventDate = object[@"eventDate"];
+    self.eventLocation = object[@"eventLocation"];
     self.eventContent = object[@"eventContent"];
     self.senderUsername = object[@"senderUsername"];
     self.senderFirstName = object[@"senderFirstName"];
     self.senderLastName = object[@"senderLastName"];
+    self.latitude = object[@"latitude"];
+    self.longitude = object[@"longitude"];
 }
 @end
