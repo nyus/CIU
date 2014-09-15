@@ -279,7 +279,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 LifestyleObject *life;
                 
                 NSNumber *index = [dict valueForKey:parseObject.objectId];
-                if (index) {
+                if (index) {}
                 if (array.count == 1) {
                     life = array[0];
                     [life populateFromObject:parseObject];
