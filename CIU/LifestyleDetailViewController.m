@@ -50,8 +50,10 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                    forControlEvents:UIControlEventValueChanged];
         segmentedControl.selectedSegmentIndex = 0;
         self.navigationItem.titleView = segmentedControl;
+    }else if ([self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"TradeandSell"]) {
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
+        self.navigationItem.rightBarButtonItem = rightItem;
     }
-    
     
     self.internetReachability = [Reachability reachabilityForInternetConnection];
 	[self.internetReachability startNotifier];
@@ -73,6 +75,10 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     self.mapView.showsUserLocation = NO;
+}
+
+-(void)addButtonTapped:(UIBarButtonItem *)sender{
+    
 }
 
 -(void)segmentedControlTapped:(UISegmentedControl *)sender{
@@ -261,25 +267,17 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 weakSelf.tableViewDataSource = [NSMutableArray array];
             }
             
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            for (int i =0; i<weakSelf.tableViewDataSource.count; i++) {
-                LifestyleObject *object = weakSelf.tableViewDataSource[i];
-                [dict setValue:[NSNumber numberWithInteger:i] forKey:object.objectId];
-            }
-            
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
              int originalCount = (int)weakSelf.tableViewDataSource.count;
             for (int i =0; i<objects.count; i++) {
                 PFObject *parseObject = objects[i];
+                
+                LifestyleObject *life;
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
                 NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
                 request.predicate = predicate;
                 NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
-                LifestyleObject *life;
-                
-                NSNumber *index = [dict valueForKey:parseObject.objectId];
-                if (index) {}
                 if (array.count == 1) {
                     life = array[0];
                     [life populateFromObject:parseObject];
@@ -287,16 +285,15 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                     life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [life populateFromObject:parseObject];
                 }
-                
+            
                 NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
                 [indexpathArray addObject:path];
                 
                 [weakSelf.tableViewDataSource addObject:life];
+                
+                [[SharedDataManager sharedInstance] saveContext];
             }
-            
-            [[SharedDataManager sharedInstance] saveContext];
-        
-           
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView beginUpdates];
                 if (originalCount != [weakSelf.tableView numberOfRowsInSection:0]) {

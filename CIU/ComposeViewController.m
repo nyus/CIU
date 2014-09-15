@@ -1,18 +1,18 @@
 //
-//  LifestyleLevelTwoNonMapTableViewController.m
+//  ComposeViewController.m
 //  CIU
 //
-//  Created by Sihang on 9/14/14.
+//  Created by Huang, Jason on 9/15/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
-#import "LifestyleLevelTwoNonMapTableViewController.h"
-
-@interface LifestyleLevelTwoNonMapTableViewController ()
+#import "ComposeViewController.h"
+#import <Parse/Parse.h>
+@interface ComposeViewController ()
 
 @end
 
-@implementation LifestyleLevelTwoNonMapTableViewController
+@implementation ComposeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,10 +29,28 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.textView becomeFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)cancelButtonTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)publishButtonTapped:(id)sender {
+    
+    if (self.textView.text == nil || [self.textView.text isEqualToString:@""]) {
+        return;
+    }
+    
+    PFObject *object = [[PFObject alloc] initWithClassName:self.categoryName];
+    
+    
 }
 
 /*
