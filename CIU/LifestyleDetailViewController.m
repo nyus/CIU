@@ -42,13 +42,16 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
-    [segmentedControl addTarget:self
-                         action:@selector(segmentedControlTapped:)
-               forControlEvents:UIControlEventValueChanged];
-    segmentedControl.selectedSegmentIndex = 0;
-    self.navigationItem.titleView = segmentedControl;
+    
+    if ([self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]) {
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
+        [segmentedControl addTarget:self
+                             action:@selector(segmentedControlTapped:)
+                   forControlEvents:UIControlEventValueChanged];
+        segmentedControl.selectedSegmentIndex = 0;
+        self.navigationItem.titleView = segmentedControl;
+    }
+    
     
     self.internetReachability = [Reachability reachabilityForInternetConnection];
 	[self.internetReachability startNotifier];
@@ -58,15 +61,11 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    if (![Reachability canReachInternet]) {
-        
-        [self fetchLocalDataForList];
-    }else{
-        if (!self.locationManager) {
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-        }
+    [self fetchLocalDataForList];
+    if (!self.locationManager) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingLocation];
     }
 }
 
@@ -262,9 +261,15 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 weakSelf.tableViewDataSource = [NSMutableArray array];
             }
             
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            for (int i =0; i<weakSelf.tableViewDataSource.count; i++) {
+                LifestyleObject *object = weakSelf.tableViewDataSource[i];
+                [dict setValue:[NSNumber numberWithInteger:i] forKey:object.objectId];
+            }
+            
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
-             int originalCount = weakSelf.tableViewDataSource.count;
+             int originalCount = (int)weakSelf.tableViewDataSource.count;
             for (int i =0; i<objects.count; i++) {
                 PFObject *parseObject = objects[i];
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
@@ -272,6 +277,9 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 request.predicate = predicate;
                 NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
                 LifestyleObject *life;
+                
+                NSNumber *index = [dict valueForKey:parseObject.objectId];
+                if (index) {
                 if (array.count == 1) {
                     life = array[0];
                     [life populateFromObject:parseObject];

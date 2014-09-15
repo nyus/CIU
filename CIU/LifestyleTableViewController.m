@@ -188,29 +188,29 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     cell.textLabel.text = category.name;
     
     //reset in case its being reused
-    cell.imageView.image = nil;
+//    cell.imageView.image = nil;
     //see if there is local cache
-    NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
+//    NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
     
-    UIImage *image = [Helper getLocalImageWithName:imageName isHighRes:NO];
-    //update UI
-    if (image) {
-        cell.imageView.image = image;
-    }else{
-        if (!tableView.decelerating && !tableView.dragging) {
-            
-            __block UITableViewCell *weakCell = cell;
-            Query *query = [[Query alloc] init];
-            [self.queries setObject:query forKey:indexPath];
-            [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                if (!error) {
-                    weakCell.imageView.image = image;
-                }else{
-                    weakCell.imageView.image = nil;
-                }
-            }];
-        }
-    }
+//    UIImage *image = [Helper getLocalImageWithName:imageName isHighRes:NO];
+//    //update UI
+//    if (image) {
+//        cell.imageView.image = image;
+//    }else{
+//        if (!tableView.decelerating && !tableView.dragging) {
+//            
+//            __block UITableViewCell *weakCell = cell;
+//            Query *query = [[Query alloc] init];
+//            [self.queries setObject:query forKey:indexPath];
+//            [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
+//                if (!error) {
+//                    weakCell.imageView.image = image;
+//                }else{
+//                    weakCell.imageView.image = nil;
+//                }
+//            }];
+//        }
+//    }
     return cell;
 }
 
@@ -221,6 +221,10 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
     //delete the white spaces
     vc.categoryName = [category.name stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if([vc.categoryName isEqualToString:@"Restaurant"] || [vc.categoryName isEqualToString:@"Supermarket"]){
+    }else if ([vc.categoryName isEqualToString:@"Jobs"] || [vc.categoryName isEqualToString:@"TradeandSell"]){
+    }
 }
 
 @end
