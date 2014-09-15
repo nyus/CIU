@@ -2,7 +2,7 @@
 //  LifestyleObject.m
 //  CIU
 //
-//  Created by Sihang on 8/24/14.
+//  Created by Huang, Jason on 9/15/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @dynamic address;
 @dynamic category;
 @dynamic createdAt;
+@dynamic hours;
 @dynamic introduction;
 @dynamic latitude;
 @dynamic longitude;
@@ -22,6 +23,6 @@
 @dynamic phone;
 @dynamic updatedAt;
 @dynamic website;
-@dynamic hours;
+@dynamic content;
 
 @end

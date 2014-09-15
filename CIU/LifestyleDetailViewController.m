@@ -20,15 +20,17 @@
 #import "PFQuery+Utilities.h"
 #import "Reachability.h"
 #import "Helper.h"
+#import "ComposeViewController.h"
 #define MILE_PER_DELTA 69.0
+#define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
+#define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
 static NSString *kLocationServiceDisabledAlert = @"To display information around you, please turn on location services at Settings > Privacy > Location Services";
 @interface LifestyleDetailViewController()<CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
-    BOOL hasDoneInitialTBFetch;
-    BOOL noMoreNewFetchedData;
-    BOOL offlineMode;
     CLLocation *previousLocation;
+    int localDataSourceCount;
+    int serverDataSourceCount;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) PFQuery *pfQuery;
@@ -43,30 +45,37 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    if ([self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]) {
+    if (IS_RES_MARKT) {
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
         [segmentedControl addTarget:self
                              action:@selector(segmentedControlTapped:)
                    forControlEvents:UIControlEventValueChanged];
         segmentedControl.selectedSegmentIndex = 0;
         self.navigationItem.titleView = segmentedControl;
-    }else if ([self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"TradeandSell"]) {
+    }else if (IS_JOB_TRADE) {
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
     self.internetReachability = [Reachability reachabilityForInternetConnection];
 	[self.internetReachability startNotifier];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     [self fetchLocalDataForList];
-    if (!self.locationManager) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
+    
+    if (IS_JOB_TRADE) {
+        //jobs, trade and sell don't need location info yet
+        [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
+    }else{
+        //
+        if (!self.locationManager) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+        }
         [self.locationManager startUpdatingLocation];
     }
 }
@@ -78,7 +87,10 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 }
 
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
-    
+    UINavigationController *vc = (UINavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:@"compose"];
+    ComposeViewController *compose = (ComposeViewController *)vc.topViewController;
+    compose.categoryName = self.categoryName;
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 -(void)segmentedControlTapped:(UISegmentedControl *)sender{
@@ -137,9 +149,15 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
         [self.query cancelRequest];
         self.query = nil;
     }
+    
+    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    if (parseClassName==nil) {
+        return;
+    }
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.query = [[Query alloc] init];
-    [self.query fetchObjectsOfClassName:self.categoryName region:region completion:^(NSError *error, NSArray *results) {
+    [self.query fetchObjectsOfClassName:parseClassName region:region completion:^(NSError *error, NSArray *results) {
         if (!error && results.count>0) {
             
             NSMutableDictionary *map;
@@ -203,14 +221,17 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     [fetchRequest setEntity:entity];
     // Specify criteria for filtering which objects to fetch
     //1 mile = 1609 meters
-    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
     NSPredicate *predicate2;
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
-        predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    if (IS_RES_MARKT) {
+        NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+        if (dictionary) {
+            CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+            predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+        }
     }
-    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",self.categoryName];
+
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[Helper getParseClassNameForCategoryName:self.categoryName]];
     if (predicate2) {
         NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,predicate2]];
         fetchRequest.predicate = compoundPredicate;
@@ -224,14 +245,14 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     //
     fetchRequest.fetchLimit = 20;
-    fetchRequest.fetchOffset = self.tableViewDataSource.count;
-    
+    fetchRequest.fetchOffset = localDataSourceCount;
+
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    hasDoneInitialTBFetch = YES;
-    
     if (fetchedObjects.count>0) {
+        localDataSourceCount+=fetchedObjects.count;
+        
         int originalCount = self.tableViewDataSource.count;
         NSMutableArray *indexPathsArray = [NSMutableArray array];
         for (int i =originalCount; i<originalCount+fetchedObjects.count; i++) {
@@ -252,16 +273,22 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     
     __block LifestyleDetailViewController *weakSelf = self;
     
-    self.pfQuery = [[PFQuery alloc] initWithClassName:self.categoryName];
+    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    if (!parseClassName) {
+        return;
+    }
+    self.pfQuery = [[PFQuery alloc] initWithClassName:parseClassName];
     [self.pfQuery orderByDescending:@"name"];
-    [self.pfQuery addBoundingCoordinatesToCenter:center];
+    if (IS_RES_MARKT) {
+        [self.pfQuery addBoundingCoordinatesToCenter:center];
+    }
     self.pfQuery.limit = 20;
-    self.pfQuery.skip = self.tableViewDataSource.count;
+    self.pfQuery.skip = serverDataSourceCount;
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects>0) {
             
-            noMoreNewFetchedData = NO;
+            serverDataSourceCount += objects.count;
             
             if(!weakSelf.tableViewDataSource){
                 weakSelf.tableViewDataSource = [NSMutableArray array];
@@ -304,12 +331,6 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 [weakSelf.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [weakSelf.tableView endUpdates];
             });
-        }else{
-            noMoreNewFetchedData = YES;
-        }
-        
-        if (hasDoneInitialTBFetch==NO) {
-            hasDoneInitialTBFetch = YES;
         }
     }];
 }
@@ -347,7 +368,6 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 NSLog(@"fail to locate user: permission denied");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
-                hasDoneInitialTBFetch = YES;
                 [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
                 break;
             }
@@ -366,43 +386,52 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     }
 }
 
+#pragma mark - table view
+
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //have reach the last cell. fetch more
-    if (indexPath.row == self.tableViewDataSource.count-1 && self.tableViewDataSource.count >=20) {
-        if (offlineMode) {
-            [self fetchLocalDataForList];
-        }else{
-            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
-            if (dictionary) {
-                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                [self fetchServerDataForListAroundCenter:center];
-            }
-        }
-    }
+//    if (indexPath.row == self.tableViewDataSource.count-1 && self.tableViewDataSource.count >=20) {
+//        if (offlineMode) {
+//            [self fetchLocalDataForList];
+//        }else{
+//            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+//            if (dictionary) {
+//                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+//                [self fetchServerDataForListAroundCenter:center];
+//            }
+//        }
+//    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    if (hasDoneInitialTBFetch == NO) {
-        //loading cell
-        return 1;
-    }else{
-        return self.tableViewDataSource.count;
-    }
+    return self.tableViewDataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *regularCell = @"cell";
-    static NSString *loadingCell = @"loadingCell";
-    if(hasDoneInitialTBFetch==NO || indexPath.row == self.tableViewDataSource.count){
-        return [tableView dequeueReusableCellWithIdentifier:loadingCell forIndexPath:indexPath];
-    }else{
-        LifestyleObject *object = self.tableViewDataSource[indexPath.row];
+    static NSString *jobAndTradeCell = @"cellJob";
+    LifestyleObject *object = self.tableViewDataSource[indexPath.row];
+    if (IS_RES_MARKT) {
+
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
         cell.textLabel.text = object.name;
         cell.detailTextLabel.text = object.address;
         return cell;
+    }else{
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.text = object.content;
+        return cell;
+    }
+    
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section==0) {
+        return @"Display items within 30 miles around you";
+    }else{
+        return nil;
     }
 }
 

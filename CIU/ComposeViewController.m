@@ -8,6 +8,8 @@
 
 #import "ComposeViewController.h"
 #import <Parse/Parse.h>
+#import "Reachability.h"
+#import "Helper.h"
 @interface ComposeViewController ()
 
 @end
@@ -48,9 +50,34 @@
         return;
     }
     
-    PFObject *object = [[PFObject alloc] initWithClassName:self.categoryName];
+    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    if (parseClassName==nil) {
+        return;
+    }
     
-    
+    __block ComposeViewController *weakSelf = self;
+    PFObject *object = [[PFObject alloc] initWithClassName:parseClassName];
+    [object setObject:self.textView.text forKey:@"content"];
+    [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            });
+        }else{
+            if (![Reachability canReachInternet]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There is no internet connection. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong. Please try again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
+        }
+    }];
 }
 
 /*

@@ -13,6 +13,9 @@
     self.objectId = object.objectId;
     self.createdAt = object.createdAt;
     self.updatedAt = object.updatedAt;
+    if(object[@"content"]){
+        self.content = object[@"content"];
+    }
     if (object[@"address"]) {
         self.address = object[@"address"];
     }
