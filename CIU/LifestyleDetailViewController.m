@@ -59,13 +59,15 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     
     self.internetReachability = [Reachability reachabilityForInternetConnection];
 	[self.internetReachability startNotifier];
+    
+    [self fetchLocalDataForList];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    [self fetchLocalDataForList];
+
     
     if (IS_JOB_TRADE) {
         //jobs, trade and sell don't need location info yet
@@ -297,10 +299,10 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
              int originalCount = (int)weakSelf.tableViewDataSource.count;
-            for (int i =0; i<objects.count; i++) {
-                PFObject *parseObject = objects[i];
-                
-                LifestyleObject *life;
+            __block int i = 0;
+            for (PFObject *parseObject in objects) {
+
+                __block LifestyleObject *life;
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
                 NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
                 request.predicate = predicate;
@@ -309,28 +311,26 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                     life = array[0];
                     [life populateFromObject:parseObject];
                 }else{
-                    life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                    [life populateFromObject:parseObject];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                        [life populateFromObject:parseObject];
+                        
+                        [weakSelf.tableViewDataSource addObject:life];
+                        NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
+                        [indexpathArray addObject:path];
+                        NSLog(@"insert path: %@",path);
+                        NSLog(@"count is %d",weakSelf.tableViewDataSource.count);
+                        [weakSelf.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
+                        i++;
+                    });
+                    
+                    
                 }
-            
-                NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
-                [indexpathArray addObject:path];
-                
-                [weakSelf.tableViewDataSource addObject:life];
                 
                 [[SharedDataManager sharedInstance] saveContext];
             }
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView beginUpdates];
-                if (originalCount != [weakSelf.tableView numberOfRowsInSection:0]) {
-                    //remove the loading cell
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:[weakSelf.tableView numberOfRowsInSection:0]-1 inSection:0];
-                    [weakSelf.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
-                }
-                [weakSelf.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
-                [weakSelf.tableView endUpdates];
-            });
         }
     }];
 }
@@ -405,6 +405,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"# items: %d",self.tableViewDataSource.count);
     return self.tableViewDataSource.count;
 }
 
@@ -422,6 +423,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.text = object.content;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
         return cell;
     }
     

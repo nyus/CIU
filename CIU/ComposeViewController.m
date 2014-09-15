@@ -59,6 +59,7 @@
     PFObject *object = [[PFObject alloc] initWithClassName:parseClassName];
     [object setObject:self.textView.text forKey:@"content"];
     [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];
+    [object setObject:parseClassName forKey:@"category"];
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
