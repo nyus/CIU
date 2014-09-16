@@ -55,21 +55,22 @@
                 errorMessage = @"You've cancelled the Facebook login.";
             } else {
                 
-                FBRequest *request = [FBRequest requestForMe];
-                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                    if (!error) {
+//                FBRequest *request = [FBRequest requestForMe];
+//                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//                    if (!error) {
                         // handle successful response
-                    } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
-                                isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-                        NSLog(@"The facebook session was invalidated");
+//                    } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+//                                isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+//                        NSLog(@"The facebook session was invalidated");
 //                        [self logoutButtonAction:nil];
-                    } else {
-                        NSLog(@"Some other error: %@", error);
-                    }
-                }];
+//                    } else {
+//                        NSLog(@"Some other error: %@", error);
+//                    }
+//                }];
                 
                 errorMessage = [error localizedDescription];
             }
+            NSLog(@"%@",errorMessage);
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                             message:errorMessage
                                                            delegate:nil
@@ -127,18 +128,32 @@
                              [Helper saveAvatar:data forUser:user.username isHighRes:YES];
                              UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
                              [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
+#warning send out a notification to load the avatar
+                             [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
                          }
                      }];
                     
                     // Now add the data to the UI elements
                     PFUser *me = [PFUser currentUser];
-                    [me setObject:facebookID forKey:@"facebookID"];
-                    [me setObject:firstName forKey:@"firstName"];
-                    [me setObject:lastName forKey:@"lastName"];
+                    if (facebookID) {
+                        [me setObject:facebookID forKey:@"facebookID"];
+                    }
+                    if (firstName) {
+                        [me setObject:firstName forKey:@"firstName"];
+                    }
+                    if (lastName) {
+                        [me setObject:lastName forKey:@"lastName"];
+                    }
                     [me setObject:@YES forKey:@"isFacebookUser"];
-                    [me setObject:location forKey:@"location"];
-                    [me setObject:email forKey:@"email"];
-                    [me setObject:gender forKey:@"gender"];
+                    if (location) {
+                        [me setObject:location forKey:@"location"];
+                    }
+                    if (email) {
+                        [me setObject:email forKey:@"email"];
+                    }
+                    if (gender) {
+                        [me setObject:gender forKey:@"gender"];
+                    }
                     [me saveEventually];
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
