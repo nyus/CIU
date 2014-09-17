@@ -50,9 +50,14 @@
         [self.activityIndicator stopAnimating]; // Hide loading indicator
         
         if (!user) {
-            NSString *errorMessage = nil;
+
             if (!error) {
-                errorMessage = @"You've cancelled the Facebook login.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"You've cancelled the Facebook login."
+                                                               delegate:nil
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"Dismiss", nil];
+                [alert show];
             } else {
                 
 //                FBRequest *request = [FBRequest requestForMe];
@@ -67,16 +72,15 @@
 //                        NSLog(@"Some other error: %@", error);
 //                    }
 //                }];
-                
-                errorMessage = [error localizedDescription];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"Something went wrong, please try again"
+                                                               delegate:nil
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"Dismiss", nil];
+                [alert show];
+//                errorMessage = [error localizedDescription];
             }
-            NSLog(@"%@",errorMessage);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:errorMessage
-                                                           delegate:nil
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:@"Dismiss", nil];
-            [alert show];
+
         } else {
             if (user.isNew) {
                 NSLog(@"User with facebook signed up and logged in!");

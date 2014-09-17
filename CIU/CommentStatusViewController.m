@@ -188,11 +188,19 @@ typedef NS_ENUM(NSUInteger, Direction){
             [object saveEventually];
         }
     }];
-    [self.dataSource addObject:object];
     
+    
+    [self.tableView beginUpdates];
+
+    //delete "No one has said anything yet" cell
+    if ((!self.dataSource || self.dataSource.count==0) && [self.tableView numberOfRowsInSection:0]!=0) {
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    [self.dataSource addObject:object];
     //insert into table view
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(int)self.dataSource.count-1 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     
     //clear out
