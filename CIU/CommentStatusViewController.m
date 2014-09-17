@@ -215,8 +215,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 -(void)handleKeyboardWillShow:(NSNotification *)notification{
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
-    CGRect convertedRect =  [self.view convertRect:rect fromView:nil];
-    self.enterMessageContainerViewBottomSpaceConstraint.constant += self.view.frame.size.height - convertedRect.origin.y;
+    self.enterMessageContainerViewBottomSpaceConstraint.constant = rect.size.height;
     [UIView animateWithDuration:.3 animations:^{
         [self.view layoutIfNeeded];
     }];

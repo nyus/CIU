@@ -68,7 +68,7 @@
 -(void)handleKeyboardWillShow:(NSNotification *)notification{
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    self.tableviewBottomSpaceToBottomLayoutConstraint.constant += rect.size.height;
+    self.tableviewBottomSpaceToBottomLayoutConstraint.constant = rect.size.height;
 //    [UIView animateWithDuration:.3 animations:^{
         [self.view layoutIfNeeded];
 //    }];
