@@ -368,7 +368,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 NSLog(@"fail to locate user: permission denied");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
-                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+//                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
                 break;
             }
                 
