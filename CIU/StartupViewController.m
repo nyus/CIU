@@ -202,9 +202,9 @@ NS_ENUM(NSUInteger, SideBarStatus){
         
         // Put together the dialog parameters
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       @"Sharing Tutorial", @"name",
-                                       @"Build great social apps and get more installs.", @"caption",
-                                       @"Allow your users to share stories on Facebook from your app using the iOS SDK.", @"description",
+                                       @"CIU Mobile App", @"name",
+                                       @"Let CIU make your life easier today!", @"caption",
+                                       @"CIU is the best Chinese lifestyle app from restaurants to supermarkets, frome job hunting to online trading.", @"description",
                                        @"https://developers.facebook.com/docs/ios/share/", @"link",
                                        @"http://i.imgur.com/g3Qc1HN.png", @"picture",
                                        nil];

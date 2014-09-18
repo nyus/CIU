@@ -309,7 +309,10 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
                 if (array.count == 1) {
                     life = array[0];
-                    [life populateFromObject:parseObject];
+                    if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
+                        [life populateFromObject:parseObject];
+                    }
+                    [[SharedDataManager sharedInstance] saveContext];
                 }else{
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -317,6 +320,8 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                         life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                         [life populateFromObject:parseObject];
                         
+
+                        [[SharedDataManager sharedInstance] saveContext];
                         [weakSelf.tableViewDataSource addObject:life];
                         NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
                         [indexpathArray addObject:path];
@@ -329,7 +334,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                     
                 }
                 
-                [[SharedDataManager sharedInstance] saveContext];
+//                [[SharedDataManager sharedInstance] saveContext];
             }
         }
     }];
@@ -368,7 +373,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                 NSLog(@"fail to locate user: permission denied");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
                 [alert show];
-//                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+
                 break;
             }
                 
@@ -430,7 +435,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (section==0) {
+    if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
         return @"Display items within 30 miles around you";
     }else{
         return nil;
