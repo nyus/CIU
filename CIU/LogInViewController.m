@@ -132,7 +132,6 @@
                              [Helper saveAvatar:data forUser:user.username isHighRes:YES];
                              UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
                              [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
-#warning send out a notification to load the avatar
                              [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
                          }
                      }];
