@@ -10,29 +10,29 @@
 	<string>CIU</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>15C04B2D-1075-4C2F-BCB9-26A2D5C97C14</key>
+		<key>D2BF483A8294541D6E158E996AA1F461C999816D</key>
 		<string>https://github.com/nyus2014/CIU.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>CIU.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>15C04B2D-1075-4C2F-BCB9-26A2D5C97C14</key>
+		<key>D2BF483A8294541D6E158E996AA1F461C999816D</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/nyus2014/CIU.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>15C04B2D-1075-4C2F-BCB9-26A2D5C97C14</string>
+	<string>D2BF483A8294541D6E158E996AA1F461C999816D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>15C04B2D-1075-4C2F-BCB9-26A2D5C97C14</string>
+			<string>D2BF483A8294541D6E158E996AA1F461C999816D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CIU</string>
 		</dict>
