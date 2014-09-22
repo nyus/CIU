@@ -31,4 +31,7 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)browseMoreButtonTapped:(id)sender {
+    [self.delegate browseMoreButtonTappedOnCell:self];
+}
 @end

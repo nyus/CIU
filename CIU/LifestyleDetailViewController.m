@@ -21,18 +21,21 @@
 #import "Reachability.h"
 #import "Helper.h"
 #import "ComposeViewController.h"
+#import "LoadingTableViewCell.h"
+#define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
 #define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
 static NSString *kLocationServiceDisabledAlert = @"To display information around you, please turn on location services at Settings > Privacy > Location Services";
-@interface LifestyleDetailViewController()<CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate>{
+static NSObject *guardDog;
+@interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
     CLLocation *previousLocation;
-    int localDataSourceCount;
-    int serverDataSourceCount;
+    BOOL isOffline;
+    BOOL forceReload;
 }
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) PFQuery *pfQuery;
@@ -40,6 +43,7 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (nonatomic, strong) Reachability *internetReachability;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @end
 
 @implementation LifestyleDetailViewController
@@ -47,13 +51,15 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 -(void)viewDidLoad{
     [super viewDidLoad];
     
+    isOffline = ![Reachability canReachInternet];
+    
     if (IS_RES_MARKT) {
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
-        [segmentedControl addTarget:self
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
+        [self.segmentedControl addTarget:self
                              action:@selector(segmentedControlTapped:)
                    forControlEvents:UIControlEventValueChanged];
-        segmentedControl.selectedSegmentIndex = 0;
-        self.navigationItem.titleView = segmentedControl;
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.navigationItem.titleView = self.segmentedControl;
     }else if (IS_JOB_TRADE) {
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
         self.navigationItem.rightBarButtonItem = rightItem;
@@ -62,26 +68,33 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     self.internetReachability = [Reachability reachabilityForInternetConnection];
 	[self.internetReachability startNotifier];
     
-    [self fetchLocalDataForList];
+    if(!guardDog){
+        guardDog = [[NSObject alloc] init];
+    }
+    
+    
+    if (!self.locationManager) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+    }
+    
+    if(isOffline){
+        [self fetchLocalDataForList];
+    }else{
+        if (IS_JOB_TRADE) {
+            //jobs, trade and sell don't need location info yet
+            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
+        }else if (IS_RES_MARKT) {
+            [self.locationManager startUpdatingLocation];
+        }
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-
-    
-    if (IS_JOB_TRADE) {
-        //jobs, trade and sell don't need location info yet
-        [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
-    }else{
-        //
-        if (!self.locationManager) {
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-        }
-        [self.locationManager startUpdatingLocation];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -248,14 +261,13 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
                                                                    ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     //
-    fetchRequest.fetchLimit = 20;
-    fetchRequest.fetchOffset = localDataSourceCount;
+    fetchRequest.fetchLimit = FETCH_COUNT;
+    fetchRequest.fetchOffset = self.tableViewDataSource.count;
 
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
     if (fetchedObjects.count>0) {
-        localDataSourceCount+=fetchedObjects.count;
         
         int originalCount = self.tableViewDataSource.count;
         NSMutableArray *indexPathsArray = [NSMutableArray array];
@@ -265,6 +277,11 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
         }
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
         [self.tableView insertRowsAtIndexPaths:indexPathsArray withRowAnimation:UITableViewRowAnimationFade];
+        
+        //add a guard dog for loading cell
+        if(fetchedObjects.count == FETCH_COUNT){//which means there could be more
+            [self.tableViewDataSource addObject:guardDog];
+        }
     }
 }
 
@@ -286,13 +303,11 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     if (IS_RES_MARKT) {
         [self.pfQuery addBoundingCoordinatesToCenter:center];
     }
-    self.pfQuery.limit = 20;
-    self.pfQuery.skip = serverDataSourceCount;
+    self.pfQuery.limit = FETCH_COUNT;
+    self.pfQuery.skip = self.tableViewDataSource.count;
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects>0) {
-            
-            serverDataSourceCount += objects.count;
             
             if(!weakSelf.tableViewDataSource){
                 weakSelf.tableViewDataSource = [NSMutableArray array];
@@ -304,37 +319,31 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
             __block int i = 0;
             for (PFObject *parseObject in objects) {
 
-                __block LifestyleObject *life;
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
-                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
-                request.predicate = predicate;
-                NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
-                if (array.count == 1) {
-                    life = array[0];
-                    if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
+//                __block LifestyleObject *life;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    LifestyleObject *life;
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
+                    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
+                    request.predicate = predicate;
+                    NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
+                    if (array.count == 1) {
+                        life = array[0];
+                        if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
+                            [life populateFromObject:parseObject];
+                        }
+                        
+                    }else{
+                        life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                         [life populateFromObject:parseObject];
                     }
                     [[SharedDataManager sharedInstance] saveContext];
-                }else{
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                        [life populateFromObject:parseObject];
-                        
-
-                        [[SharedDataManager sharedInstance] saveContext];
-                        [weakSelf.tableViewDataSource addObject:life];
-                        NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
-                        [indexpathArray addObject:path];
-                        NSLog(@"insert path: %@",path);
-                        NSLog(@"count is %d",weakSelf.tableViewDataSource.count);
-                        [weakSelf.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
-                        i++;
-                    });
-                    
-                    
-                }
+                    [weakSelf.tableViewDataSource addObject:life];
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
+                    [indexpathArray addObject:path];
+                    [weakSelf.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
+                    i++;
+                });
+                
                 
 //                [[SharedDataManager sharedInstance] saveContext];
             }
@@ -395,45 +404,37 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
 
 #pragma mark - table view
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    //have reach the last cell. fetch more
-//    if (indexPath.row == self.tableViewDataSource.count-1 && self.tableViewDataSource.count >=20) {
-//        if (offlineMode) {
-//            [self fetchLocalDataForList];
-//        }else{
-//            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
-//            if (dictionary) {
-//                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-//                [self fetchServerDataForListAroundCenter:center];
-//            }
-//        }
-//    }
-}
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"# items: %d",self.tableViewDataSource.count);
+    
     return self.tableViewDataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *regularCell = @"cell";
-    static NSString *jobAndTradeCell = @"cellJob";
+    
     LifestyleObject *object = self.tableViewDataSource[indexPath.row];
-    if (IS_RES_MARKT) {
-
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
-        cell.textLabel.text = object.name;
-        cell.detailTextLabel.text = object.address;
-        return cell;
+    
+    if(object != guardDog){
+        static NSString *regularCell = @"cell";
+        static NSString *jobAndTradeCell = @"cellJob";
+        
+        if (IS_RES_MARKT) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
+            cell.textLabel.text = object.name;
+            cell.detailTextLabel.text = object.address;
+            return cell;
+        }else{
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.text = object.content;
+            cell.textLabel.font = [UIFont systemFontOfSize:14];
+            return cell;
+        }
     }else{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.text = object.content;
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        static NSString *loadingCell = @"loadingCell";
+        LoadingTableViewCell *cell = (LoadingTableViewCell *)[tableView dequeueReusableCellWithIdentifier:loadingCell forIndexPath:indexPath];
+        cell.delegate = self;
         return cell;
     }
-    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -441,6 +442,36 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
         return @"Display items within 30 miles around you";
     }else{
         return nil;
+    }
+}
+
+#pragma mark - loading cell delegate 
+
+-(void)browseMoreButtonTappedOnCell:(UITableViewCell *)cell{
+    if(isOffline){
+        [self fetchLocalDataForList];
+    }else{
+
+        if(IS_RES_MARKT){
+            
+            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+            if (dictionary) {
+                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+                [self fetchServerDataForListAroundCenter:center];
+            }
+            
+        }else if(IS_JOB_TRADE){
+            
+            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+            if (dictionary) {
+                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+                [self fetchServerDataWithRegion:region];
+            }
+            
+        }else{
+            return;
+        }
     }
 }
 
@@ -519,7 +550,6 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
     [self performSegueWithIdentifier:@"toObjectDetail" sender:self];
 }
 
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toObjectDetail"]) {
         if ([sender isKindOfClass:[UITableViewCell class]]) {
@@ -540,10 +570,41 @@ static NSString *kLocationServiceDisabledAlert = @"To display information around
  */
 - (void) reachabilityChanged:(NSNotification *)note
 {
-	Reachability* curReach = [note object];
-	NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
-    if ([curReach currentReachabilityStatus] != NotReachable) {
-        
+    //if previously offline and now there is internet connection
+    static int count = 0;
+    if(count == 0 && [Reachability canReachInternet] && isOffline == YES){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You are now connected to the internet. Would you like to display up-to-date information around you?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        alert.tag = 99;
+        [alert show];
+        count =1;
+    }
+}
+
+#pragma mark - uialertview delegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    //would like to update information alert in -reachabilityChanged
+    if(alertView.tag == 99){
+        //YES
+        if(buttonIndex == 1){
+            isOffline = NO;
+            if(self.segmentedControl.selectedSegmentIndex == 0){
+                self.tableViewDataSource = nil;
+                [self.tableView reloadData];
+            }else if (self.segmentedControl.selectedSegmentIndex == 1){
+                self.mapViewDataSource = nil;
+                //remove annotations
+                if (self.mapView.annotations.count!=0) {
+                    NSInteger toRemoveCount = self.mapView.annotations.count;
+                    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+                    for (id annotation in self.mapView.annotations)
+                        if (annotation != self.mapView.userLocation)
+                            [toRemove addObject:annotation];
+                    [self.mapView removeAnnotations:toRemove];
+                }
+            }
+            [self.locationManager startUpdatingLocation];
+        }
     }
 }
 
