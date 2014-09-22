@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+
 @class PFQuery;
 @interface Helper : NSObject
 //Avatar

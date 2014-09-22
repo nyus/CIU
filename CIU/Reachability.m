@@ -173,7 +173,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 +(BOOL)canReachInternet{
     Reachability *reachability = [Reachability reachabilityWithHostName:@"www.apple.com"];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
-    return netStatus!=NotReachable;
+    
+    return (netStatus!=NotReachable);
 }
 
 #pragma mark - Start and stop notifier

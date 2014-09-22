@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol LoadingTableViewCellDelegate <NSObject>
+@optional
+-(void)browseMoreButtonTappedOnCell:(UITableViewCell *)cell;
+@end
 
 @interface LoadingTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (weak, nonatomic) IBOutlet UIButton *browseMoreButton;
+- (IBAction)browseMoreButtonTapped:(id)sender;
+@property (assign, nonatomic) id<LoadingTableViewCellDelegate>delegate;
 @end
