@@ -99,35 +99,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GenericTableViewCell *cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    GenericTableViewCell *cell;
     NSDictionary *dictionary = self.dataSource[indexPath.row];
     NSString *key = dictionary.allKeys[0];
-    if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Address"] || [key isEqualToString:@"Introduction"]) {
-        cell.contentLabel.text = [dictionary objectForKey:key];
-    }else if ([key isEqualToString:@"Phone"]){
-        //could have several phone numbers
-        NSArray *array = (NSArray *)[dictionary objectForKey:key];
-        NSMutableString *string = [NSMutableString string];
-        for (int i =0; i<array.count; i++) {
-            if (i!=array.count-1) {
-                [string appendFormat:@"%@\n",array[i]];
-            }else{
-                [string appendFormat:@"%@",array[i]];
+    if ([key isEqualToString:@"Phone"]){
+        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberCell" forIndexPath:indexPath];
+        cell.phoneTextView.text = dictionary[key];
+    }else{
+        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Address"] || [key isEqualToString:@"Introduction"]) {
+            cell.contentLabel.text = [dictionary objectForKey:key];
+        }else if([key isEqualToString:@"Hours"]){
+            NSMutableString *string = [NSMutableString string];
+            NSArray *array = (NSArray *)[dictionary objectForKey:key];
+            for (int i =0; i<array.count; i++) {
+                if (i!=array.count-1) {
+                    [string appendFormat:@"%@\n",array[i]];
+                }else{
+                    [string appendFormat:@"%@",array[i]];
+                }
             }
+            cell.contentLabel.text = string;
         }
-        cell.contentLabel.text = string;
-    }else if([key isEqualToString:@"Hours"]){
-        NSMutableString *string = [NSMutableString string];
-        NSArray *array = (NSArray *)[dictionary objectForKey:key];
-        for (int i =0; i<array.count; i++) {
-            if (i!=array.count-1) {
-                [string appendFormat:@"%@\n",array[i]];
-            }else{
-                [string appendFormat:@"%@",array[i]];
-            }
-        }
-        cell.contentLabel.text = string;
     }
+    
     cell.titleLabel.text = key;
     return cell;
 }

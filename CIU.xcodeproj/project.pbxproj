@@ -97,7 +97,6 @@
 		65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */; };
 		65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10E19AFBD21004452C3 /* LogInViewController.m */; };
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
-		65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E4B19C22F510044A48A /* aboutus_image.jpg */; };
 		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
 		65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5919C358DE0044A48A /* NSString+Utilities.m */; };
 		65D93E6019C382F40044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5F19C382F40044A48A /* StatusObject.m */; };
@@ -260,7 +259,6 @@
 		65C4F10E19AFBD21004452C3 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		65C4F11019AFBD53004452C3 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		65C4F11119AFBD53004452C3 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
-		65D93E4B19C22F510044A48A /* aboutus_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = aboutus_image.jpg; path = ../../Desktop/aboutus_image.jpg; sourceTree = "<group>"; };
 		65D93E5219C239170044A48A /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		65D93E5819C358DE0044A48A /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
@@ -429,7 +427,6 @@
 				65D93E5E19C382F40044A48A /* StatusObject.h */,
 				65D93E5F19C382F40044A48A /* StatusObject.m */,
 				5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */,
-				65D93E4B19C22F510044A48A /* aboutus_image.jpg */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
 				507F2F6F19BB46BB00E8275F /* surprise28.png */,
@@ -663,7 +660,6 @@
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
 				50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */,
 				5044A12619B22632007C1200 /* 40.png in Resources */,
-				65D93E4C19C22F510044A48A /* aboutus_image.jpg in Resources */,
 				65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */,
 				65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
@@ -827,7 +823,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -859,7 +855,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

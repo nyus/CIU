@@ -10,7 +10,8 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
-#define IS_IOS_7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f)
+#define IS_IOS_7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f && [UIDevice currentDevice].systemVersion.floatValue < 8.0f)
+#define IS_IOS_8 ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
 #define IS_4_INCH_SCREEN ([[UIScreen mainScreen] bounds].size.height == 568)
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
