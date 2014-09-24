@@ -132,20 +132,9 @@
     NSString *contentString = nil;
     NSDictionary *dictionary = self.dataSource[indexPath.row];
     NSString *key = dictionary.allKeys[0];
-    if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Address"] || [key isEqualToString:@"Introduction"]) {
+    if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Address"] || [key isEqualToString:@"Introduction"] || [key isEqualToString:@"Phone"]) {
         contentString = [dictionary objectForKey:key];
-    }else if ([key isEqualToString:@"Phone"]){
-        //could have several phone numbers
-        NSArray *array = (NSArray *)[dictionary objectForKey:key];
-        NSMutableString *string = [NSMutableString string];
-        for (int i =0; i<array.count; i++) {
-            if (i!=array.count-1) {
-                [string appendFormat:@"%@\n",array[i]];
-            }else{
-                [string appendFormat:@"%@",array[i]];
-            }
-        }
-        contentString = string;
+        
     }else if([key isEqualToString:@"Hours"]){
         NSMutableString *string = [NSMutableString string];
         NSArray *array = (NSArray *)[dictionary objectForKey:key];
