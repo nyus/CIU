@@ -208,10 +208,13 @@ static Helper *_helper;
     return array;
 }
 //Map
-+(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center{
++(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(int)miles{
     //1 mile = 1609 meters
     //fetch a raidus of 30 miles. we set a fetch limit already so this is OK
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, 30*1609, 30*1609);
+    if (miles<=0) {
+        miles = 30;
+    }
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, miles*1609, miles*1609);
     return region;
 }
 

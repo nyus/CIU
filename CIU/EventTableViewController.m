@@ -13,7 +13,7 @@
 #import "PFQuery+Utilities.h"
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
-static NSString *kLocationServiceDisabledAlert = @"To display information around you, please turn on location services at Settings > Privacy > Location Services";
+
 static NSString *managedObjectName = @"Event";
 @interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
     CLLocation *previousLocation;
@@ -116,7 +116,7 @@ static NSString *managedObjectName = @"Event";
     NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
         NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         [fetchRequest setPredicate:predicate];
     }

@@ -28,7 +28,7 @@
 #define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
-static NSString *kLocationServiceDisabledAlert = @"To display information around you, please turn on location services at Settings > Privacy > Location Services";
+
 static NSObject *guardDog;
 @interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     BOOL mapRenderedOnStartup;
@@ -243,7 +243,7 @@ static NSObject *guardDog;
         NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
         if (dictionary) {
             CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
             predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         }
     }
@@ -465,7 +465,7 @@ static NSObject *guardDog;
             NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
             if (dictionary) {
                 CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center];
+                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
                 [self fetchServerDataWithRegion:region];
             }
             

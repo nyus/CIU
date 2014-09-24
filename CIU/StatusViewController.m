@@ -22,6 +22,8 @@
 #import "StatusObject.h"
 #import "ComposeNewStatusViewController.h"
 #import "SpinnerImageView.h"
+#import "NSPredicate+Utilities.h"
+#import "PFQuery+Utilities.h"
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
@@ -89,6 +91,8 @@ static UIImage *defaultAvatar;
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
                                                                        ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+#warning
+//        NSPredicate *predicate = [NSPredicate boundingCoordinatesToCenter:<#(CLLocationCoordinate2D)#>]
     }
     
     fetchRequest.fetchLimit = 10;

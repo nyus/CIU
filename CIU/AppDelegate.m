@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LocationManager.h"
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 @implementation AppDelegate
@@ -35,6 +36,7 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -51,6 +51,7 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
+		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
 		652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
@@ -184,6 +185,8 @@
 		50C44A2219C28EAC00DF50D8 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -392,6 +395,8 @@
 				501A5E6A19A6B10D0050BFA6 /* Query.m */,
 				50C44A2119C28EAC00DF50D8 /* HitTestView.h */,
 				50C44A2219C28EAC00DF50D8 /* HitTestView.m */,
+				50FF0B2D19D2533A0023A669 /* LocationManager.h */,
+				50FF0B2E19D2533A0023A669 /* LocationManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */,
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
 				503AF35A19BC97F10023EC02 /* Event.m in Sources */,
+				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */,
