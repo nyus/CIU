@@ -13,9 +13,10 @@
 #import "PFQuery+Utilities.h"
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
+#import "TabbarController.h"
 
 static NSString *managedObjectName = @"Event";
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
+@interface EventTableViewController()<TabbarControllerDelegate, UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
     CLLocation *previousLocation;
 }
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -27,6 +28,10 @@ static NSString *managedObjectName = @"Event";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    TabbarController *tabBarController = (TabbarController *)self.tabBarController;
+    tabBarController.tabBarControllerDelegate = self;
+    
     //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
     self.tableView.contentInset = UIEdgeInsetsMake(64, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
     [self addRefreshControll];
@@ -254,8 +259,13 @@ static NSString *managedObjectName = @"Event";
         // We handle all non-CoreLocation errors here
     }
 }
+
+#pragma mark - TabbarControllerDelegate
+
+- (void)navigationBarTapped
+{
+    [self.tableView scrollsToTop];
+}
+
 @end
-
-
-
 

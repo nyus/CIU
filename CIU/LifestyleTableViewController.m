@@ -12,8 +12,9 @@
 #import "Query.h"
 #import "Helper.h"
 #import "LifestyleDetailViewController.h"
+#import "TabbarController.h"
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
-@interface LifestyleTableViewController ()
+@interface LifestyleTableViewController () <TabbarControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableDictionary *queries;
 @end
@@ -37,6 +38,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    TabbarController *tabBarController = (TabbarController *)self.tabBarController;
+    tabBarController.tabBarControllerDelegate = self;
+    
     self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
@@ -220,6 +224,13 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     LifestyleCategory *category = self.dataSource[indexPath.row];
     LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
     vc.categoryName = category.name;
+}
+
+#pragma mark - TabbarControllerDelegate
+
+- (void)navigationBarTapped
+{
+    [self.tableView scrollsToTop];
 }
 
 @end

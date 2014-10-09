@@ -9,8 +9,19 @@
 #import "TabbarController.h"
 
 @implementation TabbarController
+
+- (void)viewDidLoad
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTapped:)];
+    [self.navigationController.navigationBar addGestureRecognizer:tap];
+}
+
 - (IBAction)menuButtonTapped:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarSlideOpen" object:self];
 }
 
+- (void)navBarTapped:(id)sender
+{
+    [self.tabBarControllerDelegate navigationBarTapped];
+}
 @end

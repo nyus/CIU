@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol TabbarControllerDelegate
+- (void)navigationBarTapped;
+@end
 
 @interface TabbarController : UITabBarController
-
+@property (nonatomic, assign) id<TabbarControllerDelegate>tabBarControllerDelegate;
 @end

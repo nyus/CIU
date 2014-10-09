@@ -24,11 +24,13 @@
 #import "SpinnerImageView.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
+#import "TabbarController.h"
+
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
 static UIImage *defaultAvatar;
-@interface StatusViewController ()<UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>{
+@interface StatusViewController ()<TabbarControllerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate,UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate>{
     
     StatusTableViewCell *cellToRevive;
     UIRefreshControl *refreshControl;
@@ -48,7 +50,8 @@ static UIImage *defaultAvatar;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-//    self.view = self.tableView;
+    TabbarController *tabBarController = (TabbarController *)self.tabBarController;
+    tabBarController.tabBarControllerDelegate = self;
 //    //add refresh control
     [self addRefreshControll];
     [self fetchStatusFromLocal];
@@ -559,4 +562,12 @@ static UIImage *defaultAvatar;
         [self presentViewController:vc animated:NO completion:nil];
     }
 }
+
+#pragma mark - TabbarControllerDelegate
+
+- (void)navigationBarTapped
+{
+    [self.tableView scrollsToTop];
+}
+
 @end
