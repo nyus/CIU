@@ -22,6 +22,7 @@
 #import "Helper.h"
 #import "ComposeViewController.h"
 #import "LoadingTableViewCell.h"
+#import "GenericTableViewCell.h"
 #define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
@@ -236,6 +237,10 @@ static NSObject *guardDog;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
+    
+    //sort descriptor
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    
     // Specify criteria for filtering which objects to fetch
     //1 mile = 1609 meters
     NSPredicate *predicate2;
@@ -299,7 +304,8 @@ static NSObject *guardDog;
         return;
     }
     self.pfQuery = [[PFQuery alloc] initWithClassName:parseClassName];
-    [self.pfQuery orderByDescending:@"name"];
+    //latest post goes to the top.
+    [self.pfQuery orderByDescending:@"createdAt"];
     if (IS_RES_MARKT) {
         [self.pfQuery addBoundingCoordinatesToCenter:center];
     }
@@ -319,7 +325,6 @@ static NSObject *guardDog;
             __block int i = 0;
             for (PFObject *parseObject in objects) {
 
-//                __block LifestyleObject *life;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     LifestyleObject *life;
                     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
@@ -343,9 +348,6 @@ static NSObject *guardDog;
                     [weakSelf.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
                     i++;
                 });
-                
-                
-//                [[SharedDataManager sharedInstance] saveContext];
             }
         }
     }];
@@ -423,10 +425,9 @@ static NSObject *guardDog;
             cell.detailTextLabel.text = object.address;
             return cell;
         }else{
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
-            cell.textLabel.numberOfLines = 0;
-            cell.textLabel.text = object.content;
-            cell.textLabel.font = [UIFont systemFontOfSize:14];
+            GenericTableViewCell *cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+            cell.contentLabel.text = object.content;
+            cell.contentLabel.font = [UIFont systemFontOfSize:14.0f];
             return cell;
         }
     }else{
@@ -442,6 +443,23 @@ static NSObject *guardDog;
         return @"Display items within 30 miles around you";
     }else{
         return nil;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (IS_RES_MARKT) {
+        return 44;
+    } else {
+        LifestyleObject *object = self.tableViewDataSource[indexPath.row];
+        NSString *content = object.content;
+        CGRect rect = [content boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:NULL];
+        
+        if (rect.size.height<44.0f) {
+            return 44.0f;
+        } else {
+            //5.0f is becuase the top margin is 5 pixels
+            return rect.size.height+5.0f;
+        }
     }
 }
 

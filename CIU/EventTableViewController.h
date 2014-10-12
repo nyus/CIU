@@ -7,6 +7,6 @@
 //
 
 #import "GenericTableViewController.h"
-@interface EventTableViewController : GenericTableViewController
+@interface EventTableViewController : UIViewController
 
 @end

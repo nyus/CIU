@@ -18,9 +18,11 @@
 static NSString *managedObjectName = @"Event";
 @interface EventTableViewController()<TabbarControllerDelegate, UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
     CLLocation *previousLocation;
+    UIRefreshControl *refreshControl;
 }
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
@@ -33,19 +35,23 @@ static NSString *managedObjectName = @"Event";
     tabBarController.tabBarControllerDelegate = self;
     
     //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
-    self.tableView.contentInset = UIEdgeInsetsMake(64, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
+//    self.tableView.contentInset = UIEdgeInsetsMake(64, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
     [self addRefreshControll];
+    if (![Reachability canReachInternet]) {
+        [self pullDataFromLocal];
+    }
 }
 
 -(void)addRefreshControll{
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
+//    [super viewWillAppear:animated];
+
     //we add a right bar button item on statusViewcOntroller. since all the tabs are sharing the same navigation bar, here we take out the right item
     //add right bar item(compose)
     UITabBarController *tab=self.navigationController.viewControllers[0];
@@ -65,7 +71,15 @@ static NSString *managedObjectName = @"Event";
 }
 
 -(void)addButtonTapped:(id)sender{
+    
+//    [self performSelector:@selector(resetTBViewContentInset) withObject:nil afterDelay:0.3f];
+    
     [self performSegueWithIdentifier:@"toCreateEvent" sender:self];
+}
+
+- (void)resetTBViewContentInset
+{
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
 }
 
 #pragma mark - Override
@@ -76,6 +90,11 @@ static NSString *managedObjectName = @"Event";
     [query addBoundingCoordinatesToCenter:center];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
+            
+            
+            if (!self.dataSource) {
+                self.dataSource = [NSMutableArray array];
+            }
             
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             for (int i =0; i<self.dataSource.count; i++) {
@@ -100,7 +119,7 @@ static NSString *managedObjectName = @"Event";
                     Event *event = [NSEntityDescription insertNewObjectForEntityForName:managedObjectName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [event populateFromParseojbect:parseObject];
                     [self.dataSource addObject:event];
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:self.dataSource.count==0?0:self.dataSource.count-1 inSection:0];
                     [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
                     [[SharedDataManager sharedInstance] saveContext];
                 }
@@ -108,7 +127,7 @@ static NSString *managedObjectName = @"Event";
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.refreshControl endRefreshing];
+            [refreshControl endRefreshing];
         });
     }];
 }

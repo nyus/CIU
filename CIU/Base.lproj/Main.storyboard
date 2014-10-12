@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -498,13 +499,29 @@
                                             <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="UNi-oq-vOg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellJob" id="Pjn-hz-d6R">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellJob" id="Pjn-hz-d6R" customClass="GenericTableViewCell">
                                         <rect key="frame" x="0.0" y="110" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pjn-hz-d6R" id="pWd-7x-FKe">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDW-NT-m3G">
+                                                    <rect key="frame" x="16" y="5" width="296" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="top" secondItem="pWd-7x-FKe" secondAttribute="topMargin" constant="-3" id="gjX-Hb-1gr"/>
+                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="trailing" secondItem="pWd-7x-FKe" secondAttribute="trailingMargin" id="nNV-uN-6FD"/>
+                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="leading" secondItem="pWd-7x-FKe" secondAttribute="leadingMargin" constant="8" id="ye8-CX-5gA"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="contentLabel" destination="mDW-NT-m3G" id="Gux-m8-Fxl"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -534,7 +551,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jca-Tg-eSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="-935"/>
+            <point key="canvasLocation" x="1945" y="-936"/>
         </scene>
         <!--Lifestyle Object Detail Table View Controller-->
         <scene sceneID="LHt-Op-Nxw">

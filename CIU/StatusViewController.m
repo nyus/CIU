@@ -52,7 +52,6 @@ static UIImage *defaultAvatar;
     [super viewDidLoad];
     TabbarController *tabBarController = (TabbarController *)self.tabBarController;
     tabBarController.tabBarControllerDelegate = self;
-//    //add refresh control
     [self addRefreshControll];
     [self fetchStatusFromLocal];
     [self fetchNewStatusWithCount:20 remainingTime:nil];
