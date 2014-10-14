@@ -18,4 +18,5 @@
 -(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath;
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 -(void)refreshControlTriggered:(UIRefreshControl *)sender;
+-(void)addRefreshControll;
 @end

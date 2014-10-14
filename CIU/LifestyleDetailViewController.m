@@ -89,7 +89,6 @@ static NSObject *guardDog;
             [self.locationManager startUpdatingLocation];
         }
     }
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

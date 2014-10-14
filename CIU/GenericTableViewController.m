@@ -13,8 +13,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
-//    [self addRefreshControll];
+    [self addMenuButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -23,12 +22,27 @@
     [self pullDataFromServer];
 }
 
+- (void)addMenuButton{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
+}
+
+- (void)addTapToScrollUpGesture{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTapped:)];
+    [self.navigationController.navigationBar addGestureRecognizer:tap];
+}
 
 -(void)addRefreshControll{
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
+}
+
+-(void)menuButtonTapped:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarSlideOpen" object:self];
+}
+
+-(void)navBarTapped:(id)sender{
+    [self.tableView scrollsToTop];
 }
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{

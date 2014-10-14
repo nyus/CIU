@@ -12,9 +12,8 @@
 #import "Query.h"
 #import "Helper.h"
 #import "LifestyleDetailViewController.h"
-#import "TabbarController.h"
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
-@interface LifestyleTableViewController () <TabbarControllerDelegate>
+@interface LifestyleTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableDictionary *queries;
 @end
@@ -33,13 +32,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    TabbarController *tabBarController = (TabbarController *)self.tabBarController;
-    tabBarController.tabBarControllerDelegate = self;
     
     self.queries= [NSMutableDictionary dictionary];
     
@@ -226,11 +218,5 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     vc.categoryName = category.name;
 }
 
-#pragma mark - TabbarControllerDelegate
-
-- (void)navigationBarTapped
-{
-    [self.tableView scrollsToTop];
-}
 
 @end

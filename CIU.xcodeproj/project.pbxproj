@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0D53FD19ED617B00B0C24C /* SurpriseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
 		501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E5719A579D10050BFA6 /* CoreData.framework */; };
@@ -118,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseTableViewController.h; sourceTree = "<group>"; };
+		0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableViewController.m; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewController.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableViewController.m; sourceTree = "<group>"; };
 		501A5E5019A578A00050BFA6 /* bundle1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = bundle1.o; path = usr/lib/bundle1.o; sourceTree = SDKROOT; };
@@ -368,6 +371,8 @@
 				65C4F0C119AFB67C004452C3 /* ComposeNewStatusViewController.m */,
 				65C4F0B519AFB201004452C3 /* StatusViewController.h */,
 				65C4F0B619AFB201004452C3 /* StatusViewController.m */,
+				0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */,
+				0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */,
 			);
 			name = Surprise;
 			sourceTree = "<group>";
@@ -732,6 +737,7 @@
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
 				503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */,
+				0B0D53FD19ED617B00B0C24C /* SurpriseTableViewController.m in Sources */,
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
 				503AF35A19BC97F10023EC02 /* Event.m in Sources */,
 				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
