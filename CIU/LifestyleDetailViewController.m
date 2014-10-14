@@ -439,7 +439,7 @@ static NSObject *guardDog;
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        return @"Display items within 30 miles around you";
+        return @"Display items within 30 miles.";
     }else{
         return nil;
     }
