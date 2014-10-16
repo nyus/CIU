@@ -33,9 +33,7 @@ static NSString *managedObjectName = @"Event";
     
     TabbarController *tabBarController = (TabbarController *)self.tabBarController;
     tabBarController.tabBarControllerDelegate = self;
-    
-    //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
-//    self.tableView.contentInset = UIEdgeInsetsMake(64, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
+
     [self addRefreshControll];
     if (![Reachability canReachInternet]) {
         [self pullDataFromLocal];
@@ -44,14 +42,22 @@ static NSString *managedObjectName = @"Event";
 
 -(void)addRefreshControll{
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:animated];
-
+    
+    //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
+    if (self.tableView.contentInset.top != 64.0f) {
+        self.tableView.contentInset = UIEdgeInsetsMake(64.0f,
+                                                       self.tableView.contentInset.left,
+                                                       self.tableView.contentInset.bottom,
+                                                       self.tableView.contentInset.right);
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 320, 200) animated:NO];
+    }
     //we add a right bar button item on statusViewcOntroller. since all the tabs are sharing the same navigation bar, here we take out the right item
     //add right bar item(compose)
     UITabBarController *tab=self.navigationController.viewControllers[0];
@@ -84,7 +90,10 @@ static NSString *managedObjectName = @"Event";
 
 #pragma mark - Override
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
-    __block EventTableViewController *weakSelf = self;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.refreshControl endRefreshing];
+    });
     PFQuery *query = [[PFQuery alloc] initWithClassName:managedObjectName];
     [query orderByDescending:@"createdAt"];
     [query addBoundingCoordinatesToCenter:center];
@@ -127,7 +136,7 @@ static NSString *managedObjectName = @"Event";
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [refreshControl endRefreshing];
+            [self.refreshControl endRefreshing];
         });
     }];
 }
@@ -170,6 +179,11 @@ static NSString *managedObjectName = @"Event";
 }
 
 #pragma mark - Table view
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;

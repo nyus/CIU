@@ -54,6 +54,10 @@ static NSObject *guardDog;
     
     isOffline = ![Reachability canReachInternet];
     
+    NSLog(@"%@",self.navigationItem.backBarButtonItem);
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backTapped)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"1" style:UIBarButtonItemStyleBordered target:self action:nil];
+    
     if (IS_RES_MARKT) {
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
         [self.segmentedControl addTarget:self
