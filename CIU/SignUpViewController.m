@@ -149,6 +149,7 @@
                 newUser.password = passWordString;
                 [newUser setObject:weakSelf.firstNameTextField.text forKey:@"firstName"];
                 [newUser setObject:weakSelf.lastNameTextField.text forKey:@"lastName"];
+                [newUser setObject:@NO forKey:@"isFacebookUser"];
                 
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     

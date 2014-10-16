@@ -13,12 +13,10 @@
 #import "PFQuery+Utilities.h"
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
-#import "TabbarController.h"
 
 static NSString *managedObjectName = @"Event";
-@interface EventTableViewController()<TabbarControllerDelegate, UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
+@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
     CLLocation *previousLocation;
-    UIRefreshControl *refreshControl;
 }
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -31,10 +29,8 @@ static NSString *managedObjectName = @"Event";
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    TabbarController *tabBarController = (TabbarController *)self.tabBarController;
-    tabBarController.tabBarControllerDelegate = self;
-
     [self addRefreshControll];
+    
     if (![Reachability canReachInternet]) {
         [self pullDataFromLocal];
     }
@@ -48,21 +44,7 @@ static NSString *managedObjectName = @"Event";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-    
-    //seeign a weird issue when the content inset is not adjusted by checking "adjust scroll view insets" in IB
-    if (self.tableView.contentInset.top != 64.0f) {
-        self.tableView.contentInset = UIEdgeInsetsMake(64.0f,
-                                                       self.tableView.contentInset.left,
-                                                       self.tableView.contentInset.bottom,
-                                                       self.tableView.contentInset.right);
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 320, 200) animated:NO];
-    }
-    //we add a right bar button item on statusViewcOntroller. since all the tabs are sharing the same navigation bar, here we take out the right item
-    //add right bar item(compose)
-    UITabBarController *tab=self.navigationController.viewControllers[0];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
-    tab.navigationItem.rightBarButtonItem = item;
+    [super viewWillAppear:animated];
     
     if (!self.locationManager) {
         self.locationManager = [[CLLocationManager alloc] init];
@@ -76,24 +58,9 @@ static NSString *managedObjectName = @"Event";
     self.dateFormatter = nil;
 }
 
--(void)addButtonTapped:(id)sender{
-    
-//    [self performSelector:@selector(resetTBViewContentInset) withObject:nil afterDelay:0.3f];
-    
-    [self performSegueWithIdentifier:@"toCreateEvent" sender:self];
-}
-
-- (void)resetTBViewContentInset
-{
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, self.tableView.contentInset.left, self.tableView.contentInset.bottom, self.tableView.contentInset.right);
-}
-
 #pragma mark - Override
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.refreshControl endRefreshing];
-    });
     PFQuery *query = [[PFQuery alloc] initWithClassName:managedObjectName];
     [query orderByDescending:@"createdAt"];
     [query addBoundingCoordinatesToCenter:center];
@@ -291,13 +258,6 @@ static NSString *managedObjectName = @"Event";
     } else {
         // We handle all non-CoreLocation errors here
     }
-}
-
-#pragma mark - TabbarControllerDelegate
-
-- (void)navigationBarTapped
-{
-    [self.tableView scrollsToTop];
 }
 
 @end

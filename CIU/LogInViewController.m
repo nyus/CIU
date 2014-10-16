@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "SignUpViewController.h"
 #import "Helper.h"
+#import "FPLogger.h"
 @interface LogInViewController ()<UIAlertViewDelegate>
 
 @end
@@ -157,7 +158,22 @@
                     if (gender) {
                         [me setObject:gender forKey:@"gender"];
                     }
-                    [me saveEventually];
+                    [me saveEventually:^(BOOL succeeded, NSError *error) {
+                        if(succeeded){
+                            //set user on PFInstallation object so that we can send out targeted pushes
+                            [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+                            [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (succeeded) {
+                                    [FPLogger record:@"successfully set PFUser on PFInstallation"];
+                                    NSLog(@"successfully set PFUser on PFInstallation");
+                                }else{
+                                    [FPLogger record:@"set PFUser on PFInstallation falied"];
+                                    NSLog(@"set PFUser on PFInstallation falied");
+                                }
+                            }];
+                        }
+                    }];
+                    
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
