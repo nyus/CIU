@@ -204,7 +204,8 @@ static UIImage *defaultAvatar;
     if (status.anonymous.boolValue) {
         cell.statusCellUsernameLabel.text = @"Anonymous";
     }else{
-        cell.statusCellUsernameLabel.text = status.posterUsername;
+        PFUser *user = [PFUser currentUser];
+        cell.statusCellUsernameLabel.text = [NSString stringWithFormat:@"%@ %@",user[@"firstName"],user[@"lastName"]];
     }
     //    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
     //    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
