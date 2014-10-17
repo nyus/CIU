@@ -15,4 +15,5 @@
 @property (weak, nonatomic) StatusTableViewCell *statusTBCell;
 @property (weak, nonatomic) StatusViewController *statusVC;
 -(void)clearCommentTableView;
+- (void)updateCommentCountWithBlock:(void(^)())completion;
 @end

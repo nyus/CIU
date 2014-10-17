@@ -41,6 +41,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *enterMessageContainerViewBottomSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic, assign) void(^completion)();
 @end
 
 @implementation CommentStatusViewController
@@ -72,6 +73,10 @@ typedef NS_ENUM(NSUInteger, Direction){
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     defaultAvatar = nil;
+}
+
+- (void)updateCommentCountWithBlock:(void (^)())completion{
+    self.completion = completion;
 }
 
 //-(void)handleSwipe:(UISwipeGestureRecognizer *)swipe{
@@ -189,6 +194,8 @@ typedef NS_ENUM(NSUInteger, Direction){
         }
     }];
     
+    //notify SurpriseTableViewController to update the coment count on the cell
+    self.completion();
     
     [self.tableView beginUpdates];
 

@@ -35,9 +35,9 @@ static UIImage *defaultAvatar;
     StatusTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;
     CommentStatusViewController *commentVC;
-    NSString *statusIdToPass;
     CGRect commentViewOriginalFrame;
     NSFetchRequest *fetchRequest;
+    NSIndexPath *selectedPath;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -442,8 +442,7 @@ static UIImage *defaultAvatar;
 -(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell{
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    StatusObject *status = self.dataSource[indexPath.row];
-    statusIdToPass = status.objectId;
+    selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];
 }
 
@@ -452,7 +451,12 @@ static UIImage *defaultAvatar;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toCommentView"]){
         CommentStatusViewController *vc = (CommentStatusViewController *)segue.destinationViewController;
-        vc.statusObjectId = statusIdToPass;
+        StatusObject *status = self.dataSource[selectedPath.row];
+        vc.statusObjectId = status.objectId;
+        __weak SurpriseTableViewController *weakSelf= self;
+        [vc updateCommentCountWithBlock:^{
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];
+        }];
     }
 }
 
