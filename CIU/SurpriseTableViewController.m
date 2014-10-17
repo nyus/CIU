@@ -451,10 +451,11 @@ static UIImage *defaultAvatar;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toCommentView"]){
         CommentStatusViewController *vc = (CommentStatusViewController *)segue.destinationViewController;
-        StatusObject *status = self.dataSource[selectedPath.row];
+        __block StatusObject *status = self.dataSource[selectedPath.row];
         vc.statusObjectId = status.objectId;
         __weak SurpriseTableViewController *weakSelf= self;
         [vc updateCommentCountWithBlock:^{
+            status.commentCount = [NSNumber numberWithInt:status.commentCount.intValue+1];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
     }

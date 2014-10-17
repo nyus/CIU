@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *enterMessageContainerViewBottomSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (nonatomic, assign) void(^completion)();
+@property (nonatomic, copy) void(^completion)();
 @end
 
 @implementation CommentStatusViewController
