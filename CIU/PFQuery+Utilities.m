@@ -27,7 +27,8 @@
  distance: unit is mile
  */
 -(void)addBoundingCoordinatesToCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius{
-    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius?radius:@0];
+
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius?radius:nil];
     [self addBoundingCoordinatesConstraintForRegion:region];
 }
 

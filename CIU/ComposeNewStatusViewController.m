@@ -260,6 +260,7 @@
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
             newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
+
             NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
                 newStatus[@"latitude"] = dictionary[@"latitude"];

@@ -7,6 +7,7 @@
 //
 
 #import "GenericTableViewController.h"
+#import "Helper.h"
 @interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *previousLocation;
@@ -17,9 +18,7 @@
     [super viewDidLoad];
     [self addMenuButton];
     if (!self.locationManager) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
+        self.locationManager = [Helper initLocationManagerWithDelegate:self];
     }
 }
 
@@ -125,9 +124,14 @@
                 // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
-                NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alert show];
+                
+                if ([CLLocationManager locationServicesEnabled]) {
+                    //that means user disabled our app specifically
+                    NSLog(@"fail to locate user: permission denied");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                
                 break;
             }
                 

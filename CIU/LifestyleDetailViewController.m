@@ -77,9 +77,7 @@
             [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
             
         }else if (IS_RES_MARKT) {
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
+            self.locationManager = [Helper initLocationManagerWithDelegate:self];
         }
     }
 }
@@ -422,7 +420,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        return @"Display items within 30 miles.";
+        return @"Display items within 30 miles around you.";
     }else{
         return nil;
     }

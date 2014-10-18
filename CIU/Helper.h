@@ -36,4 +36,7 @@
 
 //access user location
 +(NSDictionary *)userLocation;
+
+//cllocation manager
++(CLLocationManager *)initLocationManagerWithDelegate:(id<CLLocationManagerDelegate>)delegate;
 @end

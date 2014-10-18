@@ -477,5 +477,4 @@ static UIImage *defaultAvatar;
         }];
     }
 }
-
 @end

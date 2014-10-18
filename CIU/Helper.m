@@ -9,6 +9,7 @@
 #import "Helper.h"
 #import "FPLogger.h"
 #import <Parse/Parse.h>
+#define Default_Radius 30
 static Helper *_helper;
 @implementation Helper
 //Avatar
@@ -210,9 +211,9 @@ static Helper *_helper;
 //Map
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius{
     //1 mile = 1609 meters
-    //fetch a raidus of 30 miles. we set a fetch limit already so this is OK
+    //fetch a raidus of 15 miles. we set a fetch limit already so this is OK
     if (!radius) {
-        radius = @30;
+        radius = @Default_Radius;
     }
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, radius.floatValue*1609, radius.floatValue*1609);
     return region;
@@ -255,7 +256,19 @@ static Helper *_helper;
 #pragma mark - user location
 
 +(NSDictionary *)userLocation{
-    return [Helper userLocation];
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
 }
+#pragma mark - location manager
 
++(CLLocationManager *)initLocationManagerWithDelegate:(id<CLLocationManagerDelegate>)delegate{
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = delegate;
+    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    [locationManager startUpdatingLocation];
+    return locationManager;
+}
 @end
