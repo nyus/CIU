@@ -255,8 +255,10 @@
             PFObject *newStatus = [PFObject objectWithClassName:@"Status"];
             newStatus[@"message"] = self.textView.text;
             newStatus[@"posterUsername"] = [[PFUser currentUser] username];
+            newStatus[@"posterFirstName"] = [[PFUser currentUser] objectForKey:@"firstName"];
+            newStatus[@"posterLastName"] = [[PFUser currentUser] objectForKey:@"lastName"];
             newStatus[@"commentCount"]=@0;
-            newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
+            newStatus[@"photoCount"] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
             newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
             NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {

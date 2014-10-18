@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */; };
+		0BCD10DB19F153AB002AC4DF /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD10DA19F153AB002AC4DF /* StatusObject.m */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
 		501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E5719A579D10050BFA6 /* CoreData.framework */; };
@@ -101,7 +102,6 @@
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
 		65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsViewController.m */; };
 		65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5919C358DE0044A48A /* NSString+Utilities.m */; };
-		65D93E6019C382F40044A48A /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5F19C382F40044A48A /* StatusObject.m */; };
 		65D93E6419C386CF0044A48A /* events.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6119C386CF0044A48A /* events.png */; };
 		65D93E6519C386CF0044A48A /* surprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6219C386CF0044A48A /* surprise.png */; };
 		65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6919C38EE20044A48A /* lifestyle1.png */; };
@@ -121,6 +121,8 @@
 /* Begin PBXFileReference section */
 		0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseTableViewController.h; sourceTree = "<group>"; };
 		0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableViewController.m; sourceTree = "<group>"; };
+		0BCD10D919F153AB002AC4DF /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
+		0BCD10DA19F153AB002AC4DF /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewController.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableViewController.m; sourceTree = "<group>"; };
 		501A5E5019A578A00050BFA6 /* bundle1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = bundle1.o; path = usr/lib/bundle1.o; sourceTree = SDKROOT; };
@@ -269,8 +271,6 @@
 		65D93E5319C239170044A48A /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		65D93E5819C358DE0044A48A /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
 		65D93E5919C358DE0044A48A /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
-		65D93E5E19C382F40044A48A /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusObject.h; path = CIU/StatusObject.h; sourceTree = "<group>"; };
-		65D93E5F19C382F40044A48A /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusObject.m; path = CIU/StatusObject.m; sourceTree = "<group>"; };
 		65D93E6119C386CF0044A48A /* events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = events.png; sourceTree = "<group>"; };
 		65D93E6219C386CF0044A48A /* surprise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surprise.png; sourceTree = "<group>"; };
 		65D93E6919C38EE20044A48A /* lifestyle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifestyle1.png; sourceTree = "<group>"; };
@@ -434,8 +434,6 @@
 				65D93E6919C38EE20044A48A /* lifestyle1.png */,
 				65D93E6119C386CF0044A48A /* events.png */,
 				65D93E6219C386CF0044A48A /* surprise.png */,
-				65D93E5E19C382F40044A48A /* StatusObject.h */,
-				65D93E5F19C382F40044A48A /* StatusObject.m */,
 				5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
@@ -517,6 +515,8 @@
 				5092161319AA58E900304EDD /* LifestyleObject.h */,
 				5092161419AA58E900304EDD /* LifestyleObject.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
+				0BCD10D919F153AB002AC4DF /* StatusObject.h */,
+				0BCD10DA19F153AB002AC4DF /* StatusObject.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -629,6 +629,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Huang, Jason";
 				TargetAttributes = {
+					652BAB7C199D3CCA009F5F5A = {
+						DevelopmentTeam = 24QWF4M939;
+					};
 					652BAB9D199D3CCA009F5F5A = {
 						TestTargetID = 652BAB7C199D3CCA009F5F5A;
 					};
@@ -721,7 +724,6 @@
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
-				65D93E6019C382F40044A48A /* StatusObject.m in Sources */,
 				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
@@ -733,6 +735,7 @@
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
+				0BCD10DB19F153AB002AC4DF /* StatusObject.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
@@ -878,6 +881,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
@@ -893,7 +898,7 @@
 					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -903,6 +908,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
@@ -918,7 +925,7 @@
 					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ac83f4f-13c7-4e09-ac81-4c27376c55a0";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

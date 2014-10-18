@@ -135,6 +135,8 @@ static UIImage *defaultAvatar;
                 status.createdAt = pfObject.createdAt;
                 status.picture = pfObject[@"picture"];
                 status.posterUsername = pfObject[@"posterUsername"];
+                status.posterFirstName = pfObject[@"posterFirstName"];
+                status.posterLastName = pfObject[@"posterLastName"];
                 status.likeCount = pfObject[@"likeCount"];
                 status.commentCount = pfObject[@"commentCount"];
                 status.photoCount = pfObject[@"photoCount"];
@@ -208,8 +210,7 @@ static UIImage *defaultAvatar;
     if (status.anonymous.boolValue) {
         cell.statusCellUsernameLabel.text = @"Anonymous";
     }else{
-        PFUser *user = [PFUser currentUser];
-        cell.statusCellUsernameLabel.text = [NSString stringWithFormat:@"%@ %@",user[@"firstName"],user[@"lastName"]];
+        cell.statusCellUsernameLabel.text = [NSString stringWithFormat:@"%@ %@",status.posterFirstName,status.posterLastName];
     }
     //    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
     //    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
@@ -467,10 +468,11 @@ static UIImage *defaultAvatar;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toCommentView"]){
         CommentStatusViewController *vc = (CommentStatusViewController *)segue.destinationViewController;
-        StatusObject *status = self.dataSource[selectedPath.row];
+        __block StatusObject *status = self.dataSource[selectedPath.row];
         vc.statusObjectId = status.objectId;
         __weak SurpriseTableViewController *weakSelf= self;
         [vc updateCommentCountWithBlock:^{
+            status.commentCount = [NSNumber numberWithInt:status.commentCount.intValue+1];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
     }
