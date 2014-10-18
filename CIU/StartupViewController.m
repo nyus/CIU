@@ -62,7 +62,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 -(void)reloadTableView{
-    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About CIU",@"Rate CIU",@"Feedback",@"Share CIU", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About CIU",@"Rate CIU",@"Feedback",@"Share CIU",@"Log out", nil];
     [self.tableView reloadData];
 }
 
@@ -169,8 +169,14 @@ NS_ENUM(NSUInteger, SideBarStatus){
         [self presentViewController:vc animated:YES completion:nil];
     }
     //share this app
-    else{
+    else if(indexPath.row == 4){
         [self shareToFacebook];
+    }
+    //log out
+    else {
+        [PFUser logOut];
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
