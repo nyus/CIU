@@ -258,6 +258,12 @@
             newStatus[@"commentCount"]=@0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:collectionViewDataSource.count];
             newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
+            NSDictionary *dictionary = [Helper userLocation];
+            if (dictionary) {
+                newStatus[@"latitude"] = dictionary[@"latitude"];
+                newStatus[@"longitude"] = dictionary[@"longitude"];
+            }
+            
             NSString *photoID;
             if (collectionViewDataSource.count!=0) {
                 photoID =[NSString generateUniqueId];

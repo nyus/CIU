@@ -15,13 +15,11 @@
 #import "Helper.h"
 
 static NSString *managedObjectName = @"Event";
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>{
-    CLLocation *previousLocation;
+@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate>{
 }
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
 @implementation EventTableViewController
@@ -45,12 +43,6 @@ static NSString *managedObjectName = @"Event";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    if (!self.locationManager) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -63,7 +55,7 @@ static NSString *managedObjectName = @"Event";
 
     PFQuery *query = [[PFQuery alloc] initWithClassName:managedObjectName];
     [query orderByDescending:@"createdAt"];
-    [query addBoundingCoordinatesToCenter:center];
+    [query addBoundingCoordinatesToCenter:center radius:nil];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
             
@@ -113,10 +105,10 @@ static NSString *managedObjectName = @"Event";
     self.dataSource = [NSMutableArray array];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:managedObjectName];
     // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+    NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
+        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
         NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         [fetchRequest setPredicate:predicate];
     }
@@ -140,7 +132,7 @@ static NSString *managedObjectName = @"Event";
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{}
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+    NSDictionary *dictionary = [Helper userLocation];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     [self pullDataFromServerAroundCenter:center];
 }
@@ -210,53 +202,15 @@ static NSString *managedObjectName = @"Event";
     }
 
 }
-#pragma mark -- Location manager
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    //the most recent location update is at the end of the array.
-    CLLocation *location = (CLLocation *)[locations lastObject];
-    
-    //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
-    if (previousLocation) {
-        CLLocationDistance distance = [location distanceFromLocation:previousLocation];
-        if(distance/1609 < 10){
-            return;
-        }
-    }
-    previousLocation = location;
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude],@"latitude",[NSNumber numberWithDouble:location.coordinate.longitude],@"longitude", nil];
-    [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"userLocation"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self pullDataFromServerAroundCenter:location.coordinate];
-}
-
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    
-    if ([error domain] == kCLErrorDomain) {
-        
-        // We handle CoreLocation-related errors here
-        switch ([error code]) {
-                // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
-                // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
-            case kCLErrorDenied:{
-                NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alert show];
-                break;
-            }
-                
-            case kCLErrorLocationUnknown:{
-                NSLog(@"fail to locate user: location unknown");
-                break;
-            }
-                
-            default:
-                NSLog(@"fail to locate user: %@",error.localizedDescription);
-                break;
-        }
-    } else {
-        // We handle all non-CoreLocation errors here
+//override
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
+    [super locationManager:manager didUpdateLocation:location];
+    //on viewDidLoad, fetch data for user once, if user wishes to see new data, user needs to pull down and refresh
+    //on viewDidLoad, location manager may have not located the user yet, so in this method, is self.dataSource is nil or count ==0, that means we need to manually trigger fetch
+    //pull to refresh would always use the location in NSUserDefaults
+    if(self.dataSource == nil || self.dataSource.count == 0){
+        [self pullDataFromServerAroundCenter:location.coordinate];
     }
 }
 

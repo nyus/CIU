@@ -33,7 +33,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 {
     [super viewDidLoad];
     
-    self.queries= [NSMutableDictionary dictionary];
+//    self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
     if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
@@ -53,6 +53,12 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
             NSLog(@"Some other error: %@", error);
         }
     }];
+    
+    if (![Reachability canReachInternet]) {
+        [self pullDataFromLocal];
+    } else {
+        [self pullDataFromServer];
+    }
 }
 
 -(void)showLoginViewController{
@@ -75,12 +81,17 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refreshControlTriggered:(UIRefreshControl *)sender{
+    [self pullDataFromServer];
+}
+
 #pragma mark - Override
 
 -(void)pullDataFromLocal{
     
-    self.dataSource = nil;
-    self.dataSource = [NSMutableArray array];
+    if (!self.dataSource) {
+        self.dataSource = [NSMutableArray array];
+    }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:LifestyleCategoryName];
     // Specify how the fetched objects should be sorted
@@ -101,6 +112,10 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     [query orderByAscending:@"importance"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
+            
+            if (!self.dataSource) {
+                self.dataSource = [NSMutableArray array];
+            }
             
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             for (int i =0; i<self.dataSource.count; i++) {
@@ -134,39 +149,39 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     }];
 }
 
--(void)loadRemoteDataForVisibleCells{
-    for (UITableViewCell *cell in self.tableView.visibleCells) {
-        
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        LifestyleCategory *category = self.dataSource[indexPath.row];
-        NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
-        
-        if (cell.imageView.image != nil || [Helper isLocalImageExist:imageName isHighRes:NO]) {
-            continue;
-        }
-        
-
-        Query *query = [[Query alloc] init];
-        __block UITableViewCell *weakCell = cell;
-        [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
-            if (!error) {
-                weakCell.imageView.image = image;
-                
-            }else{
-                weakCell.imageView.image = nil;
-            }
-        }];
-        [self.queries setObject:query forKey:indexPath];
-    }
-}
-
--(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
-    Query *query = [self.queries objectForKey:indexPath];
-    if (query) {
-        [query cancelRequest];
-    }
-    [self.queries removeObjectForKey:indexPath];
-}
+//-(void)loadRemoteDataForVisibleCells{
+//    for (UITableViewCell *cell in self.tableView.visibleCells) {
+//        
+//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//        LifestyleCategory *category = self.dataSource[indexPath.row];
+//        NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
+//        
+//        if (cell.imageView.image != nil || [Helper isLocalImageExist:imageName isHighRes:NO]) {
+//            continue;
+//        }
+//        
+//
+//        Query *query = [[Query alloc] init];
+//        __block UITableViewCell *weakCell = cell;
+//        [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
+//            if (!error) {
+//                weakCell.imageView.image = image;
+//                
+//            }else{
+//                weakCell.imageView.image = nil;
+//            }
+//        }];
+//        [self.queries setObject:query forKey:indexPath];
+//    }
+//}
+//
+//-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
+//    Query *query = [self.queries objectForKey:indexPath];
+//    if (query) {
+//        [query cancelRequest];
+//    }
+//    [self.queries removeObjectForKey:indexPath];
+//}
 
 #pragma mark - Table view data source
 
@@ -217,6 +232,5 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
     vc.categoryName = category.name;
 }
-
 
 @end

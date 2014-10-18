@@ -208,13 +208,13 @@ static Helper *_helper;
     return array;
 }
 //Map
-+(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(int)miles{
++(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius{
     //1 mile = 1609 meters
     //fetch a raidus of 30 miles. we set a fetch limit already so this is OK
-    if (miles<=0) {
-        miles = 30;
+    if (!radius) {
+        radius = @30;
     }
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, miles*1609, miles*1609);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(center, radius.floatValue*1609, radius.floatValue*1609);
     return region;
 }
 
@@ -250,6 +250,12 @@ static Helper *_helper;
     }else{
         return nil;
     }
+}
+
+#pragma mark - user location
+
++(NSDictionary *)userLocation{
+    return [Helper userLocation];
 }
 
 @end

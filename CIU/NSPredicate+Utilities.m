@@ -22,8 +22,8 @@
 /*
  distance: unit is mile
  */
-+(NSPredicate *)boundingCoordinatesToCenter:(CLLocationCoordinate2D)center{
-    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
++(NSPredicate *)boundingCoordinatesToCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius{
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
     return [NSPredicate boudingCoordinatesPredicateForRegion:region];
 }
 @end

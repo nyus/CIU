@@ -30,7 +30,6 @@
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
 
-static NSObject *guardDog;
 @interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
@@ -38,11 +37,12 @@ static NSObject *guardDog;
     BOOL isOffline;
     BOOL forceReload;
 }
+
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) PFQuery *pfQuery;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
-@property (nonatomic, strong) Reachability *internetReachability;
+//@property (nonatomic, strong) Reachability *internetReachability;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @end
@@ -53,10 +53,6 @@ static NSObject *guardDog;
     [super viewDidLoad];
     
     isOffline = ![Reachability canReachInternet];
-    
-    NSLog(@"%@",self.navigationItem.backBarButtonItem);
-//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backTapped)];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"1" style:UIBarButtonItemStyleBordered target:self action:nil];
     
     if (IS_RES_MARKT) {
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
@@ -70,18 +66,8 @@ static NSObject *guardDog;
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
-    self.internetReachability = [Reachability reachabilityForInternetConnection];
-	[self.internetReachability startNotifier];
-    
-    if(!guardDog){
-        guardDog = [[NSObject alloc] init];
-    }
-    
-    
-    if (!self.locationManager) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-    }
+//    self.internetReachability = [Reachability reachabilityForInternetConnection];
+//	[self.internetReachability startNotifier];
     
     if(isOffline){
         [self fetchLocalDataForList];
@@ -89,21 +75,23 @@ static NSObject *guardDog;
         if (IS_JOB_TRADE) {
             //jobs, trade and sell don't need location info yet
             [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
+            
         }else if (IS_RES_MARKT) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
             [self.locationManager startUpdatingLocation];
         }
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     self.mapView.showsUserLocation = NO;
 }
 
@@ -248,10 +236,10 @@ static NSObject *guardDog;
     //1 mile = 1609 meters
     NSPredicate *predicate2;
     if (IS_RES_MARKT) {
-        NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+        NSDictionary *dictionary = [Helper userLocation];
         if (dictionary) {
             CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
             predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         }
     }
@@ -285,11 +273,6 @@ static NSObject *guardDog;
         }
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
         [self.tableView insertRowsAtIndexPaths:indexPathsArray withRowAnimation:UITableViewRowAnimationFade];
-        
-        //add a guard dog for loading cell
-        if(fetchedObjects.count == FETCH_COUNT){//which means there could be more
-            [self.tableViewDataSource addObject:guardDog];
-        }
     }
 }
 
@@ -310,7 +293,7 @@ static NSObject *guardDog;
     //latest post goes to the top.
     [self.pfQuery orderByDescending:@"createdAt"];
     if (IS_RES_MARKT) {
-        [self.pfQuery addBoundingCoordinatesToCenter:center];
+        [self.pfQuery addBoundingCoordinatesToCenter:center radius:nil];
     }
     self.pfQuery.limit = FETCH_COUNT;
     self.pfQuery.skip = self.tableViewDataSource.count;
@@ -374,7 +357,11 @@ static NSObject *guardDog;
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude],@"latitude",[NSNumber numberWithDouble:location.coordinate.longitude],@"longitude", nil];
     [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"userLocation"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self fetchServerDataForListAroundCenter:location.coordinate];
+    
+    //job and trade doesnt require location information
+    if (IS_RES_MARKT && (self.tableViewDataSource == nil || self.tableViewDataSource.count == 0)) {
+        [self fetchServerDataForListAroundCenter:location.coordinate];
+    }
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
@@ -417,26 +404,18 @@ static NSObject *guardDog;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.tableViewDataSource[indexPath.row];
-    
-    if(object != guardDog){
-        static NSString *regularCell = @"cell";
-        static NSString *jobAndTradeCell = @"cellJob";
-        
-        if (IS_RES_MARKT) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
-            cell.textLabel.text = object.name;
-            cell.detailTextLabel.text = object.address;
-            return cell;
-        }else{
-            GenericTableViewCell *cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
-            cell.contentLabel.text = object.content;
-            cell.contentLabel.font = [UIFont systemFontOfSize:14.0f];
-            return cell;
-        }
+    static NSString *regularCell = @"cell";
+    static NSString *jobAndTradeCell = @"cellJob";
+
+    if (IS_RES_MARKT) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
+        cell.textLabel.text = object.name;
+        cell.detailTextLabel.text = object.address;
+        return cell;
     }else{
-        static NSString *loadingCell = @"loadingCell";
-        LoadingTableViewCell *cell = (LoadingTableViewCell *)[tableView dequeueReusableCellWithIdentifier:loadingCell forIndexPath:indexPath];
-        cell.delegate = self;
+        GenericTableViewCell *cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+        cell.contentLabel.text = object.content;
+        cell.contentLabel.font = [UIFont systemFontOfSize:14.0f];
         return cell;
     }
 }
@@ -475,7 +454,7 @@ static NSObject *guardDog;
 
         if(IS_RES_MARKT){
             
-            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+            NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
                 CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
                 [self fetchServerDataForListAroundCenter:center];
@@ -483,10 +462,10 @@ static NSObject *guardDog;
             
         }else if(IS_JOB_TRADE){
             
-            NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
+            NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
                 CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:-1];
+                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
                 [self fetchServerDataWithRegion:region];
             }
             
@@ -589,44 +568,44 @@ static NSObject *guardDog;
 /*!
  * Called by Reachability whenever status changes.
  */
-- (void) reachabilityChanged:(NSNotification *)note
-{
-    //if previously offline and now there is internet connection
-    static int count = 0;
-    if(count == 0 && [Reachability canReachInternet] && isOffline == YES){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You are now connected to the internet. Would you like to display up-to-date information around you?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-        alert.tag = 99;
-        [alert show];
-        count =1;
-    }
-}
+//- (void) reachabilityChanged:(NSNotification *)note
+//{
+//    //if previously offline and now there is internet connection
+//    static int count = 0;
+//    if(count == 0 && [Reachability canReachInternet] && isOffline == YES){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You are now connected to the internet. Would you like to display up-to-date information around you?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+//        alert.tag = 99;
+//        [alert show];
+//        count =1;
+//    }
+//}
 
 #pragma mark - uialertview delegate
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    //would like to update information alert in -reachabilityChanged
-    if(alertView.tag == 99){
-        //YES
-        if(buttonIndex == 1){
-            isOffline = NO;
-            if(self.segmentedControl.selectedSegmentIndex == 0){
-                self.tableViewDataSource = nil;
-                [self.tableView reloadData];
-            }else if (self.segmentedControl.selectedSegmentIndex == 1){
-                self.mapViewDataSource = nil;
-                //remove annotations
-                if (self.mapView.annotations.count!=0) {
-                    NSInteger toRemoveCount = self.mapView.annotations.count;
-                    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
-                    for (id annotation in self.mapView.annotations)
-                        if (annotation != self.mapView.userLocation)
-                            [toRemove addObject:annotation];
-                    [self.mapView removeAnnotations:toRemove];
-                }
-            }
-            [self.locationManager startUpdatingLocation];
-        }
-    }
-}
+//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    //would like to update information alert in -reachabilityChanged
+//    if(alertView.tag == 99){
+//        //YES
+//        if(buttonIndex == 1){
+//            isOffline = NO;
+//            if(self.segmentedControl.selectedSegmentIndex == 0){
+//                self.tableViewDataSource = nil;
+//                [self.tableView reloadData];
+//            }else if (self.segmentedControl.selectedSegmentIndex == 1){
+//                self.mapViewDataSource = nil;
+//                //remove annotations
+//                if (self.mapView.annotations.count!=0) {
+//                    NSInteger toRemoveCount = self.mapView.annotations.count;
+//                    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+//                    for (id annotation in self.mapView.annotations)
+//                        if (annotation != self.mapView.userLocation)
+//                            [toRemove addObject:annotation];
+//                    [self.mapView removeAnnotations:toRemove];
+//                }
+//            }
+//            [self.locationManager startUpdatingLocation];
+//        }
+//    }
+//}
 
 @end

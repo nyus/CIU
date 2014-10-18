@@ -11,7 +11,6 @@
 #import "SharedDataManager.h"
 #import "Reachability.h"
 @interface GenericTableViewController : UITableViewController
-//@property (nonatomic, strong) UIRefreshControl *refreshControl;
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
 -(void)loadRemoteDataForVisibleCells;
@@ -19,4 +18,5 @@
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 -(void)refreshControlTriggered:(UIRefreshControl *)sender;
 -(void)addRefreshControll;
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location;
 @end

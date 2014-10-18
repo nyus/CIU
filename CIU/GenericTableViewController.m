@@ -7,19 +7,24 @@
 //
 
 #import "GenericTableViewController.h"
-@interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *previousLocation;
 @end
 @implementation GenericTableViewController
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self addMenuButton];
+    if (!self.locationManager) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self pullDataFromLocal];
-    [self pullDataFromServer];
 }
 
 - (void)addMenuButton{
@@ -82,6 +87,61 @@
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (!decelerate) {
         [self loadRemoteDataForVisibleCells];
+    }
+}
+
+#pragma mark - location manager
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
+    //override by subclass
+}
+#pragma mark -- Location manager
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    //the most recent location update is at the end of the array.
+    CLLocation *location = (CLLocation *)[locations lastObject];
+
+    //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
+    if (self.previousLocation) {
+        CLLocationDistance distance = [location distanceFromLocation:self.previousLocation];
+        if(distance/1609 < 10){
+            return;
+        }
+    }
+    self.previousLocation = location;
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude],@"latitude",[NSNumber numberWithDouble:location.coordinate.longitude],@"longitude", nil];
+    [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:@"userLocation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self locationManager:manager didUpdateLocation:location];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    
+    if ([error domain] == kCLErrorDomain) {
+        
+        // We handle CoreLocation-related errors here
+        switch ([error code]) {
+                // "Don't Allow" on two successive app launches is the same as saying "never allow". The user
+                // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
+            case kCLErrorDenied:{
+                NSLog(@"fail to locate user: permission denied");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+                [alert show];
+                break;
+            }
+                
+            case kCLErrorLocationUnknown:{
+                NSLog(@"fail to locate user: location unknown");
+                break;
+            }
+                
+            default:
+                NSLog(@"fail to locate user: %@",error.localizedDescription);
+                break;
+        }
+    } else {
+        // We handle all non-CoreLocation errors here
     }
 }
 

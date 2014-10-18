@@ -52,8 +52,9 @@ static UIImage *defaultAvatar;
     [super viewDidLoad];
 
     [self addRefreshControll];
-    [self fetchStatusFromLocal];
-    [self fetchNewStatusWithCount:20 remainingTime:nil];
+    if (![Reachability canReachInternet]) {
+        [self fetchStatusFromLocal];
+    }
 }
 
 - (void)didReceiveMemoryWarning{
@@ -62,7 +63,7 @@ static UIImage *defaultAvatar;
 }
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    [self fetchNewStatusWithCount:20 remainingTime:nil];
+    [self fetchNewStatusWithCount:20];
 }
 
 -(void)fetchStatusFromLocal{
@@ -74,8 +75,6 @@ static UIImage *defaultAvatar;
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
                                                                        ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-#warning
-        //        NSPredicate *predicate = [NSPredicate boundingCoordinatesToCenter:<#(CLLocationCoordinate2D)#>]
     }
     
     fetchRequest.fetchLimit = 10;
@@ -98,7 +97,7 @@ static UIImage *defaultAvatar;
     }
 }
 
--(void)fetchNewStatusWithCount:(int)count remainingTime:(NSNumber *)remainingTimeInSec{
+-(void)fetchNewStatusWithCount:(int)count{
     
     __block SurpriseTableViewController *weakSelf= self;
     PFQuery *query = [PFQuery queryWithClassName:@"Status"];
@@ -108,6 +107,11 @@ static UIImage *defaultAvatar;
     NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchStatusDate"];
     if (lastFetchStatusDate) {
         [query whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
+    }
+    NSDictionary *dictionary = [Helper userLocation];
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        [query addBoundingCoordinatesToCenter:center radius:@30];
     }
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -444,6 +448,18 @@ static UIImage *defaultAvatar;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];
+}
+
+//override
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
+    [super locationManager:manager didUpdateLocation:location];
+    //on viewDidLoad, fetch surprise for user once, if user wishes to see new surprises, user needs to pull down and refresh
+    //on viewDidLoad, location manager may have not located the user yet, so in this method, is self.dataSource is nil or count ==0, that means we need to manually trigger fetchNewStatus
+    //pull to refresh would always use the location in NSUserDefaults
+    if (self.dataSource == nil || self.dataSource.count == 0){
+        [self fetchNewStatusWithCount:20];
+    }
 }
 
 #pragma mark - UISegue
