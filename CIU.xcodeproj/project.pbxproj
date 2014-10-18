@@ -26,6 +26,7 @@
 		503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35019BB7F970023EC02 /* EventTableViewCell.m */; };
 		503AF35419BB80B40023EC02 /* CreateEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35319BB80B40023EC02 /* CreateEventViewController.m */; };
 		503AF35A19BC97F10023EC02 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35919BC97F10023EC02 /* Event.m */; };
+		503FA6D719F3088A004DE6C1 /* aboutus_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 503FA6D619F3088A004DE6C1 /* aboutus_image.jpg */; };
 		5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547719A6CF610050853A /* SystemConfiguration.framework */; };
 		5040547A19A6CF690050853A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547919A6CF690050853A /* Security.framework */; };
 		5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547B19A6CF900050853A /* AudioToolbox.framework */; };
@@ -153,6 +154,7 @@
 		503AF35319BB80B40023EC02 /* CreateEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateEventViewController.m; sourceTree = "<group>"; };
 		503AF35819BC97F10023EC02 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = CIU/Event.h; sourceTree = "<group>"; };
 		503AF35919BC97F10023EC02 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = CIU/Event.m; sourceTree = "<group>"; };
+		503FA6D619F3088A004DE6C1 /* aboutus_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aboutus_image.jpg; sourceTree = "<group>"; };
 		5040547719A6CF610050853A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5040547919A6CF690050853A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5040547B19A6CF900050853A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -430,6 +432,7 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				503FA6D619F3088A004DE6C1 /* aboutus_image.jpg */,
 				5038A12F19C47FA600D91354 /* CodeSnippets */,
 				65D93E6919C38EE20044A48A /* lifestyle1.png */,
 				65D93E6119C386CF0044A48A /* events.png */,
@@ -685,6 +688,7 @@
 				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,
 				65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */,
 				652CF13719B1188500FE0AC0 /* CIUapp_icon.png in Resources */,
+				503FA6D719F3088A004DE6C1 /* aboutus_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
