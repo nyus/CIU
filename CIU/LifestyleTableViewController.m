@@ -54,9 +54,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         }
     }];
     
-    if (![Reachability canReachInternet]) {
-        [self pullDataFromLocal];
-    } else {
+    [self pullDataFromLocal];
+    
+    if ([Reachability canReachInternet]) {
         [self pullDataFromServer];
     }
 }

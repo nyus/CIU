@@ -228,6 +228,7 @@ static UIImage *defaultAvatar;
     if (!defaultAvatar) {
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
+    
     cell.statusCellAvatarImageView.image = defaultAvatar;
     
     if (!status.anonymous.boolValue) {
@@ -350,22 +351,26 @@ static UIImage *defaultAvatar;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         StatusObject *status = self.dataSource[indexPath.row];
         
-        //get avatar
-        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
-        if (avatar) {
-            
-            cell.statusCellAvatarImageView.image = avatar;
-            
-        }else{
-            
-            PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                cell.statusCellAvatarImageView.image = image;
-            }];
-            
-            if(!self.avatarQueries){
-                self.avatarQueries = [NSMutableDictionary dictionary];
+        if (!status.anonymous.boolValue) {
+            //get avatar
+            UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
+            if (avatar) {
+                
+                cell.statusCellAvatarImageView.image = avatar;
+                
+            }else{
+                
+                PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                    cell.statusCellAvatarImageView.image = image;
+                }];
+                
+                if(!self.avatarQueries){
+                    self.avatarQueries = [NSMutableDictionary dictionary];
+                }
+                [self.avatarQueries setObject:query1 forKey:indexPath];
             }
-            [self.avatarQueries setObject:query1 forKey:indexPath];
+        } else {
+            cell.statusCellAvatarImageView.image = defaultAvatar;
         }
         
         //get post image

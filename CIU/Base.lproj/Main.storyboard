@@ -37,8 +37,9 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gw8-B3-Z6a">
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gw8-B3-Z6a">
                                                     <rect key="frame" x="40" y="23" width="70" height="70"/>
+                                                    <gestureRecognizers/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -577,7 +578,7 @@
                                     <outlet property="titleLabel" destination="t9M-GW-Lb4" id="50A-SE-qhx"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="numberCell" rowHeight="65" id="acU-S3-it9" customClass="GenericTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="numberAddressCell" rowHeight="65" id="acU-S3-it9" customClass="GenericTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="acU-S3-it9" id="Lqd-5p-uN4">
@@ -589,7 +590,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" address="YES"/>
                                         </textView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebn-5Y-ILh" userLabel="title">
                                             <rect key="frame" x="20" y="5" width="48" height="15"/>
@@ -2042,6 +2043,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="UNi-oq-vOg"/>
+        <segue reference="Tuh-Ow-OOK"/>
     </inferredMetricsTieBreakers>
 </document>

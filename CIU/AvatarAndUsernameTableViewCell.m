@@ -19,9 +19,23 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+    }
+    
+    return self;
+}
+
+- (void)avatarImageViewTapped{
+    [self.delegate avatarImageViewTappedWithCell:self];
+}
+
 - (void)awakeFromNib
 {
     // Initialization code
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageViewTapped)];
+    [self.avatarImageView addGestureRecognizer:tap];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

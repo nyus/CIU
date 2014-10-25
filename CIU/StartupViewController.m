@@ -20,10 +20,11 @@ NS_ENUM(NSUInteger, SideBarStatus){
 #define SIDE_BAR_CLOSE_DISTANCE 0.0f
 #define AVATAR_CELL_HEIGHT 102.0f
 #define OTHER_CELL_HEIGHT 44.0f
-@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate>{
+@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate>{
     CGPoint previousPoint;
 }
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
 
 @implementation StartupViewController
@@ -41,10 +42,6 @@ NS_ENUM(NSUInteger, SideBarStatus){
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
-    PFUser *user = [PFUser currentUser];
-    if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self reloadTableView];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -131,6 +128,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
     if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"avatarCell" forIndexPath:indexPath];
         __block AvatarAndUsernameTableViewCell *c = (AvatarAndUsernameTableViewCell *)cell;
+        c.delegate = self;
         [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
             if (!error) {
                 c.avatarImageView.image = image;
@@ -280,5 +278,71 @@ NS_ENUM(NSUInteger, SideBarStatus){
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - AvatarAndUsernameTableViewCellDelegate
+
+- (void)avatarImageViewTappedWithCell:(AvatarAndUsernameTableViewCell *)cell{
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take A Photo",@"Add From Gallery", nil];
+    [actionsheet showInView:self.view];
+}
+
+#pragma mark - Tap to switch image 
+
+- (IBAction)imageViewTapped:(id)sender {
+    
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take A Photo",@"Add From Gallery", nil];
+    [actionsheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    //0 take a photo, 1 add from gallery
+    
+    if (buttonIndex == 0) {
+        [self launchCameraPicker];
+    }else if (buttonIndex ==1){
+        [self launchGalleryPicker];
+    }
+}
+
+- (void) launchCameraPicker {
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (!self.imagePicker) {
+            self.imagePicker = [[UIImagePickerController alloc] init];
+            self.imagePicker.delegate = self;
+        }
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.allowsEditing = NO;
+        self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+    }
+}
+
+- (void) launchGalleryPicker {
+    if (!self.imagePicker) {
+        self.imagePicker = [[UIImagePickerController alloc] init];
+        self.imagePicker.delegate = self;
+    }
+    
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *original = info[@"UIImagePickerControllerOriginalImage"];
+    //access cell
+    AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
+    NSData *highResData = UIImagePNGRepresentation(original);
+    UIImage *scaled = [Helper scaleImage:original downToSize:cell.avatarImageView.frame.size];
+    NSData *lowResData = UIImagePNGRepresentation(scaled);
+    //save to both local and server
+    [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES];
+    [Helper saveAvatar:lowResData forUser:[PFUser currentUser].username isHighRes:NO];
+    
+    cell.avatarImageView.image = scaled;
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 @end

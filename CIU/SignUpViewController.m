@@ -78,8 +78,6 @@
         [self launchCameraPicker];
     }else if (buttonIndex ==1){
         [self launchGalleryPicker];
-    }else{
-
     }
 }
 

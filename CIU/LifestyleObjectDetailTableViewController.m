@@ -36,7 +36,7 @@
 }
 
 -(void)syncWithServer{
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"LifestyleObject"];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:self.lifestyleObject.category];
     [query whereKey:@"objectId" equalTo:self.lifestyleObject.objectId];
     [query whereKey:@"updatedAt" greaterThan:self.lifestyleObject.updatedAt];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
@@ -102,12 +102,12 @@
     GenericTableViewCell *cell;
     NSDictionary *dictionary = self.dataSource[indexPath.row];
     NSString *key = dictionary.allKeys[0];
-    if ([key isEqualToString:@"Phone"]){
-        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberCell" forIndexPath:indexPath];
+    if ([key isEqualToString:@"Phone"] || [key isEqualToString:@"Address"]){
+        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberAddressCell" forIndexPath:indexPath];
         cell.phoneTextView.text = dictionary[key];
     }else{
         cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-        if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Address"] || [key isEqualToString:@"Introduction"]) {
+        if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Introduction"]) {
             cell.contentLabel.text = [dictionary objectForKey:key];
         }else if([key isEqualToString:@"Hours"]){
             NSMutableString *string = [NSMutableString string];
@@ -121,6 +121,13 @@
             }
             cell.contentLabel.text = string;
         }
+    }
+    
+    //Name and Introduction are not tappable
+    if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Introduction"]) {
+        cell.userInteractionEnabled = NO;
+    } else {
+        cell.userInteractionEnabled = YES;
     }
     
     cell.titleLabel.text = key;
