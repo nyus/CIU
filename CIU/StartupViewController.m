@@ -25,6 +25,11 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+
+@property (weak, nonatomic) IBOutlet UIView *container;
+@property (strong, nonatomic) UIImageView *blurView;
+
+
 @end
 
 @implementation StartupViewController
@@ -35,6 +40,12 @@ NS_ENUM(NSUInteger, SideBarStatus){
     if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self reloadTableView];
     }
+    
+    //set UI of menu tableview
+    self.tableView.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -59,7 +70,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 -(void)reloadTableView{
-    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About CIU",@"Rate CIU",@"Feedback",@"Share CIU",@"Log out", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Log out", nil];
     [self.tableView reloadData];
 }
 
@@ -86,8 +97,13 @@ NS_ENUM(NSUInteger, SideBarStatus){
     if (self.containerViewLeadingSpaceConstraint.constant < SIDE_BAR_OPEN_DISTANCE/2) {
         
         self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_CLOSE_DISTANCE;
+        //remove blur effect
+        [self setBlurEffect:NO];
+        
     }else{
         self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_OPEN_DISTANCE;
+        //add blur effect
+        [self setBlurEffect:YES];
     }
     
     [UIView animateWithDuration:.3 animations:^{
@@ -106,8 +122,13 @@ NS_ENUM(NSUInteger, SideBarStatus){
     
     if (self.containerViewLeadingSpaceConstraint.constant==0) {
         self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_OPEN_DISTANCE;
+        //add blur effect
+        [self setBlurEffect:YES];
     }else{
         self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_CLOSE_DISTANCE;
+        
+        //remove blur effect
+        [self setBlurEffect:NO];
     }
     
     [UIView animateWithDuration:.3 animations:^{
@@ -115,6 +136,22 @@ NS_ENUM(NSUInteger, SideBarStatus){
     } completion:^(BOOL finished) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }];
+}
+
+#pragma mark - Blur effect
+- (void)setBlurEffect:(BOOL)setBlurEffect
+{
+    if(!self.blurView){
+        self.blurView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.container.frame.size.width, self.container.frame.size.height)];
+        self.blurView.image = [UIImage imageNamed:@"mask"];
+    }
+    
+    if(setBlurEffect){
+        [self.container addSubview:self.blurView];
+    }else{
+        [self.blurView removeFromSuperview];
+    }
+    
 }
 
 #pragma mark - UITableView
@@ -132,13 +169,32 @@ NS_ENUM(NSUInteger, SideBarStatus){
         [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
             if (!error) {
                 c.avatarImageView.image = image;
+                c.avatarImageView.layer.masksToBounds = YES;
+                c.avatarImageView.layer.cornerRadius = 35;
+                c.backgroundColor = nil;
+                
             }
         }];
         c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
+        c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+        c.usernameLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0f];
+        
     }else{
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.textLabel.text = self.dataSource[indexPath.row];
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
+        cell.textLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0f];
+        cell.textLabel.textAlignment = NSTextAlignmentRight;
+        
+        cell.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
+        
+        //seperator
+        CGSize textSize = [self.dataSource[indexPath.row] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Bold" size:15.0], NSFontAttributeName, nil]];
+        
+        UIView *seperator = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.size.width - 30 - textSize.width, cell.frame.size.height - 5.0, textSize.width + 15, 1.0)];
+        seperator.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:36.0/255.0 blue:36.0/255.0 alpha:1.0f];
+        [cell addSubview:seperator];
         
     }
     return cell;
@@ -176,6 +232,9 @@ NS_ENUM(NSUInteger, SideBarStatus){
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
         [self presentViewController:vc animated:YES completion:nil];
     }
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = NO;
 }
 
 -(void)shareToFacebook{
