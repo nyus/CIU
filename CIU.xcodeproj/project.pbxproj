@@ -36,11 +36,9 @@
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
-		5044A12519B22632007C1200 /* 60.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12219B22632007C1200 /* 60.png */; };
-		5044A12619B22632007C1200 /* 40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12319B22632007C1200 /* 40.png */; };
-		5044A12719B22632007C1200 /* 29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5044A12419B22632007C1200 /* 29.png */; };
 		50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 50675BC019B41F8A00845CD9 /* fbLogin.png */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
+		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
 		507F2F7019BB46BB00E8275F /* surprise28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6F19BB46BB00E8275F /* surprise28.png */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
@@ -68,7 +66,6 @@
 		652BABA2199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
 		652BABAA199D3CCA009F5F5A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652BABA8199D3CCA009F5F5A /* InfoPlist.strings */; };
 		652BABAC199D3CCA009F5F5A /* CIUTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BABAB199D3CCA009F5F5A /* CIUTests.m */; };
-		652CF13719B1188500FE0AC0 /* CIUapp_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 652CF13619B1188500FE0AC0 /* CIUapp_icon.png */; };
 		6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F5199D422A00629B48 /* StartupViewController.m */; };
 		6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F8199D4CAF00629B48 /* TabbarController.m */; };
 		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
@@ -164,11 +161,9 @@
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		5044A12219B22632007C1200 /* 60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 60.png; sourceTree = "<group>"; };
-		5044A12319B22632007C1200 /* 40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40.png; sourceTree = "<group>"; };
-		5044A12419B22632007C1200 /* 29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29.png; sourceTree = "<group>"; };
 		50675BC019B41F8A00845CD9 /* fbLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogin.png; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
 		507F2F6F19BB46BB00E8275F /* surprise28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surprise28.png; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
@@ -211,7 +206,6 @@
 		652BABA7199D3CCA009F5F5A /* CIUTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIUTests-Info.plist"; sourceTree = "<group>"; };
 		652BABA9199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652BABAB199D3CCA009F5F5A /* CIUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIUTests.m; sourceTree = "<group>"; };
-		652CF13619B1188500FE0AC0 /* CIUapp_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CIUapp_icon.png; sourceTree = "<group>"; };
 		6564F1F4199D422A00629B48 /* StartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartupViewController.h; sourceTree = "<group>"; };
 		6564F1F5199D422A00629B48 /* StartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartupViewController.m; sourceTree = "<group>"; };
 		6564F1F7199D4CAF00629B48 /* TabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarController.h; sourceTree = "<group>"; };
@@ -432,6 +426,7 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				507312511A01C36000E3533E /* ciu logo.png */,
 				503FA6D619F3088A004DE6C1 /* aboutus_image.jpg */,
 				5038A12F19C47FA600D91354 /* CodeSnippets */,
 				65D93E6919C38EE20044A48A /* lifestyle1.png */,
@@ -443,10 +438,6 @@
 				507F2F6F19BB46BB00E8275F /* surprise28.png */,
 				507F2F6D19BB46AF00E8275F /* event28.png */,
 				50675BC019B41F8A00845CD9 /* fbLogin.png */,
-				5044A12219B22632007C1200 /* 60.png */,
-				5044A12319B22632007C1200 /* 40.png */,
-				5044A12419B22632007C1200 /* 29.png */,
-				652CF13619B1188500FE0AC0 /* CIUapp_icon.png */,
 				65C4F0BD19AFB2B8004452C3 /* comment_icon.png */,
 				65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */,
 				50B28C4E19A8EFB700398BA4 /* royalOak.gpx */,
@@ -670,15 +661,13 @@
 				507F2F6E19BB46AF00E8275F /* event28.png in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
 				65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */,
-				5044A12519B22632007C1200 /* 60.png in Resources */,
 				65D93E6519C386CF0044A48A /* surprise.png in Resources */,
-				5044A12719B22632007C1200 /* 29.png in Resources */,
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
 				50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */,
-				5044A12619B22632007C1200 /* 40.png in Resources */,
 				65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */,
 				65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
+				507312521A01C36000E3533E /* ciu logo.png in Resources */,
 				65C4F0FF19AFBBEA004452C3 /* ELCAlbumPickerController.xib in Resources */,
 				652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */,
 				65C4F10019AFBBEA004452C3 /* ELCAssetPicker.xib in Resources */,
@@ -687,7 +676,6 @@
 				65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */,
 				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,
 				65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */,
-				652CF13719B1188500FE0AC0 /* CIUapp_icon.png in Resources */,
 				503FA6D719F3088A004DE6C1 /* aboutus_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -885,8 +873,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sihang Huang (85Y433T9BF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sihang Huang (85Y433T9BF)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
@@ -912,8 +900,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sihang Huang (24QWF4M939)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sihang Huang (24QWF4M939)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jasonhuang/Downloads,
@@ -929,7 +917,7 @@
 					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ac83f4f-13c7-4e09-ac81-4c27376c55a0";
+				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

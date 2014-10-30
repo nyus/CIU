@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1662,7 +1662,7 @@
                                     <action selector="logInButtonTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="uUj-fq-2Xf"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CIUapp_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-Qd-1nF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ciu logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-Qd-1nF">
                                 <rect key="frame" x="120" y="20" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="EiH-yv-nbS"/>
@@ -1701,6 +1701,14 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-qP-GMO">
                                 <rect key="frame" x="150" y="411" width="20" height="20"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaR-RX-cP3">
+                                <rect key="frame" x="87" y="472" width="20" height="20"/>
+                                <color key="backgroundColor" red="0.0" green="0.62745098039215685" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qA3-jn-aYk">
+                                <rect key="frame" x="153" y="474" width="20" height="20"/>
+                                <color key="backgroundColor" red="0.0" green="0.5607843137254902" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -2025,9 +2033,9 @@
     </scenes>
     <resources>
         <image name="8miletechlogo.jpg" width="1089" height="486"/>
-        <image name="CIUapp_icon.png" width="500" height="500"/>
         <image name="aboutus_image.jpg" width="300" height="178"/>
         <image name="camera.png" width="256" height="256"/>
+        <image name="ciu logo.png" width="229" height="226"/>
         <image name="comment_icon.png" width="30" height="30"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event28.png" width="28" height="28"/>
