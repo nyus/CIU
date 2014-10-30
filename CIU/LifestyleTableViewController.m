@@ -33,6 +33,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 {
     [super viewDidLoad];
     
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
 //    self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
@@ -219,6 +221,19 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     return self.dataSource.count;
 }
 
+- (NSString*)imageNameOfCategory:(LifestyleCategory*)category
+{
+    if([category.name isEqualToString:@"Restaurant"]){
+        return @"2retserant";
+    }else if([category.name isEqualToString:@"Supermarket"]){
+        return @"2markets";
+    }else if([category.name isEqualToString:@"Jobs"]){
+        return @"2job";
+    }else{
+        return @"2Sale";
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *categoryCell = @"categoryCell";
@@ -226,6 +241,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     LifestyleCategory *category = self.dataSource[indexPath.row];
     cell.textLabel.text = category.name;
+    NSString *imageName = [self imageNameOfCategory:category];
+    cell.imageView.image = [UIImage imageNamed:imageName];
+    
     
     //reset in case its being reused
 //    cell.imageView.image = nil;
