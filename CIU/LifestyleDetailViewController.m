@@ -23,6 +23,7 @@
 #import "ComposeViewController.h"
 #import "LoadingTableViewCell.h"
 #import "GenericTableViewCell.h"
+#import "DisplayPeripheralHeaderView.h"
 #define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
@@ -418,11 +419,22 @@
     }
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        return @"Display items within 30 miles around you.";
+        DisplayPeripheralHeaderView *header = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
+            
+        }];
+        return header;
     }else{
         return nil;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
+        return 31.0f;
+    } else {
+        return 0;
     }
 }
 

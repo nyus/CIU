@@ -1701,14 +1701,6 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-qP-GMO">
                                 <rect key="frame" x="150" y="411" width="20" height="20"/>
                             </activityIndicatorView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PaR-RX-cP3">
-                                <rect key="frame" x="87" y="472" width="20" height="20"/>
-                                <color key="backgroundColor" red="0.0" green="0.62745098039215685" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qA3-jn-aYk">
-                                <rect key="frame" x="153" y="474" width="20" height="20"/>
-                                <color key="backgroundColor" red="0.0" green="0.5607843137254902" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
