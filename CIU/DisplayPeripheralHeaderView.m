@@ -67,6 +67,11 @@
 - (void)stepperValueChanged:(UIStepper *)stepper{
     if (self.completion) {
         self.completion(stepper.value);
+        NSString *string = [NSString stringWithFormat:@"Results within %d miles.",(int)stepper.value];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+        NSRange range = [string rangeOfString:[NSString stringWithFormat:@"%d",(int)stepper.value]];
+        [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor blueColor]} range:range];
+        self.contentLabel.attributedText = attributedString;
     }
 }
 

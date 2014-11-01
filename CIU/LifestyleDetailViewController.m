@@ -71,11 +71,11 @@
 //	[self.internetReachability startNotifier];
     
     if(isOffline){
-        [self fetchLocalDataForList];
+        [self fetchLocalDataForListWithRadius:nil];
     }else{
         if (IS_JOB_TRADE) {
             //jobs, trade and sell don't need location info yet
-            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)];
+            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0) raidus:nil];
             
         }else if (IS_RES_MARKT) {
             self.locationManager = [Helper initLocationManagerWithDelegate:self];
@@ -219,7 +219,7 @@
 
 #pragma mar - all method table view needs
 
--(void)fetchLocalDataForList{
+-(void)fetchLocalDataForListWithRadius:(NSNumber *)radius{
 
     if (!self.tableViewDataSource) {
         self.tableViewDataSource = [NSMutableArray array];
@@ -238,7 +238,7 @@
         NSDictionary *dictionary = [Helper userLocation];
         if (dictionary) {
             CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
             predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         }
     }
@@ -275,7 +275,7 @@
     }
 }
 
--(void)fetchServerDataForListAroundCenter:(CLLocationCoordinate2D)center{
+-(void)fetchServerDataForListAroundCenter:(CLLocationCoordinate2D)center raidus:(NSNumber *)radius{
     
     if (self.pfQuery) {
         [self.pfQuery cancel];
@@ -292,7 +292,7 @@
     //latest post goes to the top.
     [self.pfQuery orderByDescending:@"createdAt"];
     if (IS_RES_MARKT) {
-        [self.pfQuery addBoundingCoordinatesToCenter:center radius:nil];
+        [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
     }
     self.pfQuery.limit = FETCH_COUNT;
     self.pfQuery.skip = self.tableViewDataSource.count;
@@ -338,6 +338,18 @@
     }];
 }
 
+-(void)handleDataDisplayPeripheral:(double)newValue{
+    if (![Reachability canReachInternet]) {
+        [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue]];
+        
+    } else {
+        
+        NSDictionary *userLocation = [Helper userLocation];
+        CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
+        [self fetchServerDataForListAroundCenter:coor raidus:[NSNumber numberWithDouble:newValue]];
+    }
+}
+
 #pragma mark -- Location manager
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
@@ -359,7 +371,7 @@
     
     //job and trade doesnt require location information
     if (IS_RES_MARKT && (self.tableViewDataSource == nil || self.tableViewDataSource.count == 0)) {
-        [self fetchServerDataForListAroundCenter:location.coordinate];
+        [self fetchServerDataForListAroundCenter:location.coordinate raidus:nil];
     }
 }
 
@@ -422,7 +434,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
         DisplayPeripheralHeaderView *header = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
-            
+            [self handleDataDisplayPeripheral:newValue];
         }];
         return header;
     }else{
@@ -459,7 +471,7 @@
 
 -(void)browseMoreButtonTappedOnCell:(UITableViewCell *)cell{
     if(isOffline){
-        [self fetchLocalDataForList];
+        [self fetchLocalDataForListWithRadius:nil];
     }else{
 
         if(IS_RES_MARKT){
@@ -467,7 +479,7 @@
             NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
                 CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                [self fetchServerDataForListAroundCenter:center];
+                [self fetchServerDataForListAroundCenter:center raidus:nil];
             }
             
         }else if(IS_JOB_TRADE){

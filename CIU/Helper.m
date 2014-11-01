@@ -9,7 +9,7 @@
 #import "Helper.h"
 #import "FPLogger.h"
 #import <Parse/Parse.h>
-#define Default_Radius 30
+#define Default_Radius 5
 static Helper *_helper;
 @implementation Helper
 //Avatar
