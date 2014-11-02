@@ -39,6 +39,7 @@
     BOOL forceReload;
 }
 
+@property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) PFQuery *pfQuery;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
@@ -221,9 +222,11 @@
 
 -(void)fetchLocalDataForListWithRadius:(NSNumber *)radius{
 
-    if (!self.tableViewDataSource) {
-        self.tableViewDataSource = [NSMutableArray array];
+    if (self.tableViewDataSource) {
+        self.tableViewDataSource = nil;
     }
+    self.tableViewDataSource = [NSMutableArray array];
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -264,14 +267,8 @@
     
     if (fetchedObjects.count>0) {
         
-        int originalCount = self.tableViewDataSource.count;
-        NSMutableArray *indexPathsArray = [NSMutableArray array];
-        for (int i =originalCount; i<originalCount+fetchedObjects.count; i++) {
-            NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-            [indexPathsArray addObject:path];
-        }
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
-        [self.tableView insertRowsAtIndexPaths:indexPathsArray withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
     }
 }
 
@@ -295,45 +292,44 @@
         [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
     }
     self.pfQuery.limit = FETCH_COUNT;
-    self.pfQuery.skip = self.tableViewDataSource.count;
+//    self.pfQuery.skip = self.tableViewDataSource.count;
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects>0) {
             
-            if(!weakSelf.tableViewDataSource){
-                weakSelf.tableViewDataSource = [NSMutableArray array];
+            if (weakSelf.tableViewDataSource) {
+
+                weakSelf.tableViewDataSource = nil;
             }
+            weakSelf.tableViewDataSource = [NSMutableArray array];
             
             //construct array of indexPath and store parse data to local
-            NSMutableArray *indexpathArray = [NSMutableArray array];
-             int originalCount = (int)weakSelf.tableViewDataSource.count;
-            __block int i = 0;
             for (PFObject *parseObject in objects) {
 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    LifestyleObject *life;
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
-                    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
-                    request.predicate = predicate;
-                    NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
-                    if (array.count == 1) {
-                        life = array[0];
-                        if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
-                            [life populateFromObject:parseObject];
-                        }
-                        
-                    }else{
-                        life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                LifestyleObject *life;
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.objectId MATCHES[cd] %@",parseObject.objectId];
+                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
+                request.predicate = predicate;
+                NSArray *array = [[[SharedDataManager sharedInstance] managedObjectContext] executeFetchRequest:request error:nil];
+                if (array.count == 1) {
+                    life = array[0];
+                    if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
                         [life populateFromObject:parseObject];
                     }
-                    [[SharedDataManager sharedInstance] saveContext];
-                    [weakSelf.tableViewDataSource addObject:life];
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:i+originalCount inSection:0];
-                    [indexpathArray addObject:path];
-                    [weakSelf.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
-                    i++;
-                });
+                    
+                }else{
+                    life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    [life populateFromObject:parseObject];
+                }
+                [[SharedDataManager sharedInstance] saveContext];
+                [weakSelf.tableViewDataSource addObject:life];
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.tableView reloadData];
+
+            });
         }
     }];
 }
@@ -433,10 +429,14 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        DisplayPeripheralHeaderView *header = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
-            [self handleDataDisplayPeripheral:newValue];
-        }];
-        return header;
+        
+        if (!self.headerView) {
+            self.headerView = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
+                [self handleDataDisplayPeripheral:newValue];
+            }];
+        }
+        
+        return self.headerView;
     }else{
         return nil;
     }

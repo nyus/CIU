@@ -47,7 +47,7 @@
         self.stepper.minimumValue = 5.0;
         self.stepper.maximumValue = 30.0;
         self.stepper.stepValue = 5.0;
-        [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventTouchUpInside];
+        [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.stepper];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_stepper]-15.0-|"
                                                                      options:kNilOptions
@@ -66,7 +66,8 @@
 
 - (void)stepperValueChanged:(UIStepper *)stepper{
     if (self.completion) {
-        self.completion(stepper.value);
+        double value = stepper.value;
+        self.completion(value);
         NSString *string = [NSString stringWithFormat:@"Results within %d miles.",(int)stepper.value];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range = [string rangeOfString:[NSString stringWithFormat:@"%d",(int)stepper.value]];
