@@ -32,6 +32,8 @@ static NSString *managedObjectName = @"Event";
     if (![Reachability canReachInternet]) {
         [self pullDataFromLocal];
     }
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(void)addRefreshControll{

@@ -35,7 +35,11 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
-//    self.queries= [NSMutableDictionary dictionary];
+    UIEdgeInsets inset = UIEdgeInsetsMake(100, 0, 0, 0);
+    self.tableView.contentInset = inset;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //    self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
     if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
@@ -214,7 +218,19 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 //    [self.queries removeObjectForKey:indexPath];
 //}
 
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"toDetailA" sender:cell];
+}
+
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -236,13 +252,35 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *categoryCell = @"categoryCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
+//    static NSString *categoryCell = @"categoryCell";
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
+//
+//    LifestyleCategory *category = self.dataSource[indexPath.row];
+//    cell.textLabel.text = category.name;
+//    NSString *imageName = [self imageNameOfCategory:category];
+//    cell.imageView.image = [UIImage imageNamed:imageName];
+//
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
     
     LifestyleCategory *category = self.dataSource[indexPath.row];
-    cell.textLabel.text = category.name;
-    NSString *imageName = [self imageNameOfCategory:category];
-    cell.imageView.image = [UIImage imageNamed:imageName];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 15, 35, 30)];
+    NSString *imagedName = [self imageNameOfCategory:category];
+    imageView.image = [UIImage imageNamed: imagedName];
+    [cell.contentView addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 150, 60)];
+    label.text = category.name;
+    [cell.contentView addSubview:label];
+    
+    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(250, 15, 30, 30)];
+    arrow.image = [UIImage imageNamed:@"3Arrow"];
+    [cell.contentView addSubview:arrow];
+    
+    UIView *seperator = [[UIView alloc] initWithFrame:CGRectMake(40, 55, 240, 1)];
+    seperator.backgroundColor = [UIColor colorWithRed:197.0/255.0 green:197.0/255.0 blue:197.0/255.0 alpha:1.0f];
+    [cell.contentView addSubview:seperator];
+    
     
     
     //reset in case its being reused
@@ -271,6 +309,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 //    }
     return cell;
 }
+
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     UITableViewCell *cell = (UITableViewCell *)sender;

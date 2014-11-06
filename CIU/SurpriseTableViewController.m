@@ -230,6 +230,8 @@ static UIImage *defaultAvatar;
     }
     
     cell.statusCellAvatarImageView.image = defaultAvatar;
+    cell.statusCellAvatarImageView.layer.masksToBounds = YES;
+    cell.statusCellAvatarImageView.layer.cornerRadius = 30;
     
     if (!status.anonymous.boolValue) {
         UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
