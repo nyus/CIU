@@ -26,6 +26,8 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.backBarButtonItem = nil;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
