@@ -117,163 +117,460 @@
                         <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Tw-ZU-JoD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2001"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="920"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="aboutus_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
-                                                <rect key="frame" x="10" y="20" width="300" height="178"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ciu logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
+                                                <rect key="frame" x="120" y="21" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="VOL-U6-7zP"/>
+                                                    <constraint firstAttribute="width" constant="80" id="piO-iq-Xb4"/>
+                                                </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在CIU！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
+                                                <rect key="frame" x="37" y="80" width="246" height="41"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
-                                                <rect key="frame" x="18" y="206" width="285" height="155"/>
+                                                <rect key="frame" x="10" y="145" width="301" height="113"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="Chinese in USA (CIU)">
+                                                    <fragment content="CIU">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content=", ">
+                                                    <fragment content=" ">
                                                         <attributes>
-                                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="(Chinese in USA)">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name=".LucidaGrandeUI"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment>
-                                                        <string key="content">the best Chinese lifestyle application for your mobile devices in USA – All in your palm of your hand. Whether you are looking for a authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is you best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
+                                                        <mutableString key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</mutableString>
                                                         <attributes>
-                                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="8miletechlogo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
-                                                <rect key="frame" x="103" y="376" width="115" height="61"/>
-                                            </imageView>
                                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
-                                                <rect key="frame" x="10" y="450" width="300" height="347"/>
+                                                <rect key="frame" x="8" y="266" width="304" height="216"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="8Mile Tech">
+                                                    <fragment content="CIU">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="helps you">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".LucidaGrandeUI"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=":">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="13" name=".LucidaGrandeUI"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment>
-                                                        <string key="content"> team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off. 
+                                                        <string key="content" base64-UTF8="YES">
+Cg
 </string>
                                                         <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="Our mission">
+                                                    <fragment content="●">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Socialize with local “Unknown friends”, share your food photos and gossip in the online community.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment>
-                                                        <string key="content"> is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</string>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
                                                         <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Second-hand stuff, cars, furniture selling and exchange.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Search for nearby Chinese restaurants, supermarkets, shops and services.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="●">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Get great deals and discounts offered by local businesses.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Get to know a business through reviews and recommendations.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Part time, full time and temporary job sharing.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Events in your area. Find like-minded fellows, interesting organizations or your bar wing-man.">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="● ">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="LucidaGrande"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Expand your ways to make friends!">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="13" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="10" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                                 <string key="userLabel">Label - 8Mile Tech team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off.  Our mission is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</string>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl">
-                                                <rect key="frame" x="20" y="807" width="280" height="200"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
+                                                <rect key="frame" x="142" y="532" width="92" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="companyLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
+                                                <rect key="frame" x="242" y="493" width="60" height="60"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl" userLabel="contact textview">
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="General contact:">
-                                                        <attributes>
-                                                            <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" ">
-                                                        <attributes>
-                                                            <font key="NSFont" size="15" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content">Info@8MileTech.com
-</string>
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Technology Inquiry: ">
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content">Sihang@8MileTech.com
-</string>
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Business Inquiry:">
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" Ronan@8miletech.com ">
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Job Application:">
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content"> Jobs@8MileTech.com
-(313)510-3727, (800)888-8888</string>
-                                                        <attributes>
-                                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <string key="text">General contact: Info@8MileTech.com
+Technology Inquiry: Sihang@8MileTech.com
+Business Inquiry: Ronan@8miletech.com</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                             </textView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wewantyou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xfp-Ik-q2x">
+                                                <rect key="frame" x="111" y="633" width="98" height="73"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="920" id="6HZ-ut-6KB"/>
+                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" id="84g-4C-PAT"/>
+                                            <constraint firstItem="Aui-IU-LHk" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="21" id="dHy-o2-639"/>
                                         </constraints>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vZV-ms-hqw">
+                                        <rect key="frame" x="48" y="715" width="240" height="98"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Part-time iOS Developer
+Regional Business Development
+College Ambassadors
+All Great MINDS!
+Job Applications: Jobs@8MileTech.com</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="96V-EO-T14"/>
@@ -299,6 +596,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="2000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -649,7 +948,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WhenWhenWhenWhenWhenWhen" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-1d-VoP">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WhenWhenWhenWhenWhenWhen" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-1d-VoP">
                                             <rect key="frame" x="20" y="24" width="273" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="Yd2-9R-t57"/>
@@ -657,7 +956,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where where Where where Where where Where where Where where Where where Where where " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="aQ4-lY-R2B">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where where Where where Where where Where where Where where Where where Where where " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="aQ4-lY-R2B">
                                             <rect key="frame" x="20" y="44" width="273" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="jNP-uR-hDn"/>
@@ -665,7 +964,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
                                             <rect key="frame" x="20" y="78" width="273" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="ZkB-yk-Gfn"/>
@@ -2024,17 +2323,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8miletechlogo.jpg" width="1089" height="486"/>
-        <image name="aboutus_image.jpg" width="300" height="178"/>
         <image name="camera.png" width="256" height="256"/>
         <image name="ciu logo.png" width="229" height="226"/>
         <image name="comment_icon.png" width="30" height="30"/>
+        <image name="companyLogo.png" width="436" height="436"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event28.png" width="28" height="28"/>
         <image name="fbLogin.png" width="202" height="46"/>
         <image name="lifestyle1.png" width="28" height="28"/>
         <image name="revine_icon.png" width="228" height="43"/>
         <image name="surprise.png" width="28" height="21"/>
+        <image name="wewantyou.png" width="166" height="123"/>
         <image name="yes.png" width="80" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

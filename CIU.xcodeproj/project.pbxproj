@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */; };
+		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
+		0B525D9B1A1266E500F2AE72 /* wewantyou.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D9A1A1266E500F2AE72 /* wewantyou.png */; };
 		0BCD10DB19F153AB002AC4DF /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD10DA19F153AB002AC4DF /* StatusObject.m */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableViewController.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
@@ -20,7 +22,6 @@
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
 		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
-		5036C09B19C260D0008E6208 /* 8miletechlogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */; };
 		5038A13019C47FA700D91354 /* CodeSnippets in Resources */ = {isa = PBXBuildFile; fileRef = 5038A12F19C47FA600D91354 /* CodeSnippets */; };
 		503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventTableViewController.m */; };
 		503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34D19BB6D660023EC02 /* Event+Utilities.m */; };
@@ -119,6 +120,8 @@
 /* Begin PBXFileReference section */
 		0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseTableViewController.h; sourceTree = "<group>"; };
 		0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableViewController.m; sourceTree = "<group>"; };
+		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
+		0B525D9A1A1266E500F2AE72 /* wewantyou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wewantyou.png; sourceTree = "<group>"; };
 		0BCD10D919F153AB002AC4DF /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
 		0BCD10DA19F153AB002AC4DF /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewController.h; sourceTree = "<group>"; };
@@ -141,7 +144,6 @@
 		501A5E7219A6CE610050BFA6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5022BE761A0574CE0017170E /* DisplayPeripheralHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayPeripheralHeaderView.h; sourceTree = "<group>"; };
 		5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayPeripheralHeaderView.m; sourceTree = "<group>"; };
-		5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8miletechlogo.jpg; sourceTree = "<group>"; };
 		5038A12F19C47FA600D91354 /* CodeSnippets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeSnippets; sourceTree = "<group>"; };
 		503AF34319BB678D0023EC02 /* EventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewController.h; sourceTree = "<group>"; };
 		503AF34419BB678D0023EC02 /* EventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewController.m; sourceTree = "<group>"; };
@@ -429,12 +431,13 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				0B525D9A1A1266E500F2AE72 /* wewantyou.png */,
 				507312511A01C36000E3533E /* ciu logo.png */,
 				503FA6D619F3088A004DE6C1 /* aboutus_image.jpg */,
 				5038A12F19C47FA600D91354 /* CodeSnippets */,
 				65D93E6919C38EE20044A48A /* lifestyle1.png */,
 				65D93E6219C386CF0044A48A /* surprise.png */,
-				5036C09A19C260D0008E6208 /* 8miletechlogo.jpg */,
+				0B525D981A1265AC00F2AE72 /* companyLogo.png */,
 				503AF35819BC97F10023EC02 /* Event.h */,
 				503AF35919BC97F10023EC02 /* Event.m */,
 				507F2F6F19BB46BB00E8275F /* surprise28.png */,
@@ -657,10 +660,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5036C09B19C260D0008E6208 /* 8miletechlogo.jpg in Resources */,
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				507F2F6E19BB46AF00E8275F /* event28.png in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
+				0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */,
 				65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */,
 				65D93E6519C386CF0044A48A /* surprise.png in Resources */,
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
@@ -676,6 +679,7 @@
 				507F2F7019BB46BB00E8275F /* surprise28.png in Resources */,
 				65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */,
 				50B28C4F19A8EFB700398BA4 /* royalOak.gpx in Resources */,
+				0B525D9B1A1266E500F2AE72 /* wewantyou.png in Resources */,
 				65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */,
 				503FA6D719F3088A004DE6C1 /* aboutus_image.jpg in Resources */,
 			);
