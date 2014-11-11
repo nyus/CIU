@@ -124,7 +124,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2001"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="920"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ciu logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
                                                 <rect key="frame" x="120" y="21" width="80" height="80"/>
@@ -133,14 +133,22 @@
                                                     <constraint firstAttribute="width" constant="80" id="piO-iq-Xb4"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在CIU！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
-                                                <rect key="frame" x="37" y="80" width="246" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在CIU！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
+                                                <rect key="frame" x="37" y="109" width="246" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="246" id="Cnh-1d-oTt"/>
+                                                    <constraint firstAttribute="height" constant="28" id="j9d-XW-DuQ"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
-                                                <rect key="frame" x="10" y="145" width="301" height="113"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                                <rect key="frame" x="10" y="145" width="301" height="101"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="101" id="9A7-VQ-XQL"/>
+                                                    <constraint firstAttribute="width" constant="301" id="PHR-BW-wt7"/>
+                                                </constraints>
                                                 <attributedString key="attributedText">
                                                     <fragment content="CIU">
                                                         <attributes>
@@ -179,7 +187,7 @@
                                                         </attributes>
                                                     </fragment>
                                                     <fragment>
-                                                        <mutableString key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</mutableString>
+                                                        <string key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
                                                         <attributes>
                                                             <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
                                                             <real key="NSKern" value="0.0"/>
@@ -190,9 +198,13 @@
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
                                                 <rect key="frame" x="8" y="266" width="304" height="216"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="304" id="5e4-hL-qBS"/>
+                                                    <constraint firstAttribute="height" constant="216" id="9E6-vU-q26"/>
+                                                </constraints>
                                                 <attributedString key="attributedText">
                                                     <fragment content="CIU">
                                                         <attributes>
@@ -530,17 +542,30 @@ Cg
                                                 <nil key="highlightedColor"/>
                                                 <string key="userLabel">Label - 8Mile Tech team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off.  Our mission is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</string>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
                                                 <rect key="frame" x="142" y="532" width="92" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="ZgA-3u-QMq"/>
+                                                    <constraint firstAttribute="width" constant="92" id="wt0-Jd-ec1"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="companyLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="companyLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
                                                 <rect key="frame" x="242" y="493" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="JcD-Ma-FSb"/>
+                                                    <constraint firstAttribute="height" constant="60" id="blw-Tq-LPF"/>
+                                                </constraints>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl" userLabel="contact textview">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl" userLabel="contact textview">
+                                                <rect key="frame" x="55" y="552" width="250" height="63"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="250" id="AhD-wE-hZc"/>
+                                                    <constraint firstAttribute="height" constant="63" id="rig-Ic-pIz"/>
+                                                </constraints>
                                                 <string key="text">General contact: Info@8MileTech.com
 Technology Inquiry: Sihang@8MileTech.com
 Business Inquiry: Ronan@8miletech.com</string>
@@ -548,29 +573,53 @@ Business Inquiry: Ronan@8miletech.com</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                             </textView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wewantyou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xfp-Ik-q2x">
-                                                <rect key="frame" x="111" y="633" width="98" height="73"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wewantyou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xfp-Ik-q2x">
+                                                <rect key="frame" x="111" y="623" width="98" height="73"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="73" id="2Kp-Cl-jG8"/>
+                                                    <constraint firstAttribute="width" constant="98" id="O7j-JW-Jjq"/>
+                                                </constraints>
                                             </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="920" id="6HZ-ut-6KB"/>
-                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" id="84g-4C-PAT"/>
-                                            <constraint firstItem="Aui-IU-LHk" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="21" id="dHy-o2-639"/>
-                                        </constraints>
-                                    </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vZV-ms-hqw">
-                                        <rect key="frame" x="48" y="715" width="240" height="98"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Part-time iOS Developer
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vZV-ms-hqw">
+                                                <rect key="frame" x="40" y="704" width="240" height="112"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="112" id="k0N-MD-UG6"/>
+                                                    <constraint firstAttribute="width" constant="240" id="r2E-Bs-lHE"/>
+                                                </constraints>
+                                                <string key="text">Part-time iOS Developer
 Regional Business Development
 College Ambassadors
 All Great MINDS!
 Job Applications: Jobs@8MileTech.com</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                    </textView>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="850" id="6HZ-ut-6KB"/>
+                                            <constraint firstAttribute="trailing" secondItem="Lc5-ar-Bhl" secondAttribute="trailing" constant="15" id="6jq-2L-BZj"/>
+                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" id="84g-4C-PAT"/>
+                                            <constraint firstItem="Lc5-ar-Bhl" firstAttribute="top" secondItem="396-Qi-Mzl" secondAttribute="bottom" constant="-1" id="8qN-o2-j3y"/>
+                                            <constraint firstAttribute="centerX" secondItem="leb-r2-Kxz" secondAttribute="centerX" constant="-0.5" id="9xL-A2-OPZ"/>
+                                            <constraint firstAttribute="centerX" secondItem="Xfp-Ik-q2x" secondAttribute="centerX" id="Aep-YY-rkF"/>
+                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="top" secondItem="leb-r2-Kxz" secondAttribute="bottom" constant="20" id="BPE-0o-17z"/>
+                                            <constraint firstItem="396-Qi-Mzl" firstAttribute="top" secondItem="fPU-AX-waZ" secondAttribute="bottom" constant="11" id="EXW-zQ-BMU"/>
+                                            <constraint firstAttribute="centerX" secondItem="x0j-65-YEm" secondAttribute="centerX" id="MHW-0B-NKn"/>
+                                            <constraint firstItem="Vpj-fq-TF0" firstAttribute="bottom" secondItem="396-Qi-Mzl" secondAttribute="bottom" id="O6J-7o-Z7S"/>
+                                            <constraint firstAttribute="trailing" secondItem="396-Qi-Mzl" secondAttribute="trailing" constant="18" id="PMI-ZZ-pCc"/>
+                                            <constraint firstAttribute="centerX" secondItem="fPU-AX-waZ" secondAttribute="centerX" id="TVz-OJ-fWu"/>
+                                            <constraint firstItem="Aui-IU-LHk" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="21" id="dHy-o2-639"/>
+                                            <constraint firstAttribute="centerX" secondItem="vZV-ms-hqw" secondAttribute="centerX" id="fAF-Za-x3h"/>
+                                            <constraint firstItem="vZV-ms-hqw" firstAttribute="top" secondItem="Xfp-Ik-q2x" secondAttribute="bottom" constant="8" id="iGQ-iF-Js5"/>
+                                            <constraint firstItem="x0j-65-YEm" firstAttribute="top" secondItem="Aui-IU-LHk" secondAttribute="bottom" constant="8" id="lba-Hs-c96"/>
+                                            <constraint firstItem="396-Qi-Mzl" firstAttribute="leading" secondItem="Vpj-fq-TF0" secondAttribute="trailing" constant="8" id="qgh-ol-C6S"/>
+                                            <constraint firstItem="Xfp-Ik-q2x" firstAttribute="top" secondItem="Lc5-ar-Bhl" secondAttribute="bottom" constant="8" id="sPm-2s-VhI"/>
+                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" constant="8" id="z07-f2-ihM"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="96V-EO-T14"/>
