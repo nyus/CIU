@@ -35,7 +35,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(100, 0, 0, 0);
+    UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     

@@ -11,7 +11,7 @@
 #import "Helper.h"
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
-
+#import "UIColor+CIUColors.h"
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
     SideBarStatusOpen=1
@@ -42,10 +42,10 @@ NS_ENUM(NSUInteger, SideBarStatus){
     }
     
     //set UI of menu tableview
-    self.tableView.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
+    self.tableView.backgroundColor = [UIColor themeGreen];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.view.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
+    self.view.backgroundColor = [UIColor themeGreen];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -177,17 +177,17 @@ NS_ENUM(NSUInteger, SideBarStatus){
         }];
         c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
         c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
-        c.usernameLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0f];
+        c.usernameLabel.textColor = [UIColor themeTextGrey];
         
     }else{
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.textLabel.text = self.dataSource[indexPath.row];
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
-        cell.textLabel.textColor = [UIColor colorWithRed:85.0/255.0 green:85.0/255.0 blue:85.0/255.0 alpha:1.0f];
+        cell.textLabel.textColor = [UIColor themeTextGrey];
         cell.textLabel.textAlignment = NSTextAlignmentRight;
         
-        cell.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];
+        cell.backgroundColor = [UIColor themeGreen];
         
         //seperator
         CGSize textSize = [self.dataSource[indexPath.row] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Bold" size:15.0], NSFontAttributeName, nil]];

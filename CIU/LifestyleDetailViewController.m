@@ -444,7 +444,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        return 31.0f;
+        return 40.0f;
     } else {
         return 0;
     }

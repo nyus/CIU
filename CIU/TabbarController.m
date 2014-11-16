@@ -7,7 +7,7 @@
 //
 
 #import "TabbarController.h"
-
+#import "UIColor+CIUColors.h"
 @interface TabbarController ()
 
 @end
@@ -25,7 +25,7 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,
                                                        [UIFont systemFontOfSize:12.0], NSFontAttributeName, nil]
                                              forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f], NSForegroundColorAttributeName,
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor themeGreen], NSForegroundColorAttributeName,
                                                        [UIFont systemFontOfSize:12.0], NSFontAttributeName, nil]
                                              forState:UIControlStateSelected];
     

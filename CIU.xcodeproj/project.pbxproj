@@ -38,6 +38,7 @@
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
+		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		50675BC119B41F8A00845CD9 /* fbLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 50675BC019B41F8A00845CD9 /* fbLogin.png */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
@@ -166,6 +167,8 @@
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
+		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
 		50675BC019B41F8A00845CD9 /* fbLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogin.png; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 				503AF34D19BB6D660023EC02 /* Event+Utilities.m */,
 				65D93E5819C358DE0044A48A /* NSString+Utilities.h */,
 				65D93E5919C358DE0044A48A /* NSString+Utilities.m */,
+				505B504A1A1916A9000300ED /* UIColor+CIUColors.h */,
+				505B504B1A1916A9000300ED /* UIColor+CIUColors.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -754,6 +759,7 @@
 				65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* StatusTableViewCell.m in Sources */,
 				5092161519AA58E900304EDD /* LifestyleObject.m in Sources */,
+				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
