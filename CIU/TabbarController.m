@@ -33,17 +33,14 @@
     UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
     UITabBarItem *item3 = [tabBar.items objectAtIndex:2];
     
-    item1.selectedImage = [[UIImage imageNamed:@"1lifestyle"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.image = [[UIImage imageNamed:@"1lifestyle_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [item1 setImageInsets:UIEdgeInsetsMake(5,5,5,5)];
-
-    item2.selectedImage = [[UIImage imageNamed:@"1events"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item2.image = [[UIImage imageNamed:@"1event_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [item2 setImageInsets:UIEdgeInsetsMake(5,5,5,5)];
+    item1.selectedImage = [[UIImage imageNamed:@"lifestyle_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.image = [[UIImage imageNamed:@"lifestyle_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    item3.selectedImage = [[UIImage imageNamed:@"1Surprise"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.image = [[UIImage imageNamed:@"1Surprise_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [item2 setImageInsets:UIEdgeInsetsMake(5,5,5,5)];
+    item2.selectedImage = [[UIImage imageNamed:@"event_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item2.image = [[UIImage imageNamed:@"event_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    item3.selectedImage = [[UIImage imageNamed:@"suprise_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item3.image = [[UIImage imageNamed:@"suprise_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 }
 
