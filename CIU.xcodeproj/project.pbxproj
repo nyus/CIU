@@ -105,6 +105,7 @@
 		65D93E6519C386CF0044A48A /* surprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6219C386CF0044A48A /* surprise.png */; };
 		65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6919C38EE20044A48A /* lifestyle1.png */; };
 		65D93E6D19C73AD70044A48A /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E6C19C73AD70044A48A /* ComposeViewController.m */; };
+		B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B22C70C61A1183E90035D3C5 /* LoginTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,8 @@
 		65D93E6919C38EE20044A48A /* lifestyle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifestyle1.png; sourceTree = "<group>"; };
 		65D93E6B19C73AD70044A48A /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		65D93E6C19C73AD70044A48A /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		B22C70C51A1183E90035D3C5 /* LoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextField.h; sourceTree = "<group>"; };
+		B22C70C61A1183E90035D3C5 /* LoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +375,8 @@
 				65C4F0B619AFB201004452C3 /* StatusViewController.m */,
 				0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */,
 				0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */,
+				B22C70C51A1183E90035D3C5 /* LoginTextField.h */,
+				B22C70C61A1183E90035D3C5 /* LoginTextField.m */,
 			);
 			name = Surprise;
 			sourceTree = "<group>";
@@ -629,9 +634,10 @@
 				ORGANIZATIONNAME = "Huang, Jason";
 				TargetAttributes = {
 					652BAB7C199D3CCA009F5F5A = {
-						DevelopmentTeam = 24QWF4M939;
+						DevelopmentTeam = F6ANNS7CW7;
 					};
 					652BAB9D199D3CCA009F5F5A = {
+						DevelopmentTeam = F6ANNS7CW7;
 						TestTargetID = 652BAB7C199D3CCA009F5F5A;
 					};
 				};
@@ -730,6 +736,7 @@
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
 				65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */,
 				65C4F0D719AFBAFB004452C3 /* Status.m in Sources */,
+				B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
@@ -896,7 +903,7 @@
 					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -923,7 +930,7 @@
 					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

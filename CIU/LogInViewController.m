@@ -26,6 +26,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.backBarButtonItem = nil;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

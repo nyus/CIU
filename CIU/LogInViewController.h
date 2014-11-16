@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoginTextField.h"
 
 @interface LogInViewController : UIViewController<UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *emailOrUsernameTextField;
+@property (weak, nonatomic) IBOutlet LoginTextField *emailOrUsernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)logInButtonTapped:(id)sender;
