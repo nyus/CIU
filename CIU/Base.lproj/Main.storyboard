@@ -2464,9 +2464,7 @@ Job Applications: Jobs@8MileTech.com</string>
         <scene sceneID="cTK-Mn-MpP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VZ5-in-LDm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Lifestyle" image="1lifestyle" id="Q0k-Hn-hMA">
-                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Lifestyle" id="Q0k-Hn-hMA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oYx-os-LoR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2491,7 +2489,9 @@ Job Applications: Jobs@8MileTech.com</string>
         <scene sceneID="Nk0-oX-ZFn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SQl-lw-kx3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" image="event28.png" id="4zL-MY-V0q"/>
+                    <tabBarItem key="tabBarItem" title="Events" id="4zL-MY-V0q">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OrS-rW-c1R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2516,7 +2516,9 @@ Job Applications: Jobs@8MileTech.com</string>
         <scene sceneID="qsx-lF-hr2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jWd-ES-soa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Suprise" image="surprise.png" id="nl6-HT-QIH"/>
+                    <tabBarItem key="tabBarItem" title="Suprise" id="nl6-HT-QIH">
+                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mfm-hj-kDY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2539,7 +2541,6 @@ Job Applications: Jobs@8MileTech.com</string>
         </scene>
     </scenes>
     <resources>
-        <image name="1lifestyle" width="30" height="30"/>
         <image name="3comment" width="27" height="27"/>
         <image name="3like_before " width="27" height="27"/>
         <image name="3share" width="27" height="27"/>
@@ -2547,7 +2548,6 @@ Job Applications: Jobs@8MileTech.com</string>
         <image name="ciu logo.png" width="229" height="226"/>
         <image name="companyLogo.png" width="436" height="436"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
-        <image name="event28.png" width="28" height="28"/>
         <image name="event_dot" width="8" height="8"/>
         <image name="facebook" width="25" height="25"/>
         <image name="googlr" width="25" height="25"/>
@@ -2557,7 +2557,6 @@ Job Applications: Jobs@8MileTech.com</string>
         <image name="little_panda" width="75" height="75"/>
         <image name="radionButton_selected" width="13" height="13"/>
         <image name="revine_icon.png" width="228" height="43"/>
-        <image name="surprise.png" width="28" height="21"/>
         <image name="twitter" width="25" height="25"/>
         <image name="wewantyou.png" width="166" height="123"/>
         <image name="yes.png" width="80" height="80"/>
