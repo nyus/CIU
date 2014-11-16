@@ -1166,7 +1166,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Tp-ye-A5T">
-                                                    <rect key="frame" x="87" y="100.5" width="190" height="204"/>
+                                                    <rect key="frame" x="87" y="101" width="190" height="204"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="204" id="Csk-7Y-4gd"/>
@@ -1209,7 +1209,7 @@
                                                     <color key="backgroundColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jskanmzkskkskskkdkkdkxkkxkxkkxkxjjxjxkskskjxjxjxjxjxjdjsjsjkxkdkxjddsfasdfsadgasdfsadfasf" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="kLv-8s-Ntf" userLabel="message">
-                                                    <rect key="frame" x="87" y="51" width="190" height="48.5"/>
+                                                    <rect key="frame" x="87" y="51" width="190" height="49"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="190" id="f7U-Qd-a6P"/>
                                                     </constraints>
