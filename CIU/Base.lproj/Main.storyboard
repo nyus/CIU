@@ -337,19 +337,61 @@
         <scene sceneID="3hz-4f-FE8">
             <objects>
                 <tableViewController id="w3S-5W-69p" customClass="LifestyleTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="41" sectionHeaderHeight="22" sectionFooterHeight="22" id="8EE-IP-PMj">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="8EE-IP-PMj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="41" id="N1F-XX-yOn">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="60" id="N1F-XX-yOn" customClass="LifestyleTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N1F-XX-yOn" id="dLo-4u-4sn">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2retserant" translatesAutoresizingMaskIntoConstraints="NO" id="Dbz-HJ-18b">
+                                            <rect key="frame" x="48" y="15" width="35" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="35" id="1ji-Sl-zi4"/>
+                                                <constraint firstAttribute="height" constant="30" id="cuA-dE-PjS"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQB-wG-WeT">
+                                            <rect key="frame" x="93" y="19" width="42" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="3an-E0-rpO">
+                                            <rect key="frame" x="250" y="15" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="9A0-Lr-BZc"/>
+                                                <constraint firstAttribute="width" constant="30" id="g4D-hz-ZMz"/>
+                                            </constraints>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryS-pg-HPW">
+                                            <rect key="frame" x="88" y="48" width="184" height="0.5"/>
+                                            <color key="backgroundColor" red="0.77254901960784317" green="0.77254901960784317" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="AxM-Wk-yEb"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="Dbz-HJ-18b" secondAttribute="centerY" id="CBG-C8-gvo"/>
+                                        <constraint firstItem="ryS-pg-HPW" firstAttribute="top" secondItem="LQB-wG-WeT" secondAttribute="bottom" constant="8.5" id="CHr-59-Tpf"/>
+                                        <constraint firstItem="Dbz-HJ-18b" firstAttribute="leading" secondItem="dLo-4u-4sn" secondAttribute="leadingMargin" constant="40" id="Mec-dt-3Hc"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3an-E0-rpO" secondAttribute="trailing" constant="32" id="RQV-F8-5Nn"/>
+                                        <constraint firstItem="LQB-wG-WeT" firstAttribute="leading" secondItem="Dbz-HJ-18b" secondAttribute="trailing" constant="10" id="T9t-Hc-R2j"/>
+                                        <constraint firstItem="LQB-wG-WeT" firstAttribute="leading" secondItem="ryS-pg-HPW" secondAttribute="leading" constant="5" id="abk-he-1IT"/>
+                                        <constraint firstAttribute="centerY" secondItem="3an-E0-rpO" secondAttribute="centerY" id="i3v-y5-fjZ"/>
+                                        <constraint firstAttribute="centerY" secondItem="LQB-wG-WeT" secondAttribute="centerY" id="oqU-16-WmO"/>
+                                        <constraint firstItem="ryS-pg-HPW" firstAttribute="trailing" secondItem="3an-E0-rpO" secondAttribute="trailing" constant="-8" id="ung-9J-jmD"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="imageView" destination="Dbz-HJ-18b" id="qvd-o8-Z5z"/>
+                                    <outlet property="label" destination="LQB-wG-WeT" id="Nq5-ZJ-1FM"/>
                                     <segue destination="eIB-DE-riQ" kind="push" identifier="toDetailA" id="A8E-uU-Det"/>
                                 </connections>
                             </tableViewCell>
@@ -363,7 +405,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1859" y="-937"/>
+            <point key="canvasLocation" x="1859" y="-937.5"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="Fwn-zr-ePG">
@@ -2192,6 +2234,8 @@
     </scenes>
     <resources>
         <image name="1lifestyle" width="30" height="30"/>
+        <image name="2retserant" width="30" height="30"/>
+        <image name="3Arrow" width="55" height="55"/>
         <image name="3comment" width="27" height="27"/>
         <image name="3like_before " width="27" height="27"/>
         <image name="3share" width="27" height="27"/>

@@ -12,6 +12,8 @@
 #import "Query.h"
 #import "Helper.h"
 #import "LifestyleDetailViewController.h"
+#import "LifestyleTableViewCell.h"
+
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 @interface LifestyleTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -260,27 +262,36 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 //    NSString *imageName = [self imageNameOfCategory:category];
 //    cell.imageView.image = [UIImage imageNamed:imageName];
 //
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+//    
+//    LifestyleCategory *category = self.dataSource[indexPath.row];
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 15, 35, 30)];
+//    NSString *imagedName = [self imageNameOfCategory:category];
+//    imageView.image = [UIImage imageNamed: imagedName];
+//    [cell.contentView addSubview:imageView];
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 150, 60)];
+//    label.text = category.name;
+//    [cell.contentView addSubview:label];
+//    
+//    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(250, 15, 30, 30)];
+//    arrow.image = [UIImage imageNamed:@"3Arrow"];
+//    [cell.contentView addSubview:arrow];
+//    
+//    UIView *seperator = [[UIView alloc] initWithFrame:CGRectMake(40, 55, 240, 1)];
+//    seperator.backgroundColor = [UIColor colorWithRed:197.0/255.0 green:197.0/255.0 blue:197.0/255.0 alpha:1.0f];
+//    [cell.contentView addSubview:seperator];
+    
+    static NSString *categoryCell = @"categoryCell";
+    LifestyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
     
     LifestyleCategory *category = self.dataSource[indexPath.row];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 15, 35, 30)];
-    NSString *imagedName = [self imageNameOfCategory:category];
-    imageView.image = [UIImage imageNamed: imagedName];
-    [cell.contentView addSubview:imageView];
+    NSString *imageName = [self imageNameOfCategory:category];
+    cell.imageView.image = [UIImage imageNamed:imageName];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 150, 60)];
-    label.text = category.name;
-    [cell.contentView addSubview:label];
-    
-    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(250, 15, 30, 30)];
-    arrow.image = [UIImage imageNamed:@"3Arrow"];
-    [cell.contentView addSubview:arrow];
-    
-    UIView *seperator = [[UIView alloc] initWithFrame:CGRectMake(40, 55, 240, 1)];
-    seperator.backgroundColor = [UIColor colorWithRed:197.0/255.0 green:197.0/255.0 blue:197.0/255.0 alpha:1.0f];
-    [cell.contentView addSubview:seperator];
-    
+    cell.label.text = category.name;
     
     
     //reset in case its being reused

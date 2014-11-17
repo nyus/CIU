@@ -107,6 +107,7 @@
 		65D93E6519C386CF0044A48A /* surprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6219C386CF0044A48A /* surprise.png */; };
 		65D93E6A19C38EE20044A48A /* lifestyle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 65D93E6919C38EE20044A48A /* lifestyle1.png */; };
 		65D93E6D19C73AD70044A48A /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E6C19C73AD70044A48A /* ComposeViewController.m */; };
+		B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */; };
 		B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B22C70C61A1183E90035D3C5 /* LoginTextField.m */; };
 /* End PBXBuildFile section */
 
@@ -279,6 +280,8 @@
 		65D93E6919C38EE20044A48A /* lifestyle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifestyle1.png; sourceTree = "<group>"; };
 		65D93E6B19C73AD70044A48A /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		65D93E6C19C73AD70044A48A /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewCell.h; sourceTree = "<group>"; };
+		B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableViewCell.m; sourceTree = "<group>"; };
 		B22C70C51A1183E90035D3C5 /* LoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextField.h; sourceTree = "<group>"; };
 		B22C70C61A1183E90035D3C5 /* LoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -331,6 +334,8 @@
 				5092160D19AA463700304EDD /* LifestyleObjectDetailTableViewController.m */,
 				65D93E6B19C73AD70044A48A /* ComposeViewController.h */,
 				65D93E6C19C73AD70044A48A /* ComposeViewController.m */,
+				B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */,
+				B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */,
 			);
 			name = Lifestyle;
 			sourceTree = "<group>";
@@ -744,6 +749,7 @@
 				65C4F0D719AFBAFB004452C3 /* Status.m in Sources */,
 				B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
+				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				0BCD10DB19F153AB002AC4DF /* StatusObject.m in Sources */,
