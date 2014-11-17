@@ -11,6 +11,11 @@
 #import <Parse/Parse.h>
 #define Default_Radius 5
 static Helper *_helper;
+
+@interface Helper () <UIAlertViewDelegate>
+
+@end
+
 @implementation Helper
 //Avatar
 //get avatar
@@ -262,13 +267,51 @@ static Helper *_helper;
 #pragma mark - location manager
 
 +(CLLocationManager *)initLocationManagerWithDelegate:(id<CLLocationManagerDelegate>)delegate{
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = delegate;
-    locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [locationManager requestWhenInUseAuthorization];
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ||
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+
+        //UIApplicationOpenSettingsURLString is ios 8
+        if (IS_IOS_8 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied" message:@"CIU would like to access your location information in order to display userful information around you. Please go to Settins and set location access to 'Always'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open Settings", nil];
+            alert.tag = 1;
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            alert.tag = 2;
+            [alert show];
+        }
+        
+        
+        return nil;
+    } else {
+        
+        static dispatch_once_t onceToken;
+        static CLLocationManager *locationManager;
+        dispatch_once(&onceToken, ^{
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = delegate;
+            locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+            
+            if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+                [locationManager requestWhenInUseAuthorization];
+            } else {
+                [locationManager startUpdatingLocation];
+            }
+        });
+        
+        return locationManager;
     }
-    [locationManager startUpdatingLocation];
-    return locationManager;
+
+}
+
+#pragma mark - UIAlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // user wants to open settings app and grant us location service
+    if (alertView.tag == 1 && buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 @end

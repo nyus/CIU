@@ -68,9 +68,6 @@
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
-//    self.internetReachability = [Reachability reachabilityForInternetConnection];
-//	[self.internetReachability startNotifier];
-    
     if(isOffline){
         [self fetchLocalDataForListWithRadius:nil];
     }else{
@@ -80,6 +77,14 @@
             
         }else if (IS_RES_MARKT) {
             self.locationManager = [Helper initLocationManagerWithDelegate:self];
+            
+            //this is becuase we requested for authorization in GenericTableViewController already. may need work to improve this flow
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                
+                NSDictionary *userLocation = [Helper userLocation];
+                CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
+                [self fetchServerDataForListAroundCenter:coor raidus:@5.0];
+            }
         }
     }
 }
@@ -381,8 +386,8 @@
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alert show];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+//                [alert show];
 
                 break;
             }
@@ -529,8 +534,8 @@
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                [alert show];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+//                [alert show];
                 break;
             }
                 
