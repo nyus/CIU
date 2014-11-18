@@ -90,11 +90,18 @@
     }
 }
 
-#pragma mark - location manager
+#pragma mark - location manager helper
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
     //override by subclass
 }
 #pragma mark -- Location manager
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [manager startUpdatingLocation];
+    }
+}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //the most recent location update is at the end of the array.
@@ -129,8 +136,8 @@
                 if ([CLLocationManager locationServicesEnabled]) {
                     //that means user disabled our app specifically
                     NSLog(@"fail to locate user: permission denied");
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kLocationServiceDisabledAlert delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                    [alert show];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+//                    [alert show];
                 }
                 
                 break;
