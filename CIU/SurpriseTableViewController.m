@@ -27,7 +27,7 @@
 #import "TabbarController.h"
 
 #define BACKGROUND_CELL_HEIGHT 300.0f
-#define ORIGIN_Y_CELL_MESSAGE_LABEL 86.0f
+#define ORIGIN_Y_CELL_MESSAGE_LABEL 54.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
 static UIImage *defaultAvatar;
 
@@ -38,7 +38,7 @@ static UIImage *defaultAvatar;
     CGRect commentViewOriginalFrame;
     NSFetchRequest *fetchRequest;
     NSIndexPath *selectedPath;
-    PFQuery *query;
+    PFQuery *fetchStatusQuery;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -102,26 +102,26 @@ static UIImage *defaultAvatar;
 
 -(void)fetchNewStatusWithCount:(int)count{
     
-    if (query) {
-        [query cancel];
-        query = nil;
+    if (fetchStatusQuery) {
+        [fetchStatusQuery cancel];
+        fetchStatusQuery = nil;
     }
     
     __block SurpriseTableViewController *weakSelf= self;
-    query = [PFQuery queryWithClassName:@"Status"];
-    query.limit = count;
-    [query orderByDescending:@"createdAt"];
+    fetchStatusQuery = [PFQuery queryWithClassName:@"Status"];
+    fetchStatusQuery.limit = count;
+    [fetchStatusQuery orderByDescending:@"createdAt"];
     //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
     NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchStatusDate"];
     if (lastFetchStatusDate) {
-        [query whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
+        [fetchStatusQuery whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
     }
     NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        [query addBoundingCoordinatesToCenter:center radius:@30];
+        [fetchStatusQuery addBoundingCoordinatesToCenter:center radius:@30];
     }
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [fetchStatusQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (objects.count != 0) {
             
@@ -310,14 +310,13 @@ static UIImage *defaultAvatar;
         }else{
             
             //determine height of label(message must exist)
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
-            //number of lines must be set to zero so that sizeToFit would work correctly
-            label.numberOfLines = 0;
-            label.font = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:17];
-            label.text = [status message];
-            CGSize aSize = [label sizeThatFits:label.frame.size];
+            CGRect rect = [status.message boundingRectWithSize:CGSizeMake(190, MAXFLOAT)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Light" size:14]}
+                                                       context:nil];
+//            CGSize aSize = [label sizeThatFits:label.frame.size];
             
-            float labelHeight = aSize.height;//ceilf(ceilf(size.width) / CELL_MESSAGE_LABEL_WIDTH)*ceilf(size.height)+10;
+            float labelHeight = rect.size.height;//ceilf(ceilf(size.width) / CELL_MESSAGE_LABEL_WIDTH)*ceilf(size.height)+10;
             
             //determine if there is a picture
             float pictureHeight = 0;;
