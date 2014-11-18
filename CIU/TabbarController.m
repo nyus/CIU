@@ -35,12 +35,15 @@
     
     item1.selectedImage = [[UIImage imageNamed:@"lifestyle_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     item1.image = [[UIImage imageNamed:@"lifestyle_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
     item2.selectedImage = [[UIImage imageNamed:@"event_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     item2.image = [[UIImage imageNamed:@"event_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item2.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
     item3.selectedImage = [[UIImage imageNamed:@"suprise_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     item3.image = [[UIImage imageNamed:@"suprise_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item3.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
 }
 

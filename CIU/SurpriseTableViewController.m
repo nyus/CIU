@@ -38,6 +38,7 @@ static UIImage *defaultAvatar;
     CGRect commentViewOriginalFrame;
     NSFetchRequest *fetchRequest;
     NSIndexPath *selectedPath;
+    PFQuery *query;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -52,8 +53,10 @@ static UIImage *defaultAvatar;
     [super viewDidLoad];
 
     [self addRefreshControll];
-    if (![Reachability canReachInternet]) {
-        [self fetchStatusFromLocal];
+    
+    [self fetchStatusFromLocal];
+    if ([Reachability canReachInternet]) {
+        [self fetchNewStatusWithCount:20];
     }
 }
 
@@ -77,7 +80,7 @@ static UIImage *defaultAvatar;
         [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     }
     
-    fetchRequest.fetchLimit = 10;
+    fetchRequest.fetchLimit = 20;
     fetchRequest.fetchOffset = self.dataSource.count;
     
     NSError *error = nil;
@@ -99,8 +102,13 @@ static UIImage *defaultAvatar;
 
 -(void)fetchNewStatusWithCount:(int)count{
     
+    if (query) {
+        [query cancel];
+        query = nil;
+    }
+    
     __block SurpriseTableViewController *weakSelf= self;
-    PFQuery *query = [PFQuery queryWithClassName:@"Status"];
+    query = [PFQuery queryWithClassName:@"Status"];
     query.limit = count;
     [query orderByDescending:@"createdAt"];
     //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
@@ -465,9 +473,17 @@ static UIImage *defaultAvatar;
     //on viewDidLoad, fetch surprise for user once, if user wishes to see new surprises, user needs to pull down and refresh
     //on viewDidLoad, location manager may have not located the user yet, so in this method, is self.dataSource is nil or count ==0, that means we need to manually trigger fetchNewStatus
     //pull to refresh would always use the location in NSUserDefaults
-    if (self.dataSource == nil || self.dataSource.count == 0){
-        [self fetchNewStatusWithCount:20];
-    }
+
+//    if (self.dataSource == nil || self.dataSource.count == 0){
+//        [self fetchNewStatusWithCount:20];
+//    }
+    
+    // for surprise, we want to reload all data when:
+    // this tab is first shown or there is a significant location change
+    // because of the work we have done in super, this method is only going to be triggered when: first time user uses the app or there is a significant location change
+    // so whenever this method is called, clear up datasource and pull from server
+    self.dataSource = nil;
+    [self fetchNewStatusWithCount:20];
 }
 
 #pragma mark - UISegue

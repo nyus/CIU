@@ -2489,9 +2489,7 @@ Job Applications: Jobs@8MileTech.com</string>
         <scene sceneID="Nk0-oX-ZFn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SQl-lw-kx3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" id="4zL-MY-V0q">
-                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Events" id="4zL-MY-V0q"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OrS-rW-c1R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
