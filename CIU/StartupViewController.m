@@ -46,23 +46,32 @@ NS_ENUM(NSUInteger, SideBarStatus){
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.view.backgroundColor = [UIColor themeGreen];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    
+    //this is just a hot fix. need to think about the flow.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //this is just a hot fix. need to think about the flow.
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)handleDownloadFacebookProfilePicComplete{
-    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    NSInteger numOfRows = [self.tableView numberOfRowsInSection:0];
+    if (numOfRows > 0) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 -(void)handleDismissLogin{
