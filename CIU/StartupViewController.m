@@ -169,15 +169,16 @@ NS_ENUM(NSUInteger, SideBarStatus){
         [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
             if (!error) {
                 c.avatarImageView.image = image;
-                c.avatarImageView.layer.masksToBounds = YES;
-                c.avatarImageView.layer.cornerRadius = 35;
-                c.backgroundColor = nil;
+//                c.avatarImageView.layer.masksToBounds = YES;
+//                c.avatarImageView.layer.cornerRadius = 35;
+                c.backgroundColor = [UIColor clearColor];
                 
             }
         }];
         c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
         c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
         c.usernameLabel.textColor = [UIColor themeTextGrey];
+        c.backgroundColor = [UIColor themeGreen];
         
     }else{
         
