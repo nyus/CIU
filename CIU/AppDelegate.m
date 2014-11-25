@@ -14,10 +14,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+//#if DEBUG
+//    [Parse setApplicationId:@"5hQiQ1c1h9SiXWKoZ60v80jQjPxSifXYoJZl1TG7"
+//                  clientKey:@"4tFa69JF6OZaelYEEDqXanjXVqXPohK60pBRSZjO"];
+//#else
     [Parse setApplicationId:@"kpC3WlseWq0eDAiyeDdykzNTKcbJTWuXexLOFp3o"
                   clientKey:@"uVrOJyPIMN6NIT1qi9VcSJW4hltqnMvGFBFZeVmv"];
-    
+//#endif
     [PFFacebookUtils initializeFacebook];
     return YES;
 }

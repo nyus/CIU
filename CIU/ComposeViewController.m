@@ -60,6 +60,7 @@
     [object setObject:self.textView.text forKey:@"content"];
     [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];
     [object setObject:parseClassName forKey:@"category"];
+    [object setObject:@NO forKey:@"isBadContent"];
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{

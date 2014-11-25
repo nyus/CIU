@@ -202,6 +202,7 @@
             [event setObject:eventName forKey:@"eventName"];
             [event setObject:eventContent forKey:@"eventContent"];
             [event setObject:eventDate forKey:@"eventDate"];
+            [event setObject:@NO forKey:@"isBadContent"];
             [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
             [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
             [event setObject:eventLocation forKey:@"eventLocation"];

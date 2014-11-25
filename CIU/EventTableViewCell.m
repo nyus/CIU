@@ -40,4 +40,8 @@
     [self.delegate descriptionTextViewEdidited:textView];
 }
 
+- (IBAction)flagBadContentButtonTapped:(id)sender {
+    [self.delegate flagBadContentButtonTappedOnCell:self];
+}
+
 @end

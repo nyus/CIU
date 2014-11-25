@@ -42,6 +42,10 @@
     if (object[@"longitude"]) {
         self.longitude = object[@"longitude"];
     }
+    
+    if (object[@"isBadContent"]) {
+        self.isBadContent = object[@"isBadContent"];
+    }
 }
 
 @end

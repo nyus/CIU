@@ -831,7 +831,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="UNi-oq-vOg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellJob" id="Pjn-hz-d6R" customClass="GenericTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellJob" rowHeight="69" id="Pjn-hz-d6R" customClass="JobTradeTableViewCell">
                                         <rect key="frame" x="0.0" y="110" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pjn-hz-d6R" id="pWd-7x-FKe">
@@ -844,8 +844,26 @@ Job Applications: Jobs@8MileTech.com</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zb-tF-J7P">
+                                                    <rect key="frame" x="282" y="36" width="26" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="26" id="11X-34-MoF"/>
+                                                        <constraint firstAttribute="height" constant="22" id="amP-zI-Rh3"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="flag_off.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled" backgroundImage="flag_on.png"/>
+                                                    <state key="selected" backgroundImage="flag_on.png"/>
+                                                    <state key="highlighted" backgroundImage="flag_on.png"/>
+                                                    <connections>
+                                                        <action selector="flagBadContentButtonTapped:" destination="Pjn-hz-d6R" eventType="touchUpInside" id="92A-DF-pdh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="8zb-tF-J7P" firstAttribute="top" secondItem="mDW-NT-m3G" secondAttribute="bottom" constant="10" id="b5p-6e-7oy"/>
+                                                <constraint firstItem="8zb-tF-J7P" firstAttribute="trailing" secondItem="pWd-7x-FKe" secondAttribute="trailingMargin" constant="-4" id="b7D-FQ-IWw"/>
                                                 <constraint firstItem="mDW-NT-m3G" firstAttribute="top" secondItem="pWd-7x-FKe" secondAttribute="topMargin" constant="-3" id="gjX-Hb-1gr"/>
                                                 <constraint firstItem="mDW-NT-m3G" firstAttribute="trailing" secondItem="pWd-7x-FKe" secondAttribute="trailingMargin" id="nNV-uN-6FD"/>
                                                 <constraint firstItem="mDW-NT-m3G" firstAttribute="leading" secondItem="pWd-7x-FKe" secondAttribute="leadingMargin" constant="8" id="ye8-CX-5gA"/>
@@ -853,6 +871,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="mDW-NT-m3G" id="Gux-m8-Fxl"/>
+                                            <outlet property="flagButton" destination="8zb-tF-J7P" id="x2a-w6-l9L"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -984,7 +1003,7 @@ Job Applications: Jobs@8MileTech.com</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="171" id="DWS-Ha-6Q5" customClass="EventTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="187" id="DWS-Ha-6Q5" customClass="EventTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="171"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DWS-Ha-6Q5" id="ThS-qo-8Bc">
@@ -1009,7 +1028,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
                                             <rect key="frame" x="40" y="106" width="273" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="ZkB-yk-Gfn"/>
@@ -1031,19 +1050,36 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <rect key="frame" x="24" y="12" width="8" height="8"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQP-hb-Ada">
-                                            <rect key="frame" x="28" y="169" width="264" height="1"/>
+                                            <rect key="frame" x="28" y="185" width="264" height="1"/>
                                             <color key="backgroundColor" red="0.77254901960784317" green="0.77254901960784317" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="OYl-sP-h20"/>
                                             </constraints>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dE-Js-y0f">
+                                            <rect key="frame" x="286" y="154" width="26" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="TJb-mw-2B2"/>
+                                                <constraint firstAttribute="width" constant="26" id="vRN-ak-9GW"/>
+                                            </constraints>
+                                            <state key="normal" backgroundImage="flag_off.png"/>
+                                            <state key="disabled" backgroundImage="flag_on.png"/>
+                                            <state key="selected" backgroundImage="flag_on.png"/>
+                                            <state key="highlighted" backgroundImage="flag_on.png"/>
+                                            <connections>
+                                                <action selector="flagBadContentButtonTapped:" destination="DWS-Ha-6Q5" eventType="touchUpInside" id="4g9-QA-kcu"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="OQP-hb-Ada" secondAttribute="trailing" constant="20" id="2aL-aZ-7fP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7dE-Js-y0f" secondAttribute="bottom" constant="2" id="5Dk-nQ-cfp"/>
                                         <constraint firstItem="xjX-0y-scn" firstAttribute="top" secondItem="aQ4-lY-R2B" secondAttribute="bottom" priority="900" constant="4" id="E09-fA-T4t"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="Kju-df-Jgj"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="leading" secondItem="ThS-qo-8Bc" secondAttribute="leading" constant="40" id="L8A-4G-F2r"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="leading" secondItem="nKt-Wv-nPC" secondAttribute="trailing" constant="8" symbolic="YES" id="Laf-Pf-wOP"/>
+                                        <constraint firstItem="7dE-Js-y0f" firstAttribute="trailing" secondItem="ThS-qo-8Bc" secondAttribute="trailingMargin" id="SQf-J8-rFD"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="leading" secondItem="hI7-qU-Wjm" secondAttribute="leading" id="UHH-F5-h5k"/>
                                         <constraint firstItem="xjX-0y-scn" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="VGF-rp-otH"/>
                                         <constraint firstItem="aQ4-lY-R2B" firstAttribute="top" secondItem="hDl-1d-VoP" secondAttribute="bottom" priority="900" constant="5" id="hsZ-1l-ifn"/>
@@ -1059,6 +1095,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                     <outlet property="eventDescriptionLabel" destination="xjX-0y-scn" id="ODr-Vp-6zH"/>
                                     <outlet property="eventLocationLabel" destination="aQ4-lY-R2B" id="SKX-HJ-xVu"/>
                                     <outlet property="eventNameLabel" destination="hI7-qU-Wjm" id="iR0-NI-qzp"/>
+                                    <outlet property="flagButton" destination="7dE-Js-y0f" id="1Og-mY-qfr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1574,6 +1611,20 @@ Job Applications: Jobs@8MileTech.com</string>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-vF-VGG">
+                                                    <rect key="frame" x="286" y="343" width="26" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="Fvj-zY-6W7"/>
+                                                        <constraint firstAttribute="width" constant="26" id="l64-2O-YML"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="flag_off.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled" backgroundImage="flag_on.png"/>
+                                                    <connections>
+                                                        <action selector="flagBadContentButtonTapped:" destination="9Gj-Yp-pNZ" eventType="touchUpInside" id="npM-TP-M1M"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
@@ -1583,10 +1634,12 @@ Job Applications: Jobs@8MileTech.com</string>
                                                 <constraint firstItem="e3g-LQ-3Oo" firstAttribute="top" secondItem="UdE-hF-gNT" secondAttribute="top" constant="6" id="FO2-0O-kwq"/>
                                                 <constraint firstAttribute="trailing" secondItem="kLv-8s-Ntf" secondAttribute="trailing" constant="43" id="Ipj-vi-bbS"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="leading" secondItem="3Tp-ye-A5T" secondAttribute="leading" id="UMu-QO-Gvt"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dc6-vF-VGG" secondAttribute="trailing" constant="8" id="XDe-GZ-PpS"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="top" secondItem="vth-Qq-CBS" secondAttribute="bottom" constant="2" id="bFo-eT-n2y"/>
                                                 <constraint firstItem="vth-Qq-CBS" firstAttribute="top" secondItem="eDb-hJ-x8y" secondAttribute="bottom" constant="1" id="jQC-N5-vsb"/>
                                                 <constraint firstItem="e3g-LQ-3Oo" firstAttribute="leading" secondItem="UdE-hF-gNT" secondAttribute="leading" constant="20" id="kNH-fd-ydc"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="leading" secondItem="UdE-hF-gNT" secondAttribute="leading" constant="87" id="o1Z-v6-4sD"/>
+                                                <constraint firstAttribute="bottom" secondItem="Dc6-vF-VGG" secondAttribute="bottom" constant="4" id="ryr-Mc-iLH"/>
                                                 <constraint firstItem="3Tp-ye-A5T" firstAttribute="top" secondItem="kLv-8s-Ntf" secondAttribute="bottom" constant="8" id="syA-Lt-84s"/>
                                             </constraints>
                                         </view>
@@ -1606,6 +1659,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                     <outlet property="commentButton" destination="b0l-EI-3bd" id="jYc-zt-DaY"/>
                                     <outlet property="commentCountLabel" destination="tO5-pW-olH" id="nVx-uS-VCn"/>
                                     <outlet property="contentContainerView" destination="UdE-hF-gNT" id="0i8-cw-vqI"/>
+                                    <outlet property="flagButton" destination="Dc6-vF-VGG" id="u0k-LH-5Fl"/>
                                     <outlet property="reviveProgressView" destination="Ia7-4T-Xpp" id="Pj8-Sp-sKy"/>
                                     <outlet property="statusCellAvatarImageView" destination="e3g-LQ-3Oo" id="eLu-ze-v45"/>
                                     <outlet property="statusCellDateLabel" destination="eDb-hJ-x8y" id="ODh-1u-U3g"/>
@@ -2529,6 +2583,8 @@ Job Applications: Jobs@8MileTech.com</string>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event_dot" width="8" height="8"/>
         <image name="facebook" width="25" height="25"/>
+        <image name="flag_off.png" width="50" height="42"/>
+        <image name="flag_on.png" width="50" height="42"/>
         <image name="googlr" width="25" height="25"/>
         <image name="input_psw" width="148" height="28"/>
         <image name="input_username" width="148" height="28"/>

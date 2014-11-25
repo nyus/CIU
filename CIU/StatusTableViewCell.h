@@ -14,6 +14,7 @@
 @protocol StatusTableViewCellDelegate <NSObject>
 @optional
 -(void)usernameLabelTappedOnCell:(StatusTableViewCell *)cell;
+-(void)flagBadContentButtonTappedOnCell:(StatusTableViewCell *)cell;
 -(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell;
 -(void)reviveAnimationDidEndOnCell:(StatusTableViewCell *)cell withProgress:(float)percentage;
 -(void)swipeGestureRecognizedOnCell:(StatusTableViewCell *)cell;
@@ -38,5 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *countDownLabel;
 @property (strong, nonatomic) NSMutableArray *collectionViewImagesArray;
+@property (weak, nonatomic) IBOutlet UIButton *flagButton;
+- (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
 @end

@@ -23,6 +23,7 @@
 #import "ComposeViewController.h"
 #import "LoadingTableViewCell.h"
 #import "GenericTableViewCell.h"
+#import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
 #define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
@@ -31,7 +32,7 @@
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
 
-@interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>{
+@interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
     CLLocation *previousLocation;
@@ -131,7 +132,9 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Specify criteria for filtering which objects to fetch
-    NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+    NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    NSCompoundPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation]];
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
@@ -251,12 +254,16 @@
         }
     }
 
+    // Filter bad content
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+    
     NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[Helper getParseClassNameForCategoryName:self.categoryName]];
     if (predicate2) {
-        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,predicate2]];
+        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,predicate2,excludeBadContent]];
         fetchRequest.predicate = compoundPredicate;
     }else{
-        fetchRequest.predicate = predicate1;
+        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,excludeBadContent]];
+        fetchRequest.predicate = compoundPredicate;
     }
     
     // Specify how the fetched objects should be sorted
@@ -293,9 +300,13 @@
     self.pfQuery = [[PFQuery alloc] initWithClassName:parseClassName];
     //latest post goes to the top.
     [self.pfQuery orderByDescending:@"createdAt"];
+
     if (IS_RES_MARKT) {
         [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
+    } else{
+        [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
     }
+    
     self.pfQuery.limit = FETCH_COUNT;
 //    self.pfQuery.skip = self.tableViewDataSource.count;
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -425,9 +436,17 @@
         cell.detailTextLabel.text = object.address;
         return cell;
     }else{
-        GenericTableViewCell *cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+        JobTradeTableViewCell *cell = (JobTradeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+        cell.delegate = self;
         cell.contentLabel.text = object.content;
         cell.contentLabel.font = [UIFont systemFontOfSize:14.0f];
+        
+        if (object.isBadContent.boolValue) {
+            cell.flagButton.enabled = NO;
+        } else {
+            cell.flagButton.enabled = YES;
+        }
+        
         return cell;
     }
 }
@@ -463,11 +482,12 @@
         NSString *content = object.content;
         CGRect rect = [content boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:NULL];
         
-        if (rect.size.height<44.0f) {
+        //40 takes the flag button into consideration. 10 spacing and 30 button height
+        if (rect.size.height + 40 <44.0f) {
             return 44.0f;
         } else {
             //5.0f is becuase the top margin is 5 pixels
-            return rect.size.height+5.0f;
+            return rect.size.height + 40 +5.0f;
         }
     }
 }
@@ -534,7 +554,7 @@
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
 //                [alert show];
                 break;
             }
@@ -588,6 +608,35 @@
         LifestyleObjectDetailTableViewController *vc = (LifestyleObjectDetailTableViewController *)segue.destinationViewController;
         vc.lifestyleObject = lifestyleToPass;
     }
+}
+
+#pragma mark - JobTradeTableViewCellDelegate
+
+- (void)flagBadContentButtonTappedOnCell:(JobTradeTableViewCell *)cell{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    __block LifestyleObject *lifeObject = self.tableViewDataSource[indexPath.row];
+    
+    cell.flagButton.enabled = NO;
+    
+    PFQuery *query = [PFQuery queryWithClassName:[Helper getParseClassNameForCategoryName:self.categoryName]];
+    [query whereKey:@"objectId" equalTo:lifeObject.objectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"get status object with id:%@ failed",object.objectId);
+        } else {
+            [object setObject:@YES forKey:@"isBadContent"];
+            [object saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    lifeObject.isBadContent = @YES;
+                    [[SharedDataManager sharedInstance] saveContext];
+                }
+            }];
+            
+            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
+            audit[@"auditObjectId"] = object.objectId;
+            [audit saveEventually];
+        }
+    }];
 }
 
 #pragma mark -- reachability 

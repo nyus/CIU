@@ -25,6 +25,10 @@
 
 @implementation StatusTableViewCell
 
+- (IBAction)flagBadContentButtonTapped:(id)sender {
+    [self.delegate flagBadContentButtonTappedOnCell:self];
+}
+
 - (IBAction)commentButtonTapped:(id)sender {
     [self.delegate commentButtonTappedOnCell:self];
 }

@@ -13,14 +13,35 @@
     self.createdAt = object.createdAt;
     self.updatedAt = object.updatedAt;
     self.objectId = object.objectId;
-    self.eventName = object[@"eventName"];
-    self.eventDate = object[@"eventDate"];
-    self.eventLocation = object[@"eventLocation"];
-    self.eventContent = object[@"eventContent"];
-    self.senderUsername = object[@"senderUsername"];
-    self.senderFirstName = object[@"senderFirstName"];
-    self.senderLastName = object[@"senderLastName"];
-    self.latitude = object[@"latitude"];
-    self.longitude = object[@"longitude"];
+    if (object[@"eventName"]) {
+        self.eventName = object[@"eventName"];
+    }
+    if (object[@"eventDate"]) {
+        self.eventDate = object[@"eventDate"];
+    }
+    if (object[@"eventLocation"]) {
+        self.eventLocation = object[@"eventLocation"];
+    }
+    if (object[@"eventContent"]) {
+        self.eventContent = object[@"eventContent"];
+    }
+    if (object[@"senderUsername"]) {
+        self.senderUsername = object[@"senderUsername"];
+    }
+    if (object[@"senderFirstName"]) {
+        self.senderFirstName = object[@"senderFirstName"];
+    }
+    if (object[@"senderLastName"]) {
+        self.senderLastName = object[@"senderLastName"];
+    }
+    if (object[@"latitude"]) {
+        self.latitude = object[@"latitude"];
+    }
+    if (object[@"longitude"]) {
+        self.longitude = object[@"longitude"];
+    }
+    if (object[@"isBadConteng"]) {
+        self.isBadContent = object[@"isBadConteng"];
+    }
 }
 @end

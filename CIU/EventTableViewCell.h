@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+
+@class EventTableViewCell;
+
 @protocol EventTableViewCellDelegate
 -(void)nameTextFieldEdited:(UITextField *)textField;
 -(void)descriptionTextViewEdidited:(UITextView *)textView;
 -(void)datePickerValueChanged:(UIDatePicker *)datePicker;
 -(void)locationTextFieldChanged:(UITextField *)textField;
+-(void)flagBadContentButtonTappedOnCell:(EventTableViewCell *)cell;
 @end
 
 @interface EventTableViewCell : UITableViewCell
@@ -28,5 +32,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *flagButton;
 
 @end

@@ -2,7 +2,7 @@
 //  Event.m
 //  CIU
 //
-//  Created by Sihang on 9/7/14.
+//  Created by Sihang on 11/23/14.
 //  Copyright (c) 2014 Huang, Jason. All rights reserved.
 //
 
@@ -11,18 +11,19 @@
 
 @implementation Event
 
+@dynamic cellHeight;
 @dynamic createdAt;
 @dynamic eventContent;
 @dynamic eventDate;
+@dynamic eventLocation;
 @dynamic eventName;
+@dynamic latitude;
+@dynamic longitude;
 @dynamic objectId;
 @dynamic senderFirstName;
 @dynamic senderLastName;
 @dynamic senderUsername;
 @dynamic updatedAt;
-@dynamic cellHeight;
-@dynamic eventLocation;
-@dynamic latitude;
-@dynamic longitude;
+@dynamic isBadContent;
 
 @end

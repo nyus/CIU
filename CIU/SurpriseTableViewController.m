@@ -78,6 +78,20 @@ static UIImage *defaultAvatar;
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
                                                                        ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        
+        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+        // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
+        NSDictionary *dictionary = [Helper userLocation];
+        if (dictionary) {
+            CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
+            NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+            
+            NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
+            [fetchRequest setPredicate:p];
+        } else {
+            [fetchRequest setPredicate:excludeBadContent];
+        }
     }
     
     fetchRequest.fetchLimit = 20;
@@ -116,6 +130,7 @@ static UIImage *defaultAvatar;
     if (lastFetchStatusDate) {
         [fetchStatusQuery whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
     }
+    [fetchStatusQuery whereKey:@"isBadContent" notEqualTo:@YES];
     NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
@@ -150,6 +165,7 @@ static UIImage *defaultAvatar;
                 status.photoCount = pfObject[@"photoCount"];
                 status.photoID = pfObject[@"photoID"];
                 status.anonymous = pfObject[@"anonymous"];
+                status.isBadContent = pfObject[@"isBadContent"];
                 [temp addObject:status];
                 
                 NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
@@ -235,6 +251,13 @@ static UIImage *defaultAvatar;
     // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
     if (!defaultAvatar) {
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    }
+    
+    //flag button
+    if (status.isBadContent.boolValue) {
+        cell.flagButton.enabled = NO;
+    } else {
+        cell.flagButton.enabled = YES;
     }
     
     cell.statusCellAvatarImageView.image = defaultAvatar;
@@ -333,7 +356,7 @@ static UIImage *defaultAvatar;
                 cellHeight += 10 + pictureHeight;
             }
             
-            cellHeight = cellHeight+10;
+            cellHeight = cellHeight+40+10;//40: 10pixels btw image and flag button and 30 is the flag button height
             
             status.statusCellHeight = [NSNumber numberWithFloat:cellHeight];
             return cellHeight;
@@ -458,12 +481,45 @@ static UIImage *defaultAvatar;
     }
 }
 
+#pragma mark - StatusTableViewCellDelegate
+
 -(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell{
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];
 }
+
+- (void)flagBadContentButtonTappedOnCell:(StatusTableViewCell *)cell{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    __block StatusObject *statusObject = self.dataSource[indexPath.row];
+    
+    
+    cell.flagButton.enabled = NO;
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Status"];
+    [query whereKey:@"objectId" equalTo:statusObject.objectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"get status object with id:%@ failed",statusObject.objectId);
+        } else {
+            [object setObject:@YES forKey:@"isBadContent"];
+            [object saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    statusObject.isBadContent = @YES;
+                    [[SharedDataManager sharedInstance] saveContext];
+                }
+            }];
+            
+            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
+            audit[@"auditObjectId"] = object.objectId;
+            [audit saveEventually];
+        }
+    }];
+
+}
+
+#pragma mark - Location Manager Delegate Override
 
 //override
 

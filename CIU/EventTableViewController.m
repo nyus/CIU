@@ -15,7 +15,7 @@
 #import "Helper.h"
 
 static NSString *managedObjectName = @"Event";
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate>{
+@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate>{
 }
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -58,9 +58,9 @@ static NSString *managedObjectName = @"Event";
     PFQuery *query = [[PFQuery alloc] initWithClassName:managedObjectName];
     [query orderByDescending:@"createdAt"];
     [query addBoundingCoordinatesToCenter:center radius:nil];
+    [query whereKey:@"isBadContent" notEqualTo:@YES];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
-            
             
             if (!self.dataSource) {
                 self.dataSource = [NSMutableArray array];
@@ -106,13 +106,19 @@ static NSString *managedObjectName = @"Event";
     self.dataSource = nil;
     self.dataSource = [NSMutableArray array];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:managedObjectName];
+
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@",@NO];
     // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
     NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
         MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
         NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-        [fetchRequest setPredicate:predicate];
+        
+        NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
+        [fetchRequest setPredicate:p];
+    } else {
+        [fetchRequest setPredicate:excludeBadContent];
     }
     // Specify how the fetched objects should be sorted
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
@@ -153,8 +159,16 @@ static NSString *managedObjectName = @"Event";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
     EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    cell.delegate = self;
     Event *event = self.dataSource[indexPath.row];
     cell.eventNameLabel.text = event.eventName;
+    
+    if (event.isBadContent.boolValue) {
+        cell.flagButton.enabled = NO;
+    }else{
+        cell.flagButton.enabled = YES;
+    }
+    
     if(!self.dateFormatter){
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
@@ -198,7 +212,7 @@ static NSString *managedObjectName = @"Event";
         CGRect locationRect = [event.eventLocation boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
         CGRect descriptionRect = [event.eventContent boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
         
-        event.cellHeight = [NSNumber numberWithFloat:CGRectGetMaxY(nameRect)+5+dateRect.size.height+5+locationRect.size.height+5+descriptionRect.size.height+20];
+        event.cellHeight = [NSNumber numberWithFloat:CGRectGetMaxY(nameRect)+5+dateRect.size.height+5+locationRect.size.height+5+descriptionRect.size.height+20 + 50];//50 is for flag button
         [[SharedDataManager sharedInstance] saveContext];
         return event.cellHeight.floatValue;
     }
@@ -214,6 +228,34 @@ static NSString *managedObjectName = @"Event";
     if(self.dataSource == nil || self.dataSource.count == 0){
         [self pullDataFromServerAroundCenter:location.coordinate];
     }
+}
+
+#pragma mark - EventTableViewCellDelegate
+
+- (void)flagBadContentButtonTappedOnCell:(EventTableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    __block Event *event = self.dataSource[indexPath.row];
+
+    cell.flagButton.enabled = NO;
+    
+    PFQuery *query = [PFQuery queryWithClassName:managedObjectName];
+    [query whereKey:@"objectId" equalTo:event.objectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (error) {
+            NSLog(@"get status object with id:%@ failed",object.objectId);
+        } else {
+            [object setObject:@YES forKey:@"isBadContent"];
+            [object saveEventually:^(BOOL succeeded, NSError *error) {
+                event.isBadContent = @YES;
+                [[SharedDataManager sharedInstance] saveContext];
+            }];
+            
+            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
+            audit[@"auditObjectId"] = object.objectId;
+            [audit saveEventually];
+        }
+    }];
 }
 
 @end
