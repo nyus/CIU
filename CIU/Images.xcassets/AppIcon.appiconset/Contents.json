@@ -3,25 +3,25 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "ciu logo 29.png",
+      "filename" : "ciu_logo_29.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "ciu logo 40.png",
+      "filename" : "ciu_logo_40.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "ciu logo 60.png",
+      "filename" : "ciu_logo_60.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "ciu logo 90.png",
+      "filename" : "ciu_logo@3x.png",
       "scale" : "3x"
     }
   ],

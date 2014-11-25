@@ -33,8 +33,8 @@
     UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
     UITabBarItem *item3 = [tabBar.items objectAtIndex:2];
     
-    item1.selectedImage = [[UIImage imageNamed:@"lifestyle_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.image = [[UIImage imageNamed:@"lifestyle_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.selectedImage = [[UIImage imageNamed:@"lifestyleIcon_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.image = [[UIImage imageNamed:@"lifestyleIcon_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     item1.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
     item2.selectedImage = [[UIImage imageNamed:@"event_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
