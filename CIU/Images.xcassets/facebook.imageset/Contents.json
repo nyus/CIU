@@ -2,7 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "facebook@1x-1.png"
     },
     {
       "idiom" : "universal",

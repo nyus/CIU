@@ -327,12 +327,6 @@
     return YES;
 }
 
-//-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-//    if([gestureRecognizer.view isKindOfClass:[HitTestView class]]){
-//        return NO;
-//    }
-//    return YES;
-//}
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     
     return YES;

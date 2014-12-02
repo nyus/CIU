@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "1lifestyle_unselected.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "1lifestyle_unselected@2x.png"
+      "filename" : "flag_off.png"
     },
     {
       "idiom" : "universal",

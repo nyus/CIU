@@ -680,7 +680,7 @@ Job Applications: Jobs@8MileTech.com</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAM-UC-4lY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="18"/>
+            <point key="canvasLocation" x="1030" y="11"/>
         </scene>
         <!--Lifestyle-->
         <scene sceneID="3hz-4f-FE8">
@@ -1984,7 +1984,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                     <outlet property="delegate" destination="6eh-bT-svD" id="tvU-J3-lDG"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2">
                                 <rect key="frame" x="0.0" y="480" width="320" height="44"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKE-V6-MdF">
@@ -2023,7 +2023,7 @@ Job Applications: Jobs@8MileTech.com</string>
                         <constraints>
                             <constraint firstItem="CiX-P4-dV2" firstAttribute="leading" secondItem="MiO-P8-Ew2" secondAttribute="leading" id="2u5-XW-Qta"/>
                             <constraint firstAttribute="trailing" secondItem="CiX-P4-dV2" secondAttribute="trailing" id="EBW-Ma-3jx"/>
-                            <constraint firstItem="ubh-mR-9g7" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="bottom" id="lIU-Qw-dCv"/>
+                            <constraint firstItem="ubh-mR-9g7" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="bottom" constant="-5" id="lIU-Qw-dCv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hdJ-fI-RbM"/>
@@ -2545,11 +2545,11 @@ Job Applications: Jobs@8MileTech.com</string>
             </objects>
             <point key="canvasLocation" x="1468" y="-270"/>
         </scene>
-        <!--Suprise-->
+        <!--Surprise-->
         <scene sceneID="qsx-lF-hr2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jWd-ES-soa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Suprise" id="nl6-HT-QIH">
+                    <tabBarItem key="tabBarItem" title="Surprise" id="nl6-HT-QIH">
                         <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -2574,9 +2574,9 @@ Job Applications: Jobs@8MileTech.com</string>
         </scene>
     </scenes>
     <resources>
-        <image name="3comment" width="27" height="27"/>
-        <image name="3like_before " width="27" height="27"/>
-        <image name="3share" width="27" height="27"/>
+        <image name="3comment" width="28" height="28"/>
+        <image name="3like_before " width="28" height="28"/>
+        <image name="3share" width="28" height="28"/>
         <image name="camera.png" width="256" height="256"/>
         <image name="ciu logo.png" width="229" height="226"/>
         <image name="companyLogo.png" width="436" height="436"/>

@@ -221,8 +221,8 @@ typedef NS_ENUM(NSUInteger, Direction){
 
 -(void)handleKeyboardWillShow:(NSNotification *)notification{
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-
-    self.enterMessageContainerViewBottomSpaceConstraint.constant = rect.size.height;
+    CGFloat tabbarHeight = CGRectGetHeight(self.tabBarController.tabBar.frame);
+    self.enterMessageContainerViewBottomSpaceConstraint.constant = rect.size.height - tabbarHeight;
     [UIView animateWithDuration:.3 animations:^{
         [self.view layoutIfNeeded];
     }];
