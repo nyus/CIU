@@ -37,11 +37,11 @@
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
 		504AE5841A224181000C62D9 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5831A224181000C62D9 /* Event.m */; };
-		504AE5871A2241AA000C62D9 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5861A2241AA000C62D9 /* StatusObject.m */; };
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
+		50716F811A2DFCE700A11DE7 /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50716F801A2DFCE700A11DE7 /* StatusObject.m */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
 		507F2F7019BB46BB00E8275F /* surprise28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6F19BB46BB00E8275F /* surprise28.png */; };
@@ -164,8 +164,6 @@
 		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		504AE5821A224181000C62D9 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		504AE5831A224181000C62D9 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		504AE5851A2241AA000C62D9 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
-		504AE5861A2241AA000C62D9 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		504AE5881A2241C7000C62D9 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
@@ -173,6 +171,8 @@
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		50716F7F1A2DFCE700A11DE7 /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
+		50716F801A2DFCE700A11DE7 /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
 		507F2F6F19BB46BB00E8275F /* surprise28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surprise28.png; sourceTree = "<group>"; };
@@ -442,6 +442,8 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				50716F7F1A2DFCE700A11DE7 /* StatusObject.h */,
+				50716F801A2DFCE700A11DE7 /* StatusObject.m */,
 				504AE5821A224181000C62D9 /* Event.h */,
 				504AE5831A224181000C62D9 /* Event.m */,
 				0B525D9A1A1266E500F2AE72 /* wewantyou.png */,
@@ -523,8 +525,6 @@
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
 				504AE5881A2241C7000C62D9 /* LifestyleObject.h */,
 				504AE5891A2241C7000C62D9 /* LifestyleObject.m */,
-				504AE5851A2241AA000C62D9 /* StatusObject.h */,
-				504AE5861A2241AA000C62D9 /* StatusObject.m */,
 			);
 			path = CIU;
 			sourceTree = "<group>";
@@ -731,7 +731,6 @@
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
-				504AE5871A2241AA000C62D9 /* StatusObject.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
 				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
@@ -762,6 +761,7 @@
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				503AF35419BB80B40023EC02 /* CreateEventViewController.m in Sources */,
+				50716F811A2DFCE700A11DE7 /* StatusObject.m in Sources */,
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
 				65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */,
 				503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */,
