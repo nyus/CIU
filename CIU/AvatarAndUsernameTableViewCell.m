@@ -39,12 +39,14 @@
     
     UIBezierPath *circle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(CGRectGetWidth(self.avatarImageView.frame)/2, CGRectGetHeight(self.avatarImageView.frame)/2)
                                                                 radius:self.avatarImageView.frame.size.width/2
-                                                            startAngle:M_PI
-                                                              endAngle:-M_PI
+                                                            startAngle:0
+                                                              endAngle:2*M_PI
                                                              clockwise:YES];
     CAShapeLayer *circularMask = [CAShapeLayer new];
     circularMask.path = circle.CGPath;
     self.avatarImageView.layer.mask = circularMask;
+
+    self.avatarImageView.backgroundColor = [UIColor redColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
