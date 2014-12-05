@@ -2104,7 +2104,7 @@ Job Applications: Jobs@8MileTech.com</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-aj-aGp">
                                 <rect key="frame" x="133" y="518" width="55" height="30"/>
                                 <state key="normal" title="Sign Up">
-                                    <color key="titleColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -2158,7 +2158,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select social network to get started" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4K9-du-KAu">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select social network to get started" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4K9-du-KAu">
                                 <rect key="frame" x="41" y="441" width="238" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="238" id="0GD-gs-NVP"/>
@@ -2169,10 +2169,10 @@ Job Applications: Jobs@8MileTech.com</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8l-jB-M0q">
-                                <rect key="frame" x="55" y="467" width="210" height="45"/>
+                                <rect key="frame" x="55" y="461" width="210" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                        <rect key="frame" x="83" y="0.0" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="4wQ-Ov-qOy"/>
                                             <constraint firstAttribute="width" constant="45" id="t4v-C3-Jbb"/>
@@ -2184,46 +2184,28 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <action selector="loginWithFBTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="zwf-qe-tbh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6p-o0-Lp8">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6p-o0-Lp8">
                                         <rect key="frame" x="55" y="0.0" width="45" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="BCy-It-TxM"/>
-                                            <constraint firstAttribute="width" constant="45" id="hRa-Wl-atf"/>
-                                        </constraints>
                                         <state key="normal" backgroundImage="twitter">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIq-lN-Nbg">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIq-lN-Nbg">
                                         <rect key="frame" x="110" y="0.0" width="45" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="C8v-MC-EqV"/>
-                                            <constraint firstAttribute="width" constant="45" id="G0V-13-Gk2"/>
-                                        </constraints>
                                         <state key="normal" backgroundImage="googlr">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUy-7d-Lxk">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUy-7d-Lxk">
                                         <rect key="frame" x="165" y="0.0" width="45" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="8Sh-lT-erC"/>
-                                            <constraint firstAttribute="height" constant="45" id="eMk-oT-u91"/>
-                                        </constraints>
                                         <state key="normal" backgroundImage="linkedin">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="daT-oh-yvo" firstAttribute="leading" secondItem="A8l-jB-M0q" secondAttribute="leading" id="Jlh-TG-Z4R"/>
-                                    <constraint firstItem="lUy-7d-Lxk" firstAttribute="top" secondItem="A8l-jB-M0q" secondAttribute="top" id="NqS-6b-fms"/>
-                                    <constraint firstItem="qIq-lN-Nbg" firstAttribute="top" secondItem="A8l-jB-M0q" secondAttribute="top" id="O9b-YH-ogT"/>
+                                    <constraint firstItem="daT-oh-yvo" firstAttribute="leading" secondItem="A8l-jB-M0q" secondAttribute="leading" constant="83" id="Jlh-TG-Z4R"/>
                                     <constraint firstItem="daT-oh-yvo" firstAttribute="top" secondItem="A8l-jB-M0q" secondAttribute="top" id="PRV-uo-XQY"/>
-                                    <constraint firstItem="qIq-lN-Nbg" firstAttribute="leading" secondItem="r6p-o0-Lp8" secondAttribute="trailing" constant="10" id="W1p-fz-iTc"/>
-                                    <constraint firstItem="r6p-o0-Lp8" firstAttribute="leading" secondItem="daT-oh-yvo" secondAttribute="trailing" constant="10" id="Z4m-wN-ie4"/>
-                                    <constraint firstItem="r6p-o0-Lp8" firstAttribute="top" secondItem="A8l-jB-M0q" secondAttribute="top" id="nVr-Xj-dea"/>
-                                    <constraint firstItem="lUy-7d-Lxk" firstAttribute="leading" secondItem="qIq-lN-Nbg" secondAttribute="trailing" constant="10" id="ndH-bY-OHc"/>
                                     <constraint firstAttribute="height" constant="45" id="nkH-gQ-VON"/>
                                     <constraint firstAttribute="width" constant="210" id="pk9-wW-rTu"/>
                                 </constraints>
@@ -2247,7 +2229,7 @@ Job Applications: Jobs@8MileTech.com</string>
                             <constraint firstItem="FQT-fB-mtH" firstAttribute="top" secondItem="Pnw-q4-MRY" secondAttribute="bottom" constant="30" id="Yzl-FG-4HD"/>
                             <constraint firstItem="CLo-k3-6uH" firstAttribute="leading" secondItem="FQT-fB-mtH" secondAttribute="leading" id="eJL-RM-61e"/>
                             <constraint firstItem="4K9-du-KAu" firstAttribute="top" secondItem="qTe-1E-XDp" secondAttribute="bottom" constant="5" id="nch-Zg-0Ep"/>
-                            <constraint firstItem="A8l-jB-M0q" firstAttribute="top" secondItem="4K9-du-KAu" secondAttribute="bottom" constant="5" id="odo-75-aq2"/>
+                            <constraint firstItem="A8l-jB-M0q" firstAttribute="top" secondItem="4K9-du-KAu" secondAttribute="bottom" constant="-1" id="odo-75-aq2"/>
                             <constraint firstItem="qTe-1E-XDp" firstAttribute="top" secondItem="fG4-WT-exN" secondAttribute="bottom" constant="10" id="p3C-o0-VTP"/>
                             <constraint firstAttribute="centerX" secondItem="yjy-Z9-Wae" secondAttribute="centerX" id="pJS-gE-3Zx"/>
                             <constraint firstItem="yjy-Z9-Wae" firstAttribute="top" secondItem="txJ-Qd-1nF" secondAttribute="bottom" constant="20" id="pNC-k9-eyw"/>
