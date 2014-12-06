@@ -88,8 +88,9 @@
             self.imagePicker.delegate = self;
         }
         self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.allowsEditing = NO;
+        self.imagePicker.allowsEditing = YES;
         self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
     }
 }
 
@@ -189,10 +190,6 @@
             }
         }];
     }
-}
-
-- (IBAction)backToLoginButtonTapped:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextFieldDelegate
