@@ -195,15 +195,32 @@
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-#warning
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9a-zA-Z._]"];
+    
+    // Allow backspace
+    if ([string isEqualToString:@""]) {
+        return YES;
+    }
+    
+    if (textField == self.passwordTextField) {
+        return YES;
+    }
+    
+    NSString *predicateString;
+    if (textField == self.emailTextField) {
+        predicateString = @"[0-9a-zA-Z._@]";
+    } else if (textField != self.passwordTextField){
+        predicateString = @"[0-9a-zA-Z._]";
+    } else {
+        predicateString = nil;
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", predicateString];
     BOOL flag = [predicate evaluateWithObject:string];
     if (!flag) {
         return NO;
     }else{
         return YES;
     }
-    return YES;
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
