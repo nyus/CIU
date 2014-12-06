@@ -18,5 +18,4 @@
 @property (strong ,nonatomic) LogInViewController *loginVC;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 - (IBAction)signUpButtonTapped:(id)sender;
-- (IBAction)backToLoginButtonTapped:(id)sender;
 @end

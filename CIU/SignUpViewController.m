@@ -196,13 +196,13 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 #warning
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9a-zA-Z._]"];
-//    BOOL flag = [predicate evaluateWithObject:string];
-//    if (!flag) {
-//        return NO;
-//    }else{
-//        return YES;
-//    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9a-zA-Z._]"];
+    BOOL flag = [predicate evaluateWithObject:string];
+    if (!flag) {
+        return NO;
+    }else{
+        return YES;
+    }
     return YES;
 }
 

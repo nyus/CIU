@@ -243,14 +243,6 @@
     
 }
 
-- (IBAction)signUpButtonTapped:(id)sender {
-    
-    SignUpViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"signUpVC"];
-    vc.loginVC = self;
-    [self presentViewController:vc animated:YES completion:nil];
-
-}
-
 - (IBAction)forgotPasswrodTapped:(id)sender {
     UIAlertView *input = [[UIAlertView alloc] initWithTitle:nil message:@"Enter your email to reset password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reset", nil];
     input.alertViewStyle = UIAlertViewStylePlainTextInput;
