@@ -220,13 +220,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 //    [self.queries removeObjectForKey:indexPath];
 //}
 
-#pragma mark - Table view delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"toDetailA" sender:cell];
-}
-
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

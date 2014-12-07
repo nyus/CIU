@@ -108,7 +108,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="529" y="18"/>
+            <point key="canvasLocation" x="279" y="11"/>
         </scene>
         <!--About Us View Controller-->
         <scene sceneID="NPU-SB-DHA">
