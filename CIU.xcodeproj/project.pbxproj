@@ -54,6 +54,8 @@
 		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
+		50D769321A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */; };
+		50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
@@ -194,6 +196,11 @@
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
 		50C44A2119C28EAC00DF50D8 /* HitTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitTestView.h; sourceTree = "<group>"; };
 		50C44A2219C28EAC00DF50D8 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
+		50D7692D1A34BFB6005B31E3 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		50D7692E1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		50D769301A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
@@ -444,6 +451,18 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
+		50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				50D7692D1A34BFB6005B31E3 /* SVPullToRefresh.h */,
+				50D7692E1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.h */,
+				50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */,
+				50D769301A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.h */,
+				50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +500,7 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
 				5040548719A6CFB40050853A /* StoreKit.framework */,
@@ -751,12 +771,14 @@
 				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
+				50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
 				503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */,
 				0B0D53FD19ED617B00B0C24C /* SurpriseTableViewController.m in Sources */,
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
+				50D769321A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
