@@ -241,7 +241,9 @@ NS_ENUM(NSUInteger, SideBarStatus){
     else {
         [PFUser logOut];
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
-        [self presentViewController:vc animated:YES completion:nil];
+        [self presentViewController:vc animated:YES completion:^{
+            [self animateSideBarWhenMenuTapped];
+        }];
     }
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
