@@ -28,6 +28,8 @@
 #define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
+#define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
+#define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
 #define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
@@ -55,8 +57,10 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    isOffline = ![Reachability canReachInternet];
+    // Note: empty back button title is set in IB. Select navigation bar in LifestyleTableViewController. The tilte is set to an empty string.
     
+    isOffline = ![Reachability canReachInternet];
+
     if (IS_RES_MARKT) {
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"List",@"Map"]];
         [self.segmentedControl addTarget:self
@@ -65,16 +69,25 @@
         self.segmentedControl.selectedSegmentIndex = 0;
         self.navigationItem.titleView = self.segmentedControl;
     }else if (IS_JOB_TRADE) {
+        
+        if (IS_JOB) {
+            self.title = @"Jobs";
+        } else {
+            self.title = @"Trade & Sell";
+        }
+        
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
+    NSNumber *rememberedRadius = [[NSUserDefaults standardUserDefaults] objectForKey:kDataDisplayRadiusKey];
     if(isOffline){
-        [self fetchLocalDataForListWithRadius:nil];
+        [self fetchLocalDataForListWithRadius:rememberedRadius];
+        
     }else{
         if (IS_JOB_TRADE) {
             //jobs, trade and sell don't need location info yet
-            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0) raidus:nil];
+            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0) raidus:rememberedRadius];
             
         }else if (IS_RES_MARKT) {
             self.locationManager = [Helper initLocationManagerWithDelegate:self];
@@ -84,7 +97,7 @@
                 
                 NSDictionary *userLocation = [Helper userLocation];
                 CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
-                [self fetchServerDataForListAroundCenter:coor raidus:@5.0];
+                [self fetchServerDataForListAroundCenter:coor raidus:rememberedRadius];
             }
         }
     }
@@ -92,12 +105,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     self.mapView.showsUserLocation = NO;
 }
 
@@ -249,6 +260,7 @@
         NSDictionary *dictionary = [Helper userLocation];
         if (dictionary) {
             CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+            
             MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
             predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         }
@@ -383,7 +395,8 @@
     
     //job and trade doesnt require location information
     if (IS_RES_MARKT && (self.tableViewDataSource == nil || self.tableViewDataSource.count == 0)) {
-        [self fetchServerDataForListAroundCenter:location.coordinate raidus:nil];
+        NSNumber *rememberedRadius = [[NSUserDefaults standardUserDefaults] objectForKey:kDataDisplayRadiusKey];
+        [self fetchServerDataForListAroundCenter:location.coordinate raidus:rememberedRadius];
     }
 }
 
@@ -456,6 +469,8 @@
         
         if (!self.headerView) {
             self.headerView = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
+                [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:@"dataRadius"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 [self handleDataDisplayPeripheral:newValue];
             }];
         }
@@ -488,36 +503,6 @@
         } else {
             //5.0f is becuase the top margin is 5 pixels
             return rect.size.height + 40 +5.0f;
-        }
-    }
-}
-
-#pragma mark - loading cell delegate 
-
--(void)browseMoreButtonTappedOnCell:(UITableViewCell *)cell{
-    if(isOffline){
-        [self fetchLocalDataForListWithRadius:nil];
-    }else{
-
-        if(IS_RES_MARKT){
-            
-            NSDictionary *dictionary = [Helper userLocation];
-            if (dictionary) {
-                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                [self fetchServerDataForListAroundCenter:center raidus:nil];
-            }
-            
-        }else if(IS_JOB_TRADE){
-            
-            NSDictionary *dictionary = [Helper userLocation];
-            if (dictionary) {
-                CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-                MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
-                [self fetchServerDataWithRegion:region];
-            }
-            
-        }else{
-            return;
         }
     }
 }
@@ -638,50 +623,5 @@
         }
     }];
 }
-
-#pragma mark -- reachability 
-
-/*!
- * Called by Reachability whenever status changes.
- */
-//- (void) reachabilityChanged:(NSNotification *)note
-//{
-//    //if previously offline and now there is internet connection
-//    static int count = 0;
-//    if(count == 0 && [Reachability canReachInternet] && isOffline == YES){
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"You are now connected to the internet. Would you like to display up-to-date information around you?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-//        alert.tag = 99;
-//        [alert show];
-//        count =1;
-//    }
-//}
-
-#pragma mark - uialertview delegate
-
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    //would like to update information alert in -reachabilityChanged
-//    if(alertView.tag == 99){
-//        //YES
-//        if(buttonIndex == 1){
-//            isOffline = NO;
-//            if(self.segmentedControl.selectedSegmentIndex == 0){
-//                self.tableViewDataSource = nil;
-//                [self.tableView reloadData];
-//            }else if (self.segmentedControl.selectedSegmentIndex == 1){
-//                self.mapViewDataSource = nil;
-//                //remove annotations
-//                if (self.mapView.annotations.count!=0) {
-//                    NSInteger toRemoveCount = self.mapView.annotations.count;
-//                    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
-//                    for (id annotation in self.mapView.annotations)
-//                        if (annotation != self.mapView.userLocation)
-//                            [toRemove addObject:annotation];
-//                    [self.mapView removeAnnotations:toRemove];
-//                }
-//            }
-//            [self.locationManager startUpdatingLocation];
-//        }
-//    }
-//}
 
 @end

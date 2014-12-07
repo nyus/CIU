@@ -247,34 +247,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *categoryCell = @"categoryCell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
-//
-//    LifestyleCategory *category = self.dataSource[indexPath.row];
-//    cell.textLabel.text = category.name;
-//    NSString *imageName = [self imageNameOfCategory:category];
-//    cell.imageView.image = [UIImage imageNamed:imageName];
-//
-//    UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
-//    
-//    LifestyleCategory *category = self.dataSource[indexPath.row];
-//    
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 15, 35, 30)];
-//    NSString *imagedName = [self imageNameOfCategory:category];
-//    imageView.image = [UIImage imageNamed: imagedName];
-//    [cell.contentView addSubview:imageView];
-//    
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 150, 60)];
-//    label.text = category.name;
-//    [cell.contentView addSubview:label];
-//    
-//    UIImageView *arrow = [[UIImageView alloc] initWithFrame:CGRectMake(250, 15, 30, 30)];
-//    arrow.image = [UIImage imageNamed:@"3Arrow"];
-//    [cell.contentView addSubview:arrow];
-//    
-//    UIView *seperator = [[UIView alloc] initWithFrame:CGRectMake(40, 55, 240, 1)];
-//    seperator.backgroundColor = [UIColor colorWithRed:197.0/255.0 green:197.0/255.0 blue:197.0/255.0 alpha:1.0f];
-//    [cell.contentView addSubview:seperator];
     
     static NSString *categoryCell = @"categoryCell";
     LifestyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
@@ -317,11 +289,14 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    LifestyleCategory *category = self.dataSource[indexPath.row];
-    LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
-    vc.categoryName = category.name;
+    
+    if ([segue.identifier isEqualToString:@"toDetailA"]) {
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        LifestyleCategory *category = self.dataSource[indexPath.row];
+        LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
+        vc.categoryName = category.name;
+    }
 }
 
 @end

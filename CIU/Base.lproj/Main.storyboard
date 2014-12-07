@@ -750,7 +750,9 @@ Job Applications: Jobs@8MileTech.com</string>
                             <outlet property="delegate" destination="w3S-5W-69p" id="mGK-fd-EX7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lifestyle" id="rTy-Lu-AA9"/>
+                    <navigationItem key="navigationItem" title="Lifestyle" id="rTy-Lu-AA9">
+                        <barButtonItem key="backBarButtonItem" title=" " id="55J-3p-31K"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

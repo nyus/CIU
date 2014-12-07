@@ -9,6 +9,8 @@
 #import "DisplayPeripheralHeaderView.h"
 #import "UIColor+CIUColors.h"
 
+NSString *kDataDisplayRadiusKey = @"dataRadius";
+
 @interface DisplayPeripheralHeaderView()
 @property (copy) void (^completion)(double newValue);
 @end
@@ -26,11 +28,15 @@
         self.contentLabel.textColor = [UIColor themeTextGrey];
         self.contentLabel.numberOfLines = 0;
         self.contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        NSString *string = @"Results within 5 miles";
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
-//        NSRange range = [string rangeOfString:@"5"];
-//        [attributedString setAttributes:@{NSForegroundColorAttributeName:[UIColor themeTextGrey]} range:range];
-//        self.contentLabel.attributedText = attributedString;
+        
+        NSString *string;
+        NSNumber *dataRadius = [[NSUserDefaults standardUserDefaults] objectForKey:@"dataRadius"];
+        if (dataRadius) {
+            string = [NSString stringWithFormat:@"Results within %d miles",[dataRadius intValue]];
+        } else {
+            string = @"Results within 5 miles";
+        }
+        
         self.contentLabel.text = string;
         [self addSubview:self.contentLabel];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-28.0-[_contentLabel(%f)]",200.0]
@@ -50,7 +56,7 @@
         self.stepper.transform = CGAffineTransformMakeScale(0.75, 0.75);
         self.stepper.minimumValue = 5.0;
         self.stepper.maximumValue = 30.0;
-        self.stepper.stepValue = 5.0;
+        self.stepper.stepValue = dataRadius? dataRadius.doubleValue : 5.0;
         self.stepper.tintColor = [UIColor themeTextGrey];
         [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.stepper];

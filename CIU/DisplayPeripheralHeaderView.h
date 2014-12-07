@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *kDataDisplayRadiusKey;
+
 @interface DisplayPeripheralHeaderView : UIView
 
 @property (nonatomic, strong) UILabel *contentLabel;
