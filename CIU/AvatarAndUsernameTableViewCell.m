@@ -45,8 +45,7 @@
     CAShapeLayer *circularMask = [CAShapeLayer new];
     circularMask.path = circle.CGPath;
     self.avatarImageView.layer.mask = circularMask;
-
-    self.avatarImageView.backgroundColor = [UIColor redColor];
+    self.avatarImageView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

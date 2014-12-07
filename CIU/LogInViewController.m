@@ -202,6 +202,7 @@
             [PFUser logInWithUsernameInBackground:self.emailOrUsernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
                 if (!error) {
                     [self showStatusTableView];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
                 }else{
                     [self showIncorrectPasswordOrFieldWithName:@"username"];
                 }

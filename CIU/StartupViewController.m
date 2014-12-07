@@ -35,11 +35,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 @implementation StartupViewController
 
 -(void)viewDidLoad{
-    
-    PFUser *user = [PFUser currentUser];
-    if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self reloadTableView];
-    }
+    [self reloadTableView];
     
     //set UI of menu tableview
     self.tableView.backgroundColor = [UIColor themeGreen];
@@ -175,16 +171,21 @@ NS_ENUM(NSUInteger, SideBarStatus){
         cell = [tableView dequeueReusableCellWithIdentifier:@"avatarCell" forIndexPath:indexPath];
         __block AvatarAndUsernameTableViewCell *c = (AvatarAndUsernameTableViewCell *)cell;
         c.delegate = self;
-        [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
-            if (!error) {
-                c.avatarImageView.image = image;
-//                c.avatarImageView.layer.masksToBounds = YES;
-//                c.avatarImageView.layer.cornerRadius = 35;
-                c.backgroundColor = [UIColor clearColor];
-                
-            }
-        }];
-        c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
+        
+        PFUser *user = [PFUser currentUser];
+        if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+            [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
+                if (!error) {
+                    c.avatarImageView.image = image;
+                    c.backgroundColor = [UIColor clearColor];
+                }
+            }];
+            c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
+            
+        } else {
+            c.usernameLabel.text = @"";
+        }
+        
         c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
         c.usernameLabel.textColor = [UIColor themeTextGrey];
         c.backgroundColor = [UIColor themeGreen];
