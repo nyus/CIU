@@ -2,8 +2,8 @@
 //  LifestyleDetailViewController.m
 //  CIU
 //
-//  Created by Huang, Jason on 8/22/14.
-//  Copyright (c) 2014 Huang, Jason. All rights reserved.
+//  Created by Huang, Sihang on 8/22/14.
+//  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
 #import "LifestyleDetailViewController.h"
@@ -33,6 +33,8 @@
 #define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
+
+static const CGFloat kLocationNotifyThreshold = 1.0;
 
 @interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
@@ -383,7 +385,7 @@
     //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
     if (previousLocation) {
         CLLocationDistance distance = [location distanceFromLocation:previousLocation];
-        if(distance/1609 < 10){
+        if(distance/1609 < kLocationNotifyThreshold){
             return;
         }
     }

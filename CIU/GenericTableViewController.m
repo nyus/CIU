@@ -2,12 +2,15 @@
 //  GenericTableViewController.m
 //  CIU
 //
-//  Created by Huang, Jason on 8/15/14.
-//  Copyright (c) 2014 Huang, Jason. All rights reserved.
+//  Created by Huang, Sihang on 8/15/14.
+//  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
 #import "GenericTableViewController.h"
 #import "Helper.h"
+
+static const CGFloat kLocationNotifyThreshold = 1.0;
+
 @interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *previousLocation;
@@ -110,7 +113,7 @@
     //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
     if (self.previousLocation) {
         CLLocationDistance distance = [location distanceFromLocation:self.previousLocation];
-        if(distance/1609 < 10){
+        if(distance/1609 < kLocationNotifyThreshold){
             return;
         }
     }
