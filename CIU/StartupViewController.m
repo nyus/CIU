@@ -413,30 +413,46 @@ NS_ENUM(NSUInteger, SideBarStatus){
             self.imagePicker.delegate = self;
         }
         self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.allowsEditing = NO;
+        self.imagePicker.allowsEditing = YES;
         self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Camera is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
 - (void) launchGalleryPicker {
-    if (!self.imagePicker) {
-        self.imagePicker = [[UIImagePickerController alloc] init];
-        self.imagePicker.delegate = self;
-    }
     
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        if (!self.imagePicker) {
+            self.imagePicker = [[UIImagePickerController alloc] init];
+            self.imagePicker.delegate = self;
+            self.imagePicker.allowsEditing = YES;
+        }
+        
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Photo library is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *original = info[@"UIImagePickerControllerOriginalImage"];
+    UIImage *photo = nil;
+    if (info[@"UIImagePickerControllerEditedImage"]) {
+        photo = info[@"UIImagePickerControllerEditedImage"];
+    } else {
+        photo = info[@"UIImagePickerControllerOriginalImage"];
+    }
     //access cell
     AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
-    NSData *highResData = UIImagePNGRepresentation(original);
-    UIImage *scaled = [Helper scaleImage:original downToSize:cell.avatarImageView.frame.size];
+    NSData *highResData = UIImagePNGRepresentation(photo);
+    UIImage *scaled = [Helper scaleImage:photo downToSize:cell.avatarImageView.frame.size];
     NSData *lowResData = UIImagePNGRepresentation(scaled);
     //save to both local and server
     [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES];
