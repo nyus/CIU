@@ -11,6 +11,7 @@
 @class EventTableViewCell;
 
 @protocol EventTableViewCellDelegate
+@optional
 -(void)nameTextFieldEdited:(UITextField *)textField;
 -(void)descriptionTextViewEdidited:(UITextView *)textView;
 -(void)datePickerValueChanged:(UIDatePicker *)datePicker;

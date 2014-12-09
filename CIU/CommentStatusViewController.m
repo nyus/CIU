@@ -14,7 +14,7 @@
 #import "UITextView+Utilities.h"
 #import "Helper.h"
 #import "StatusTableViewCell.h"
-#import "StatusViewController.h"
+
 #define COMMENT_LABEL_WIDTH 234.0f
 #define NO_COMMENT_CELL_HEIGHT 250.0f
 #define CELL_IMAGEVIEW_MAX_Y 35+10

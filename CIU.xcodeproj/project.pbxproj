@@ -77,7 +77,6 @@
 		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
 		6564F24419A7835000629B48 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6564F24319A7835000629B48 /* MapKit.framework */; };
 		6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */; };
-		65C4F0B719AFB201004452C3 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0B619AFB201004452C3 /* StatusViewController.m */; };
 		65C4F0BA19AFB21D004452C3 /* StatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */; };
 		65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */; };
 		65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0BD19AFB2B8004452C3 /* comment_icon.png */; };
@@ -100,7 +99,6 @@
 		65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */; };
 		65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F819AFBBEA004452C3 /* Overlay.png */; };
 		65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */; };
-		65C4F10919AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */; };
 		65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */; };
 		65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10E19AFBD21004452C3 /* LogInViewController.m */; };
 		65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpViewController.m */; };
@@ -234,8 +232,6 @@
 		6564F24319A7835000629B48 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6564F24519A78D1100629B48 /* LifestyleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleDetailViewController.h; sourceTree = "<group>"; };
 		6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleDetailViewController.m; sourceTree = "<group>"; };
-		65C4F0B519AFB201004452C3 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
-		65C4F0B619AFB201004452C3 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		65C4F0B819AFB21D004452C3 /* StatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusTableViewCell.h; sourceTree = "<group>"; };
 		65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTableViewCell.m; sourceTree = "<group>"; };
 		65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-user-icon-profile.png"; sourceTree = "<group>"; };
@@ -274,8 +270,6 @@
 		65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
 		65C4F0F819AFBBEA004452C3 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
-		65C4F10719AFBC63004452C3 /* BaseViewControllerWithStatusTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewControllerWithStatusTableView.h; sourceTree = "<group>"; };
-		65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewControllerWithStatusTableView.m; sourceTree = "<group>"; };
 		65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerImageView.h; sourceTree = "<group>"; };
 		65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerImageView.m; sourceTree = "<group>"; };
 		65C4F10D19AFBD21004452C3 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
@@ -369,8 +363,6 @@
 				65C4F11119AFBD53004452C3 /* SignUpViewController.m */,
 				65C4F10D19AFBD21004452C3 /* LogInViewController.h */,
 				65C4F10E19AFBD21004452C3 /* LogInViewController.m */,
-				65C4F10719AFBC63004452C3 /* BaseViewControllerWithStatusTableView.h */,
-				65C4F10819AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m */,
 				65C4F0E419AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.h */,
 				65C4F0E519AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m */,
 				65C4F0E119AFBBB9004452C3 /* UITextView+Utilities.h */,
@@ -388,8 +380,6 @@
 				65C4F0C319AFB6AE004452C3 /* camera.png */,
 				65C4F0C019AFB67C004452C3 /* ComposeNewStatusViewController.h */,
 				65C4F0C119AFB67C004452C3 /* ComposeNewStatusViewController.m */,
-				65C4F0B519AFB201004452C3 /* StatusViewController.h */,
-				65C4F0B619AFB201004452C3 /* StatusViewController.m */,
 				0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */,
 				0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */,
 				B22C70C51A1183E90035D3C5 /* LoginTextField.h */,
@@ -741,7 +731,6 @@
 				5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */,
 				65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */,
-				65C4F10919AFBC63004452C3 /* BaseViewControllerWithStatusTableView.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentStatusViewController.m in Sources */,
 				504AE5841A224181000C62D9 /* Event.m in Sources */,
@@ -756,7 +745,6 @@
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeViewController.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
-				65C4F0B719AFB201004452C3 /* StatusViewController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
@@ -928,18 +916,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sihang Huang (85Y433T9BF)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/jasonhuang/Downloads,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/CIU/FastPost",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
 				WRAPPER_EXTENSION = app;
@@ -955,19 +938,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sihang Huang (24QWF4M939)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/jasonhuang/Downloads,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/CIU/FastPost",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CIU/FastPost/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";
 				WRAPPER_EXTENSION = app;

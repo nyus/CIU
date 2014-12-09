@@ -14,6 +14,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)logInButtonTapped:(id)sender;
-- (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)forgotPasswrodTapped:(id)sender;
 @end
