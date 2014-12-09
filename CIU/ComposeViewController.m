@@ -2,8 +2,8 @@
 //  ComposeViewController.m
 //  CIU
 //
-//  Created by Huang, Jason on 9/15/14.
-//  Copyright (c) 2014 Huang, Jason. All rights reserved.
+//  Created by Huang, Sihang on 9/15/14.
+//  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
 #import "ComposeViewController.h"

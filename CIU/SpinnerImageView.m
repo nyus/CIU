@@ -3,7 +3,7 @@
 //  FastPost
 //
 //  Created by Sihang Huang on 6/19/14.
-//  Copyright (c) 2014 Huang, Jason. All rights reserved.
+//  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
 #import "SpinnerImageView.h"
