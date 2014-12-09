@@ -326,7 +326,7 @@
             imagePicker = [[UIImagePickerController alloc] init];
             //            }
             imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePicker.allowsEditing = NO;
+            imagePicker.allowsEditing = YES;
             imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
             imagePicker.delegate = self;
             [self presentViewController:imagePicker animated:YES completion:nil];
@@ -337,7 +337,7 @@
         elcPicker.maximumImagesCount = 30;
         elcPicker.returnsOriginalImage = NO; //Only return the fullScreenImage, not the fullResolutionImage
         elcPicker.imagePickerDelegate = self;
-        
+
         [self presentViewController:elcPicker animated:YES completion:nil];
     }else{
         [self.textView becomeFirstResponder];

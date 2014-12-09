@@ -1403,13 +1403,13 @@ Job Applications: Jobs@8MileTech.com</string>
                                                         </label>
                                                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="usY-5p-4gt">
                                                             <rect key="frame" x="21" y="133" width="279" height="204"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="204" id="rph-JO-3If"/>
                                                                 <constraint firstAttribute="width" constant="279" id="u28-uW-xd5"/>
                                                             </constraints>
                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="10" id="MJd-Kh-IQu">
-                                                                <size key="itemSize" width="242" height="204"/>
+                                                                <size key="itemSize" width="204" height="204"/>
                                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1419,15 +1419,16 @@ Job Applications: Jobs@8MileTech.com</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="242" height="204"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="242" height="204"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fbc-Xg-ky5">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="242" height="204"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </view>
+                                                                    <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="Fbc-Xg-ky5" firstAttribute="top" secondItem="2Ri-GR-zsa" secondAttribute="top" id="Fb8-sA-0hJ"/>
                                                                         <constraint firstItem="Fbc-Xg-ky5" firstAttribute="leading" secondItem="2Ri-GR-zsa" secondAttribute="leading" id="N4R-Eg-09Q"/>
@@ -1449,7 +1450,6 @@ Job Applications: Jobs@8MileTech.com</string>
                                                     <constraints>
                                                         <constraint firstItem="VIV-x3-tQI" firstAttribute="top" secondItem="eQN-HL-3IL" secondAttribute="top" constant="6" id="Aft-cA-sFu"/>
                                                         <constraint firstItem="VIV-x3-tQI" firstAttribute="top" secondItem="Zah-7g-oe6" secondAttribute="top" constant="-31" id="HyB-Rv-vbh"/>
-                                                        <constraint firstItem="usY-5p-4gt" firstAttribute="leading" secondItem="eQN-HL-3IL" secondAttribute="leading" constant="21" id="Kc7-pl-5tg"/>
                                                         <constraint firstItem="qjr-7T-ljb" firstAttribute="leading" secondItem="eQN-HL-3IL" secondAttribute="leading" constant="20" id="L1h-ZG-RTe"/>
                                                         <constraint firstItem="U8i-V1-Zo9" firstAttribute="top" secondItem="eQN-HL-3IL" secondAttribute="top" constant="5" id="Rr9-bO-Hh7"/>
                                                         <constraint firstItem="VIV-x3-tQI" firstAttribute="leading" secondItem="U8i-V1-Zo9" secondAttribute="trailing" constant="7" id="TPx-qB-cXk"/>
@@ -1457,6 +1457,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                                         <constraint firstItem="Zah-7g-oe6" firstAttribute="leading" secondItem="U8i-V1-Zo9" secondAttribute="trailing" constant="8" id="Za6-d8-Sef"/>
                                                         <constraint firstItem="U8i-V1-Zo9" firstAttribute="leading" secondItem="eQN-HL-3IL" secondAttribute="leading" constant="20" id="bKg-wD-NCw"/>
                                                         <constraint firstItem="0XS-h5-Z4S" firstAttribute="top" secondItem="U8i-V1-Zo9" secondAttribute="bottom" constant="8" id="o1n-ap-D04"/>
+                                                        <constraint firstAttribute="centerX" secondItem="usY-5p-4gt" secondAttribute="centerX" constant="-0.5" id="o7r-Zx-e1S"/>
                                                         <constraint firstItem="0XS-h5-Z4S" firstAttribute="leading" secondItem="eQN-HL-3IL" secondAttribute="leading" constant="19" id="rsy-dK-xQs"/>
                                                         <constraint firstItem="qjr-7T-ljb" firstAttribute="top" secondItem="eQN-HL-3IL" secondAttribute="top" constant="5" id="tHT-MT-uaU"/>
                                                     </constraints>
@@ -1617,14 +1618,14 @@ Job Applications: Jobs@8MileTech.com</string>
                                                     </state>
                                                 </button>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Tp-ye-A5T">
-                                                    <rect key="frame" x="87" y="143" width="190" height="204"/>
+                                                    <rect key="frame" x="87" y="143" width="225" height="204"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="204" id="GZq-9W-268"/>
-                                                        <constraint firstAttribute="width" constant="190" id="ldC-hA-jqQ"/>
+                                                        <constraint firstAttribute="width" constant="225" id="ldC-hA-jqQ"/>
                                                     </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="10" id="LbA-Y4-sB1">
-                                                        <size key="itemSize" width="190" height="204"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="LbA-Y4-sB1">
+                                                        <size key="itemSize" width="204" height="204"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1634,15 +1635,17 @@ Job Applications: Jobs@8MileTech.com</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="242" height="204"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="190" height="204"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="204"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
+                                                                        <color key="backgroundColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
+                                                            <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="K9E-nl-EzN" secondAttribute="trailing" id="1aB-nT-l88"/>
                                                                 <constraint firstAttribute="bottom" secondItem="K9E-nl-EzN" secondAttribute="bottom" id="DHo-tz-KBI"/>
@@ -1656,12 +1659,12 @@ Job Applications: Jobs@8MileTech.com</string>
                                                     </cells>
                                                 </collectionView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-vF-VGG">
-                                                    <rect key="frame" x="286" y="343" width="26" height="22"/>
+                                                    <rect key="frame" x="286" y="344" width="26" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="Fvj-zY-6W7"/>
                                                         <constraint firstAttribute="width" constant="26" id="l64-2O-YML"/>
                                                     </constraints>
-                                                    <state key="normal" backgroundImage="flag_off.png">
+                                                    <state key="normal" backgroundImage="flag_off">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="disabled" backgroundImage="flag_on.png"/>
@@ -1683,7 +1686,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                                 <constraint firstItem="vth-Qq-CBS" firstAttribute="top" secondItem="eDb-hJ-x8y" secondAttribute="bottom" constant="1" id="jQC-N5-vsb"/>
                                                 <constraint firstItem="e3g-LQ-3Oo" firstAttribute="leading" secondItem="UdE-hF-gNT" secondAttribute="leading" constant="20" id="kNH-fd-ydc"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="leading" secondItem="UdE-hF-gNT" secondAttribute="leading" constant="87" id="o1Z-v6-4sD"/>
-                                                <constraint firstAttribute="bottom" secondItem="Dc6-vF-VGG" secondAttribute="bottom" constant="4" id="ryr-Mc-iLH"/>
+                                                <constraint firstAttribute="bottom" secondItem="Dc6-vF-VGG" secondAttribute="bottom" constant="3" id="ryr-Mc-iLH"/>
                                                 <constraint firstItem="3Tp-ye-A5T" firstAttribute="top" secondItem="kLv-8s-Ntf" secondAttribute="bottom" constant="8" id="syA-Lt-84s"/>
                                             </constraints>
                                         </view>
@@ -1731,7 +1734,7 @@ Job Applications: Jobs@8MileTech.com</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XlR-vO-A9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1805" y="746"/>
+            <point key="canvasLocation" x="1805" y="744"/>
         </scene>
         <!--Compose-->
         <scene sceneID="bd3-1m-REd">
@@ -2597,6 +2600,7 @@ Job Applications: Jobs@8MileTech.com</string>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event_dot" width="8" height="8"/>
         <image name="facebook" width="25" height="25"/>
+        <image name="flag_off" width="25" height="21"/>
         <image name="flag_off.png" width="50" height="42"/>
         <image name="flag_on.png" width="50" height="42"/>
         <image name="googlr" width="25" height="25"/>

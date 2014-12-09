@@ -93,7 +93,7 @@ static UIImage *defaultAvatar;
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
         [fetchRequest setEntity:entity];
         
-        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %@", 0];
+        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d", 0];
         // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
         NSDictionary *dictionary = [Helper userLocation];
         if (dictionary) {
@@ -271,7 +271,7 @@ static UIImage *defaultAvatar;
     cell.statusCellAvatarImageView.image = defaultAvatar;
     cell.statusCellAvatarImageView.layer.masksToBounds = YES;
     cell.statusCellAvatarImageView.layer.cornerRadius = 30;
-    
+
     if (!status.anonymous.boolValue) {
         UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
         if (avatar) {

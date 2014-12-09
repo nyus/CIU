@@ -16,6 +16,8 @@
     self.objectId = object.objectId;
     self.message = object[@"message"];
     self.picture = object[@"picture"];
+    self.latitude = object[@"latitude"];
+    self.longitude = object[@"longitude"];
     self.posterUsername = object[@"posterUsername"];
     self.posterFirstName = object[@"posterFirstName"];
     self.posterLastName = object[@"posterLastName"];
