@@ -11,9 +11,10 @@
 #import <Parse/Parse.h>
 #define Default_Radius 5
 static Helper *_helper;
+static UIImagePickerController *_imagePicker;
+@interface Helper () <UIAlertViewDelegate>{
 
-@interface Helper () <UIAlertViewDelegate>
-
+}
 @end
 
 @implementation Helper
@@ -313,5 +314,56 @@ static Helper *_helper;
     if (alertView.tag == 1 && buttonIndex == 1) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
+}
+
+#pragma mark - UIImagePicker
+
++(void)launchCameraInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller{
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (!_imagePicker) {
+            _imagePicker = [[UIImagePickerController alloc] init];
+            _imagePicker.delegate = controller;
+        }
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        _imagePicker.allowsEditing = YES;
+        _imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+        [controller presentViewController:_imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Camera is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
++(void)launchPhotoLibraryInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        if (!_imagePicker) {
+            _imagePicker = [[UIImagePickerController alloc] init];
+            _imagePicker.delegate = controller;
+            _imagePicker.allowsEditing = YES;
+        }
+        
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [controller presentViewController:_imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Photo library is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
++(void)saveChosenPhoto:(UIImage *)photo andSetOnImageView:(UIImageView *)imageView
+{
+    
+    //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
+    NSData *highResData = UIImagePNGRepresentation(photo);
+    UIImage *scaled = [Helper scaleImage:photo downToSize:imageView.frame.size];
+    NSData *lowResData = UIImagePNGRepresentation(scaled);
+    //save to both local and server
+    [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES];
+    [Helper saveAvatar:lowResData forUser:[PFUser currentUser].username isHighRes:NO];
+    
+    imageView.image = scaled;
+    
+    [_imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 @end

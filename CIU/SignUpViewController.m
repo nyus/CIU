@@ -81,27 +81,12 @@
     }
 }
 
-- (void) launchCameraPicker {
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        if (!self.imagePicker) {
-            self.imagePicker = [[UIImagePickerController alloc] init];
-            self.imagePicker.delegate = self;
-        }
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.allowsEditing = YES;
-        self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
-    }
+- (void)launchCameraPicker {
+    [Helper launchCameraInController:self];
 }
 
-- (void) launchGalleryPicker {
-    if (!self.imagePicker) {
-        self.imagePicker = [[UIImagePickerController alloc] init];
-        self.imagePicker.delegate = self;
-    }
-    
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
+- (void)launchGalleryPicker {
+    [Helper launchPhotoLibraryInController:self];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender {
@@ -289,8 +274,14 @@
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *original = info[@"UIImagePickerControllerOriginalImage"];
-    self.avatarImageView.image = original;
+
+    UIImage *photo = nil;
+    if (info[@"UIImagePickerControllerEditedImage"]) {
+        photo = info[@"UIImagePickerControllerEditedImage"];
+    } else {
+        photo = info[@"UIImagePickerControllerOriginalImage"];
+    }
+    self.avatarImageView.image = photo;
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 @end

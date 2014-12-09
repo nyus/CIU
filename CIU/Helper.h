@@ -39,4 +39,10 @@
 
 //cllocation manager
 +(CLLocationManager *)initLocationManagerWithDelegate:(id<CLLocationManagerDelegate>)delegate;
+
+//Image picker
++(void)launchCameraInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller;
++(void)launchPhotoLibraryInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller;
++(void)saveChosenPhoto:(UIImage *)photo andSetOnImageView:(UIImageView *)imageView;
+
 @end
