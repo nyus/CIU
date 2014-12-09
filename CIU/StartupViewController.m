@@ -47,6 +47,35 @@ NS_ENUM(NSUInteger, SideBarStatus){
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
+    
+    
+//    for (int i = 0; i < 19; i++) {
+//        PFObject *event = [PFObject objectWithClassName:@"Event"];
+//        event[@"eventName"] = [NSString stringWithFormat:@"Thanks giving + %d",i];
+//        event[@"eventLocation"] = @"New York";
+//        event[@"eventDate"] = [NSDate date];
+//        event[@"eventContent"] = @"Thanks giving";
+//        event[@"latitude"] = @40.758105;
+//        event[@"longitude"] = @(-73.967006);
+//        event[@"isBadContent"] = @NO;
+//        event[@"senderFirstName"] = @"Test";
+//        event[@"senderLastName"] = @"Test";
+//        event[@"senderUsername"] = @"username";
+//        [event saveEventually];
+//    }
+    
+    for (int i = 0; i < 19; i++) {
+        PFObject *event = [PFObject objectWithClassName:@"Surprise"];
+        event[@"anonymous"] = @NO;
+        event[@"message"] = [NSString stringWithFormat:@"Testing %d", i];
+        event[@"latitude"] = @40.758105;
+        event[@"longitude"] = @(-73.967006);
+        event[@"isBadContent"] = @NO;
+        event[@"posterFirstName"] = @"Test";
+        event[@"posterLastName"] = @"Test";
+        event[@"posterUsername"] = @"username";
+        [event saveEventually];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{

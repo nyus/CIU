@@ -57,6 +57,7 @@
 		50D769321A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */; };
 		50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
+		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
 		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
@@ -203,6 +204,8 @@
 		50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+Utilities.h"; sourceTree = "<group>"; };
+		50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatusObject+Utilities.m"; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -447,6 +450,8 @@
 				65D93E5919C358DE0044A48A /* NSString+Utilities.m */,
 				505B504A1A1916A9000300ED /* UIColor+CIUColors.h */,
 				505B504B1A1916A9000300ED /* UIColor+CIUColors.m */,
+				50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */,
+				50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -758,6 +763,7 @@
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
 				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
+				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
 				65C4F0E619AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m in Sources */,

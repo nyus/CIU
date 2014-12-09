@@ -100,6 +100,7 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
     if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
         [manager startUpdatingLocation];
+        NSLog(@"+++++++++++++++++++++++Start updating location+++++++++++++++++++");
     }
 }
 
@@ -121,10 +122,13 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self locationManager:manager didUpdateLocation:location];
+    
+    NSLog(@"+++++++++++++++++++++++Did Update location: %f %f+++++++++++++++++++", location.coordinate.latitude, location.coordinate.longitude);
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     
+    NSLog(@"+++++++++++++++++++++++Updating location error: %@+++++++++++++++++++", error);
     if ([error domain] == kCLErrorDomain) {
         
         // We handle CoreLocation-related errors here
@@ -136,7 +140,7 @@
                 if ([CLLocationManager locationServicesEnabled]) {
                     //that means user disabled our app specifically
                     NSLog(@"fail to locate user: permission denied");
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
 //                    [alert show];
                 }
                 

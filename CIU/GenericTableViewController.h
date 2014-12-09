@@ -11,6 +11,12 @@
 #import "SharedDataManager.h"
 #import "Reachability.h"
 @interface GenericTableViewController : UITableViewController
+{
+    @protected
+    int _localDataCount;
+    int _serverDataCount;
+}
+
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
 -(void)loadRemoteDataForVisibleCells;

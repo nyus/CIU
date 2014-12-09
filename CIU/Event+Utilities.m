@@ -8,6 +8,7 @@
 
 #import "Event+Utilities.h"
 #import <Parse/Parse.h>
+
 @implementation Event (Utilities)
 -(void)populateFromParseojbect:(PFObject *)object{
     self.createdAt = object.createdAt;
@@ -40,8 +41,8 @@
     if (object[@"longitude"]) {
         self.longitude = object[@"longitude"];
     }
-    if (object[@"isBadConteng"]) {
-        self.isBadContent = object[@"isBadConteng"];
+    if (object[@"isBadContent"]) {
+        self.isBadContent = object[@"isBadContent"];
     }
 }
 @end

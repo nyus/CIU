@@ -25,6 +25,12 @@
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
 #import "TabbarController.h"
+#import "SVPullToRefresh.h"
+#import "StatusObject+Utilities.h"
+
+static float const kStatusRadius = 30;
+static float const kServerFetchCount = 20;
+static float const kLocalFetchCount = 20;
 
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 54.0f
@@ -54,10 +60,17 @@ static UIImage *defaultAvatar;
 
     [self addRefreshControll];
     
-    [self fetchStatusFromLocal];
+    [self pullDataFromLocal];
+    
     if ([Reachability canReachInternet]) {
-        [self fetchNewStatusWithCount:20];
+        [self fetchNewStatusWithCount:kServerFetchCount];
     }
+    
+    __weak SurpriseTableViewController *weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf pullDataFromLocal];
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+    }];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -66,25 +79,26 @@ static UIImage *defaultAvatar;
 }
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    [self fetchNewStatusWithCount:20];
+    [self fetchNewStatusWithCount:kServerFetchCount];
 }
 
--(void)fetchStatusFromLocal{
+- (void)pullDataFromLocal{
+    
+    if (!self.dataSource) {
+        self.dataSource = [NSMutableArray array];
+    }
+    
     if (!fetchRequest) {
         fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
         [fetchRequest setEntity:entity];
-        // Specify how the fetched objects should be sorted
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                       ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
         
-        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %@", 0];
         // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
         NSDictionary *dictionary = [Helper userLocation];
         if (dictionary) {
             CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:nil];
+            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(kStatusRadius)];
             NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
             
             NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
@@ -92,25 +106,32 @@ static UIImage *defaultAvatar;
         } else {
             [fetchRequest setPredicate:excludeBadContent];
         }
+        
+        // Specify how the fetched objects should be sorted
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+                                                                       ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     }
     
-    fetchRequest.fetchLimit = 20;
-    fetchRequest.fetchOffset = self.dataSource.count;
+    fetchRequest.fetchOffset = _localDataCount;
+    fetchRequest.fetchLimit = kLocalFetchCount + _localDataCount;
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects.count>0) {
-        if (!self.dataSource) {
-            self.dataSource = [NSMutableArray array];
-        }
+        // This has to be called before adding new objects to the data source
+        NSUInteger currentCount = self.dataSource.count;
+        
+        _localDataCount += fetchedObjects.count;
         [self.dataSource addObjectsFromArray:fetchedObjects];
         
-        NSMutableArray *indexPathArray = [NSMutableArray array];
-        for (int i =0; i<fetchedObjects.count; i++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            [indexPathArray addObject:indexPath];
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        
+        for (int i = 0; i < fetchedObjects.count; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
         }
-        [self.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationNone];
+        
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
@@ -121,79 +142,66 @@ static UIImage *defaultAvatar;
         fetchStatusQuery = nil;
     }
     
-    __block SurpriseTableViewController *weakSelf= self;
     fetchStatusQuery = [PFQuery queryWithClassName:@"Status"];
-    fetchStatusQuery.limit = count;
     [fetchStatusQuery orderByDescending:@"createdAt"];
+    NSDictionary *dictionary = [Helper userLocation];
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        [fetchStatusQuery addBoundingCoordinatesToCenter:center radius:@(kStatusRadius)];
+    }
+    [fetchStatusQuery whereKey:@"isBadContent" notEqualTo:@YES];
+    
     //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
     NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchStatusDate"];
     if (lastFetchStatusDate) {
         [fetchStatusQuery whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
     }
-    [fetchStatusQuery whereKey:@"isBadContent" notEqualTo:@YES];
-    NSDictionary *dictionary = [Helper userLocation];
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        [fetchStatusQuery addBoundingCoordinatesToCenter:center radius:@30];
-    }
+    
+    // Only want to fetch kServerFetchCount items each time
+    fetchStatusQuery.limit = kServerFetchCount + _serverDataCount;
+    fetchStatusQuery.skip = _serverDataCount;
+    
     [fetchStatusQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-        if (objects.count != 0) {
+        if (!error && objects.count > 0) {
             
-            if (!weakSelf.dataSource) {
-                weakSelf.dataSource = [NSMutableArray array];
+            _serverDataCount += objects.count;
+            _localDataCount += objects.count;
+            
+            if (!self.dataSource) {
+                self.dataSource = [NSMutableArray array];
             }
-            
-            //the purpose of temp is to make sure last created status goes to the top of the tableivew with an algo of O(n). if we insert new items into the old array, it would be O(n^2)
-            NSMutableArray *temp = [NSMutableArray array];
             
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
+            
             for (int i =0; i<objects.count; i++) {
                 
                 PFObject *pfObject = objects[i];
                 StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                status.objectId = pfObject.objectId;
-                status.message = [pfObject objectForKey:@"message"];
-                status.createdAt = pfObject.createdAt;
-                status.picture = pfObject[@"picture"];
-                status.posterUsername = pfObject[@"posterUsername"];
-                status.posterFirstName = pfObject[@"posterFirstName"];
-                status.posterLastName = pfObject[@"posterLastName"];
-                status.likeCount = pfObject[@"likeCount"];
-                status.commentCount = pfObject[@"commentCount"];
-                status.photoCount = pfObject[@"photoCount"];
-                status.photoID = pfObject[@"photoID"];
-                status.anonymous = pfObject[@"anonymous"];
-                status.isBadContent = pfObject[@"isBadContent"];
-                [temp addObject:status];
+                [status populateFromParseojbect:pfObject];
                 
-                NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-                [indexpathArray addObject:path];
+                [self.dataSource insertObject:status atIndex:0];
+                
+                [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 
                 if (i==0) {
                     [[NSUserDefaults standardUserDefaults] setObject:pfObject.createdAt forKey:@"lastFetchStatusDate"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
             }
-            //the purpose of temp is to make sure last created status goes to the top of the tableivew with an algo of O(n). if we insert new items into the old array, it would be O(n^2)
-            [temp addObjectsFromArray:weakSelf.dataSource];
-            weakSelf.dataSource = nil;
-            weakSelf.dataSource = temp;
             
             [[SharedDataManager sharedInstance] saveContext];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView beginUpdates];
-                [weakSelf.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
-                [weakSelf.tableView endUpdates];
+                [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
             });
             
-        }else{
-            //
-            NSLog(@"0 items fetched from parse");
         }
-        [self.refreshControl endRefreshing];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
     }];
 }
 
