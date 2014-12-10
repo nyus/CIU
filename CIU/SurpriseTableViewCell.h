@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@class StatusTableViewCell;
+@class SurpriseTableViewCell;
 @class Status;
 @class SpinnerImageView;
 @protocol StatusTableViewCellDelegate <NSObject>
 @optional
--(void)usernameLabelTappedOnCell:(StatusTableViewCell *)cell;
--(void)flagBadContentButtonTappedOnCell:(StatusTableViewCell *)cell;
--(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell;
--(void)reviveAnimationDidEndOnCell:(StatusTableViewCell *)cell withProgress:(float)percentage;
--(void)swipeGestureRecognizedOnCell:(StatusTableViewCell *)cell;
+-(void)usernameLabelTappedOnCell:(SurpriseTableViewCell *)cell;
+-(void)flagBadContentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
+-(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
+-(void)reviveAnimationDidEndOnCell:(SurpriseTableViewCell *)cell withProgress:(float)percentage;
+-(void)swipeGestureRecognizedOnCell:(SurpriseTableViewCell *)cell;
 @end
 
-@interface StatusTableViewCell : UITableViewCell<UICollectionViewDataSource>{
+@interface SurpriseTableViewCell : UITableViewCell<UICollectionViewDataSource>{
 }
 @property (strong,nonatomic) Status *status;
 @property (assign, nonatomic) id<StatusTableViewCellDelegate>delegate;

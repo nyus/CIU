@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "ComposeNewStatusViewController.h"
-#import "ComposeStatusPhotoCollectionViewCell.h"
+#import "ComposeNewSurpriseViewController.h"
+#import "ComposeSurprisePhotoCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import "StatusObject.h"
 #import "UITextView+Utilities.h"
@@ -23,7 +23,7 @@
 
 static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
-@interface ComposeNewStatusViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
+@interface ComposeNewSurpriseViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
     UIImagePickerController *imagePicker;
     UILabel *placeHolderLabel;
     NSMutableArray *collectionViewDataSource;
@@ -35,7 +35,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 @property (strong, nonatomic) UIActionSheet *photosActionSheet;
 @end
 
-@implementation ComposeNewStatusViewController
+@implementation ComposeNewSurpriseViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -357,7 +357,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ComposeStatusPhotoCollectionViewCell *cell = (ComposeStatusPhotoCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    ComposeSurprisePhotoCollectionViewCell *cell = (ComposeSurprisePhotoCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.imageView.image = [collectionViewDataSource objectAtIndex:indexPath.row];
     return cell;
 }

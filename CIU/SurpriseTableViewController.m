@@ -7,20 +7,20 @@
 //
 
 #import "SurpriseTableViewController.h"
-#import "StatusTableViewCell.h"
+#import "SurpriseTableViewCell.h"
 #import <Parse/Parse.h>
-#import "ComposeNewStatusViewController.h"
+#import "ComposeNewSurpriseViewController.h"
 #import "LogInViewController.h"
 #import "Helper.h"
-#import "CommentStatusViewController.h"
+#import "CommentSurpriseViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "FPLogger.h"
-#import "CommentStatusViewController.h"
+#import "CommentSurpriseViewController.h"
 #import <CoreData/CoreData.h>
 #import "SharedDataManager.h"
 #import "StatusObject.h"
-#import "ComposeNewStatusViewController.h"
+#import "ComposeNewSurpriseViewController.h"
 #import "SpinnerImageView.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
@@ -38,9 +38,9 @@ static float const kLocalFetchCount = 20;
 static UIImage *defaultAvatar;
 
 @interface SurpriseTableViewController () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
-    StatusTableViewCell *cellToRevive;
+    SurpriseTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;
-    CommentStatusViewController *commentVC;
+    CommentSurpriseViewController *commentVC;
     CGRect commentViewOriginalFrame;
     NSFetchRequest *fetchRequest;
     NSIndexPath *selectedPath;
@@ -228,7 +228,7 @@ static UIImage *defaultAvatar;
     
     StatusObject *status = self.dataSource[indexPath.row];
     
-    __block StatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    __block SurpriseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     // Configure the cell...
     cell.delegate = self;
@@ -387,7 +387,7 @@ static UIImage *defaultAvatar;
 }
 
 -(void)loadRemoteDataForVisibleCells{
-    for (StatusTableViewCell *cell in self.tableView.visibleCells) {
+    for (SurpriseTableViewCell *cell in self.tableView.visibleCells) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         StatusObject *status = self.dataSource[indexPath.row];
         
@@ -434,7 +434,7 @@ static UIImage *defaultAvatar;
 
 -(PFQuery *)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
     
-    __block StatusTableViewCell *cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    __block SurpriseTableViewCell *cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [cell.statusCellPhotoImageView showLoadingActivityIndicator];
     __block StatusObject *status = self.dataSource[indexPath.row];
     
@@ -444,7 +444,7 @@ static UIImage *defaultAvatar;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count!=0) {
             if (cell==nil) {
-                cell = (StatusTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             }
             
             __block int index = status.photoCount.intValue-1;
@@ -491,14 +491,14 @@ static UIImage *defaultAvatar;
 
 #pragma mark - StatusTableViewCellDelegate
 
--(void)commentButtonTappedOnCell:(StatusTableViewCell *)cell{
+-(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell{
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];
 }
 
-- (void)flagBadContentButtonTappedOnCell:(StatusTableViewCell *)cell{
+- (void)flagBadContentButtonTappedOnCell:(SurpriseTableViewCell *)cell{
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block StatusObject *statusObject = self.dataSource[indexPath.row];
     
@@ -553,7 +553,7 @@ static UIImage *defaultAvatar;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toCommentView"]){
-        CommentStatusViewController *vc = (CommentStatusViewController *)segue.destinationViewController;
+        CommentSurpriseViewController *vc = (CommentSurpriseViewController *)segue.destinationViewController;
         __block StatusObject *status = self.dataSource[selectedPath.row];
         vc.statusObjectId = status.objectId;
         __weak SurpriseTableViewController *weakSelf= self;

@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "CommentStatusViewController.h"
+#import "CommentSurpriseViewController.h"
 #import <Parse/Parse.h>
 #import "AvatarAndUsernameTableViewCell.h"
 #import "Helper.h"
 #import "LoadingTableViewCell.h"
 #import "UITextView+Utilities.h"
 #import "Helper.h"
-#import "StatusTableViewCell.h"
+#import "SurpriseTableViewCell.h"
 
 #define COMMENT_LABEL_WIDTH 234.0f
 #define NO_COMMENT_CELL_HEIGHT 250.0f
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, Direction){
     DirectionLeft
 };
 
-@interface CommentStatusViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
+@interface CommentSurpriseViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
     NSMutableDictionary *cellHeightMap;
     UISwipeGestureRecognizer *leftSwipeGesture;
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 @property (nonatomic, copy) void(^completion)();
 @end
 
-@implementation CommentStatusViewController
+@implementation CommentSurpriseViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

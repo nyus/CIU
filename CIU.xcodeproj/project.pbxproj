@@ -77,18 +77,17 @@
 		6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableViewController.m */; };
 		6564F24419A7835000629B48 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6564F24319A7835000629B48 /* MapKit.framework */; };
 		6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */; };
-		65C4F0BA19AFB21D004452C3 /* StatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */; };
+		65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0B919AFB21D004452C3 /* SurpriseTableViewCell.m */; };
 		65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */; };
 		65C4F0BE19AFB2B8004452C3 /* comment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0BD19AFB2B8004452C3 /* comment_icon.png */; };
-		65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0C119AFB67C004452C3 /* ComposeNewStatusViewController.m */; };
+		65C4F0C219AFB67C004452C3 /* ComposeNewSurpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0C119AFB67C004452C3 /* ComposeNewSurpriseViewController.m */; };
 		65C4F0C419AFB6AE004452C3 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0C319AFB6AE004452C3 /* camera.png */; };
-		65C4F0C719AFB792004452C3 /* CommentStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0C619AFB792004452C3 /* CommentStatusViewController.m */; };
-		65C4F0D719AFBAFB004452C3 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0D619AFBAFB004452C3 /* Status.m */; };
+		65C4F0C719AFB792004452C3 /* CommentSurpriseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0C619AFB792004452C3 /* CommentSurpriseViewController.m */; };
 		65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0D919AFBB2B004452C3 /* ImageCollectionViewCell.m */; };
 		65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0DC19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m */; };
 		65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0DF19AFBBA8004452C3 /* LoadingTableViewCell.m */; };
 		65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E219AFBBB9004452C3 /* UITextView+Utilities.m */; };
-		65C4F0E619AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E519AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m */; };
+		65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E519AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m */; };
 		65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */; };
 		65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0EB19AFBBEA004452C3 /* ELCAsset.m */; };
 		65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0ED19AFBBEA004452C3 /* ELCAssetCell.m */; };
@@ -232,17 +231,15 @@
 		6564F24319A7835000629B48 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6564F24519A78D1100629B48 /* LifestyleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleDetailViewController.h; sourceTree = "<group>"; };
 		6564F24619A78D1100629B48 /* LifestyleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleDetailViewController.m; sourceTree = "<group>"; };
-		65C4F0B819AFB21D004452C3 /* StatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusTableViewCell.h; sourceTree = "<group>"; };
-		65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTableViewCell.m; sourceTree = "<group>"; };
+		65C4F0B819AFB21D004452C3 /* SurpriseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseTableViewCell.h; sourceTree = "<group>"; };
+		65C4F0B919AFB21D004452C3 /* SurpriseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableViewCell.m; sourceTree = "<group>"; };
 		65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-user-icon-profile.png"; sourceTree = "<group>"; };
 		65C4F0BD19AFB2B8004452C3 /* comment_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_icon.png; sourceTree = "<group>"; };
-		65C4F0C019AFB67C004452C3 /* ComposeNewStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeNewStatusViewController.h; sourceTree = "<group>"; };
-		65C4F0C119AFB67C004452C3 /* ComposeNewStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeNewStatusViewController.m; sourceTree = "<group>"; };
+		65C4F0C019AFB67C004452C3 /* ComposeNewSurpriseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeNewSurpriseViewController.h; sourceTree = "<group>"; };
+		65C4F0C119AFB67C004452C3 /* ComposeNewSurpriseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeNewSurpriseViewController.m; sourceTree = "<group>"; };
 		65C4F0C319AFB6AE004452C3 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
-		65C4F0C519AFB792004452C3 /* CommentStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentStatusViewController.h; sourceTree = "<group>"; };
-		65C4F0C619AFB792004452C3 /* CommentStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentStatusViewController.m; sourceTree = "<group>"; };
-		65C4F0D519AFBAFB004452C3 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
-		65C4F0D619AFBAFB004452C3 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		65C4F0C519AFB792004452C3 /* CommentSurpriseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentSurpriseViewController.h; sourceTree = "<group>"; };
+		65C4F0C619AFB792004452C3 /* CommentSurpriseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentSurpriseViewController.m; sourceTree = "<group>"; };
 		65C4F0D819AFBB2B004452C3 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		65C4F0D919AFBB2B004452C3 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		65C4F0DB19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarAndUsernameTableViewCell.h; sourceTree = "<group>"; };
@@ -251,8 +248,8 @@
 		65C4F0DF19AFBBA8004452C3 /* LoadingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingTableViewCell.m; sourceTree = "<group>"; };
 		65C4F0E119AFBBB9004452C3 /* UITextView+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Utilities.h"; sourceTree = "<group>"; };
 		65C4F0E219AFBBB9004452C3 /* UITextView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Utilities.m"; sourceTree = "<group>"; };
-		65C4F0E419AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeStatusPhotoCollectionViewCell.h; sourceTree = "<group>"; };
-		65C4F0E519AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeStatusPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		65C4F0E419AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeSurprisePhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		65C4F0E519AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeSurprisePhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		65C4F0E819AFBBEA004452C3 /* ELCAlbumPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAlbumPickerController.h; sourceTree = "<group>"; };
 		65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAlbumPickerController.m; sourceTree = "<group>"; };
 		65C4F0EA19AFBBEA004452C3 /* ELCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAsset.h; sourceTree = "<group>"; };
@@ -363,8 +360,8 @@
 				65C4F11119AFBD53004452C3 /* SignUpViewController.m */,
 				65C4F10D19AFBD21004452C3 /* LogInViewController.h */,
 				65C4F10E19AFBD21004452C3 /* LogInViewController.m */,
-				65C4F0E419AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.h */,
-				65C4F0E519AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m */,
+				65C4F0E419AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.h */,
+				65C4F0E519AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m */,
 				65C4F0E119AFBBB9004452C3 /* UITextView+Utilities.h */,
 				65C4F0E219AFBBB9004452C3 /* UITextView+Utilities.m */,
 				65C4F0DE19AFBBA8004452C3 /* LoadingTableViewCell.h */,
@@ -373,13 +370,11 @@
 				65C4F0DC19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m */,
 				65C4F0D819AFBB2B004452C3 /* ImageCollectionViewCell.h */,
 				65C4F0D919AFBB2B004452C3 /* ImageCollectionViewCell.m */,
-				65C4F0D519AFBAFB004452C3 /* Status.h */,
-				65C4F0D619AFBAFB004452C3 /* Status.m */,
-				65C4F0C519AFB792004452C3 /* CommentStatusViewController.h */,
-				65C4F0C619AFB792004452C3 /* CommentStatusViewController.m */,
+				65C4F0C519AFB792004452C3 /* CommentSurpriseViewController.h */,
+				65C4F0C619AFB792004452C3 /* CommentSurpriseViewController.m */,
 				65C4F0C319AFB6AE004452C3 /* camera.png */,
-				65C4F0C019AFB67C004452C3 /* ComposeNewStatusViewController.h */,
-				65C4F0C119AFB67C004452C3 /* ComposeNewStatusViewController.m */,
+				65C4F0C019AFB67C004452C3 /* ComposeNewSurpriseViewController.h */,
+				65C4F0C119AFB67C004452C3 /* ComposeNewSurpriseViewController.m */,
 				0B0D53FB19ED617B00B0C24C /* SurpriseTableViewController.h */,
 				0B0D53FC19ED617B00B0C24C /* SurpriseTableViewController.m */,
 				B22C70C51A1183E90035D3C5 /* LoginTextField.h */,
@@ -393,8 +388,8 @@
 			children = (
 				65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */,
 				65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */,
-				65C4F0B819AFB21D004452C3 /* StatusTableViewCell.h */,
-				65C4F0B919AFB21D004452C3 /* StatusTableViewCell.m */,
+				65C4F0B819AFB21D004452C3 /* SurpriseTableViewCell.h */,
+				65C4F0B919AFB21D004452C3 /* SurpriseTableViewCell.m */,
 				50F5F6F919AEAA0000DC9735 /* Reachability.h */,
 				50F5F6FA19AEAA0000DC9735 /* Reachability.m */,
 				6564F1FA199E3E8D00629B48 /* GenericTableViewController.h */,
@@ -732,7 +727,7 @@
 				6564F1F6199D422A00629B48 /* StartupViewController.m in Sources */,
 				65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
-				65C4F0C719AFB792004452C3 /* CommentStatusViewController.m in Sources */,
+				65C4F0C719AFB792004452C3 /* CommentSurpriseViewController.m in Sources */,
 				504AE5841A224181000C62D9 /* Event.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
 				65C4F0FD19AFBBEA004452C3 /* ELCAssetTablePicker.m in Sources */,
@@ -747,7 +742,7 @@
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
-				65C4F0C219AFB67C004452C3 /* ComposeNewStatusViewController.m in Sources */,
+				65C4F0C219AFB67C004452C3 /* ComposeNewSurpriseViewController.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
@@ -755,11 +750,10 @@
 				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
-				65C4F0E619AFBBD8004452C3 /* ComposeStatusPhotoCollectionViewCell.m in Sources */,
+				65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailViewController.m in Sources */,
 				65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */,
-				65C4F0D719AFBAFB004452C3 /* Status.m in Sources */,
 				504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */,
 				B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
@@ -778,7 +772,7 @@
 				65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */,
-				65C4F0BA19AFB21D004452C3 /* StatusTableViewCell.m in Sources */,
+				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableViewController.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComposeStatusPhotoCollectionViewCell : UICollectionViewCell
+@interface ComposeSurprisePhotoCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end

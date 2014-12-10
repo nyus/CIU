@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComposeNewStatusViewController : UIViewController
+@interface ComposeNewSurpriseViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *textPhotoSeparatorView;

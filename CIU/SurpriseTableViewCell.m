@@ -6,14 +6,13 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "StatusTableViewCell.h"
-#import "Status.h"
+#import "SurpriseTableViewCell.h"
 #import "ImageCollectionViewCell.h"
 #import <Parse/Parse.h>
 #define REVIVE_PROGRESS_VIEW_INIT_ALPHA .7f
 #define PROGRESSION_RATE 1
 #define TRESHOLD 60.0f
-@interface StatusTableViewCell(){
+@interface SurpriseTableViewCell(){
     UISwipeGestureRecognizer *leftSwipteGesture;
     UISwipeGestureRecognizer *rightSwipteGesture;
     UITapGestureRecognizer *tap;
@@ -23,7 +22,7 @@
 
 @end
 
-@implementation StatusTableViewCell
+@implementation SurpriseTableViewCell
 
 - (IBAction)flagBadContentButtonTapped:(id)sender {
     [self.delegate flagBadContentButtonTappedOnCell:self];

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class StatusTableViewCell;
+@class SurpriseTableViewCell;
 @class StatusViewController;
-@interface CommentStatusViewController : UIViewController
+@interface CommentSurpriseViewController : UIViewController
 @property (nonatomic, strong) NSString *statusObjectId;
 @property (nonatomic) CGRect animateEndFrame;
-@property (weak, nonatomic) StatusTableViewCell *statusTBCell;
+@property (weak, nonatomic) SurpriseTableViewCell *statusTBCell;
 @property (weak, nonatomic) StatusViewController *statusVC;
 -(void)clearCommentTableView;
 - (void)updateCommentCountWithBlock:(void(^)())completion;

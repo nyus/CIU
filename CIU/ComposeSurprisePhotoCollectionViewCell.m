@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "ComposeStatusPhotoCollectionViewCell.h"
+#import "ComposeSurprisePhotoCollectionViewCell.h"
 
-@implementation ComposeStatusPhotoCollectionViewCell
+@implementation ComposeSurprisePhotoCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {
