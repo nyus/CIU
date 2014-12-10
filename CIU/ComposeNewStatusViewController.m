@@ -19,14 +19,19 @@
 #import "NSString+Utilities.h"
 
 #define CELL_IMAGEVIEW_SIZE_HEIGHT 204.0f
-#define CELL_IMAGEVIEW_SIZE_WIDTH 280.0f
-@interface ComposeNewStatusViewController ()<UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
+#define CELL_IMAGEVIEW_SIZE_WIDTH 204.0f
+
+static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
+
+@interface ComposeNewStatusViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
     UIImagePickerController *imagePicker;
     UILabel *placeHolderLabel;
     NSMutableArray *collectionViewDataSource;
     NSArray *pickerDataSource;
 }
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *optionsViewBottomSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewBottomSpaceToOptionsViewConstraint;
 @property (strong, nonatomic) UIActionSheet *photosActionSheet;
 @end
 
@@ -45,10 +50,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self configurePickerViewDataSource];
-    [self configurePickerView];
     [self configureTextView];
-    [self configureExpirationTimeLabel];
     
     if (!IS_4_INCH_SCREEN) {
         int delta = self.textViewHeightConstraint.constant - 140;
@@ -56,30 +58,42 @@
         self.collectionViewTopSpacingConstraint.constant = self.collectionViewTopSpacingConstraint.constant - delta;
     }
     
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        kOptionsViewOriginalBottomSpace = self.optionsViewBottomSpaceConstraint.constant;
+    });
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.textView layoutIfNeeded];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
--(void)configureExpirationTimeLabel{
-    self.experiationTimeLabel.text = [NSString stringWithFormat:@"%d:00",[pickerDataSource[[self.pickerView selectedRowInComponent:0]] intValue]];
+#pragma mark - keyboard notification
+
+-(void)handleKeyboardWillShow:(NSNotification *)notification{
+    CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.optionsViewBottomSpaceConstraint.constant = rect.size.height;
+    [UIView animateWithDuration:.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
--(void)configurePickerView{
-    //choose 0 min 10 secs by default
-    [self.pickerView selectRow:0 inComponent:0 animated:NO];
-}
-
--(void)configurePickerViewDataSource{
-    pickerDataSource = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"15",@"20",@"30", nil];
+-(void)handleKeyboardWillHide:(NSNotification *)notification{
+    
+    self.optionsViewBottomSpaceConstraint.constant = kOptionsViewOriginalBottomSpace;
+    [UIView animateWithDuration:.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 -(void)configureTextView{
@@ -107,28 +121,20 @@
     placeHolderLabel.hidden = YES;
 }
 
--(void)showTimePicker{
-    [UIView animateWithDuration:.3 animations:^{
-        self.pickerViewVerticalSpaceConstraint.constant = 0;
-        [self.pickerView layoutIfNeeded];
-    }];
-}
-
--(void)hideTimePicker{
-    [UIView animateWithDuration:.3 animations:^{
-        self.pickerViewVerticalSpaceConstraint.constant = -self.pickerView.frame.size.height;
-        [self.pickerView layoutIfNeeded];
-    }];
-}
-
 -(void)changeTextViewHeightToFitPhoto{
     
-    if (!IS_4_INCH_SCREEN) {
-        self.textViewHeightConstraint.constant = 46;
-    }else{
-        self.textViewHeightConstraint.constant = 111;
-    }
-    
+//    if (IS_4_INCH_SCREEN) {
+//        self.textViewHeightConstraint.constant = 180;
+//    } else if (IS_4_7_INCH_SCREEN) {
+//        self.textViewHeightConstraint.constant = 111;
+//    } else if (IS_5_5_INCH_SCREEN) {
+//        self.textViewHeightConstraint.constant = 111;
+//    } else {
+//        self.textViewHeightConstraint.constant = 46;
+//    }
+//
+    self.textViewBottomSpaceToOptionsViewConstraint.constant = self.collectionView.frame.size.height;
+    [self.view layoutIfNeeded];
     [self scrollTextViewToShowCursor];
 }
 
@@ -141,65 +147,7 @@
     [self.textView scrollTextViewToShowCursor];
 }
 
-#pragma mark - uipickerview delegate
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    // 2 min 5 secs
-//    return 4;
-    return 2;
-}
-
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-
-    if (component == 0) {
-        //min  1 -10 15 20 30
-        return pickerDataSource.count;
-    }else{
-        //mins word
-        return 1;
-    }
-}
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-
-    if (component == 0) {
-        return pickerDataSource[row];
-    }else{
-        return @"mins";
-    }
-}
-
--(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
-    switch (component) {
-        case 0:
-            return 60;
-            break;
-        case 1:
-            return 60;
-            break;
-        case 2:
-            return 60;
-            break;
-        default:
-            return 60;
-            break;
-    }
-}
-
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 20;
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    self.experiationTimeLabel.text = [NSString stringWithFormat:@"%d:00",[pickerDataSource[[pickerView selectedRowInComponent:0]] intValue]];
-}
-
 #pragma mark - UITextViewDelegate
-
--(void)textViewDidBeginEditing:(UITextView *)textView{
-    [self hideTimePicker];
-    
-}
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     [self performSelector:@selector(scrollTextViewToShowCursor) withObject:nil afterDelay:0.1f];
@@ -227,16 +175,8 @@
 - (IBAction)attachPhotoButtonTapped:(id)sender {
     
     [self.textView resignFirstResponder];
-    [self hideTimePicker];
     self.photosActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Add From Gallery", nil];
     [self.photosActionSheet showInView:self.view];
-}
-
-- (IBAction)setTimeButtonTapped:(id)sender {
-    
-    [self.textView resignFirstResponder];
-    [self showTimePicker];
-
 }
 
 - (IBAction)sendButtonTapped:(id)sender {
