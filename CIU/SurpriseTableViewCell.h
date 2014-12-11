@@ -30,7 +30,6 @@
 @property (strong,nonatomic) Status *status;
 @property (assign, nonatomic) id<StatusTableViewCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UILabel *statusCellMessageLabel;
-@property (weak, nonatomic) IBOutlet SpinnerImageView *statusCellPhotoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *statusCellUsernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusCellDateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *statusCellAvatarImageView;
@@ -42,8 +41,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
-@property (weak, nonatomic) IBOutlet UILabel *countDownLabel;
-@property (strong, nonatomic) NSMutableArray *collectionViewImagesArray;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
 
 - (IBAction)flagBadContentButtonTapped:(id)sender;

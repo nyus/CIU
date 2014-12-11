@@ -176,34 +176,28 @@ static NSString *const kEntityName = @"StatusObject";
     }else{
         cell.statusCellUsernameLabel.text = [NSString stringWithFormat:@"%@ %@",status.posterFirstName,status.posterLastName];
     }
-    //    cell.userNameButton.titleLabel.text = status.posterUsername;//need to set this text! used to determine if profile VC is displaying self profile or not
-    //    [cell.avatarButton setTitle:status.posterUsername forState:UIControlStateNormal];
     
-    //cell date
+    // Cell date
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm MM/dd/yy"];
     NSString *str = [formatter stringFromDate:status.createdAt];
     cell.statusCellDateLabel.text = str;
     
-    //comment count
+    // Comment count
     cell.commentCountLabel.text = status.commentCount.stringValue;
     
-    // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
-    if (!defaultAvatar) {
-        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
-    }
-    
-    //flag button
+    // Flag button
     if (status.isBadContent.boolValue) {
         cell.flagButton.enabled = NO;
     } else {
         cell.flagButton.enabled = YES;
     }
     
+    // Avatar
+    if (!defaultAvatar) {
+        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    }
     cell.statusCellAvatarImageView.image = defaultAvatar;
-    cell.statusCellAvatarImageView.layer.masksToBounds = YES;
-    cell.statusCellAvatarImageView.layer.cornerRadius = 30;
-
     if (!status.anonymous.boolValue) {
         UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
         if (avatar) {
@@ -222,6 +216,7 @@ static NSString *const kEntityName = @"StatusObject";
         }
     }
     
+    // Collection view
     if (status.photoCount.intValue>0){
         
         cell.collectionView.hidden = NO;
@@ -343,7 +338,7 @@ static NSString *const kEntityName = @"StatusObject";
             
             NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
             if (postImages.count == status.photoCount.intValue) {
-                cell.collectionViewImagesArray = postImages;
+                self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = postImages;
                 [cell.collectionView reloadData];
             }else{
                 //get post images
@@ -360,7 +355,6 @@ static NSString *const kEntityName = @"StatusObject";
 -(PFQuery *)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
     
     __block SurpriseTableViewCell *cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.statusCellPhotoImageView showLoadingActivityIndicator];
     __block StatusObject *status = self.dataSource[indexPath.row];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
@@ -394,7 +388,6 @@ static NSString *const kEntityName = @"StatusObject";
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [cell.collectionView reloadData];
-                            //                            [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
                         });
                         
                     }

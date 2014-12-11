@@ -28,6 +28,8 @@
 {
     self.collectionView.dataSource  = self;
     self.collectionView.delegate = self;
+    self.statusCellAvatarImageView.layer.masksToBounds = YES;
+    self.statusCellAvatarImageView.layer.cornerRadius = 30;
 }
 
 - (IBAction)flagBadContentButtonTapped:(id)sender {
