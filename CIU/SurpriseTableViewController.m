@@ -27,6 +27,7 @@
 #import "TabbarController.h"
 #import "SVPullToRefresh.h"
 #import "StatusObject+Utilities.h"
+#import "ImageCollectionViewCell.h"
 
 static float const kStatusRadius = 30;
 static float const kServerFetchCount = 50;
@@ -47,10 +48,15 @@ static NSString *const kEntityName = @"StatusObject";
 
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
-
+@property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
 @end
 
 @implementation SurpriseTableViewController
+
+- (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
+{
+    return [NSString stringWithFormat:@"%d:%d",(int)indexPath.row, (int)indexPath.section];
+}
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -68,6 +74,8 @@ static NSString *const kEntityName = @"StatusObject";
         [weakSelf pullDataFromLocal];
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
     }];
+    
+    self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -158,8 +166,6 @@ static NSString *const kEntityName = @"StatusObject";
     
     // Configure the cell...
     cell.delegate = self;
-    //pass a reference so in statusTableViewCell can use status.hash to access stuff
-    //    cell.status = status;
     
     //message
     cell.statusCellMessageLabel.text = status.message;
@@ -216,16 +222,15 @@ static NSString *const kEntityName = @"StatusObject";
         }
     }
     
-    //get post image
-    //clear out images for use
-    cell.collectionViewImagesArray = nil;
-    [cell.collectionView reloadData];
-    
-    if(status.photoCount.intValue>0){
+    if (status.photoCount.intValue>0){
+        
+        cell.collectionView.hidden = NO;
+        
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
         if (postImages.count == status.photoCount.intValue) {
-            cell.collectionViewImagesArray = postImages;
+            self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = postImages;
             [cell.collectionView reloadData];
+            
         }else{
             
             if (tableView.isDecelerating == NO && tableView.isDragging == NO){
@@ -236,7 +241,10 @@ static NSString *const kEntityName = @"StatusObject";
                 [self.postImageQueries setObject:query forKey:indexPath];
             }
         }
+    } else {
+        cell.collectionView.hidden = YES;
     }
+    
     return cell;
 }
 
@@ -269,9 +277,7 @@ static NSString *const kEntityName = @"StatusObject";
                                                        options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica Light" size:14]}
                                                        context:nil];
-//            CGSize aSize = [label sizeThatFits:label.frame.size];
-            
-            float labelHeight = rect.size.height;//ceilf(ceilf(size.width) / CELL_MESSAGE_LABEL_WIDTH)*ceilf(size.height)+10;
+            float labelHeight = rect.size.height;
             
             //determine if there is a picture
             float pictureHeight = 0;;
@@ -280,15 +286,10 @@ static NSString *const kEntityName = @"StatusObject";
                 pictureHeight = 0;
             }else{
                 //204 height of picture image view
-                pictureHeight = 204;
+                pictureHeight = [ImageCollectionViewCell imageViewHeight];
             }
             
-            float cellHeight = ORIGIN_Y_CELL_MESSAGE_LABEL + labelHeight;
-            if (pictureHeight !=0) {
-                cellHeight += 10 + pictureHeight;
-            }
-            
-            cellHeight = cellHeight+40+10;//40: 10pixels btw image and flag button and 30 is the flag button height
+            float cellHeight = ORIGIN_Y_CELL_MESSAGE_LABEL + labelHeight + pictureHeight + 40 + 10;//40: 10pixels btw image and flag button and 30 is the flag button height
             
             status.statusCellHeight = [NSNumber numberWithFloat:cellHeight];
             return cellHeight;
@@ -372,6 +373,7 @@ static NSString *const kEntityName = @"StatusObject";
             }
             
             __block int index = status.photoCount.intValue-1;
+            
             for (PFObject *photoObject in objects) {
                 PFFile *image = photoObject[@"image"];
                 [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -382,10 +384,14 @@ static NSString *const kEntityName = @"StatusObject";
                         [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
                         index--;
                         
-                        if (!cell.collectionViewImagesArray) {
-                            cell.collectionViewImagesArray = [NSMutableArray array];
+                        if (!self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
+                            NSMutableArray *imagesArray = [NSMutableArray array];
+                            self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = imagesArray;
                         }
-                        [cell.collectionViewImagesArray addObject:image];
+                        
+                        NSMutableArray *imagesArray = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]];
+                        [imagesArray addObject:image];
+                        
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [cell.collectionView reloadData];
                             //                            [cell.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:cell.collectionViewImagesArray.count-1 inSection:0]]];
@@ -413,7 +419,7 @@ static NSString *const kEntityName = @"StatusObject";
     }
 }
 
-#pragma mark - StatusTableViewCellDelegate
+#pragma mark - SurpriseTableViewCellDelegate
 
 -(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell{
     
@@ -448,7 +454,39 @@ static NSString *const kEntityName = @"StatusObject";
             [audit saveEventually];
         }
     }];
+}
 
+- (NSInteger)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSArray *images = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]];
+    return images.count;
+}
+
+- (ImageCollectionViewCell *)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ImageCollectionViewCell *collectionViewCell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    // Clear out old image first
+    collectionViewCell.imageView.image = nil;
+    
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    NSArray *images = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:cellIndexPath]];
+    collectionViewCell.imageView.image = images[indexPath.row];
+    
+    return collectionViewCell;
+}
+
+- (CGSize)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    NSArray *images = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:cellIndexPath]];
+    if (indexPath.row < images.count) {
+        UIImage *image = images[indexPath.row];
+        CGFloat width = image.size.width < image.size.height ? [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width : [ImageCollectionViewCell imageViewWidth];
+        return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
+    } else {
+        return CGSizeZero;
+    }
 }
 
 #pragma mark - Location Manager Delegate Override

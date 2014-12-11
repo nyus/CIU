@@ -11,13 +11,18 @@
 @class SurpriseTableViewCell;
 @class Status;
 @class SpinnerImageView;
+@class ImageCollectionViewCell;
+
 @protocol StatusTableViewCellDelegate <NSObject>
 @optional
--(void)usernameLabelTappedOnCell:(SurpriseTableViewCell *)cell;
--(void)flagBadContentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
--(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
--(void)reviveAnimationDidEndOnCell:(SurpriseTableViewCell *)cell withProgress:(float)percentage;
--(void)swipeGestureRecognizedOnCell:(SurpriseTableViewCell *)cell;
+- (void)usernameLabelTappedOnCell:(SurpriseTableViewCell *)cell;
+- (void)flagBadContentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
+- (void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
+- (void)reviveAnimationDidEndOnCell:(SurpriseTableViewCell *)cell withProgress:(float)percentage;
+- (void)swipeGestureRecognizedOnCell:(SurpriseTableViewCell *)cell;
+- (NSInteger)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+- (ImageCollectionViewCell *)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (CGSize)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @interface SurpriseTableViewCell : UITableViewCell
@@ -43,7 +48,5 @@
 
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
-+ (CGFloat)imageViewWidth;
-+ (CGFloat)imageViewHeight;
 
 @end

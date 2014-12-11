@@ -7,13 +7,10 @@
 //
 
 #import "SurpriseTableViewCell.h"
-#import "ImageCollectionViewCell.h"
 #import <Parse/Parse.h>
 #define REVIVE_PROGRESS_VIEW_INIT_ALPHA .7f
 #define PROGRESSION_RATE 1
 #define TRESHOLD 60.0f
-static CGFloat const kCollectionCellWidth = 204.0f;
-static CGFloat const kCollectionCellHeight = 204.0f;
 
 @interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     UISwipeGestureRecognizer *leftSwipteGesture;
@@ -26,16 +23,6 @@ static CGFloat const kCollectionCellHeight = 204.0f;
 @end
 
 @implementation SurpriseTableViewCell
-
-+ (CGFloat)imageViewWidth
-{
-    return kCollectionCellWidth;
-}
-
-+ (CGFloat)imageViewHeight
-{
-    return kCollectionCellHeight;
-}
 
 - (void)awakeFromNib
 {
@@ -60,25 +47,18 @@ static CGFloat const kCollectionCellHeight = 204.0f;
 #pragma mark - uicollectionview delegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.collectionViewImagesArray.count;
+    return [self.delegate surpriseCell:self collectionView:collectionView numberOfItemsInSection:section];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ImageCollectionViewCell *cell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.imageView.image = self.collectionViewImagesArray[indexPath.row];
-    return cell;
+-(ImageCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return [self.delegate surpriseCell:self collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
 #pragma mark - uicollectionview flow layout delegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < self.collectionViewImagesArray.count) {
-        UIImage *image = self.collectionViewImagesArray[indexPath.row];
-        CGFloat width = image.size.width < image.size.height ? kCollectionCellHeight / image.size.height * image.size.width : kCollectionCellWidth;
-        return CGSizeMake(width, kCollectionCellHeight);
-    } else {
-        return CGSizeZero;
-    }
+    return [self.delegate surpriseCell:self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
 }
 @end
