@@ -49,4 +49,6 @@
     cell.imageView.image = self.collectionViewImagesArray[indexPath.row];
     return cell;
 }
+
+#pragma mark - uicollectionview flow layout delegate
 @end

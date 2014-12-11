@@ -42,7 +42,6 @@ static UIImage *defaultAvatar;
     UITapGestureRecognizer *tapGesture;
     CommentSurpriseViewController *commentVC;
     CGRect commentViewOriginalFrame;
-    NSFetchRequest *fetchRequest;
     NSIndexPath *selectedPath;
     PFQuery *fetchStatusQuery;
 }
@@ -88,33 +87,28 @@ static UIImage *defaultAvatar;
         self.dataSource = [NSMutableArray array];
     }
     
-    if (!fetchRequest) {
-        fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-        [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StatusObject"];
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d", 0];
+    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
+    NSDictionary *dictionary = [Helper userLocation];
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(kStatusRadius)];
+        NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         
-        NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d", 0];
-        // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-        NSDictionary *dictionary = [Helper userLocation];
-        if (dictionary) {
-            CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(kStatusRadius)];
-            NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-            
-            NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
-            [fetchRequest setPredicate:p];
-        } else {
-            [fetchRequest setPredicate:excludeBadContent];
-        }
-        
-        // Specify how the fetched objects should be sorted
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                       ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
+        [fetchRequest setPredicate:p];
+    } else {
+        [fetchRequest setPredicate:excludeBadContent];
     }
     
+    // Specify how the fetched objects should be sorted
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+                                                                   ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
     fetchRequest.fetchOffset = _localDataCount;
-    fetchRequest.fetchLimit = kLocalFetchCount + _localDataCount;
+    fetchRequest.fetchLimit = kLocalFetchCount;
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];

@@ -20,7 +20,7 @@
 -(void)swipeGestureRecognizedOnCell:(SurpriseTableViewCell *)cell;
 @end
 
-@interface SurpriseTableViewCell : UITableViewCell<UICollectionViewDataSource>{
+@interface SurpriseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
 }
 @property (strong,nonatomic) Status *status;
 @property (assign, nonatomic) id<StatusTableViewCellDelegate>delegate;

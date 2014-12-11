@@ -164,7 +164,7 @@ static float const kLocalFetchCount = 20;
     
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects.count!=0) {
+    if (fetchedObjects.count > 0) {
         // This has to be called before adding new objects to the data source
         NSUInteger currentCount = self.dataSource.count;
         
