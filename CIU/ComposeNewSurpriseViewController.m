@@ -17,9 +17,7 @@
 #import "ELCAssetTablePicker.h"
 #import "Helper.h"
 #import "NSString+Utilities.h"
-
-#define CELL_IMAGEVIEW_SIZE_HEIGHT 204.0f
-#define CELL_IMAGEVIEW_SIZE_WIDTH 204.0f
+#import "SurpriseTableViewCell.h"
 
 static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
@@ -219,7 +217,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
                     //picture
                     for(UIImage *image in collectionViewDataSource){
                         
-                        UIImage *scaled = [Helper scaleImage:image downToSize:CGSizeMake(CELL_IMAGEVIEW_SIZE_WIDTH, CELL_IMAGEVIEW_SIZE_HEIGHT)];
+                        UIImage *scaled = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
                         PFFile *photo = [PFFile fileWithData:UIImagePNGRepresentation(scaled)];
                         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
@@ -260,17 +258,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     [self.photosActionSheet dismissWithClickedButtonIndex:999 animated:YES];
     
     if(buttonIndex == 0){
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            // this is for a bug when you first add from gallery, then take a photo, the picker view controller shifts down
-            //            if (imagePicker == nil) {
-            imagePicker = [[UIImagePickerController alloc] init];
-            //            }
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePicker.allowsEditing = YES;
-            imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
-            imagePicker.delegate = self;
-            [self presentViewController:imagePicker animated:YES completion:nil];
-        }
+        [Helper launchCameraInController:self];
     }else if(buttonIndex == 1){
 
         ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
@@ -286,24 +274,15 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 - (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
 {
-
-    if(!collectionViewDataSource){
-        collectionViewDataSource = [NSMutableArray array];
-    }
+    NSMutableArray *array = [NSMutableArray array];
     for (NSDictionary *dict in info) {
-        UIImage *image = dict[@"UIImagePickerControllerOriginalImage"];
-        image = [Helper scaleImage:image downToSize:CGSizeMake(CELL_IMAGEVIEW_SIZE_WIDTH, CELL_IMAGEVIEW_SIZE_HEIGHT)];
-        [collectionViewDataSource addObject:image];
+        [array addObject:dict[@"UIImagePickerControllerOriginalImage"]];
     }
     
-    [self.collectionView reloadData];
+    [self displayAndStorePickedImages:array];
+    
     [self dismissViewControllerAnimated:YES completion:^{
-        [UIView animateWithDuration:.2 animations:^{
-            [self changeTextViewHeightToFitPhoto];
-            [self showCollectionViewAndLineSeparator];
-        }];
-        
-        [self.textView becomeFirstResponder];
+        [self adjustUIAfterDismissImagePicker];
     }];
 }
 
@@ -324,23 +303,10 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
         image = [UIImage imageWithData:data];
     }
     
-    image = [Helper scaleImage:image downToSize:CGSizeMake(CELL_IMAGEVIEW_SIZE_WIDTH, CELL_IMAGEVIEW_SIZE_HEIGHT)];
-    
-    
-    if (!collectionViewDataSource) {
-        collectionViewDataSource = [NSMutableArray array];
-    }
-    [collectionViewDataSource addObject:image];
-    
-    [self.collectionView reloadData];
+    [self displayAndStorePickedImages:@[image]];
     
     [picker dismissViewControllerAnimated:YES completion:^{
-        [UIView animateWithDuration:.2 animations:^{
-            [self changeTextViewHeightToFitPhoto];
-            [self showCollectionViewAndLineSeparator];
-        }];
-        
-        [self.textView becomeFirstResponder];
+        [self adjustUIAfterDismissImagePicker];
     }];
 }
 
@@ -348,6 +314,30 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     [self dismissViewControllerAnimated:YES completion:^{
         [self.textView becomeFirstResponder];
     }];
+}
+
+- (void)adjustUIAfterDismissImagePicker
+{
+    [UIView animateWithDuration:.2 animations:^{
+        [self changeTextViewHeightToFitPhoto];
+        [self showCollectionViewAndLineSeparator];
+    }];
+    
+    [self.textView becomeFirstResponder];
+}
+
+#pragma mark - Helper
+
+- (void)displayAndStorePickedImages:(NSArray *)images
+{
+    if(!collectionViewDataSource){
+        collectionViewDataSource = [NSMutableArray array];
+    }
+    for (UIImage *image in images) {
+        UIImage *scaledImage = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
+        [collectionViewDataSource addObject:scaledImage];
+    }
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDelegate

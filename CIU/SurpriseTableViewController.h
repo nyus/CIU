@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 #import "GenericTableViewController.h"
 @interface SurpriseTableViewController : GenericTableViewController
-
 @end

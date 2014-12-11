@@ -20,8 +20,8 @@
 -(void)swipeGestureRecognizedOnCell:(SurpriseTableViewCell *)cell;
 @end
 
-@interface SurpriseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
-}
+@interface SurpriseTableViewCell : UITableViewCell
+
 @property (strong,nonatomic) Status *status;
 @property (assign, nonatomic) id<StatusTableViewCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UILabel *statusCellMessageLabel;
@@ -40,6 +40,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *countDownLabel;
 @property (strong, nonatomic) NSMutableArray *collectionViewImagesArray;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
+
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
++ (CGFloat)imageViewWidth;
++ (CGFloat)imageViewHeight;
+
 @end

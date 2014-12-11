@@ -12,7 +12,10 @@
 #define REVIVE_PROGRESS_VIEW_INIT_ALPHA .7f
 #define PROGRESSION_RATE 1
 #define TRESHOLD 60.0f
-@interface SurpriseTableViewCell(){
+static CGFloat const kCollectionCellWidth = 204.0f;
+static CGFloat const kCollectionCellHeight = 204.0f;
+
+@interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     UISwipeGestureRecognizer *leftSwipteGesture;
     UISwipeGestureRecognizer *rightSwipteGesture;
     UITapGestureRecognizer *tap;
@@ -23,6 +26,22 @@
 @end
 
 @implementation SurpriseTableViewCell
+
++ (CGFloat)imageViewWidth
+{
+    return kCollectionCellWidth;
+}
+
++ (CGFloat)imageViewHeight
+{
+    return kCollectionCellHeight;
+}
+
+- (void)awakeFromNib
+{
+    self.collectionView.dataSource  = self;
+    self.collectionView.delegate = self;
+}
 
 - (IBAction)flagBadContentButtonTapped:(id)sender {
     [self.delegate flagBadContentButtonTappedOnCell:self];
@@ -51,4 +70,15 @@
 }
 
 #pragma mark - uicollectionview flow layout delegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < self.collectionViewImagesArray.count) {
+        UIImage *image = self.collectionViewImagesArray[indexPath.row];
+        CGFloat width = image.size.width < image.size.height ? kCollectionCellHeight / image.size.height * image.size.width : kCollectionCellWidth;
+        return CGSizeMake(width, kCollectionCellHeight);
+    } else {
+        return CGSizeZero;
+    }
+}
 @end

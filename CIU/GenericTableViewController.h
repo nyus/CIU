@@ -10,15 +10,18 @@
 #import <Parse/Parse.h>
 #import "SharedDataManager.h"
 #import "Reachability.h"
+
 @interface GenericTableViewController : UITableViewController
 {
     @protected
-    int _localDataCount;
-    int _serverDataCount;
+    NSUInteger _localDataCount;
+    NSUInteger _serverDataCount;
 }
 
+@property (nonatomic, strong) NSMutableArray *dataSource;
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
+-(void)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius;
 -(void)loadRemoteDataForVisibleCells;
 -(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath;
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;

@@ -228,15 +228,17 @@ static UIImagePickerController *_imagePicker;
 #pragma mark - image processing
 
 +(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size{
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+    
     CGRect imageRect;
     if(image.size.width<image.size.height){
         //handle portrait photos
         float newWidth = image.size.width * size.height/image.size.height;
-        imageRect = CGRectMake((size.width-newWidth)/2, 0.0, newWidth, size.height);
+        imageRect = CGRectMake(0.0, 0.0, newWidth, size.height);
     }else{
         imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
     }
+    
+    UIGraphicsBeginImageContextWithOptions(imageRect.size, NO, 0.0f);
     [image drawInRect:imageRect];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

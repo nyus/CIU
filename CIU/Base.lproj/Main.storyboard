@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1427,8 +1428,8 @@ Job Applications: Jobs@8MileTech.com</string>
                                                                 <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="153" height="204"/>
                                                                         <color key="backgroundColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     </imageView>
                                                                 </subviews>
@@ -2397,6 +2398,7 @@ Job Applications: Jobs@8MileTech.com</string>
         <image name="little_panda" width="75" height="75"/>
         <image name="radionButton_selected" width="13" height="13"/>
         <image name="revine_icon.png" width="228" height="43"/>
+        <image name="test.png" width="408" height="408"/>
         <image name="twitter" width="25" height="25"/>
         <image name="wewantyou.png" width="166" height="123"/>
         <image name="yes.png" width="80" height="80"/>

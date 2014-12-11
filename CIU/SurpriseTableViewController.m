@@ -36,7 +36,7 @@ static float const kLocalFetchCount = 20;
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 54.0f
 #define POST_TOTAL_LONGEVITY 1800//30 mins
 static UIImage *defaultAvatar;
-
+static NSString *const kEntityName = @"StatusObject";
 @interface SurpriseTableViewController () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
     SurpriseTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;
@@ -46,7 +46,6 @@ static UIImage *defaultAvatar;
     PFQuery *fetchStatusQuery;
 }
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
 
@@ -83,50 +82,7 @@ static UIImage *defaultAvatar;
 
 - (void)pullDataFromLocal{
     
-    if (!self.dataSource) {
-        self.dataSource = [NSMutableArray array];
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StatusObject"];
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d", 0];
-    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    NSDictionary *dictionary = [Helper userLocation];
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(kStatusRadius)];
-        NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-        
-        NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, predicate]];
-        [fetchRequest setPredicate:p];
-    } else {
-        [fetchRequest setPredicate:excludeBadContent];
-    }
-    
-    // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                   ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
-    fetchRequest.fetchOffset = _localDataCount;
-    fetchRequest.fetchLimit = kLocalFetchCount;
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects.count>0) {
-        // This has to be called before adding new objects to the data source
-        NSUInteger currentCount = self.dataSource.count;
-        
-        _localDataCount += fetchedObjects.count;
-        [self.dataSource addObjectsFromArray:fetchedObjects];
-        
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        
-        for (int i = 0; i < fetchedObjects.count; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-        }
-        
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
+    [self pullDataFromLocalWithEntityName:kEntityName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:kStatusRadius];
 }
 
 -(void)fetchNewStatusWithCount:(int)count{
@@ -137,7 +93,7 @@ static UIImage *defaultAvatar;
     }
     
     fetchStatusQuery = [PFQuery queryWithClassName:@"Status"];
-    [fetchStatusQuery orderByDescending:@"createdAt"];
+    [fetchStatusQuery orderByAscending:@"createdAt"];
     NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
@@ -172,7 +128,7 @@ static UIImage *defaultAvatar;
             for (int i =0; i<objects.count; i++) {
                 
                 PFObject *pfObject = objects[i];
-                StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:@"StatusObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:kEntityName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                 [status populateFromParseojbect:pfObject];
                 
                 [self.dataSource insertObject:status atIndex:0];
@@ -190,7 +146,6 @@ static UIImage *defaultAvatar;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
             });
-            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -290,8 +245,6 @@ static UIImage *defaultAvatar;
     [cell.collectionView reloadData];
     
     if(status.photoCount.intValue>0){
-        cell.collectionView.dataSource = cell;
-        
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
         if (postImages.count == status.photoCount.intValue) {
             cell.collectionViewImagesArray = postImages;

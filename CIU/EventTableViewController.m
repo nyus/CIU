@@ -20,7 +20,7 @@ static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
 @interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate>{
 }
-@property (nonatomic, strong) NSMutableArray *dataSource;
+
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) PFQuery *query;
@@ -79,7 +79,7 @@ static float const kLocalFetchCount = 20;
         self.query = nil;
     }
     self.query = [[PFQuery alloc] initWithClassName:managedObjectName];
-    [self.query orderByDescending:@"createdAt"];
+    [self.query orderByAscending:@"createdAt"];
     [self.query addBoundingCoordinatesToCenter:center radius:@(kEventRadius)];
     [self.query whereKey:@"isBadContent" notEqualTo:@YES];
     
@@ -135,50 +135,7 @@ static float const kLocalFetchCount = 20;
 }
 
 -(void)pullDataFromLocal{
-    
-    if (!self.dataSource) {
-        self.dataSource = [NSMutableArray array];
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:managedObjectName];
-    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    NSDictionary *dictionary = [Helper userLocation];
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(kEventRadius)];
-        NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-        
-        NSCompoundPredicate *p = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate]];
-        [fetchRequest setPredicate:p];
-    } else {
-        [fetchRequest setPredicate:excludeBadContent];
-    }
-    // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                   ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
-    fetchRequest.fetchOffset = _localDataCount;
-    fetchRequest.fetchLimit = kLocalFetchCount + _localDataCount;
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects.count > 0) {
-        // This has to be called before adding new objects to the data source
-        NSUInteger currentCount = self.dataSource.count;
-        
-        _localDataCount += fetchedObjects.count;
-        [self.dataSource addObjectsFromArray:fetchedObjects];
-        
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        
-        for (int i = 0; i < fetchedObjects.count; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-        }
-        
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
+    [self pullDataFromLocalWithEntityName:managedObjectName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:kEventRadius];
 }
 
 -(void)loadRemoteDataForVisibleCells{}

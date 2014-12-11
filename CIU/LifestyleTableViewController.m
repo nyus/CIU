@@ -16,7 +16,6 @@
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 @interface LifestyleTableViewController ()
-@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableDictionary *queries;
 @end
 

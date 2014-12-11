@@ -8,6 +8,7 @@
 
 #import "GenericTableViewController.h"
 #import "Helper.h"
+#import "NSPredicate+Utilities.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
@@ -59,6 +60,53 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(void)pullDataFromLocal{
     //override by subclass
+}
+
+- (void)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
+{
+    if (!self.dataSource) {
+        self.dataSource = [NSMutableArray array];
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    fetchRequest.includesPendingChanges = NO;
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
+    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
+    NSDictionary *dictionary = [Helper userLocation];
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(fetchRadius)];
+        NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+        
+        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate]];
+        [fetchRequest setPredicate:compoundPredicate];
+    } else {
+        [fetchRequest setPredicate:excludeBadContent];
+    }
+    
+    // Specify how the fetched objects should be sorted
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
+                                                                   ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    fetchRequest.fetchOffset = _localDataCount;
+    fetchRequest.fetchLimit = fetchLimit + _localDataCount;
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects.count>0) {
+        // This has to be called before adding new objects to the data source
+        NSUInteger currentCount = self.dataSource.count;
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        for (int i = 0; i < fetchedObjects.count; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
+        }
+        
+        _localDataCount = _localDataCount + fetchedObjects.count;
+        [self.dataSource addObjectsFromArray:fetchedObjects];
+        
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 -(void)pullDataFromServer{
