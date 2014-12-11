@@ -23,7 +23,6 @@ static float const kLocalFetchCount = 20;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) PFQuery *query;
 @end
 
 @implementation EventTableViewController
@@ -73,27 +72,10 @@ static float const kLocalFetchCount = 20;
 #pragma mark - Override
 
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
-
-    if (self.query) {
-        [self.query cancel];
-        self.query = nil;
-    }
-    self.query = [[PFQuery alloc] initWithClassName:managedObjectName];
-    [self.query orderByAscending:@"createdAt"];
-    [self.query addBoundingCoordinatesToCenter:center radius:@(kEventRadius)];
-    [self.query whereKey:@"isBadContent" notEqualTo:@YES];
     
-    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
-    NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchEventDate"];
-    if (lastFetchStatusDate) {
-        [self.query whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
-    }
+    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:kEventRadius dateConditionKey:@"lastFetchEventDate"];
     
-    // Only want to fetch kServerFetchCount items each time
-    self.query.limit = kServerFetchCount + _serverDataCount;
-    self.query.skip = _serverDataCount;
-    
-    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
             
             _serverDataCount += objects.count;
@@ -115,7 +97,7 @@ static float const kLocalFetchCount = 20;
                 
                 [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 
-                if (i==0) {
+                if (i == objects.count - 1) {
                     [[NSUserDefaults standardUserDefaults] setObject:parseObject.createdAt forKey:@"lastFetchEventDate"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
@@ -125,7 +107,6 @@ static float const kLocalFetchCount = 20;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
             });
-            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

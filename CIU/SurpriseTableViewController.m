@@ -29,7 +29,7 @@
 #import "StatusObject+Utilities.h"
 
 static float const kStatusRadius = 30;
-static float const kServerFetchCount = 20;
+static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
 
 #define BACKGROUND_CELL_HEIGHT 300.0f
@@ -43,7 +43,6 @@ static NSString *const kEntityName = @"StatusObject";
     CommentSurpriseViewController *commentVC;
     CGRect commentViewOriginalFrame;
     NSIndexPath *selectedPath;
-    PFQuery *fetchStatusQuery;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
@@ -87,31 +86,9 @@ static NSString *const kEntityName = @"StatusObject";
 
 -(void)fetchNewStatusWithCount:(int)count{
     
-    if (fetchStatusQuery) {
-        [fetchStatusQuery cancel];
-        fetchStatusQuery = nil;
-    }
+    [self setupServerQueryWithClassName:@"Status" fetchLimit:kServerFetchCount fetchRadius:kStatusRadius dateConditionKey:@"lastFetchStatusDate"];
     
-    fetchStatusQuery = [PFQuery queryWithClassName:@"Status"];
-    [fetchStatusQuery orderByAscending:@"createdAt"];
-    NSDictionary *dictionary = [Helper userLocation];
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        [fetchStatusQuery addBoundingCoordinatesToCenter:center radius:@(kStatusRadius)];
-    }
-    [fetchStatusQuery whereKey:@"isBadContent" notEqualTo:@YES];
-    
-    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
-    NSDate *lastFetchStatusDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFetchStatusDate"];
-    if (lastFetchStatusDate) {
-        [fetchStatusQuery whereKey:@"createdAt" greaterThan:lastFetchStatusDate];
-    }
-    
-    // Only want to fetch kServerFetchCount items each time
-    fetchStatusQuery.limit = kServerFetchCount + _serverDataCount;
-    fetchStatusQuery.skip = _serverDataCount;
-    
-    [fetchStatusQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects.count > 0) {
             
@@ -135,7 +112,7 @@ static NSString *const kEntityName = @"StatusObject";
                 
                 [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 
-                if (i==0) {
+                if (i == objects.count - 1) {
                     [[NSUserDefaults standardUserDefaults] setObject:pfObject.createdAt forKey:@"lastFetchStatusDate"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }

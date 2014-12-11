@@ -9,6 +9,7 @@
 #import "GenericTableViewController.h"
 #import "Helper.h"
 #import "NSPredicate+Utilities.h"
+#import "PFQuery+Utilities.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
@@ -111,6 +112,32 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(void)pullDataFromServer{
     //override by subclass
+}
+
+- (void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey
+{
+    if (self.fetchQuery) {
+        [self.fetchQuery cancel];
+        self.fetchQuery = nil;
+    }
+    
+    self.fetchQuery = [PFQuery queryWithClassName:className];
+    [self.fetchQuery orderByAscending:@"createdAt"];
+    NSDictionary *dictionary = [Helper userLocation];
+    if (dictionary) {
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+        [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    }
+    [self.fetchQuery whereKey:@"isBadContent" notEqualTo:@YES];
+    
+    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
+    NSDate *lastFetchDate = [[NSUserDefaults standardUserDefaults] objectForKey:dateConditionKey];
+    if (lastFetchDate) {
+        [self.fetchQuery whereKey:@"createdAt" greaterThan:lastFetchDate];
+    }
+    
+    // Only want to fetch kServerFetchCount items each time
+    self.fetchQuery.limit = fetchLimit;
 }
 
 -(void)loadRemoteDataForVisibleCells{
