@@ -12,6 +12,9 @@
 #define PROGRESSION_RATE 1
 #define TRESHOLD 60.0f
 
+static CGFloat const kCollectionCellWidth = 84.0f;
+static CGFloat const kCollectionCellHeight = 84.0f;
+
 @interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     UISwipeGestureRecognizer *leftSwipteGesture;
     UISwipeGestureRecognizer *rightSwipteGesture;
@@ -23,6 +26,16 @@
 @end
 
 @implementation SurpriseTableViewCell
+
++ (CGFloat)imageViewWidth
+{
+    return kCollectionCellWidth;
+}
+
++ (CGFloat)imageViewHeight
+{
+    return kCollectionCellHeight;
+}
 
 - (void)awakeFromNib
 {

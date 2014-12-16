@@ -46,4 +46,7 @@
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
 
++ (CGFloat)imageViewWidth;
++ (CGFloat)imageViewHeight;
+
 @end

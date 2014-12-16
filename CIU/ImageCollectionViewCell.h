@@ -11,6 +11,7 @@
 @interface ImageCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
 + (CGFloat)imageViewWidth;
 + (CGFloat)imageViewHeight;
 

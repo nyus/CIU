@@ -1066,7 +1066,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WhenWhenWhenWhenWhenWhen" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-1d-VoP">
-                                            <rect key="frame" x="40" y="31" width="273" height="17"/>
+                                            <rect key="frame" x="40" y="31" width="273" height="16.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="Yd2-9R-t57"/>
                                             </constraints>
@@ -1075,7 +1075,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
-                                            <rect key="frame" x="40" y="106" width="273" height="33"/>
+                                            <rect key="frame" x="40" y="105" width="273" height="32.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="ZkB-yk-Gfn"/>
                                             </constraints>
@@ -1084,7 +1084,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where where Where where Where where Where where Where where Where where Where where " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="aQ4-lY-R2B">
-                                            <rect key="frame" x="40" y="53" width="273" height="49"/>
+                                            <rect key="frame" x="40" y="52" width="273" height="48.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="jNP-uR-hDn"/>
                                             </constraints>
@@ -1428,8 +1428,8 @@ Job Applications: Jobs@8MileTech.com</string>
                                                                 <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="153" height="204"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9E-nl-EzN">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="204" height="204"/>
                                                                         <color key="backgroundColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     </imageView>
                                                                 </subviews>
