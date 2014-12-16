@@ -35,9 +35,10 @@ static float const kLocalFetchCount = 20;
 
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 54.0f
-#define POST_TOTAL_LONGEVITY 1800//30 mins
 static UIImage *defaultAvatar;
+
 static NSString *const kEntityName = @"StatusObject";
+
 @interface SurpriseTableViewController () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
     SurpriseTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;

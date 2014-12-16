@@ -31,10 +31,12 @@
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
 #define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
 #define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
-#define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
-#define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
+#define IS_RESTAURANT [self.categoryName isEqualToString:@"Restaurant"]
+#define IS_MARKET [self.categoryName isEqualToString:@"Supermarket"]
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
+static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadius";
+static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 
 @interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
@@ -49,12 +51,64 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 @property (nonatomic, strong) PFQuery *pfQuery;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
-//@property (nonatomic, strong) Reachability *internetReachability;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @end
 
 @implementation LifestyleDetailViewController
+
+- (NSNumber *)restaurantDataRadius
+{
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kRestaurantDataRadiusKey];
+    if (!radius) {
+        [self setRestaurantDataRadius:@5];
+        return @5;
+    } else {
+        return radius;
+    }
+}
+
+- (void)setRestaurantDataRadius:(NSNumber *)newRadius
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kRestaurantDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSNumber *)supermarketDataRadius
+{
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kSupermarketDataRadiusKey];
+    if (!radius) {
+        [self setSupermarketDataRadius:@5];
+        return @5;
+    } else {
+        return radius;
+    }
+}
+
+- (void)setSupermarketDataRadius:(NSNumber *)newRadius
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kSupermarketDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (DisplayPeripheralHeaderView *)headerView
+{
+    if (!_headerView) {
+        NSNumber *radius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithStepValue:radius minimunStepValue:@5 maximunStepValue:@30 actionBlock:^(double newValue) {
+            
+            if (IS_RESTAURANT) {
+                [self setRestaurantDataRadius:@(newValue)];
+            } else {
+                [self setSupermarketDataRadius:@(newValue)];
+            }
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self handleDataDisplayPeripheral:newValue];
+        }];
+    }
+    
+    return _headerView;
+}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -367,9 +421,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 -(void)handleDataDisplayPeripheral:(double)newValue{
     if (![Reachability canReachInternet]) {
         [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue]];
-        
     } else {
-        
         NSDictionary *userLocation = [Helper userLocation];
         CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
         [self fetchServerDataForListAroundCenter:coor raidus:[NSNumber numberWithDouble:newValue]];
@@ -468,15 +520,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
-        
-        if (!self.headerView) {
-            self.headerView = [[DisplayPeripheralHeaderView alloc] initWithBlock:^(double newValue) {
-                [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:@"dataRadius"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [self handleDataDisplayPeripheral:newValue];
-            }];
-        }
-        
         return self.headerView;
     }else{
         return nil;

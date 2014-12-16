@@ -17,7 +17,7 @@ NSString *kDataDisplayRadiusKey = @"dataRadius";
 
 @implementation DisplayPeripheralHeaderView
 
-- (instancetype)initWithBlock:(void (^)(double))stepperValueChangedTo{
+- (instancetype)initWithStepValue:(NSNumber *)stepValue minimunStepValue:(NSNumber *)minStepValue maximunStepValue:(NSNumber *)maximunStepValue actionBlock:(void (^)(double))stepperValueChangedTo{
     self = [super init];
     
     if (self){
@@ -30,9 +30,8 @@ NSString *kDataDisplayRadiusKey = @"dataRadius";
         self.contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSString *string;
-        NSNumber *dataRadius = [[NSUserDefaults standardUserDefaults] objectForKey:@"dataRadius"];
-        if (dataRadius) {
-            string = [NSString stringWithFormat:@"Results within %d miles",[dataRadius intValue]];
+        if (stepValue) {
+            string = [NSString stringWithFormat:@"Results within %d miles",[stepValue intValue]];
         } else {
             string = @"Results within 5 miles";
         }
@@ -54,9 +53,10 @@ NSString *kDataDisplayRadiusKey = @"dataRadius";
         self.stepper = [[UIStepper alloc] initWithFrame:CGRectMake(0, 0, 94, 15)];
         self.stepper.translatesAutoresizingMaskIntoConstraints = NO;
         self.stepper.transform = CGAffineTransformMakeScale(0.75, 0.75);
-        self.stepper.minimumValue = 5.0;
-        self.stepper.maximumValue = 30.0;
-        self.stepper.stepValue = dataRadius? dataRadius.doubleValue : 5.0;
+        self.stepper.minimumValue = minStepValue.doubleValue;
+        self.stepper.maximumValue = maximunStepValue.doubleValue;
+        self.stepper.stepValue = 5.0;
+        self.stepper.value = stepValue.doubleValue;
         self.stepper.tintColor = [UIColor themeTextGrey];
         [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.stepper];

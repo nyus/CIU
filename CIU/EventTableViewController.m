@@ -14,18 +14,66 @@
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
 #import "SVPullToRefresh.h"
-static NSString *managedObjectName = @"Event";
-static float const kEventRadius = 30;
+#import "DisplayPeripheralHeaderView.h"
+
 static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate>{
-}
 
+static NSString *managedObjectName = @"Event";
+static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
+
+@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate>
+
+@property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong, readwrite) NSNumber *eventRadius;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
-@implementation EventTableViewController
+@implementation EventTableViewController{
+    NSNumber *_eventRadius;
+}
+
+- (NSNumber *)eventRadius{
+    if (!_eventRadius) {
+        NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kEventDataRadiusKey];
+        if (!radius) {
+            _eventRadius = @30;
+        } else {
+            _eventRadius = radius;
+        }
+    }
+    return _eventRadius;
+}
+
+- (void)setEventRadius:(NSNumber *)eventRadius{
+    if (![_eventRadius isEqual:eventRadius]) {
+        [[NSUserDefaults standardUserDefaults] setObject:eventRadius forKey:kEventDataRadiusKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        _eventRadius = eventRadius;
+    }
+}
+
+- (DisplayPeripheralHeaderView *)headerView
+{
+    if (!_headerView) {
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithStepValue:[self eventRadius] minimunStepValue:@5 maximunStepValue:@80 actionBlock:^(double newValue) {
+            [self setEventRadius:@(newValue)];
+            [self handleDataDisplayPeripheral];
+        }];
+    }
+    
+    return _headerView;
+}
+
+-(void)handleDataDisplayPeripheral{
+    
+    self.dataSource = nil;
+    [self.tableView reloadData];
+    [self pullDataFromLocal];
+    [self pullDataFromServerWithMemorizedLocation];
+}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -73,7 +121,7 @@ static float const kLocalFetchCount = 20;
 
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
     
-    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:kEventRadius dateConditionKey:@"lastFetchEventDate"];
+    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:[[self eventRadius] floatValue] dateConditionKey:@"lastFetchEventDate"];
     
     [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
@@ -116,7 +164,7 @@ static float const kLocalFetchCount = 20;
 }
 
 -(void)pullDataFromLocal{
-    [self pullDataFromLocalWithEntityName:managedObjectName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:kEventRadius];
+    [self pullDataFromLocalWithEntityName:managedObjectName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:[[self eventRadius] floatValue]];
 }
 
 -(void)loadRemoteDataForVisibleCells{}
@@ -202,6 +250,17 @@ static float const kLocalFetchCount = 20;
     }
 
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return self.headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40.0f;
+}
+
+#pragma mark - Location
 
 //override
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
