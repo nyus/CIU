@@ -15,13 +15,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-//#if DEBUG
-//    [Parse setApplicationId:@"5hQiQ1c1h9SiXWKoZ60v80jQjPxSifXYoJZl1TG7"
-//                  clientKey:@"4tFa69JF6OZaelYEEDqXanjXVqXPohK60pBRSZjO"];
-//#else
-    [Parse setApplicationId:@"kpC3WlseWq0eDAiyeDdykzNTKcbJTWuXexLOFp3o"
-                  clientKey:@"uVrOJyPIMN6NIT1qi9VcSJW4hltqnMvGFBFZeVmv"];
-//#endif
+#if DEBUG
+    [Parse setApplicationId:@"5iuZZ1iDu1brQG79t8VXWbztxRWFprDUx22zEAxl"
+                  clientKey:@"L2o6bd1AbEOBgmYJMaJJOH8xxb8VW4VcC0lNZJ2b"];
+#else
+    [Parse setApplicationId:@"dREZy34PedC54NzkwKdzw9InfmkPFCZ3kNmj8TNB"
+                  clientKey:@"urvgpguNb8wja2nX8wyHe5h8SfD0DCQB7WdTZSZg"];
+#endif
     [PFFacebookUtils initializeFacebook];
     return YES;
 }

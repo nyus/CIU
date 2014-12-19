@@ -25,6 +25,7 @@
 #import "GenericTableViewCell.h"
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
+#import "UIColor+CIUColors.h"
 #define FETCH_COUNT 20
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
@@ -53,6 +54,9 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UIButton *reResearchButton;
+@property (nonatomic, assign) BOOL isMapLoaded;
+
 @end
 
 @implementation LifestyleDetailViewController
@@ -108,6 +112,37 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
     }
     
     return _headerView;
+}
+
+-(UIButton *)reResearchButton
+{
+    if (!_reResearchButton) {
+        _reResearchButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_reResearchButton setTitle:@"Redo search in this area" forState:UIControlStateNormal];
+        [_reResearchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _reResearchButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
+        _reResearchButton.hidden = YES;
+        _reResearchButton.backgroundColor = [UIColor themeGreen];
+        [_reResearchButton addTarget:self action:@selector(reSearchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_mapView addSubview:_reResearchButton];
+        _reResearchButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_mapView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_reResearchButton]-0-|"
+                                                                         options:kNilOptions
+                                                                         metrics:nil
+                                                                           views:NSDictionaryOfVariableBindings(_reResearchButton)]];
+        [_mapView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_reResearchButton(44)]-0-|"
+                                                                         options:kNilOptions
+                                                                         metrics:nil
+                                                                           views:NSDictionaryOfVariableBindings(_reResearchButton)]];
+    }
+    
+    return _reResearchButton;
+}
+
+- (void)reSearchButtonTapped:(UIButton *)reSearchButton
+{
+    [self fetchLocalDataWithRegion:self.mapView.region];
+    [self fetchServerDataWithRegion:self.mapView.region];
 }
 
 -(void)viewDidLoad{
@@ -277,7 +312,7 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
                     pin.title = object[@"name"];
                     pin.subtitle = object[@"category"];
                     pin.lifetstyleObject = life;
-                    pin.needAnimation = YES;
+                    pin.needAnimation = NO;
                     [coors addObject:pin];
                 }
             }
@@ -555,23 +590,34 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 #pragma mark - map delegate
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered{
-    
-    if (fullyRendered && mapView.alpha == 1.0) {
-        [self fetchLocalDataWithRegion:mapView.region];
-        [self fetchServerDataWithRegion:mapView.region];
-    }
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    self.reResearchButton.hidden = NO;
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     
-    [mapView setCenterCoordinate:userLocation.coordinate animated:YES];
-    MKCoordinateRegion region = mapView.region;
-    region.center = userLocation.coordinate;
-    //show an area whose north to south distance is 1.5 miles and west to east 1 mile
-    static CLLocationDegrees latitudeDelta = 1.5/MILE_PER_DELTA;
-    static CLLocationDegrees longitudeDelta = 1/MILE_PER_DELTA;
-    region.span = MKCoordinateSpanMake(latitudeDelta,longitudeDelta);
-    [mapView setRegion:region animated:YES];
+    // Only zoom if it's the first time locating the user
+    if (!self.isMapLoaded) {
+        
+        [mapView setCenterCoordinate:userLocation.coordinate animated:NO];
+        MKCoordinateRegion region = mapView.region;
+        region.center = userLocation.coordinate;
+        //show an area whose north to south distance is 1.5 miles and west to east 1 mile
+        static CLLocationDegrees latitudeDelta = 1.5/MILE_PER_DELTA;
+        static CLLocationDegrees longitudeDelta = 1/MILE_PER_DELTA;
+        region.span = MKCoordinateSpanMake(latitudeDelta,longitudeDelta);
+        [mapView setRegion:region animated:NO];
+        
+        [UIView animateWithDuration:.3 animations:^{
+        } completion:^(BOOL finished) {
+            [self fetchLocalDataWithRegion:mapView.region];
+            [self fetchServerDataWithRegion:mapView.region];
+        }];
+        self.isMapLoaded = YES;
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error{

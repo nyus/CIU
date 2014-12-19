@@ -64,18 +64,18 @@ NS_ENUM(NSUInteger, SideBarStatus){
 //        [event saveEventually];
 //    }
     
-    for (int i = 0; i < 19; i++) {
-        PFObject *event = [PFObject objectWithClassName:@"Surprise"];
-        event[@"anonymous"] = @NO;
-        event[@"message"] = [NSString stringWithFormat:@"Testing %d", i];
-        event[@"latitude"] = @40.758105;
-        event[@"longitude"] = @(-73.967006);
-        event[@"isBadContent"] = @NO;
-        event[@"posterFirstName"] = @"Test";
-        event[@"posterLastName"] = @"Test";
-        event[@"posterUsername"] = @"username";
-        [event saveEventually];
-    }
+//    for (int i = 0; i < 19; i++) {
+//        PFObject *event = [PFObject objectWithClassName:@"Surprise"];
+//        event[@"anonymous"] = @NO;
+//        event[@"message"] = [NSString stringWithFormat:@"Testing %d", i];
+//        event[@"latitude"] = @40.758105;
+//        event[@"longitude"] = @(-73.967006);
+//        event[@"isBadContent"] = @NO;
+//        event[@"posterFirstName"] = @"Test";
+//        event[@"posterLastName"] = @"Test";
+//        event[@"posterUsername"] = @"username";
+//        [event saveEventually];
+//    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
