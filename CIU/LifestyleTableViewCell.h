@@ -10,6 +10,6 @@
 
 @interface LifestyleTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
 
 @end

@@ -739,7 +739,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="imageView" destination="Dbz-HJ-18b" id="qvd-o8-Z5z"/>
+                                    <outlet property="cellImageView" destination="Dbz-HJ-18b" id="dhG-kG-92Q"/>
                                     <outlet property="label" destination="LQB-wG-WeT" id="Nq5-ZJ-1FM"/>
                                     <segue destination="eIB-DE-riQ" kind="push" identifier="toDetailA" id="A8E-uU-Det"/>
                                 </connections>
@@ -850,7 +850,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                             <outlet property="browseMoreButton" destination="gXX-r1-01L" id="Gvb-g5-cKa"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="cell" textLabel="ZH8-Ah-cuu" detailTextLabel="biB-Tm-Xks" style="IBUITableViewCellStyleSubtitle" id="5L2-t8-88X">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="ZH8-Ah-cuu" detailTextLabel="biB-Tm-Xks" style="IBUITableViewCellStyleSubtitle" id="5L2-t8-88X">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5L2-t8-88X" id="6Vd-gg-KWG">

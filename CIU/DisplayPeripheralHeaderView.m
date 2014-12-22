@@ -9,8 +9,6 @@
 #import "DisplayPeripheralHeaderView.h"
 #import "UIColor+CIUColors.h"
 
-NSString *kDataDisplayRadiusKey = @"dataRadius";
-
 @interface DisplayPeripheralHeaderView()
 @property (copy) void (^completion)(double newValue);
 @end

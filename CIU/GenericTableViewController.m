@@ -21,6 +21,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.clearsSelectionOnViewWillAppear = YES;
     [self addMenuButton];
     if (!self.locationManager) {
         self.locationManager = [Helper initLocationManagerWithDelegate:self];
@@ -150,6 +151,11 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     [self cancelRequestsForIndexpath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{}

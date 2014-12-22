@@ -21,15 +21,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 @implementation LifestyleTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -253,35 +244,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     LifestyleCategory *category = self.dataSource[indexPath.row];
     
     NSString *imageName = [self imageNameOfCategory:category];
-    cell.imageView.image = [UIImage imageNamed:imageName];
+    cell.cellImageView.image = [UIImage imageNamed:imageName];
     
     cell.label.text = category.name;
-    
-    
-    //reset in case its being reused
-//    cell.imageView.image = nil;
-    //see if there is local cache
-//    NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
-    
-//    UIImage *image = [Helper getLocalImageWithName:imageName isHighRes:NO];
-//    //update UI
-//    if (image) {
-//        cell.imageView.image = image;
-//    }else{
-//        if (!tableView.decelerating && !tableView.dragging) {
-//            
-//            __block UITableViewCell *weakCell = cell;
-//            Query *query = [[Query alloc] init];
-//            [self.queries setObject:query forKey:indexPath];
-//            [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
-//                if (!error) {
-//                    weakCell.imageView.image = image;
-//                }else{
-//                    weakCell.imageView.image = nil;
-//                }
-//            }];
-//        }
-//    }
     return cell;
 }
 

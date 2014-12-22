@@ -26,7 +26,7 @@
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
 #import "UIColor+CIUColors.h"
-#define FETCH_COUNT 20
+
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
 #define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
@@ -106,7 +106,6 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
             } else {
                 [self setSupermarketDataRadius:@(newValue)];
             }
-            [[NSUserDefaults standardUserDefaults] synchronize];
             [self handleDataDisplayPeripheral:newValue];
         }];
     }
@@ -171,7 +170,7 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
         self.navigationItem.rightBarButtonItem = rightItem;
     }
     
-    NSNumber *rememberedRadius = [[NSUserDefaults standardUserDefaults] objectForKey:kDataDisplayRadiusKey];
+    NSNumber *rememberedRadius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
     if(isOffline){
         [self fetchLocalDataForListWithRadius:rememberedRadius];
         
@@ -227,20 +226,31 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
     }
 }
 
+- (NSFetchRequest *)localDataFetchRequestWithRegion:(MKCoordinateRegion)region
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
+    // Predicate
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+    NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[Helper getParseClassNameForCategoryName:self.categoryName]];
+    if (IS_RES_MARKT) {
+        NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation, categoryPredicate]];
+    } else {
+        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, categoryPredicate]];
+    }
+    // Sort descriptor
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    
+    return fetchRequest;
+}
+
 -(void)fetchLocalDataWithRegion:(MKCoordinateRegion)region{
     
     self.mapViewDataSource = nil;
     self.mapViewDataSource = [NSMutableArray array];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
-    // Specify criteria for filtering which objects to fetch
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
-    NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-    NSCompoundPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation]];
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region];
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
     if (fetchedObjects.count>0) {
         
         [self.mapViewDataSource addObjectsFromArray:fetchedObjects];
@@ -332,56 +342,16 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 
 -(void)fetchLocalDataForListWithRadius:(NSNumber *)radius{
 
-    if (self.tableViewDataSource) {
-        self.tableViewDataSource = nil;
-    }
+    self.tableViewDataSource = nil;
     self.tableViewDataSource = [NSMutableArray array];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSDictionary *dictionary = [Helper userLocation];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
     
-    //sort descriptor
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    // Specify criteria for filtering which objects to fetch
-    //1 mile = 1609 meters
-    NSPredicate *predicate2;
-    if (IS_RES_MARKT) {
-        NSDictionary *dictionary = [Helper userLocation];
-        if (dictionary) {
-            CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-            
-            MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
-            predicate2 = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-        }
-    }
-
-    // Filter bad content
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
-    
-    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[Helper getParseClassNameForCategoryName:self.categoryName]];
-    if (predicate2) {
-        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,predicate2,excludeBadContent]];
-        fetchRequest.predicate = compoundPredicate;
-    }else{
-        NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1,excludeBadContent]];
-        fetchRequest.predicate = compoundPredicate;
-    }
-    
-    // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
-                                                                   ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    //
-    fetchRequest.fetchLimit = FETCH_COUNT;
-    fetchRequest.fetchOffset = self.tableViewDataSource.count;
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region];
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
     if (fetchedObjects.count>0) {
-        
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
         [self.tableView reloadData];
     }
@@ -402,16 +372,14 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
     }
     self.pfQuery = [[PFQuery alloc] initWithClassName:parseClassName];
     //latest post goes to the top.
-    [self.pfQuery orderByDescending:@"createdAt"];
+    [self.pfQuery orderByAscending:@"name"];
 
     if (IS_RES_MARKT) {
         [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
     } else{
         [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
     }
-    
-    self.pfQuery.limit = FETCH_COUNT;
-//    self.pfQuery.skip = self.tableViewDataSource.count;
+
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error && objects>0) {
@@ -484,7 +452,7 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
     
     //job and trade doesnt require location information
     if (IS_RES_MARKT && (self.tableViewDataSource == nil || self.tableViewDataSource.count == 0)) {
-        NSNumber *rememberedRadius = [[NSUserDefaults standardUserDefaults] objectForKey:kDataDisplayRadiusKey];
+        NSNumber *rememberedRadius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
         [self fetchServerDataForListAroundCenter:location.coordinate raidus:rememberedRadius];
     }
 }
@@ -554,7 +522,7 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
+    if (section==0 && IS_RES_MARKT) {
         return self.headerView;
     }else{
         return nil;
@@ -562,7 +530,7 @@ static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0 && ![self.categoryName isEqualToString:@"Jobs"]) {
+    if (section==0 && IS_RES_MARKT) {
         return 40.0f;
     } else {
         return 0;
