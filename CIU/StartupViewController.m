@@ -29,7 +29,6 @@ NS_ENUM(NSUInteger, SideBarStatus){
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIImageView *blurView;
 
-
 @end
 
 @implementation StartupViewController
@@ -47,43 +46,6 @@ NS_ENUM(NSUInteger, SideBarStatus){
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
-    
-    
-//    for (int i = 0; i < 19; i++) {
-//        PFObject *event = [PFObject objectWithClassName:@"Event"];
-//        event[@"eventName"] = [NSString stringWithFormat:@"Thanks giving + %d",i];
-//        event[@"eventLocation"] = @"New York";
-//        event[@"eventDate"] = [NSDate date];
-//        event[@"eventContent"] = @"Thanks giving";
-//        event[@"latitude"] = @40.758105;
-//        event[@"longitude"] = @(-73.967006);
-//        event[@"isBadContent"] = @NO;
-//        event[@"senderFirstName"] = @"Test";
-//        event[@"senderLastName"] = @"Test";
-//        event[@"senderUsername"] = @"username";
-//        [event saveEventually];
-//    }
-    
-//    for (int i = 0; i < 19; i++) {
-//        PFObject *event = [PFObject objectWithClassName:@"Surprise"];
-//        event[@"anonymous"] = @NO;
-//        event[@"message"] = [NSString stringWithFormat:@"Testing %d", i];
-//        event[@"latitude"] = @40.758105;
-//        event[@"longitude"] = @(-73.967006);
-//        event[@"isBadContent"] = @NO;
-//        event[@"posterFirstName"] = @"Test";
-//        event[@"posterLastName"] = @"Test";
-//        event[@"posterUsername"] = @"username";
-//        [event saveEventually];
-//    }
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    //this is just a hot fix. need to think about the flow.
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -104,7 +66,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 -(void)reloadTableView{
-    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Log out", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Terms of Use",@"Privacy Policy",@"免责声明",@"Log out", nil];
     [self.tableView reloadData];
 }
 
@@ -265,6 +227,21 @@ NS_ENUM(NSUInteger, SideBarStatus){
     //share this app
     else if(indexPath.row == 4){
         [self shareToFacebook];
+    }
+    //Terms of Use
+    else if (indexPath.row == 5){
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"termsOfUse"];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    //Privacy Policy
+    else if (indexPath.row == 6){
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"privacyPolicy"];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    //免责声明
+    else if (indexPath.row == 7){
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"mianZeShengMing"];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     //log out
     else {

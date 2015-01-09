@@ -22,7 +22,10 @@ static float const kLocalFetchCount = 20;
 static NSString *managedObjectName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate>
+static NSInteger const kEventDisclaimerAlertTag = 50;
+static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
+
+@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -77,6 +80,11 @@ static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请您务必理解并同意，CIU仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+        [alert show];
+    }
     
     [self addRefreshControll];
     
@@ -299,6 +307,16 @@ static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
             [audit saveEventually];
         }
     }];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == kEventDisclaimerAlertTag) {
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kEventDisclaimerKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 @end
