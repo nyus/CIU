@@ -24,7 +24,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);

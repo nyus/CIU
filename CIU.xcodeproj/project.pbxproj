@@ -41,6 +41,9 @@
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
+		5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D71A64C1A400275F2B /* libAdIdAccess.a */; };
+		5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */; };
+		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
@@ -171,8 +174,22 @@
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
 		504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobTradeTableViewCell.m; sourceTree = "<group>"; };
+		504C7BB31A64C0A300E9C6B8 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		504C7BB41A64C0A300E9C6B8 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		504C7BB51A64C0A300E9C6B8 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		504C7BB61A64C0A300E9C6B8 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		504C7BB71A64C0A300E9C6B8 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		504C7BB81A64C0A300E9C6B8 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		504C7BB91A64C0A300E9C6B8 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		504C7BBA1A64C0A300E9C6B8 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		504C7BBB1A64C0A300E9C6B8 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		504C7BBC1A64C0A300E9C6B8 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
+		5063E9D71A64C1A400275F2B /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdIdAccess.a; sourceTree = "<group>"; };
+		5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
+		5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAnalyticsManager.m; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
@@ -293,16 +310,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5040548219A6CFA50050853A /* libz.dylib in Frameworks */,
 				6564F24419A7835000629B48 /* MapKit.framework in Frameworks */,
 				5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */,
 				5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */,
 				5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */,
-				5040548219A6CFA50050853A /* libz.dylib in Frameworks */,
 				5040548019A6CF9F0050853A /* CoreLocation.framework in Frameworks */,
 				652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */,
 				5040547E19A6CF960050853A /* CFNetwork.framework in Frameworks */,
 				5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */,
+				5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */,
 				5040547A19A6CF690050853A /* Security.framework in Frameworks */,
+				5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */,
 				5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */,
 				501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */,
 				652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */,
@@ -385,6 +404,25 @@
 			name = Surprise;
 			sourceTree = "<group>";
 		};
+		504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				5063E9D71A64C1A400275F2B /* libAdIdAccess.a */,
+				5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */,
+				504C7BB31A64C0A300E9C6B8 /* GAI.h */,
+				504C7BB41A64C0A300E9C6B8 /* GAIDictionaryBuilder.h */,
+				504C7BB51A64C0A300E9C6B8 /* GAIEcommerceFields.h */,
+				504C7BB61A64C0A300E9C6B8 /* GAIEcommerceProduct.h */,
+				504C7BB71A64C0A300E9C6B8 /* GAIEcommerceProductAction.h */,
+				504C7BB81A64C0A300E9C6B8 /* GAIEcommercePromotion.h */,
+				504C7BB91A64C0A300E9C6B8 /* GAIFields.h */,
+				504C7BBA1A64C0A300E9C6B8 /* GAILogger.h */,
+				504C7BBB1A64C0A300E9C6B8 /* GAITrackedViewController.h */,
+				504C7BBC1A64C0A300E9C6B8 /* GAITracker.h */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +452,8 @@
 				5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */,
 				504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */,
 				504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */,
+				5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */,
+				5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -491,6 +531,7 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */,
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
@@ -775,6 +816,7 @@
 				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsViewController.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
+				5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInViewController.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
@@ -918,9 +960,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)/GoogleAnalytics/",
+				);
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoogleAnalytics",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
 				WRAPPER_EXTENSION = app;
@@ -941,9 +991,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)/GoogleAnalytics/",
+				);
 				INFOPLIST_FILE = "CIU/CIU-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoogleAnalytics",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";
 				WRAPPER_EXTENSION = app;

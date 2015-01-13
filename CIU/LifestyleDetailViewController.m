@@ -163,6 +163,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
                    forControlEvents:UIControlEventValueChanged];
         self.segmentedControl.selectedSegmentIndex = 0;
         self.navigationItem.titleView = self.segmentedControl;
+        
+        [[GAnalyticsManager shareManager] trackScreen:IS_RESTAURANT ? @"Restaurant" : @"SuperMarket"];
+        
     }else if (IS_JOB_TRADE) {
         
         if (IS_JOB) {
@@ -178,6 +181,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             }
             self.title = @"Trade & Sell";
         }
+        
+        [[GAnalyticsManager shareManager] trackScreen:IS_JOB ? @"Job" : @"Trade & Sell"];
         
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
         self.navigationItem.rightBarButtonItem = rightItem;

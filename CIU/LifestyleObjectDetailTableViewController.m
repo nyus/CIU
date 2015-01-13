@@ -31,6 +31,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([self.lifestyleObject.category isEqualToString:@"Supermarket"]) {
+        [[GAnalyticsManager shareManager] trackScreen:@"Supermarket Detail"];
+    } else {
+        [[GAnalyticsManager shareManager] trackScreen:@"Restaurant Detail"];
+    }
     [self buildDataSource];
     [self syncWithServer];
 }

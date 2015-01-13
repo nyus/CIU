@@ -47,7 +47,9 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [[GAnalyticsManager shareManager] trackScreen:@"Compose Surprise"];
+    
     [self configureTextView];
     
     if (!IS_4_INCH_SCREEN) {
@@ -121,16 +123,6 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 -(void)changeTextViewHeightToFitPhoto{
     
-//    if (IS_4_INCH_SCREEN) {
-//        self.textViewHeightConstraint.constant = 180;
-//    } else if (IS_4_7_INCH_SCREEN) {
-//        self.textViewHeightConstraint.constant = 111;
-//    } else if (IS_5_5_INCH_SCREEN) {
-//        self.textViewHeightConstraint.constant = 111;
-//    } else {
-//        self.textViewHeightConstraint.constant = 46;
-//    }
-//
     self.textViewBottomSpaceToOptionsViewConstraint.constant = self.collectionView.frame.size.height;
     [self.view layoutIfNeeded];
     [self scrollTextViewToShowCursor];

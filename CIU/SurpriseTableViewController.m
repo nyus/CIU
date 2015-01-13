@@ -62,8 +62,7 @@ static NSString *const kEntityName = @"StatusObject";
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    
+    [[GAnalyticsManager shareManager] trackScreen:@"View Surprise"];
     if (![[NSUserDefaults standardUserDefaults] objectForKey:kSurpriseDisclaimerKey]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，Surprise是一个分享美好事物的地方！不是一个约Pao、政治和生意平台，所以严禁淫秽、暴力、广告以及各种违法内容喔！也欢迎大家点击下方的感叹号图标进行举报！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
         alert.tag = kSurpriseDisclaimerAlertTag;

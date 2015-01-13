@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[GAnalyticsManager shareManager] trackScreen:@"Comment Surprise View"];
     isLoading = YES;
 }
 
