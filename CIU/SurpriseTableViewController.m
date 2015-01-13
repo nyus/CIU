@@ -423,7 +423,7 @@ static NSString *const kEntityName = @"StatusObject";
 #pragma mark - SurpriseTableViewCellDelegate
 
 -(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell{
-    
+    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"to comment view" value:nil];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];

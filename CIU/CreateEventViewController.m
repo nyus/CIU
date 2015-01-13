@@ -224,6 +224,8 @@
                         [alert show];
                     });
                 }
+                
+                [[GAnalyticsManager shareManager] trackUIAction:@"publish event" label:[NSString stringWithFormat:@"event location:%f %f",location.coordinate.latitude, location.coordinate.longitude] value:nil];
             }];
         }else{
             //verify location
@@ -264,9 +266,6 @@
                             [text appendFormat:@"%@",dict[@"State"]];
                         }
 
-//                        for (NSString *string in dict[@"FormattedAddressLines"]) {
-//                            [text appendFormat:@"%@ ",string];
-//                        }
                         [self.optionsTBViewDatasource addObject:text];
                     }
                     [self.optionsTBView reloadData];

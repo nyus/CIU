@@ -260,6 +260,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         LifestyleCategory *category = self.dataSource[indexPath.row];
         LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
         vc.categoryName = category.name;
+        [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
     }
 }
 

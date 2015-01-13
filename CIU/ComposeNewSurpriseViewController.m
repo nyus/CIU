@@ -195,6 +195,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
             if (dictionary) {
                 newStatus[@"latitude"] = dictionary[@"latitude"];
                 newStatus[@"longitude"] = dictionary[@"longitude"];
+                [[GAnalyticsManager shareManager] trackUIAction:@"compose new surprise" label:[NSString stringWithFormat:@"location:%f %f", [dictionary[@"latitude"] floatValue], [dictionary[@"longitude"] floatValue]] value:nil];
             }
             
             NSString *photoID;

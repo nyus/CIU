@@ -66,6 +66,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             });
+            
+            [[GAnalyticsManager shareManager] trackUIAction:[NSString stringWithFormat:@"publish %@",parseClassName] label:nil value:nil];
+            
         }else{
             if (![Reachability canReachInternet]) {
                 dispatch_async(dispatch_get_main_queue(), ^{

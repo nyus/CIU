@@ -62,6 +62,7 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 {
     if (!_headerView) {
         _headerView = [[DisplayPeripheralHeaderView alloc] initWithStepValue:[self eventRadius] minimunStepValue:@5 maximunStepValue:@80 actionBlock:^(double newValue) {
+            [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:@"event" value:@(newValue)];
             [self setEventRadius:@(newValue)];
             [self handleDataDisplayPeripheral];
         }];

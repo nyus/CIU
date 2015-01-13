@@ -145,6 +145,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 - (void)reSearchButtonTapped:(UIButton *)reSearchButton
 {
+    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"Redo search in map" value:nil];
     [self fetchLocalDataWithRegion:self.mapView.region];
     [self fetchServerDataWithRegion:self.mapView.region];
 }
@@ -234,6 +235,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             self.tableView.alpha = 1.0f;
             self.mapView.alpha = 0.0f;
         }];
+        [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect" label:IS_RESTAURANT ? @"Restaurant-list" : @"Supermarket-list" value:nil];
     }else{
     //map view
         self.mapView.showsUserLocation = YES;
@@ -241,6 +243,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             self.tableView.alpha = 0.0f;
             self.mapView.alpha = 1.0f;
         }];
+        [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect" label:IS_RESTAURANT ? @"Restaurant-map" : @"Supermarket-map" value:nil];
     }
 }
 
@@ -440,6 +443,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 -(void)handleDataDisplayPeripheral:(double)newValue{
+    [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:IS_RESTAURANT ? @"Restaurant" : @"Supermarket" value:@(newValue)];
     if (![Reachability canReachInternet]) {
         [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue]];
     } else {
