@@ -44,6 +44,7 @@
 		5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D71A64C1A400275F2B /* libAdIdAccess.a */; };
 		5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
+		5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */; };
 		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
@@ -190,6 +191,8 @@
 		5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
 		5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAnalyticsManager.m; sourceTree = "<group>"; };
+		5063E9DF1A65F73000275F2B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
@@ -310,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */,
 				5040548219A6CFA50050853A /* libz.dylib in Frameworks */,
 				6564F24419A7835000629B48 /* MapKit.framework in Frameworks */,
 				5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */,
@@ -423,6 +427,15 @@
 			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
+		5063E9DE1A65F73000275F2B /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				5063E9DF1A65F73000275F2B /* Flurry.h */,
+				5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +544,7 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5063E9DE1A65F73000275F2B /* Flurry */,
 				504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */,
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
@@ -970,6 +984,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
@@ -1001,6 +1016,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";

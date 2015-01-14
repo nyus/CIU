@@ -86,6 +86,18 @@ static NSString *const kEntityName = @"StatusObject";
     self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Flurry logEvent:@"View surprise" timed:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:@"View surprise" withParameters:nil];
+}
+
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -424,6 +436,7 @@ static NSString *const kEntityName = @"StatusObject";
 
 -(void)commentButtonTappedOnCell:(SurpriseTableViewCell *)cell{
     [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"to comment view" value:nil];
+    [Flurry logEvent:@"Comment button tapped"];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     selectedPath = indexPath;
     [self performSegueWithIdentifier:@"toCommentView" sender:cell];

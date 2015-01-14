@@ -33,7 +33,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [Flurry logEvent:[NSString stringWithFormat:@"View compose %@",self.categoryName] timed:YES];
     [self.textView becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:[NSString stringWithFormat:@"View compose %@",self.categoryName] withParameters:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,6 +74,7 @@
             });
             
             [[GAnalyticsManager shareManager] trackUIAction:[NSString stringWithFormat:@"publish %@",parseClassName] label:nil value:nil];
+            [Flurry logEvent:[NSString stringWithFormat:@"publish %@",parseClassName]];
             
         }else{
             if (![Reachability canReachInternet]) {

@@ -261,6 +261,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
         vc.categoryName = category.name;
         [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
+        [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];
     }
 }
 

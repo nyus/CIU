@@ -56,6 +56,18 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Flurry logEvent:[NSString stringWithFormat:@"View %@ detail",self.lifestyleObject.category] timed:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:[NSString stringWithFormat:@"View %@ detail",self.lifestyleObject.category] withParameters:nil];
+}
+
 -(void)buildDataSource{
     
     self.dataSource = [NSMutableArray array];

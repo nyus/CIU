@@ -145,7 +145,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 - (void)reSearchButtonTapped:(UIButton *)reSearchButton
 {
-    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"Redo search in map" value:nil];
+    
+    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:[NSString stringWithFormat:@"%@-Redo search in map", IS_RESTAURANT ? @"Restaurant" : @"Supermarket"] value:nil];
+    [Flurry logEvent:[NSString stringWithFormat:@"%@-Redo search in map", IS_RESTAURANT ? @"Restaurant" : @"Supermarket"]];
     [self fetchLocalDataWithRegion:self.mapView.region];
     [self fetchServerDataWithRegion:self.mapView.region];
 }
@@ -214,11 +216,29 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (IS_RESTAURANT) {
+        [Flurry logEvent:@"View restaurant" timed:YES];
+    }else if (IS_MARKET){
+        [Flurry logEvent:@"View supermarket" timed:YES];
+    }else if (IS_JOB){
+        [Flurry logEvent:@"View job" timed:YES];
+    }else{
+        [Flurry logEvent:@"View trade and sell" timed:YES];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.mapView.showsUserLocation = NO;
+    if (IS_RESTAURANT) {
+        [Flurry endTimedEvent:@"View restaurant" withParameters:nil];
+    }else if (IS_MARKET){
+        [Flurry endTimedEvent:@"View supermarket" withParameters:nil];
+    }else if (IS_JOB){
+        [Flurry endTimedEvent:@"View job" withParameters:nil];
+    }else{
+        [Flurry endTimedEvent:@"View trade and sell" withParameters:nil];
+    }
 }
 
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
@@ -236,6 +256,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             self.mapView.alpha = 0.0f;
         }];
         [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect" label:IS_RESTAURANT ? @"Restaurant-list" : @"Supermarket-list" value:nil];
+        [Flurry logEvent:@"Switch to list view" withParameters:@{@"screen":IS_RESTAURANT ? @"Restaurant" : @"Supermarket"}];
     }else{
     //map view
         self.mapView.showsUserLocation = YES;
@@ -244,6 +265,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             self.mapView.alpha = 1.0f;
         }];
         [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect" label:IS_RESTAURANT ? @"Restaurant-map" : @"Supermarket-map" value:nil];
+        [Flurry logEvent:@"Switch to map view" withParameters:@{@"screen":IS_RESTAURANT ? @"Restaurant" : @"Supermarket"}];
     }
 }
 
@@ -444,6 +466,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)handleDataDisplayPeripheral:(double)newValue{
     [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:IS_RESTAURANT ? @"Restaurant" : @"Supermarket" value:@(newValue)];
+    [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius",IS_RESTAURANT ? @"Restaurant" : @"Supermarket"] withParameters:@{@"radius":@(newValue)}];
     if (![Reachability canReachInternet]) {
         [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue]];
     } else {

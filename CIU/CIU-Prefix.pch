@@ -33,4 +33,5 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "GAnalyticsManager.h"
+    #import "Flurry.h"
 #endif

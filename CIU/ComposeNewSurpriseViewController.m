@@ -67,6 +67,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [Flurry logEvent:@"View compose surprise" timed:YES];
     [self.textView layoutIfNeeded];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -74,6 +75,8 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:@"View compose surprise" withParameters:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -196,6 +199,8 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
                 newStatus[@"latitude"] = dictionary[@"latitude"];
                 newStatus[@"longitude"] = dictionary[@"longitude"];
                 [[GAnalyticsManager shareManager] trackUIAction:@"compose new surprise" label:[NSString stringWithFormat:@"location:%f %f", [dictionary[@"latitude"] floatValue], [dictionary[@"longitude"] floatValue]] value:nil];
+                [Flurry logEvent:@"Compose new surprise" withParameters:@{@"latitude":@([dictionary[@"latitude"] floatValue]),
+                                                                          @"longitude":@([dictionary[@"longitude"] floatValue])}];
             }
             
             NSString *photoID;

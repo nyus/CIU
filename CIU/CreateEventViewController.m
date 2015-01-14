@@ -49,12 +49,14 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [Flurry logEvent:@"View create event" timed:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:@"View create event" withParameters:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -226,6 +228,8 @@
                 }
                 
                 [[GAnalyticsManager shareManager] trackUIAction:@"publish event" label:[NSString stringWithFormat:@"event location:%f %f",location.coordinate.latitude, location.coordinate.longitude] value:nil];
+                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude":@(location.coordinate.latitude),
+                                                                   @"longitude":@(location.coordinate.longitude)}];
             }];
         }else{
             //verify location

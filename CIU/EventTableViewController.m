@@ -62,7 +62,8 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 {
     if (!_headerView) {
         _headerView = [[DisplayPeripheralHeaderView alloc] initWithStepValue:[self eventRadius] minimunStepValue:@5 maximunStepValue:@80 actionBlock:^(double newValue) {
-            [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:@"event" value:@(newValue)];
+            [[GAnalyticsManager shareManager] trackUIAction:@"event - change display radius" label:@"event" value:@(newValue)];
+            [Flurry logEvent:@"event - change display radius" withParameters:@{@"radius":@(newValue)}];
             [self setEventRadius:@(newValue)];
             [self handleDataDisplayPeripheral];
         }];
@@ -114,10 +115,12 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [Flurry logEvent:@"View event" timed:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:@"View event" withParameters:nil];
     self.dateFormatter = nil;
 }
 
