@@ -18,7 +18,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //Flurry
+#if DEBUG
+    [Flurry startSession:@"9W335FKZYV68CQJ7XRJ3"];
+#else
     [Flurry startSession:@"3S54CK7JG9Q8DDGVB668"];
+#endif
 
     // Google analytics
     // Optional: automatically send uncaught exceptions to Google Analytics.
