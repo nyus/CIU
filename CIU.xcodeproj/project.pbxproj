@@ -987,7 +987,7 @@
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1abc15de-ef8c-4ddb-bbbe-9a5961e50701";
+				PROVISIONING_PROFILE = "e4848d73-e86b-4ccd-9f17-e913280b0a39";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1019,7 +1019,7 @@
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "088929c8-d003-442d-bfbb-bad76ae42bc1";
+				PROVISIONING_PROFILE = "6c183413-f7f1-4f19-9d17-b49faf435e2d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
