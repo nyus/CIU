@@ -22,6 +22,7 @@
 		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
 		501F59161A4C96350077073A /* supermarket_all.json in Resources */ = {isa = PBXBuildFile; fileRef = 501F59151A4C96350077073A /* supermarket_all.json */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
+		5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */; };
 		5038A13019C47FA700D91354 /* CodeSnippets in Resources */ = {isa = PBXBuildFile; fileRef = 5038A12F19C47FA600D91354 /* CodeSnippets */; };
 		503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventTableViewController.m */; };
 		503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34D19BB6D660023EC02 /* Event+Utilities.m */; };
@@ -150,6 +151,8 @@
 		501F59151A4C96350077073A /* supermarket_all.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = supermarket_all.json; path = "../../Desktop/CIU Builds/supermarket_all.json"; sourceTree = "<group>"; };
 		5022BE761A0574CE0017170E /* DisplayPeripheralHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayPeripheralHeaderView.h; sourceTree = "<group>"; };
 		5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayPeripheralHeaderView.m; sourceTree = "<group>"; };
+		5030AC171A6FEB8D00A45ABA /* TermsAndPrivacyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsAndPrivacyVC.h; sourceTree = "<group>"; };
+		5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsAndPrivacyVC.m; sourceTree = "<group>"; };
 		5038A12F19C47FA600D91354 /* CodeSnippets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeSnippets; sourceTree = "<group>"; };
 		503AF34319BB678D0023EC02 /* EventTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewController.h; sourceTree = "<group>"; };
 		503AF34419BB678D0023EC02 /* EventTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewController.m; sourceTree = "<group>"; };
@@ -467,6 +470,8 @@
 				504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */,
 				5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */,
 				5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */,
+				5030AC171A6FEB8D00A45ABA /* TermsAndPrivacyVC.h */,
+				5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -792,6 +797,7 @@
 				65C4F0FD19AFBBEA004452C3 /* ELCAssetTablePicker.m in Sources */,
 				5092160E19AA463700304EDD /* LifestyleObjectDetailTableViewController.m in Sources */,
 				65C4F0FE19AFBBEA004452C3 /* ELCImagePickerController.m in Sources */,
+				5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */,
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,

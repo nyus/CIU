@@ -119,11 +119,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Tw-ZU-JoD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
@@ -664,27 +664,11 @@ Job Applications: Jobs@8MileTech.com</string>
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="700"/>
+                    <size key="freeformSize" width="320" height="568"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="640" y="669"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="P2D-lm-g0f">
-            <objects>
-                <navigationController storyboardIdentifier="termsOfUse" id="cEy-pD-YIc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3oc-dZ-aMy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="hFz-FA-fev" kind="relationship" relationship="rootViewController" id="WTG-yc-zuh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Of-1R-cOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="289" y="1373"/>
         </scene>
         <!--Terms of Use-->
         <scene sceneID="O4M-Sk-yeM">
@@ -695,7 +679,7 @@ Job Applications: Jobs@8MileTech.com</string>
                         <viewControllerLayoutGuide type="bottom" id="Wtk-N7-yiT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RJR-sE-ANi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1027"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUK-zS-DYL">
@@ -726,35 +710,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <constraint firstItem="VUK-zS-DYL" firstAttribute="leading" secondItem="RJR-sE-ANi" secondAttribute="leadingMargin" constant="-15" id="lxS-qH-heK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Terms of Use" id="ywz-Kv-4S1">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="OwH-al-FMF">
-                            <connections>
-                                <action selector="doneButtonTapped:" destination="hFz-FA-fev" id="atB-A3-FjU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Terms of Use" id="ywz-Kv-4S1"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1027"/>
+                    <size key="freeformSize" width="320" height="568"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul9-i0-RxH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640" y="1602.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="LI7-yE-7Wx">
-            <objects>
-                <navigationController storyboardIdentifier="privacyPolicy" id="oxc-Cs-JzG" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XLk-8G-tkO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="dJt-cu-X1w" kind="relationship" relationship="rootViewController" id="bRj-Fk-H3F"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aNk-lD-CGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="240" y="2224"/>
+            <point key="canvasLocation" x="240" y="1406"/>
         </scene>
         <!--Privacy Policy-->
         <scene sceneID="GxZ-pg-YOq">
@@ -765,7 +727,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <viewControllerLayoutGuide type="bottom" id="Huc-V1-zIL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Wx-wM-xhz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbd-d2-wLO">
@@ -813,35 +775,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <constraint firstItem="Mbd-d2-wLO" firstAttribute="top" secondItem="041-Qe-ger" secondAttribute="bottom" id="K6p-2J-Rv9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Privacy Policy" id="q3r-aR-rQe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="RcN-t5-dMb">
-                            <connections>
-                                <action selector="doneButtonTapped:" destination="dJt-cu-X1w" id="qq0-ag-NyO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Privacy Policy" id="q3r-aR-rQe"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="790"/>
+                    <size key="freeformSize" width="320" height="568"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hmV-UO-0GS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="619" y="2335"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="eIH-Gg-IzF">
-            <objects>
-                <navigationController storyboardIdentifier="mianZeShengMing" id="29r-gs-tNf" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tav-mK-50v">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="eiR-iz-sdm" kind="relationship" relationship="rootViewController" id="t7Q-94-fpZ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gna-u1-FGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="267" y="3077"/>
+            <point key="canvasLocation" x="598" y="1406"/>
         </scene>
         <!--免责声明-->
         <scene sceneID="H8F-mf-VyD">
@@ -855,7 +795,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-Tf-SsM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-Tf-SsM">
                                 <rect key="frame" x="0.0" y="64" width="320" height="409"/>
                                 <mutableString key="text">DADA 哒哒的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于DADA 哒哒的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
 • 用户上传至DADA 哒哒的原创信息内容视为许可本站以合理的方式使用。
@@ -872,18 +812,18 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="GyQ-Tf-SsM" secondAttribute="trailing" constant="-16" id="Shh-jS-a0F"/>
+                            <constraint firstItem="RwD-dl-T8Z" firstAttribute="top" secondItem="GyQ-Tf-SsM" secondAttribute="bottom" constant="95" id="U0N-0K-yUP"/>
+                            <constraint firstItem="GyQ-Tf-SsM" firstAttribute="leading" secondItem="eNc-GR-cX0" secondAttribute="leadingMargin" constant="-16" id="b4d-oa-iiC"/>
+                            <constraint firstItem="GyQ-Tf-SsM" firstAttribute="top" secondItem="Hhn-85-hzE" secondAttribute="bottom" id="wvd-Hg-7OW"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="免责声明" id="K63-Dr-oBc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="B0F-5s-Y6m">
-                            <connections>
-                                <action selector="doneButtonTapped:" destination="eiR-iz-sdm" id="so8-EH-GiU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="免责声明" id="K63-Dr-oBc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLJ-73-cd1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="624" y="3077"/>
+            <point key="canvasLocation" x="955" y="1406"/>
         </scene>
         <!--Tabbar Controller-->
         <scene sceneID="4Gv-fu-ca5">
@@ -2604,6 +2544,104 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-Sc-EEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1399" y="753"/>
+        </scene>
+        <!--Terms & Privacy-->
+        <scene sceneID="1Ba-aU-8iH">
+            <objects>
+                <tableViewController id="G9E-H2-4M2" customClass="TermsAndPrivacyVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Rso-Mt-ABJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="" id="YJO-s7-Pgo">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="4Wd-HC-TjV">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Wd-HC-TjV" id="glg-pm-4hR">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Terms of Use" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZG-Un-f6w">
+                                                    <rect key="frame" x="20" y="11" width="101" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="hFz-FA-fev" kind="push" id="vgI-Rn-5pm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="oEV-Sp-Agh">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oEV-Sp-Agh" id="Pca-PY-Z0c">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Privacy Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhQ-kn-7Et">
+                                                    <rect key="frame" x="22" y="11" width="108" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="dJt-cu-X1w" kind="push" id="dfu-9z-aKc"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="LfB-v7-h8h">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LfB-v7-h8h" id="PJp-lc-34O">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="免责声明" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nG-Ln-SJY">
+                                                    <rect key="frame" x="23" y="11" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="eiR-iz-sdm" kind="push" id="Lc4-BA-bpI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="G9E-H2-4M2" id="opc-3l-6E7"/>
+                            <outlet property="delegate" destination="G9E-H2-4M2" id="fLs-do-rJk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Terms &amp; Privacy" id="rF4-RC-ZAH">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="IXm-3s-J0l">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="G9E-H2-4M2" id="ThB-9C-BQc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5EB-2R-6Fl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-127" y="1406"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zJe-IV-N3j">
+            <objects>
+                <navigationController storyboardIdentifier="termsAndPrivacy" id="DN7-5m-OGR" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ReR-1Q-JTU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="G9E-H2-4M2" kind="relationship" relationship="rootViewController" id="qSS-5v-4xp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wZ2-St-ttu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-537" y="1406"/>
         </scene>
     </scenes>
     <resources>

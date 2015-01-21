@@ -66,10 +66,10 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 -(void)reloadTableView{
-    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Terms of Use",@"Privacy Policy",@"免责声明",@"Log out", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Terms of Use",@"Log out", nil];
     [self.tableView reloadData];
 }
-
+ 
 - (IBAction)handlePanContainerView:(UIPanGestureRecognizer *)sender {
    CGPoint point = [sender translationInView:self.view];
     float deltaX = point.x - previousPoint.x;
@@ -230,17 +230,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
     }
     //Terms of Use
     else if (indexPath.row == 5){
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"termsOfUse"];
-        [self presentViewController:vc animated:YES completion:nil];
-    }
-    //Privacy Policy
-    else if (indexPath.row == 6){
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"privacyPolicy"];
-        [self presentViewController:vc animated:YES completion:nil];
-    }
-    //免责声明
-    else if (indexPath.row == 7){
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"mianZeShengMing"];
+        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"termsAndPrivacy"];
         [self presentViewController:vc animated:YES completion:nil];
     }
     //log out
