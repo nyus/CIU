@@ -122,8 +122,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="660"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
@@ -135,7 +135,7 @@
                                                     <constraint firstAttribute="width" constant="80" id="piO-iq-Xb4"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在CIU！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在Dada 哒哒！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
                                                 <rect key="frame" x="37" y="109" width="246" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="246" id="Cnh-1d-oTt"/>
@@ -152,7 +152,7 @@
                                                     <constraint firstAttribute="width" constant="301" id="PHR-BW-wt7"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="CIU">
+                                                    <fragment content="DaDa ">
                                                         <attributes>
                                                             <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
@@ -161,20 +161,12 @@
                                                             <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content=" ">
+                                                    <fragment content="哒哒">
                                                         <attributes>
                                                             <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <font key="NSFont" size="16" name="STSongti-SC-Bold"/>
                                                             <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="(Chinese in USA)">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name=".LucidaGrandeUI"/>
-                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="16" name="TimesNewRomanPS-BoldMT"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
                                                             <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
@@ -189,7 +181,24 @@
                                                         </attributes>
                                                     </fragment>
                                                     <fragment>
-                                                        <string key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, CIU is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
+                                                        <string key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, Dada </string>
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="哒哒">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="STSongti-SC-Regular"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="12" name="TimesNewRomanPSMT"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.">
                                                         <attributes>
                                                             <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
                                                             <real key="NSKern" value="0.0"/>
@@ -208,13 +217,20 @@
                                                     <constraint firstAttribute="height" constant="216" id="9E6-vU-q26"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="CIU">
+                                                    <fragment content="DaDa ">
                                                         <attributes>
                                                             <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="哒哒">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="STSongti-SC-Bold"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment content=" ">
@@ -652,7 +668,7 @@ Job Applications: Jobs@8MileTech.com</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640" y="669.5"/>
+            <point key="canvasLocation" x="640" y="669"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="P2D-lm-g0f">
@@ -688,17 +704,17 @@ Job Applications: Jobs@8MileTech.com</string>
                                     <constraint firstAttribute="width" constant="320" id="1yW-Pq-Zub"/>
                                     <constraint firstAttribute="height" constant="960" id="zs7-JJ-ffD"/>
                                 </constraints>
-                                <string key="text">WELCOME TO CIU (Chinese in USA). We hope you live better with CIU. By accessing our servers, websites, or content therefrom (together, "CIU"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
-LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access CIU in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from CIU, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
-USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with CIU, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
-MODERATION. You agree we may moderate CIU access and use in our sole discretion, e.g. by blocking (e.g. IP addresses), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not. All site rules, e.g. CIU/about/prohibited, are incorporated herein.
-SALES. You authorize us to charge your account for CIU fees. Unless noted, fees are in US dollars; tax is additional. To the extent permitted by law, fees are nonrefundable, even for posts we remove. We may refuse purchases, which may place a hold on your account.
+                                <mutableString key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
+LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access DaDa in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from DaDa, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
+USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with DaDa, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
+MODERATION. You agree we may moderate DaDa access and use in our sole discretion, e.g. by blocking (e.g. IP addresses), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not. All site rules, e.g. DaDa/about/prohibited, are incorporated herein.
+SALES. You authorize us to charge your account for DaDa fees. Unless noted, fees are in US dollars; tax is additional. To the extent permitted by law, fees are nonrefundable, even for posts we remove. We may refuse purchases, which may place a hold on your account.
 DISCLAIMER. MANY JURISDICTIONS HAVE LAWS PROTECTING CONSUMERS AND OTHER CONTRACT PARTIES, LIMITING THEIR ABILITY TO WAIVE CERTAIN RIGHTS AND RESPONSIBILITIES. WE RESPECT SUCH LAWS; NOTHING HEREIN SHALL WAIVE RIGHTS OR RESPONSIBILITIES THAT CANNOT BE WAIVED.
-To the extent permitted by law, (1) we make no promise as to CIU, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and CIU is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your CIU use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("CIU ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) CIU ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); (6) IN NO EVENT SHALL OUR TOTAL LIABILITY EXCEED $100 OR WHAT YOU PAID US IN THE PAST YEAR.
+To the extent permitted by law, (1) we make no promise as to DaDa, its completeness, accuracy, availability, timeliness, propriety, security or reliability; (2) your access and use are at your own risk, and DaDa is provided "AS IS" and "AS AVAILABLE"; (3) we are not liable for any harm resulting from (a) user content; (b) user conduct, e.g. illegal conduct; (c) your DaDa use; or (d) our representations; (4) WE AND OUR OFFICERS, DIRECTORS, EMPLOYEES ("DaDa ENTITIES"), DISCLAIM ALL WARRANTIES &amp; CONDITIONS, EXPRESS OR IMPLIED, OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, OR NON-INFRINGEMENT; (5) DaDa ENTITIES ARE NOT LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS (E.G. OF PROFIT, REVENUE, DATA, OR GOODWILL); (6) IN NO EVENT SHALL OUR TOTAL LIABILITY EXCEED $100 OR WHAT YOU PAID US IN THE PAST YEAR.
 
 
-CLAIMS. You agree (1) any claim, cause of action or dispute ("Claim") arising out of or related to the TOU or your CIU use is governed by Michigan ("MI") law regardless of your location or any conflict or choice of law principle; (2) Claims must be resolved exclusively by state or federal court in Michigan (except we may seek injunctive remedy anywhere); (3) to submit to personal jurisdiction of said courts; (4) any Claim must be filed by 1 year after it arose or be forever barred; (5) not to bring or take part in a class action against CIU Entities; (6) (except government agencies) to indemnify CIU Entities for any damage, loss, and expense (e.g. legal fees) arising from claims related to your CIU use; (7) you are liable for TOU breaches by affiliates (e.g. marketers) paid by you, directly or indirectly (e.g. through an affiliate network); and (8) to pay us for breaching or inducing others to breach the "USE" section, not as a penalty, but as a reasonable estimate of our damages (actual damages are often hard to calculate): $0.10 per server request, $1 per post, email, flag, or account created, $1 per item of PI collected, and $1000 per software distribution, capped at $25,000 per day.
-MISC. Users complying with prior written licenses may access CIU thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data.</string>
+CLAIMS. You agree (1) any claim, cause of action or dispute ("Claim") arising out of or related to the TOU or your DaDa use is governed by Michigan ("MI") law regardless of your location or any conflict or choice of law principle; (2) Claims must be resolved exclusively by state or federal court in Michigan (except we may seek injunctive remedy anywhere); (3) to submit to personal jurisdiction of said courts; (4) any Claim must be filed by 1 year after it arose or be forever barred; (5) not to bring or take part in a class action against DaDa Entities; (6) (except government agencies) to indemnify DaDa Entities for any damage, loss, and expense (e.g. legal fees) arising from claims related to your DaDa use; (7) you are liable for TOU breaches by affiliates (e.g. marketers) paid by you, directly or indirectly (e.g. through an affiliate network); and (8) to pay us for breaching or inducing others to breach the "USE" section, not as a penalty, but as a reasonable estimate of our damages (actual damages are often hard to calculate): $0.10 per server request, $1 per post, email, flag, or account created, $1 per item of PI collected, and $1000 per software distribution, capped at $25,000 per day.
+MISC. Users complying with prior written licenses may access DaDa thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -758,16 +774,16 @@ MISC. Users complying with prior written licenses may access CIU thereby until a
                                     <constraint firstAttribute="height" constant="675" id="T6L-TP-sRn"/>
                                     <constraint firstAttribute="width" constant="320" id="kKq-y9-uJW"/>
                                 </constraints>
-                                <string key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "CIU") or otherwise interact with us. If we update it, we will revise the date, place notices on CIU if a change is material, and/or obtain your consent as required by law.
+                                <mutableString key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
 1. Protecting your privacy
 - We take precautions to prevent unauthorized access to or misuse of data about you.
 - We do not share your data with third parties for marketing purposes.
 - We do not send you unsolicited communications for marketing purposes.
-- We do not engage in affiliate marketing (and prohibit it on CIU).
+- We do not engage in affiliate marketing (and prohibit it on DaDa).
 - We do provide email proxy &amp; relay to reduce unwanted mail.
-- CIU links to third party sites - please review their privacy policies.
+- DaDa links to third party sites - please review their privacy policies.
 2. Data we use to provide/improve our services and/or combat fraud/abuse:
-- Data you post on CIU, or send us directly or via other sites. Please do not post private data.
+- Data you post on DaDa, or send us directly or via other sites. Please do not post private data.
 - Credit card data, which is transmitted to payment processors via a security protocol (e.g. SSL).
 - Data you provide (e.g. email address, name, address, phone, fax, photos, tax ID).
 - Web log data (e.g. pages viewed, access times, IP address, HTTP headers).
@@ -785,7 +801,7 @@ MISC. Users complying with prior written licenses may access CIU thereby until a
 - With your consent (e.g. if you authorize us to share data with other users).
 - In connection with a merger, bankruptcy, or sale/transfer of assets to another company.
 - In aggregate or summary form, as long as it cannot reasonably be used to identify you.
-International Users - By visiting/using CIU or providing us data, you agree we may use and disclose data we collect for purposes listed here or as communicated to you, transmit it outside your resident jurisdiction, and store it on servers in the United States. For more information please contact our privacy officer at privacy@8MileTech.com</string>
+- International Users - By visiting/using DaDa or providing us data, you agree we may use and disclose data we collect for purposes listed here or as communicated to you, transmit it outside your resident jurisdiction, and store it on servers in the United States. For more information please contact our privacy officer at privacy@8MileTech.com</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -841,15 +857,15 @@ International Users - By visiting/using CIU or providing us data, you agree we 
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-Tf-SsM">
                                 <rect key="frame" x="0.0" y="64" width="320" height="409"/>
-                                <string key="text">CIU的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于CIU的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
-• 用户上传至CIU的原创信息内容视为许可本站以合理的方式使用。
-• 用户在CIU平台上传的信息内容仅代表用户或作者个人观点，与本公司立场无关。用户自行承担其上传的信息内容产生的一切法律责任。
-• CIU 手机平台以及网站所刊载的文章资料、图片、图表仅供参考使用。本站所刊载的内容，并不代表同意其说法或描述，仅为提供更多信息，也不构成任何投资建议。
-• 当CIU以链接形式推荐其他网站内容时，由于CIU并不控制相关网站和资源，因此访问者需理解并同意，我们并不对这些网站或资源的可用性负责，且不保证从这些网站获取的任何内容、产品、服务或其他材料的真实性、合法性，对于任何因使用或信赖从此类网站或资源上获取的内容、产品、服务或其他材料而造成（或声称造成）的任何直接或间接损失，本公司均不承担任何责任。
+                                <mutableString key="text">DADA 哒哒的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于DADA 哒哒的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
+• 用户上传至DADA 哒哒的原创信息内容视为许可本站以合理的方式使用。
+• 用户在DADA 哒哒平台上传的信息内容仅代表用户或作者个人观点，与本公司立场无关。用户自行承担其上传的信息内容产生的一切法律责任。
+• DADA 哒哒 手机平台以及网站所刊载的文章资料、图片、图表仅供参考使用。本站所刊载的内容，并不代表同意其说法或描述，仅为提供更多信息，也不构成任何投资建议。
+• 当DADA 哒哒以链接形式推荐其他网站内容时，由于DADA 哒哒并不控制相关网站和资源，因此访问者需理解并同意，我们并不对这些网站或资源的可用性负责，且不保证从这些网站获取的任何内容、产品、服务或其他材料的真实性、合法性，对于任何因使用或信赖从此类网站或资源上获取的内容、产品、服务或其他材料而造成（或声称造成）的任何直接或间接损失，本公司均不承担任何责任。
 • 本站有权在手机平台和网站范围内引用、发布、转载用户在本站社区内发布的内容。
 • 本站对于用户发布的内容所引发的版权的异议、纠纷不承担任何责任。
 • 本站有权认定和删除提交者所提交的任何不符合国家相关法律、法规和政策的任何言论、文字和图片。
-• 互联网传输可能会受到干扰，中断、延迟或数据错误。对于非我站能控制的通讯设施故障可能引致的数据的不准确性或不及时性，我站不承担任何责任。</string>
+• 互联网传输可能会受到干扰，中断、延迟或数据错误。对于非我站能控制的通讯设施故障可能引致的数据的不准确性或不及时性，我站不承担任何责任</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

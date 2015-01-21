@@ -284,8 +284,8 @@ NS_ENUM(NSUInteger, SideBarStatus){
         
         // Put together the dialog parameters
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       @"CIU", @"name",
-                                       @"Let CIU make your life easier today!", @"caption",
+                                       @"DaDa 哒哒", @"name",
+                                       @"Let DaDaC make your life easier today!", @"caption",
                                        @"No. 1 App for Chinese in USA！找房子，买车子，吃中餐？还是交朋友，拼车游，参加派对？Hurry up! 熊猫DaDa带你玩转美国！", @"description",
                                        @"https://developers.facebook.com/docs/ios/share/", @"link",
                                        @"http://www.8miletech.com/wp-content/uploads/2015/01/CIU-logo-225-12.7.png", @"picture",

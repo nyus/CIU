@@ -86,7 +86,7 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
     [[GAnalyticsManager shareManager] trackScreen:@"Event"];
     
     if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请您务必理解并同意，CIU仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请您务必理解并同意，DaDa哒哒仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
         [alert show];
     }
     

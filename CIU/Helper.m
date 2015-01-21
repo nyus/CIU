@@ -276,7 +276,7 @@ static UIImagePickerController *_imagePicker;
 
         //UIApplicationOpenSettingsURLString is ios 8
         if (IS_IOS_8 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied" message:@"CIU would like to access your location information in order to display userful information around you. Please go to Settins and set location access to 'Always'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open Settings", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied" message:@"DaDa would like to access your location information in order to display userful information around you. Please go to Settins and set location access to 'Always'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open Settings", nil];
             alert.tag = 1;
             [alert show];
         } else {
