@@ -36,11 +36,11 @@
 	<key>FacebookAppID</key>
 	<string>781481095207704</string>
 	<key>FacebookDisplayName</key>
-	<string>CIU</string>
+	<string>DaDa哒哒</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>CIU would like to access your location information in order to display userful information around you.</string>
+	<string>DaDa would like to access your location information in order to display userful information around you.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

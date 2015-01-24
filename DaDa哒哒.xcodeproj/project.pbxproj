@@ -230,21 +230,21 @@
 		50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatusObject+Utilities.m"; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		652BAB7D199D3CCA009F5F5A /* CIU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaDa哒哒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		652BAB84199D3CCA009F5F5A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		652BAB88199D3CCA009F5F5A /* CIU-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIU-Info.plist"; sourceTree = "<group>"; };
+		652BAB88199D3CCA009F5F5A /* DaDa哒哒-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DaDa哒哒-Info.plist"; sourceTree = "<group>"; };
 		652BAB8A199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652BAB8C199D3CCA009F5F5A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		652BAB8E199D3CCA009F5F5A /* CIU-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CIU-Prefix.pch"; sourceTree = "<group>"; };
+		652BAB8E199D3CCA009F5F5A /* DaDa哒哒-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DaDa哒哒-Prefix.pch"; sourceTree = "<group>"; };
 		652BAB8F199D3CCA009F5F5A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		652BAB90199D3CCA009F5F5A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		652BAB93199D3CCA009F5F5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		652BAB98199D3CCA009F5F5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		652BAB9E199D3CCA009F5F5A /* CIUTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CIUTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		652BAB9E199D3CCA009F5F5A /* DaDa哒哒Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa哒哒Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB9F199D3CCA009F5F5A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		652BABA7199D3CCA009F5F5A /* CIUTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIUTests-Info.plist"; sourceTree = "<group>"; };
+		652BABA7199D3CCA009F5F5A /* DaDa哒哒Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DaDa哒哒Tests-Info.plist"; sourceTree = "<group>"; };
 		652BABA9199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652BABAB199D3CCA009F5F5A /* CIUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIUTests.m; sourceTree = "<group>"; };
 		6564F1F4199D422A00629B48 /* StartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartupViewController.h; sourceTree = "<group>"; };
@@ -540,8 +540,8 @@
 		652BAB7E199D3CCA009F5F5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				652BAB7D199D3CCA009F5F5A /* CIU.app */,
-				652BAB9E199D3CCA009F5F5A /* CIUTests.xctest */,
+				652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */,
+				652BAB9E199D3CCA009F5F5A /* DaDa哒哒Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,10 +610,10 @@
 		652BAB87199D3CCA009F5F5A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				652BAB88199D3CCA009F5F5A /* CIU-Info.plist */,
+				652BAB88199D3CCA009F5F5A /* DaDa哒哒-Info.plist */,
 				652BAB89199D3CCA009F5F5A /* InfoPlist.strings */,
 				652BAB8C199D3CCA009F5F5A /* main.m */,
-				652BAB8E199D3CCA009F5F5A /* CIU-Prefix.pch */,
+				652BAB8E199D3CCA009F5F5A /* DaDa哒哒-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -630,7 +630,7 @@
 		652BABA6199D3CCA009F5F5A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				652BABA7199D3CCA009F5F5A /* CIUTests-Info.plist */,
+				652BABA7199D3CCA009F5F5A /* DaDa哒哒Tests-Info.plist */,
 				652BABA8199D3CCA009F5F5A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -671,9 +671,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		652BAB7C199D3CCA009F5F5A /* CIU */ = {
+		652BAB7C199D3CCA009F5F5A /* DaDa哒哒 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "CIU" */;
+			buildConfigurationList = 652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa哒哒" */;
 			buildPhases = (
 				652BAB79199D3CCA009F5F5A /* Sources */,
 				652BAB7A199D3CCA009F5F5A /* Frameworks */,
@@ -683,14 +683,14 @@
 			);
 			dependencies = (
 			);
-			name = CIU;
+			name = "DaDa哒哒";
 			productName = CIU;
-			productReference = 652BAB7D199D3CCA009F5F5A /* CIU.app */;
+			productReference = 652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */;
 			productType = "com.apple.product-type.application";
 		};
-		652BAB9D199D3CCA009F5F5A /* CIUTests */ = {
+		652BAB9D199D3CCA009F5F5A /* DaDa哒哒Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "CIUTests" */;
+			buildConfigurationList = 652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa哒哒Tests" */;
 			buildPhases = (
 				652BAB9A199D3CCA009F5F5A /* Sources */,
 				652BAB9B199D3CCA009F5F5A /* Frameworks */,
@@ -701,9 +701,9 @@
 			dependencies = (
 				652BABA4199D3CCA009F5F5A /* PBXTargetDependency */,
 			);
-			name = CIUTests;
+			name = "DaDa哒哒Tests";
 			productName = CIUTests;
-			productReference = 652BAB9E199D3CCA009F5F5A /* CIUTests.xctest */;
+			productReference = 652BAB9E199D3CCA009F5F5A /* DaDa哒哒Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -713,18 +713,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Huang, Jason";
+				ORGANIZATIONNAME = "Huang, Sihang";
 				TargetAttributes = {
 					652BAB7C199D3CCA009F5F5A = {
 						DevelopmentTeam = F6ANNS7CW7;
 					};
 					652BAB9D199D3CCA009F5F5A = {
-						DevelopmentTeam = 24QWF4M939;
+						DevelopmentTeam = CL6A6X43DN;
 						TestTargetID = 652BAB7C199D3CCA009F5F5A;
 					};
 				};
 			};
-			buildConfigurationList = 652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "CIU" */;
+			buildConfigurationList = 652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "DaDa哒哒" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -737,8 +737,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				652BAB7C199D3CCA009F5F5A /* CIU */,
-				652BAB9D199D3CCA009F5F5A /* CIUTests */,
+				652BAB7C199D3CCA009F5F5A /* DaDa哒哒 */,
+				652BAB9D199D3CCA009F5F5A /* DaDa哒哒Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -864,7 +864,7 @@
 /* Begin PBXTargetDependency section */
 		652BABA4199D3CCA009F5F5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 652BAB7C199D3CCA009F5F5A /* CIU */;
+			target = 652BAB7C199D3CCA009F5F5A /* DaDa哒哒 */;
 			targetProxy = 652BABA3199D3CCA009F5F5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -979,20 +979,20 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
+				GCC_PREFIX_HEADER = "CIU/DaDa哒哒-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(inherited)/GoogleAnalytics/",
 				);
-				INFOPLIST_FILE = "CIU/CIU-Info.plist";
+				INFOPLIST_FILE = "CIU/DaDa哒哒-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "e4848d73-e86b-4ccd-9f17-e913280b0a39";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1010,21 +1010,21 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
+				GCC_PREFIX_HEADER = "CIU/DaDa哒哒-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(inherited)/GoogleAnalytics/",
 				);
-				INFOPLIST_FILE = "CIU/CIU-Info.plist";
+				INFOPLIST_FILE = "CIU/DaDa哒哒-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "6c183413-f7f1-4f19-9d17-b49faf435e2d";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1045,8 +1045,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CIUTests/CIUTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CIUTests/DaDa哒哒Tests-Info.plist";
+				PRODUCT_NAME = "DaDa哒哒Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1063,8 +1063,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/CIU-Prefix.pch";
-				INFOPLIST_FILE = "CIUTests/CIUTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CIUTests/DaDa哒哒Tests-Info.plist";
+				PRODUCT_NAME = "DaDa哒哒Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1073,7 +1073,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "CIU" */ = {
+		652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "DaDa哒哒" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				652BABAD199D3CCA009F5F5A /* Debug */,
@@ -1082,7 +1082,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "CIU" */ = {
+		652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa哒哒" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				652BABB0199D3CCA009F5F5A /* Debug */,
@@ -1091,7 +1091,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "CIUTests" */ = {
+		652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa哒哒Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				652BABB3199D3CCA009F5F5A /* Debug */,
