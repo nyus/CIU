@@ -114,15 +114,25 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 -(void)animateSideBarWhenMenuTapped{
+    
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    if (self.containerViewLeadingSpaceConstraint.constant==0) {
-        self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_OPEN_DISTANCE;
+    static dispatch_once_t onceToken;
+    static CGFloat trailingSpace;
+    static CGFloat leadingSpace;
+    dispatch_once(&onceToken, ^{
+        trailingSpace = self.containerViewTrailingSpaceConstraint.constant;
+        leadingSpace = self.containerViewLeadingSpaceConstraint.constant;
+    });
+    
+    if (self.containerViewLeadingSpaceConstraint.constant == leadingSpace) {
+        self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
+        self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
         //add blur effect
         [self setBlurEffect:YES];
     }else{
-        self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_CLOSE_DISTANCE;
-        
+        self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
+        self.containerViewTrailingSpaceConstraint.constant = trailingSpace;
         //remove blur effect
         [self setBlurEffect:NO];
     }

@@ -73,9 +73,6 @@
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-Ve-11G">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="EOi-X2-H1P"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="4EG-lg-zAR" kind="embed" id="jvh-yg-eFw"/>
                                 </connections>
@@ -86,10 +83,12 @@
                         <constraints>
                             <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="8ni-1f-edL"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Eq0-Rf-Yyq" secondAttribute="bottom" id="Psv-BU-AfO"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2Bz-Ve-11G" secondAttribute="bottom" id="h9b-jP-i0j"/>
-                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="lNX-Jj-osM"/>
+                            <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Qi6-Yk-sqB"/>
+                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="g5E-26-BXO"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2Bz-Ve-11G" secondAttribute="bottom" id="kb5-Cx-MIT"/>
+                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="q0x-fM-6Nm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Bz-Ve-11G" secondAttribute="trailing" constant="-16" id="ssa-er-REp"/>
                             <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="xiW-bv-fmE"/>
-                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="xqb-WS-Flh"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="yEM-az-lB4" appends="YES" id="FVM-tb-z69"/>
@@ -97,7 +96,8 @@
                     </view>
                     <connections>
                         <outlet property="container" destination="2Bz-Ve-11G" id="TOP-g9-qcJ"/>
-                        <outlet property="containerViewLeadingSpaceConstraint" destination="lNX-Jj-osM" id="X3K-Sa-3mT"/>
+                        <outlet property="containerViewLeadingSpaceConstraint" destination="q0x-fM-6Nm" id="RXV-Ia-dbV"/>
+                        <outlet property="containerViewTrailingSpaceConstraint" destination="ssa-er-REp" id="8qy-E7-Set"/>
                         <outlet property="tableView" destination="Eq0-Rf-Yyq" id="ogL-Qf-DGw"/>
                     </connections>
                 </viewController>
@@ -688,7 +688,7 @@ Job Applications: Jobs@8MileTech.com</string>
                                     <constraint firstAttribute="width" constant="320" id="1yW-Pq-Zub"/>
                                     <constraint firstAttribute="height" constant="960" id="zs7-JJ-ffD"/>
                                 </constraints>
-                                <mutableString key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
+                                <string key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
 LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access DaDa in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from DaDa, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
 USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with DaDa, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
 MODERATION. You agree we may moderate DaDa access and use in our sole discretion, e.g. by blocking (e.g. IP addresses), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not. All site rules, e.g. DaDa/about/prohibited, are incorporated herein.
@@ -698,7 +698,7 @@ To the extent permitted by law, (1) we make no promise as to DaDa, its completen
 
 
 CLAIMS. You agree (1) any claim, cause of action or dispute ("Claim") arising out of or related to the TOU or your DaDa use is governed by Michigan ("MI") law regardless of your location or any conflict or choice of law principle; (2) Claims must be resolved exclusively by state or federal court in Michigan (except we may seek injunctive remedy anywhere); (3) to submit to personal jurisdiction of said courts; (4) any Claim must be filed by 1 year after it arose or be forever barred; (5) not to bring or take part in a class action against DaDa Entities; (6) (except government agencies) to indemnify DaDa Entities for any damage, loss, and expense (e.g. legal fees) arising from claims related to your DaDa use; (7) you are liable for TOU breaches by affiliates (e.g. marketers) paid by you, directly or indirectly (e.g. through an affiliate network); and (8) to pay us for breaching or inducing others to breach the "USE" section, not as a penalty, but as a reasonable estimate of our damages (actual damages are often hard to calculate): $0.10 per server request, $1 per post, email, flag, or account created, $1 per item of PI collected, and $1000 per software distribution, capped at $25,000 per day.
-MISC. Users complying with prior written licenses may access DaDa thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data.</mutableString>
+MISC. Users complying with prior written licenses may access DaDa thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -736,7 +736,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     <constraint firstAttribute="height" constant="675" id="T6L-TP-sRn"/>
                                     <constraint firstAttribute="width" constant="320" id="kKq-y9-uJW"/>
                                 </constraints>
-                                <mutableString key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
+                                <string key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
 1. Protecting your privacy
 - We take precautions to prevent unauthorized access to or misuse of data about you.
 - We do not share your data with third parties for marketing purposes.
@@ -763,7 +763,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
 - With your consent (e.g. if you authorize us to share data with other users).
 - In connection with a merger, bankruptcy, or sale/transfer of assets to another company.
 - In aggregate or summary form, as long as it cannot reasonably be used to identify you.
-- International Users - By visiting/using DaDa or providing us data, you agree we may use and disclose data we collect for purposes listed here or as communicated to you, transmit it outside your resident jurisdiction, and store it on servers in the United States. For more information please contact our privacy officer at privacy@8MileTech.com</mutableString>
+- International Users - By visiting/using DaDa or providing us data, you agree we may use and disclose data we collect for purposes listed here or as communicated to you, transmit it outside your resident jurisdiction, and store it on servers in the United States. For more information please contact our privacy officer at privacy@8MileTech.com</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -797,7 +797,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyQ-Tf-SsM">
                                 <rect key="frame" x="0.0" y="64" width="320" height="409"/>
-                                <mutableString key="text">DADA 哒哒的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于DADA 哒哒的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
+                                <string key="text">DADA 哒哒的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于DADA 哒哒的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
 • 用户上传至DADA 哒哒的原创信息内容视为许可本站以合理的方式使用。
 • 用户在DADA 哒哒平台上传的信息内容仅代表用户或作者个人观点，与本公司立场无关。用户自行承担其上传的信息内容产生的一切法律责任。
 • DADA 哒哒 手机平台以及网站所刊载的文章资料、图片、图表仅供参考使用。本站所刊载的内容，并不代表同意其说法或描述，仅为提供更多信息，也不构成任何投资建议。
@@ -805,7 +805,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
 • 本站有权在手机平台和网站范围内引用、发布、转载用户在本站社区内发布的内容。
 • 本站对于用户发布的内容所引发的版权的异议、纠纷不承担任何责任。
 • 本站有权认定和删除提交者所提交的任何不符合国家相关法律、法规和政策的任何言论、文字和图片。
-• 互联网传输可能会受到干扰，中断、延迟或数据错误。对于非我站能控制的通讯设施故障可能引致的数据的不准确性或不及时性，我站不承担任何责任</mutableString>
+• 互联网传输可能会受到干扰，中断、延迟或数据错误。对于非我站能控制的通讯设施故障可能引致的数据的不准确性或不及时性，我站不承担任何责任</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
