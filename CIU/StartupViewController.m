@@ -69,7 +69,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
     self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Terms of Use",@"Log out", nil];
     [self.tableView reloadData];
 }
- 
+
 - (IBAction)handlePanContainerView:(UIPanGestureRecognizer *)sender {
    CGPoint point = [sender translationInView:self.view];
     float deltaX = point.x - previousPoint.x;
@@ -130,11 +130,13 @@ NS_ENUM(NSUInteger, SideBarStatus){
         self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
         //add blur effect
         [self setBlurEffect:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
         self.containerViewTrailingSpaceConstraint.constant = trailingSpace;
         //remove blur effect
         [self setBlurEffect:NO];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
     }
     
     [UIView animateWithDuration:.3 animations:^{
@@ -323,7 +325,6 @@ NS_ENUM(NSUInteger, SideBarStatus){
 
 }
 
-// A function for parsing URL parameters returned by the Feed Dialog.
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -384,41 +385,11 @@ NS_ENUM(NSUInteger, SideBarStatus){
 }
 
 - (void) launchCameraPicker {
-    
     [Helper launchCameraInController:self];
-    
-//    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//        if (!self.imagePicker) {
-//            self.imagePicker = [[UIImagePickerController alloc] init];
-//            self.imagePicker.delegate = self;
-//        }
-//        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        self.imagePicker.allowsEditing = YES;
-//        self.imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
-//        [self presentViewController:self.imagePicker animated:YES completion:nil];
-//    } else {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Camera is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }
 }
 
 - (void) launchGalleryPicker {
-    
     [Helper launchPhotoLibraryInController:self];
-    
-//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-//        if (!self.imagePicker) {
-//            self.imagePicker = [[UIImagePickerController alloc] init];
-//            self.imagePicker.delegate = self;
-//            self.imagePicker.allowsEditing = YES;
-//        }
-//        
-//        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//        [self presentViewController:self.imagePicker animated:YES completion:nil];
-//    } else {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Photo library is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -430,20 +401,9 @@ NS_ENUM(NSUInteger, SideBarStatus){
     } else {
         photo = info[@"UIImagePickerControllerOriginalImage"];
     }
+    
     //access cell
     AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [Helper saveChosenPhoto:photo andSetOnImageView:cell.avatarImageView];
-    
-//    //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
-//    NSData *highResData = UIImagePNGRepresentation(photo);
-//    UIImage *scaled = [Helper scaleImage:photo downToSize:cell.avatarImageView.frame.size];
-//    NSData *lowResData = UIImagePNGRepresentation(scaled);
-//    //save to both local and server
-//    [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES];
-//    [Helper saveAvatar:lowResData forUser:[PFUser currentUser].username isHighRes:NO];
-//    
-//    cell.avatarImageView.image = scaled;
-//    
-//    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 @end

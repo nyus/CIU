@@ -71,6 +71,19 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     //add right bar item(compose)
     UITabBarController *tab=self.navigationController.viewControllers[0];
     tab.navigationItem.rightBarButtonItem = nil;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:@"sideBarOpen" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:@"sideBarOpen" object:nil];
+}
+
+- (void)handleSidePanelNotification:(NSNotification *)notification
+{
+    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
 }
 
 - (void)didReceiveMemoryWarning
