@@ -12,6 +12,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "GAI.h"
 #import "Flurry.h"
+#import "Crittercism.h"
 
 @implementation AppDelegate
 
@@ -45,6 +46,8 @@
                   clientKey:@"urvgpguNb8wja2nX8wyHe5h8SfD0DCQB7WdTZSZg"];
 #endif
     [PFFacebookUtils initializeFacebook];
+    
+    [Crittercism enableWithAppID:@"54ccf13951de5e9f042ed3f9"];
     return YES;
 }
 

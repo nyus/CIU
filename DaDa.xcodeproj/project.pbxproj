@@ -64,6 +64,8 @@
 		50FBFFC91A7DCC270090EE4B /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFC81A7DCC270090EE4B /* APIConstants.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
 		50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFD21A7E31120090EE4B /* StatusObject.m */; };
+		50FBFFDA1A7E3E5F0090EE4B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFFD81A7E3E5F0090EE4B /* dsym_upload.sh */; };
+		50FBFFDB1A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */; };
 		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
@@ -230,6 +232,11 @@
 		50FBFFCC1A7E30860090EE4B /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		50FBFFD11A7E31120090EE4B /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
 		50FBFFD21A7E31120090EE4B /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
+		50FBFFD51A7E3E5F0090EE4B /* CRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRFilter.h; sourceTree = "<group>"; };
+		50FBFFD61A7E3E5F0090EE4B /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
+		50FBFFD71A7E3E5F0090EE4B /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
+		50FBFFD81A7E3E5F0090EE4B /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
+		50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaDa哒哒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,6 +334,7 @@
 				5040548019A6CF9F0050853A /* CoreLocation.framework in Frameworks */,
 				652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */,
 				5040547E19A6CF960050853A /* CFNetwork.framework in Frameworks */,
+				50FBFFDB1A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a in Frameworks */,
 				5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */,
 				5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */,
 				5040547A19A6CF690050853A /* Security.framework in Frameworks */,
@@ -515,6 +523,18 @@
 			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
+		50FBFFD41A7E3E5F0090EE4B /* CrittercismSDK */ = {
+			isa = PBXGroup;
+			children = (
+				50FBFFD51A7E3E5F0090EE4B /* CRFilter.h */,
+				50FBFFD61A7E3E5F0090EE4B /* Crittercism.h */,
+				50FBFFD71A7E3E5F0090EE4B /* CrittercismDelegate.h */,
+				50FBFFD81A7E3E5F0090EE4B /* dsym_upload.sh */,
+				50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */,
+			);
+			path = CrittercismSDK;
+			sourceTree = "<group>";
+		};
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +570,7 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50FBFFD41A7E3E5F0090EE4B /* CrittercismSDK */,
 				5063E9DE1A65F73000275F2B /* Flurry */,
 				504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */,
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
@@ -681,6 +702,7 @@
 				652BAB79199D3CCA009F5F5A /* Sources */,
 				652BAB7A199D3CCA009F5F5A /* Frameworks */,
 				652BAB7B199D3CCA009F5F5A /* Resources */,
+				50FBFFDC1A7E3FEB0090EE4B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -751,6 +773,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FBFFDA1A7E3E5F0090EE4B /* dsym_upload.sh in Resources */,
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				507F2F6E19BB46AF00E8275F /* event28.png in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
@@ -783,6 +806,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50FBFFDC1A7E3FEB0090EE4B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_ID=\"54ccf13951de5e9f042ed3f9\"\nAPI_KEY=\"VeAeUuuxqvBxGoASov5OmldSkOTdWVTQ\"\nsource \"${SRCROOT}\"/CrittercismSDK/dsym_upload.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		652BAB79199D3CCA009F5F5A /* Sources */ = {
@@ -994,6 +1033,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/CrittercismSDK",
 				);
 				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "";
@@ -1026,6 +1066,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/CrittercismSDK",
 				);
 				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "75a9b5a9-29e8-4afa-b954-e1281c5750e2";
