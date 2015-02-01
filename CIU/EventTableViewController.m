@@ -25,6 +25,8 @@ static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 static NSInteger const kEventDisclaimerAlertTag = 50;
 static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 
+static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
+
 @interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
@@ -136,7 +138,7 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 
 -(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
     
-    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:[[self eventRadius] floatValue] dateConditionKey:@"lastFetchEventDate"];
+    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:[[self eventRadius] floatValue] dateConditionKey:kLastFetchDateKey];
     
     [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count>0) {
@@ -161,7 +163,7 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
                 [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 
                 if (i == objects.count - 1) {
-                    [[NSUserDefaults standardUserDefaults] setObject:parseObject.createdAt forKey:@"lastFetchEventDate"];
+                    [[NSUserDefaults standardUserDefaults] setObject:parseObject.createdAt forKey:kLastFetchDateKey];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
             }
@@ -210,11 +212,8 @@ static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
     Event *event = self.dataSource[indexPath.row];
     cell.eventNameLabel.text = event.eventName;
     
-    if (event.isBadContent.boolValue) {
-        cell.flagButton.enabled = NO;
-    }else{
-        cell.flagButton.enabled = YES;
-    }
+    cell.flagButton.hidden = event.isStickyPost.boolValue;
+    cell.flagButton.enabled = !event.isBadContent.boolValue;
     
     if(!self.dateFormatter){
         self.dateFormatter = [[NSDateFormatter alloc] init];

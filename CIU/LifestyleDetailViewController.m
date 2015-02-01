@@ -396,7 +396,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     
     NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region];
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    if (fetchedObjects.count>0) {
+    if (fetchedObjects.count > 0) {
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
         [self.tableView reloadData];
     }

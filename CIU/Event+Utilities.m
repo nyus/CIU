@@ -14,35 +14,38 @@
     self.createdAt = object.createdAt;
     self.updatedAt = object.updatedAt;
     self.objectId = object.objectId;
-    if (object[@"eventName"]) {
-        self.eventName = object[@"eventName"];
+    if (object[DDEventNameKey]) {
+        self.eventName = object[DDEventNameKey];
     }
-    if (object[@"eventDate"]) {
-        self.eventDate = object[@"eventDate"];
+    if (object[DDEventDateKey]) {
+        self.eventDate = object[DDEventDateKey];
     }
-    if (object[@"eventLocation"]) {
-        self.eventLocation = object[@"eventLocation"];
+    if (object[DDEventLocationKey]) {
+        self.eventLocation = object[DDEventLocationKey];
     }
-    if (object[@"eventContent"]) {
-        self.eventContent = object[@"eventContent"];
+    if (object[DDEventContentKey]) {
+        self.eventContent = object[DDEventContentKey];
     }
-    if (object[@"senderUsername"]) {
-        self.senderUsername = object[@"senderUsername"];
+    if (object[DDSenderUserNameKey]) {
+        self.senderUsername = object[DDSenderUserNameKey];
     }
-    if (object[@"senderFirstName"]) {
-        self.senderFirstName = object[@"senderFirstName"];
+    if (object[DDSenderFirstNameKey]) {
+        self.senderFirstName = object[DDSenderFirstNameKey];
     }
-    if (object[@"senderLastName"]) {
-        self.senderLastName = object[@"senderLastName"];
+    if (object[DDSenderLastNameKey]) {
+        self.senderLastName = object[DDSenderLastNameKey];
     }
-    if (object[@"latitude"]) {
-        self.latitude = object[@"latitude"];
+    if (object[DDLatitudeKey]) {
+        self.latitude = object[DDLatitudeKey];
     }
-    if (object[@"longitude"]) {
-        self.longitude = object[@"longitude"];
+    if (object[DDLongitudeKey]) {
+        self.longitude = object[DDLongitudeKey];
     }
-    if (object[@"isBadContent"]) {
-        self.isBadContent = object[@"isBadContent"];
+    if (object[DDIsBadContentKey]) {
+        self.isBadContent = object[DDIsBadContentKey];
+    }
+    if (object[DDIsStickyPostKey]) {
+        self.isStickyPost = object[DDIsStickyPostKey];
     }
 }
 @end

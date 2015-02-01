@@ -12,20 +12,27 @@
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "UIColor+CIUColors.h"
+
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
     SideBarStatusOpen=1
 };
+
 #define SIDE_BAR_OPEN_DISTANCE 150.0f
 #define SIDE_BAR_CLOSE_DISTANCE 0.0f
 #define AVATAR_CELL_HEIGHT 102.0f
 #define OTHER_CELL_HEIGHT 44.0f
+
+static CGFloat trailingSpace;
+static CGFloat leadingSpace;
+
+
 @interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate>{
     CGPoint previousPoint;
 }
+
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIImageView *blurView;
 
@@ -70,14 +77,27 @@ NS_ENUM(NSUInteger, SideBarStatus){
     [self.tableView reloadData];
 }
 
+- (void)recordInitialAutoLayout
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        trailingSpace = self.containerViewTrailingSpaceConstraint.constant;
+        leadingSpace = self.containerViewLeadingSpaceConstraint.constant;
+    });
+}
+
 - (IBAction)handlePanContainerView:(UIPanGestureRecognizer *)sender {
+    
+    [self recordInitialAutoLayout];
+    
    CGPoint point = [sender translationInView:self.view];
     float deltaX = point.x - previousPoint.x;
     previousPoint = point;
-    if (self.containerViewLeadingSpaceConstraint.constant + deltaX <0 || self.containerViewLeadingSpaceConstraint.constant + deltaX >SIDE_BAR_OPEN_DISTANCE) {
+    if (self.containerViewLeadingSpaceConstraint.constant + deltaX < leadingSpace || self.containerViewLeadingSpaceConstraint.constant + deltaX >leadingSpace + SIDE_BAR_OPEN_DISTANCE) {
         return;
     }
     self.containerViewLeadingSpaceConstraint.constant += deltaX;
+    self.containerViewTrailingSpaceConstraint.constant -= deltaX;
     
     //reset
     if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed) {
@@ -90,16 +110,20 @@ NS_ENUM(NSUInteger, SideBarStatus){
     
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    if (self.containerViewLeadingSpaceConstraint.constant < SIDE_BAR_OPEN_DISTANCE/2) {
+    [self recordInitialAutoLayout];
+    
+    if (self.containerViewLeadingSpaceConstraint.constant < (leadingSpace + SIDE_BAR_OPEN_DISTANCE)/2) {
         
-        self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_CLOSE_DISTANCE;
+        self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
         //remove blur effect
         [self setBlurEffect:NO];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
         
     }else{
-        self.containerViewLeadingSpaceConstraint.constant = SIDE_BAR_OPEN_DISTANCE;
+        self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
         //add blur effect
         [self setBlurEffect:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
     }
     
     [UIView animateWithDuration:.3 animations:^{
@@ -116,14 +140,6 @@ NS_ENUM(NSUInteger, SideBarStatus){
 -(void)animateSideBarWhenMenuTapped{
     
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    static dispatch_once_t onceToken;
-    static CGFloat trailingSpace;
-    static CGFloat leadingSpace;
-    dispatch_once(&onceToken, ^{
-        trailingSpace = self.containerViewTrailingSpaceConstraint.constant;
-        leadingSpace = self.containerViewLeadingSpaceConstraint.constant;
-    });
     
     if (self.containerViewLeadingSpaceConstraint.constant == leadingSpace) {
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;

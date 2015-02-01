@@ -1,9 +1,9 @@
 //
 //  StatusObject.m
-//  CIU
+//  DaDa
 //
-//  Created by Sihang on 12/9/14.
-//  Copyright (c) 2014 Huang, Jason. All rights reserved.
+//  Created by Sihang on 2/1/15.
+//  Copyright (c) 2015 Huang, Sihang. All rights reserved.
 //
 
 #import "StatusObject.h"
@@ -28,5 +28,6 @@
 @dynamic posterLastName;
 @dynamic posterUsername;
 @dynamic statusCellHeight;
+@dynamic isStickyPost;
 
 @end

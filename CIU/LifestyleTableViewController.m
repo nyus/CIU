@@ -9,7 +9,6 @@
 #import "LifestyleTableViewController.h"
 #import "LifestyleCategory.h"
 #import "LifestyleCategory+Utilities.h"
-#import "Query.h"
 #import "Helper.h"
 #import "LifestyleDetailViewController.h"
 #import "LifestyleTableViewCell.h"
@@ -154,74 +153,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
                     }
                 });
             }
-            
-//            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//            for (int i =0; i<self.dataSource.count; i++) {
-//                LifestyleCategory *category = self.dataSource[i];
-//                [dict setValue:[NSNumber numberWithInteger:i] forKey:category.objectId];
-//            }
-//            
-//            for (int i =0; i<objects.count; i++) {
-//                
-//                
-//                PFObject *parseObject = objects[i];
-//                NSNumber *index = [dict valueForKey:parseObject.objectId];
-//                if (index) {
-//                    //update
-//                    LifestyleCategory *category = self.dataSource[index.intValue];
-//                    //only if we need to update
-//                    if ([category.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
-//                        [category populateFromParseojbect:parseObject];
-//                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index.integerValue inSection:0];
-//                        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//                    }
-//                }else{
-//                    //insert
-//                    LifestyleCategory *category = [NSEntityDescription insertNewObjectForEntityForName:LifestyleCategoryName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-//                    [category populateFromParseojbect:parseObject];
-//                    [self.dataSource addObject:category];
-//                    NSIndexPath *path = [NSIndexPath indexPathForRow:self.dataSource.count-1 inSection:0];
-//                    [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-//                    [[SharedDataManager sharedInstance] saveContext];
-//                }
-//            }
         }
     }];
 }
-
-//-(void)loadRemoteDataForVisibleCells{
-//    for (UITableViewCell *cell in self.tableView.visibleCells) {
-//        
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//        LifestyleCategory *category = self.dataSource[indexPath.row];
-//        NSString *imageName = [LifestyleCategoryName stringByAppendingString:category.name];
-//        
-//        if (cell.imageView.image != nil || [Helper isLocalImageExist:imageName isHighRes:NO]) {
-//            continue;
-//        }
-//        
-//
-//        Query *query = [[Query alloc] init];
-//        __block UITableViewCell *weakCell = cell;
-//        [query getServerImageWithName:imageName isHighRes:NO completion:^(NSError *error, UIImage *image) {
-//            if (!error) {
-//                weakCell.imageView.image = image;
-//                
-//            }else{
-//                weakCell.imageView.image = nil;
-//            }
-//        }];
-//        [self.queries setObject:query forKey:indexPath];
-//    }
-//}
-//
-//-(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
-//    Query *query = [self.queries objectForKey:indexPath];
-//    if (query) {
-//        [query cancelRequest];
-//    }
-//    [self.queries removeObjectForKey:indexPath];
-//}
 
 #pragma mark - Table view data source
 

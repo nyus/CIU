@@ -11,6 +11,8 @@
 #import "LogInViewController.h"
 #import "FPLogger.h"
 #import "Helper.h"
+#import "APIConstants.h"
+
 @interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
@@ -117,9 +119,9 @@
         __block SignUpViewController *weakSelf = self;
         //compound query. OR two conditions together
         PFQuery *username = [[PFQuery alloc] initWithClassName:[PFUser parseClassName]];
-        [username whereKey:@"username" equalTo:userNameString];
+        [username whereKey:DDUserNameKey equalTo:userNameString];
         PFQuery *email = [[PFQuery alloc] initWithClassName:[PFUser parseClassName]];
-        [email whereKey:@"email" equalTo:emailString];
+        [email whereKey:DDEmailKey equalTo:emailString];
         PFQuery *alreadyExist = [PFQuery orQueryWithSubqueries:@[username,email]];
         
         [alreadyExist getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
@@ -131,9 +133,10 @@
                 newUser.email = emailString;
                 newUser.username = userNameString;
                 newUser.password = passWordString;
-                [newUser setObject:weakSelf.firstNameTextField.text forKey:@"firstName"];
-                [newUser setObject:weakSelf.lastNameTextField.text forKey:@"lastName"];
-                [newUser setObject:@NO forKey:@"isFacebookUser"];
+                [newUser setObject:weakSelf.firstNameTextField.text forKey:DDFirstNameKey];
+                [newUser setObject:weakSelf.lastNameTextField.text forKey:DDLastNameKey];
+                [newUser setObject:@NO forKey:DDIsFacebookUserKey];
+                [newUser setObject:@NO forKey:DDIsAdminKey];
                 
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     

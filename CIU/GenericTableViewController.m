@@ -64,8 +64,14 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
+// Shared by EventVC and SurpriseVC
 - (void)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
 {
+    NSDictionary *dictionary = [Helper userLocation];
+    if (!dictionary) {
+        return;
+    }
+    
     if (!self.dataSource) {
         self.dataSource = [NSMutableArray array];
     }
@@ -74,13 +80,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     fetchRequest.includesPendingChanges = NO;
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
     // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    NSDictionary *dictionary = [Helper userLocation];
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
         MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(fetchRadius)];
         NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         
-        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate]];
+        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
         [fetchRequest setPredicate:compoundPredicate];
     } else {
         [fetchRequest setPredicate:excludeBadContent];
@@ -115,6 +120,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
+// Shared by EventVC and SurpriseVC
 - (void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey
 {
     if (self.fetchQuery) {
@@ -122,19 +128,29 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         self.fetchQuery = nil;
     }
     
-    self.fetchQuery = [PFQuery queryWithClassName:className];
-    [self.fetchQuery orderByAscending:@"createdAt"];
     NSDictionary *dictionary = [Helper userLocation];
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    if (!dictionary) {
+        // Without user location, don't fetch any data
+        self.fetchQuery = nil;
+        return;
     }
-    [self.fetchQuery whereKey:@"isBadContent" notEqualTo:@YES];
+    
+    // Subquries: fetch geo-bounded objects and "on top" objects
+    PFQuery *geoQuery = [[PFQuery alloc] initWithClassName:className];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+    [geoQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    
+    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
+    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
+    
+    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
+    [self.fetchQuery orderByAscending:DDCreatedAtKey];
+    [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
     //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
     NSDate *lastFetchDate = [[NSUserDefaults standardUserDefaults] objectForKey:dateConditionKey];
     if (lastFetchDate) {
-        [self.fetchQuery whereKey:@"createdAt" greaterThan:lastFetchDate];
+        [self.fetchQuery whereKey:DDCreatedAtKey greaterThan:lastFetchDate];
     }
     
     // Only want to fetch kServerFetchCount items each time

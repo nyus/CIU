@@ -207,11 +207,8 @@ static NSString *const kEntityName = @"StatusObject";
     cell.commentCountLabel.text = status.commentCount.stringValue;
     
     // Flag button
-    if (status.isBadContent.boolValue) {
-        cell.flagButton.enabled = NO;
-    } else {
-        cell.flagButton.enabled = YES;
-    }
+    cell.flagButton.hidden = status.isStickyPost.boolValue;
+    cell.flagButton.enabled = !status.isBadContent.boolValue;
     
     // Avatar
     if (!defaultAvatar) {
@@ -455,7 +452,7 @@ static NSString *const kEntityName = @"StatusObject";
         if (error) {
             NSLog(@"get status object with id:%@ failed",statusObject.objectId);
         } else {
-            [object setObject:@YES forKey:@"isBadContent"];
+            [object setObject:@YES forKey:DDIsBadContentKey];
             [object saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     statusObject.isBadContent = @YES;
