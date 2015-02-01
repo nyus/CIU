@@ -115,12 +115,14 @@ static CGFloat leadingSpace;
     if (self.containerViewLeadingSpaceConstraint.constant < (leadingSpace + SIDE_BAR_OPEN_DISTANCE)/2) {
         
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
+        self.containerViewTrailingSpaceConstraint.constant = trailingSpace;
         //remove blur effect
         [self setBlurEffect:NO];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
         
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
+        self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
         //add blur effect
         [self setBlurEffect:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
