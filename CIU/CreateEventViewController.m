@@ -211,6 +211,8 @@
             [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
             [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
             [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
+            event[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
+            
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
 
