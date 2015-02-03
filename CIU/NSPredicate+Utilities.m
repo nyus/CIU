@@ -14,6 +14,16 @@
     CLLocationDegrees latMax = region.center.latitude + .5 * region.span.latitudeDelta;
     CLLocationDegrees lonMin = region.center.longitude - .5 * region.span.longitudeDelta;
     CLLocationDegrees lonMax = region.center.longitude + .5 * region.span.longitudeDelta;
+    NSPredicate *prediate = [NSPredicate predicateWithFormat:@"self.latitude<=%f && self.latitude>=%f && self.longitude<= %f && self.longitude >=%f",latMax,latMin,lonMax,lonMin, 1];
+    return prediate;
+    
+}
+
++(NSPredicate *)geoBoundAndStickyPostPredicateForRegion:(MKCoordinateRegion)region{
+    CLLocationDegrees latMin = region.center.latitude - .5 * region.span.latitudeDelta;
+    CLLocationDegrees latMax = region.center.latitude + .5 * region.span.latitudeDelta;
+    CLLocationDegrees lonMin = region.center.longitude - .5 * region.span.longitudeDelta;
+    CLLocationDegrees lonMax = region.center.longitude + .5 * region.span.longitudeDelta;
     NSPredicate *prediate = [NSPredicate predicateWithFormat:@"(self.latitude<=%f && self.latitude>=%f && self.longitude<= %f && self.longitude >=%f) || (self.isStickyPost.intValue == %d)",latMax,latMin,lonMax,lonMin, 1];
     return prediate;
     

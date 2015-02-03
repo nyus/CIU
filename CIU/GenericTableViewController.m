@@ -83,7 +83,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     if (dictionary) {
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
         MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(fetchRadius)];
-        NSPredicate *predicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+        NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
         
         NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
         [fetchRequest setPredicate:compoundPredicate];

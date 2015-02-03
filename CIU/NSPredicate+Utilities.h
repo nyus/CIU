@@ -10,5 +10,6 @@
 #import <MapKit/MapKit.h>
 @interface NSPredicate (Utilities)
 +(NSPredicate *)boudingCoordinatesPredicateForRegion:(MKCoordinateRegion)region;
++(NSPredicate *)geoBoundAndStickyPostPredicateForRegion:(MKCoordinateRegion)region;
 +(NSPredicate *)boundingCoordinatesToCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius;
 @end
