@@ -36,7 +36,6 @@
 		5040548219A6CFA50050853A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548119A6CFA50050853A /* libz.dylib */; };
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
-		5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548719A6CFB40050853A /* StoreKit.framework */; };
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
@@ -172,7 +171,6 @@
 		5040548119A6CFA50050853A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5040548719A6CFB40050853A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		504AE5881A2241C7000C62D9 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 				5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */,
 				5040548219A6CFA50050853A /* libz.dylib in Frameworks */,
 				6564F24419A7835000629B48 /* MapKit.framework in Frameworks */,
-				5040548819A6CFB40050853A /* StoreKit.framework in Frameworks */,
 				5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */,
 				5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */,
 				5040548019A6CF9F0050853A /* CoreLocation.framework in Frameworks */,
@@ -576,7 +573,6 @@
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
 				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
-				5040548719A6CFB40050853A /* StoreKit.framework */,
 				5040548519A6CFAE0050853A /* QuartzCore.framework */,
 				5040548319A6CFAA0050853A /* MobileCoreServices.framework */,
 				5040548119A6CFA50050853A /* libz.dylib */,
@@ -742,6 +738,11 @@
 				TargetAttributes = {
 					652BAB7C199D3CCA009F5F5A = {
 						DevelopmentTeam = CL6A6X43DN;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					652BAB9D199D3CCA009F5F5A = {
 						DevelopmentTeam = CL6A6X43DN;
