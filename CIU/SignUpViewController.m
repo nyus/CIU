@@ -93,9 +93,6 @@
 
 - (IBAction)signUpButtonTapped:(id)sender {
     
-    //dismiss keyboard
-    [self.view endEditing:YES];
-    
     if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
         self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
         [UIView animateWithDuration:.3 animations:^{
@@ -106,14 +103,16 @@
     NSString *userNameString =[self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailString =[self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *passWordString = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *firstNameString = [self.firstNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastNameString = [self.lastNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (![emailString isEqualToString:@""] && ![userNameString isEqualToString:@""] && ![passWordString isEqualToString:@""]) {
+    if (![emailString isEqualToString:@""] && ![userNameString isEqualToString:@""] && ![passWordString isEqualToString:@""] && ![lastNameString isEqualToString:@""] && ![firstNameString isEqualToString:@""]) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //spinner starts spinning
-            self.activityIndicator.hidden = NO;
-            [self.activityIndicator startAnimating];
-        });
+        //dismiss keyboard
+        [self.view endEditing:YES];
+        //spinner starts spinning
+        self.activityIndicator.hidden = NO;
+        [self.activityIndicator startAnimating];
         
         //
         __block SignUpViewController *weakSelf = self;
