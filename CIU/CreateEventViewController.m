@@ -9,7 +9,6 @@
 #import "CreateEventViewController.h"
 #import "EventTableViewCell.h"
 #import <Parse/Parse.h>
-#import "Reachability.h"
 #import "HitTestView.h"
 @interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;

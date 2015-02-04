@@ -13,6 +13,14 @@
 #import "SharedDataManager.h"
 #import <Parse/Parse.h>
 #define CONTENT_LABEL_WIDTH 280.0f
+
+NSString *const kNamekey = @"Name";
+NSString *const kPhoneKey = @"Phone";
+NSString *const kWebsiteKey = @"Website";
+NSString *const kAddressKey = @"Address";
+NSString *const kHoursKey = @"Hours";
+NSString *const kIntroductionKey = @"Introduction";
+
 @interface LifestyleObjectDetailTableViewController ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
@@ -73,27 +81,27 @@
     self.dataSource = [NSMutableArray array];
     //name, phone, website, address, hours, introduction
     if (self.lifestyleObject.name) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.name,@"Name", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.name,kNamekey, nil];
         [self.dataSource addObject:dict];
     }
     if (self.lifestyleObject.phone) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.phone,@"Phone", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.phone,kPhoneKey, nil];
         [self.dataSource addObject:dict];
     }
     if (self.lifestyleObject.website) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.website,@"Website", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.website,kWebsiteKey, nil];
         [self.dataSource addObject:dict];
     }
     if (self.lifestyleObject.address) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.address,@"Address", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.address,kAddressKey, nil];
         [self.dataSource addObject:dict];
     }
     if (self.lifestyleObject.hours) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.hours,@"Hours", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.hours,kHoursKey, nil];
         [self.dataSource addObject:dict];
     }
     if (self.lifestyleObject.introduction) {
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.introduction,@"Introduction", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.lifestyleObject.introduction,kIntroductionKey, nil];
         [self.dataSource addObject:dict];
     }
     
@@ -122,6 +130,7 @@
     if ([key isEqualToString:@"Phone"] || [key isEqualToString:@"Address"]){
         cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberAddressCell" forIndexPath:indexPath];
         cell.phoneTextView.text = dictionary[key];
+        cell.phoneTextView.textColor = [UIColor blueColor];
     }else{
         cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Introduction"]) {
@@ -141,7 +150,7 @@
     }
     
     //Name and Introduction are not tappable
-    if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Introduction"]) {
+    if ([key isEqualToString:kNamekey] || [key isEqualToString:kIntroductionKey]) {
         cell.userInteractionEnabled = NO;
     } else {
         cell.userInteractionEnabled = YES;
@@ -177,15 +186,30 @@
     return 20+rect.size.height+5;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSDictionary *dict = self.dataSource[indexPath.row];
+    if (dict[kAddressKey]) {
+        NSString *addressString = @"http://maps.apple.com/?q=";
+        addressString = [addressString stringByAppendingString:[dict[kAddressKey] stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+        NSURL *url = [NSURL URLWithString:addressString];
+        if([[UIApplication sharedApplication] canOpenURL:url]){
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    } else if (dict[kPhoneKey]) {
+//        tel:1-408-555-555
+       NSString *string = [NSString stringWithFormat:@"tel:%@", dict[kPhoneKey]];
+        string = [string stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        string = [string stringByReplacingOccurrencesOfString:@")" withString:@""];
+        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+        string = [string stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSURL *url = [NSURL URLWithString:string];
+        if([[UIApplication sharedApplication] canOpenURL:url]){
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
 @end

@@ -8,7 +8,6 @@
 
 #import "ComposeViewController.h"
 #import <Parse/Parse.h>
-#import "Reachability.h"
 #import "Helper.h"
 @interface ComposeViewController ()
 

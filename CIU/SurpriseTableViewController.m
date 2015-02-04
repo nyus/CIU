@@ -159,6 +159,42 @@ static NSString *const kEntityName = @"StatusObject";
     }];
 }
 
+- (void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey
+{
+    if (self.fetchQuery) {
+        [self.fetchQuery cancel];
+        self.fetchQuery = nil;
+    }
+    
+    NSDictionary *dictionary = [Helper userLocation];
+    if (!dictionary) {
+        // Without user location, don't fetch any data
+        self.fetchQuery = nil;
+        return;
+    }
+    
+    // Subquries: fetch geo-bounded objects and "on top" objects
+    PFQuery *geoQuery = [[PFQuery alloc] initWithClassName:className];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+    [geoQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    
+    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
+    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
+    
+    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
+    [self.fetchQuery orderByAscending:DDCreatedAtKey];
+    [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
+    
+    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
+    NSDate *lastFetchDate = [[NSUserDefaults standardUserDefaults] objectForKey:dateConditionKey];
+    if (lastFetchDate) {
+        [self.fetchQuery whereKey:DDCreatedAtKey greaterThan:lastFetchDate];
+    }
+    
+    // Only want to fetch kServerFetchCount items each time
+    self.fetchQuery.limit = fetchLimit;
+}
+
 #pragma mark - Table view data source
 
 #pragma mark - UITableViewDelete

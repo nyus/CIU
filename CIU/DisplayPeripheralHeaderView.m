@@ -15,7 +15,8 @@
 
 @implementation DisplayPeripheralHeaderView
 
-- (instancetype)initWithStepValue:(NSNumber *)stepValue minimunStepValue:(NSNumber *)minStepValue maximunStepValue:(NSNumber *)maximunStepValue actionBlock:(void (^)(double))stepperValueChangedTo{
+-(instancetype)initWithCurrentValue:(NSNumber *)currentValue stepValue:(NSNumber *)stepValue minimunValue:(NSNumber *)minimunValue maximunValue:(NSNumber *)maximunValue actionBlock:(void (^)(double))stepperValueChangedTo{
+    
     self = [super init];
     
     if (self){
@@ -29,7 +30,7 @@
         
         NSString *string;
         if (stepValue) {
-            string = [NSString stringWithFormat:@"Results within %d miles",[stepValue intValue]];
+            string = [NSString stringWithFormat:@"Results within %d miles",[currentValue intValue]];
         } else {
             string = @"Results within 5 miles";
         }
@@ -51,10 +52,10 @@
         self.stepper = [[UIStepper alloc] initWithFrame:CGRectMake(0, 0, 94, 15)];
         self.stepper.translatesAutoresizingMaskIntoConstraints = NO;
         self.stepper.transform = CGAffineTransformMakeScale(0.75, 0.75);
-        self.stepper.minimumValue = minStepValue.doubleValue;
-        self.stepper.maximumValue = maximunStepValue.doubleValue;
-        self.stepper.stepValue = 5.0;
-        self.stepper.value = stepValue.doubleValue;
+        self.stepper.minimumValue = minimunValue ? minimunValue.floatValue : 5.0;
+        self.stepper.maximumValue = maximunValue ? maximunValue.floatValue : 80.0;
+        self.stepper.stepValue = stepValue ? stepValue.floatValue : 5.0;
+        self.stepper.value = currentValue ? currentValue.floatValue : 0.0;
         self.stepper.tintColor = [UIColor themeTextGrey];
         [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.stepper];

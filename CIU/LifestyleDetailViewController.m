@@ -104,7 +104,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 {
     if (!_headerView) {
         NSNumber *radius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
-        _headerView = [[DisplayPeripheralHeaderView alloc] initWithStepValue:radius minimunStepValue:@5 maximunStepValue:@30 actionBlock:^(double newValue) {
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius stepValue:@(5.0) minimunValue:@(5.0) maximunValue:@(30.0) actionBlock:^(double newValue) {
             
             if (IS_RESTAURANT) {
                 [self setRestaurantDataRadius:@(newValue)];

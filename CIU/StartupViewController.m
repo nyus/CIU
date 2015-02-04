@@ -18,12 +18,11 @@ NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusOpen=1
 };
 
-#define SIDE_BAR_OPEN_DISTANCE 150.0f
+#define SIDE_BAR_OPEN_DISTANCE -150.0f
 #define SIDE_BAR_CLOSE_DISTANCE 0.0f
 #define AVATAR_CELL_HEIGHT 102.0f
 #define OTHER_CELL_HEIGHT 44.0f
 
-static CGFloat trailingSpace;
 static CGFloat leadingSpace;
 
 
@@ -35,6 +34,7 @@ static CGFloat leadingSpace;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIImageView *blurView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewLeadingSpaceConstraint;
 
 @end
 
@@ -57,7 +57,6 @@ static CGFloat leadingSpace;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)handleDownloadFacebookProfilePicComplete{
@@ -81,7 +80,6 @@ static CGFloat leadingSpace;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        trailingSpace = self.containerViewTrailingSpaceConstraint.constant;
         leadingSpace = self.containerViewLeadingSpaceConstraint.constant;
     });
 }
@@ -93,11 +91,10 @@ static CGFloat leadingSpace;
    CGPoint point = [sender translationInView:self.view];
     float deltaX = point.x - previousPoint.x;
     previousPoint = point;
-    if (self.containerViewLeadingSpaceConstraint.constant + deltaX < leadingSpace || self.containerViewLeadingSpaceConstraint.constant + deltaX >leadingSpace + SIDE_BAR_OPEN_DISTANCE) {
+    if (self.containerViewLeadingSpaceConstraint.constant - deltaX > leadingSpace || self.containerViewLeadingSpaceConstraint.constant - deltaX < leadingSpace + SIDE_BAR_OPEN_DISTANCE) {
         return;
     }
-    self.containerViewLeadingSpaceConstraint.constant += deltaX;
-    self.containerViewTrailingSpaceConstraint.constant -= deltaX;
+    self.containerViewLeadingSpaceConstraint.constant -= deltaX;
     
     //reset
     if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateFailed) {
@@ -112,17 +109,17 @@ static CGFloat leadingSpace;
     
     [self recordInitialAutoLayout];
     
-    if (self.containerViewLeadingSpaceConstraint.constant < (leadingSpace + SIDE_BAR_OPEN_DISTANCE)/2) {
+    if (self.containerViewLeadingSpaceConstraint.constant > (leadingSpace + SIDE_BAR_OPEN_DISTANCE)/2) {
         
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
-        self.containerViewTrailingSpaceConstraint.constant = trailingSpace;
+        
         //remove blur effect
         [self setBlurEffect:NO];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
         
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
-        self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
+        
         //add blur effect
         [self setBlurEffect:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
@@ -143,15 +140,17 @@ static CGFloat leadingSpace;
     
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
+    [self recordInitialAutoLayout];
+    
     if (self.containerViewLeadingSpaceConstraint.constant == leadingSpace) {
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
-        self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
+
         //add blur effect
         [self setBlurEffect:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
-        self.containerViewTrailingSpaceConstraint.constant = trailingSpace;
+
         //remove blur effect
         [self setBlurEffect:NO];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
