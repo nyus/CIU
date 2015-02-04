@@ -35,6 +35,8 @@
 #define IS_RESTAURANT [self.categoryName isEqualToString:@"Restaurant"]
 #define IS_MARKET [self.categoryName isEqualToString:@"Supermarket"]
 
+NSInteger const kRefreshControlTag = 31;
+
 static const CGFloat kLocationNotifyThreshold = 1.0;
 static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadius";
 static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
@@ -191,8 +193,23 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
         
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
         self.navigationItem.rightBarButtonItem = rightItem;
+        
+        [self addRefreshControl];
     }
     
+    [self fetchData];
+}
+
+- (void)addRefreshControl
+{
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlTriggerred:) forControlEvents:UIControlEventValueChanged];
+    refreshControl.tag = kRefreshControlTag;
+    [self.tableView addSubview:refreshControl];
+}
+
+- (void)fetchData
+{
     NSNumber *rememberedRadius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
     if(isOffline){
         [self fetchLocalDataForListWithRadius:rememberedRadius];
@@ -241,6 +258,11 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     }else{
         [Flurry endTimedEvent:@"View trade and sell" withParameters:nil];
     }
+}
+
+- (void)refreshControlTriggerred:(UIRefreshControl *)sender
+{
+    [self fetchData];
 }
 
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
@@ -399,6 +421,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     if (fetchedObjects.count > 0) {
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
         [self.tableView reloadData];
+        [((UIRefreshControl *)[self.tableView viewWithTag:kRefreshControlTag]) endRefreshing];
     }
 }
 
@@ -458,9 +481,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 [self.tableView reloadData];
-
+                [((UIRefreshControl *)[self.tableView viewWithTag:kRefreshControlTag]) endRefreshing];
             });
         }
     }];
