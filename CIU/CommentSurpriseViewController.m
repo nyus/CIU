@@ -82,51 +82,6 @@ typedef NS_ENUM(NSUInteger, Direction){
     self.completion = completion;
 }
 
-//-(void)handleSwipe:(UISwipeGestureRecognizer *)swipe{
-//    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-//        [self animateToDismissSelfWithDirection:DirectionLeft];
-//    }else if (swipe.direction == UISwipeGestureRecognizerDirectionRight){
-//        [self animateToDismissSelfWithDirection:DirectionRight];
-//    }
-//}
-
-//-(void)animateToDismissSelfWithDirection:(Direction)direction{
-//    [self.textView resignFirstResponder];
-//    self.enterMessageContainerView.hidden = YES;
-//    
-//    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        
-//        if (direction == DirectionUp) {
-//            self.view.frame = CGRectMake(0, -self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-//        }else if (direction == DirectionDown){
-//            self.view.frame = CGRectMake(0, self.statusVC.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-//        }else if(direction == DirectionLeft){
-//            self.view.frame = CGRectMake(-self.view.frame.size.width,
-//                                         self.view.frame.origin.y,
-//                                         self.view.frame.size.width,
-//                                         self.view.frame.size.height);
-//        }else{
-//            self.view.frame = CGRectMake(self.view.frame.size.width,
-//                                         self.view.frame.origin.y,
-//                                         self.view.frame.size.width,
-//                                         self.view.frame.size.height);
-//        }
-//        
-//        self.statusVC.shadowView.alpha = 0.0f;
-//    } completion:^(BOOL finished) {
-//        self.enterMessageContainerView.hidden= NO;
-//        isAnimating = NO;
-//        self.statusVC.tableView.userInteractionEnabled = YES;
-//    }];
-//}
-
--(void)clearReference{
-    self.statusTBCell = nil;
-    self.statusObjectId = nil;
-    self.animateEndFrame = CGRectNull;
-    self.statusVC = nil;
-}
-
 -(void)setStatusObjectId:(NSString *)statusObjectId{
     _statusObjectId = statusObjectId;
     
@@ -179,6 +134,11 @@ typedef NS_ENUM(NSUInteger, Direction){
             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     [object saveEventually];
+                    
+                    if (self.completion) {
+                        // Callback on SurpriseTableViewController that we have increamented the commetn count
+                        self.completion();
+                    }
                 }
             }];
         }
