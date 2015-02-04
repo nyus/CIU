@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "SharedDataManager.h"
-#import "Reachability.h"
 
 @interface GenericTableViewController : UITableViewController
 {

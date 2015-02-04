@@ -13,6 +13,6 @@
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIStepper *stepper;
 
-- (instancetype)initWithStepValue:(NSNumber *)stepValue minimunStepValue:(NSNumber *)minStepValue maximunStepValue:(NSNumber *)maximunStepValue actionBlock:(void(^)(double newValue))stepperValueChangedTo;
+- (instancetype)initWithCurrentValue:(NSNumber *)currentValue stepValue:(NSNumber *)stepValue minimunValue:(NSNumber *)minimunValue maximunValue:(NSNumber *)maximunValue actionBlock:(void(^)(double newValue))stepperValueChangedTo;
 
 @end

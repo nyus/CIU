@@ -27,6 +27,8 @@
 #define IS_4_7_INCH_SCREEN (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_5_5_INCH_SCREEN (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
+#define INTERNET_AVAILABLE [Reachability canReachInternet]
+
 #define kLocationServiceDisabledAlertMessage @"To display information around you, please turn on location services at Settings > Privacy > Location Services"
 #define kLocationServiceDisabledAlertTitle @"Location Access Denied"
 #ifdef __OBJC__
@@ -35,4 +37,5 @@
     #import "GAnalyticsManager.h"
     #import "Flurry.h"
     #import "APIConstants.h"
+    #import "Reachability.h"
 #endif
