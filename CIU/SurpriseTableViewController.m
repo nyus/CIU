@@ -479,27 +479,11 @@ static NSString *const kEntityName = @"StatusObject";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block StatusObject *statusObject = self.dataSource[indexPath.row];
     
-    
     cell.flagButton.enabled = NO;
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Status"];
-    [query whereKey:@"objectId" equalTo:statusObject.objectId];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (error) {
-            NSLog(@"get status object with id:%@ failed",statusObject.objectId);
-        } else {
-            [object setObject:@YES forKey:DDIsBadContentKey];
-            [object saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    statusObject.isBadContent = @YES;
-                    [[SharedDataManager sharedInstance] saveContext];
-                }
-            }];
-            
-            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
-            audit[@"auditObjectId"] = object.objectId;
-            [audit saveEventually];
-        }
+    [self flagObjectForId:statusObject.objectId parseClassName:@"Status" completion:^(BOOL succeeded, NSError *error) {
+        statusObject.isBadContent = @YES;
+        [[SharedDataManager sharedInstance] saveContext];
     }];
 }
 

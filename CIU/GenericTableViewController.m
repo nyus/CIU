@@ -203,8 +203,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                 if ([CLLocationManager locationServicesEnabled]) {
                     //that means user disabled our app specifically
                     NSLog(@"fail to locate user: permission denied");
-//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-//                    [alert show];
                 }
                 
                 break;

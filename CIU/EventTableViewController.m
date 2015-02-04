@@ -374,22 +374,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
     cell.flagButton.enabled = NO;
     
-    PFQuery *query = [PFQuery queryWithClassName:managedObjectName];
-    [query whereKey:@"objectId" equalTo:event.objectId];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (error) {
-            NSLog(@"get status object with id:%@ failed",object.objectId);
-        } else {
-            [object setObject:@YES forKey:@"isBadContent"];
-            [object saveEventually:^(BOOL succeeded, NSError *error) {
-                event.isBadContent = @YES;
-                [[SharedDataManager sharedInstance] saveContext];
-            }];
-            
-            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
-            audit[@"auditObjectId"] = object.objectId;
-            [audit saveEventually];
-        }
+    [self flagObjectForId:event.objectId parseClassName:managedObjectName completion:^(BOOL succeeded, NSError *error) {
+        event.isBadContent = @YES;
+        [[SharedDataManager sharedInstance] saveContext];
     }];
 }
 

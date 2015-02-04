@@ -709,24 +709,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     
     cell.flagButton.enabled = NO;
     
-    PFQuery *query = [PFQuery queryWithClassName:[Helper getParseClassNameForCategoryName:self.categoryName]];
-    [query whereKey:@"objectId" equalTo:lifeObject.objectId];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (error) {
-            NSLog(@"get status object with id:%@ failed",object.objectId);
-        } else {
-            [object setObject:@YES forKey:@"isBadContent"];
-            [object saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    lifeObject.isBadContent = @YES;
-                    [[SharedDataManager sharedInstance] saveContext];
-                }
-            }];
-            
-            PFObject *audit = [PFObject objectWithClassName:@"Audit"];
-            audit[@"auditObjectId"] = object.objectId;
-            [audit saveEventually];
-        }
+    [self flagObjectForId:lifeObject.objectId parseClassName:[Helper getParseClassNameForCategoryName:self.categoryName] completion:^(BOOL succeeded, NSError *error) {
+        lifeObject.isBadContent = @YES;
+        [[SharedDataManager sharedInstance] saveContext];
     }];
 }
 

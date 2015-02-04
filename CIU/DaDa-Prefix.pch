@@ -38,4 +38,5 @@
     #import "Flurry.h"
     #import "APIConstants.h"
     #import "Reachability.h"
+    #import "UIViewController+Utilities.h"
 #endif
