@@ -725,7 +725,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qs-1q-qbg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <mutableString key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
 1. Protecting your privacy
@@ -761,9 +761,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Huc-V1-zIL" firstAttribute="top" secondItem="8Qs-1q-qbg" secondAttribute="bottom" constant="-1" id="0hb-EA-GLm"/>
                             <constraint firstItem="8Qs-1q-qbg" firstAttribute="top" secondItem="041-Qe-ger" secondAttribute="bottom" constant="-64" id="2dG-QM-9KW"/>
                             <constraint firstAttribute="width" secondItem="8Qs-1q-qbg" secondAttribute="width" id="EjB-Tv-22g"/>
-                            <constraint firstAttribute="height" secondItem="8Qs-1q-qbg" secondAttribute="height" constant="64" id="anE-H4-edz"/>
                             <constraint firstAttribute="centerX" secondItem="8Qs-1q-qbg" secondAttribute="centerX" id="ouA-br-LnN"/>
                         </constraints>
                     </view>
