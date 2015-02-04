@@ -143,6 +143,8 @@ static CGFloat leadingSpace;
     
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
+    [self recordInitialAutoLayout];
+    
     if (self.containerViewLeadingSpaceConstraint.constant == leadingSpace) {
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
         self.containerViewTrailingSpaceConstraint.constant = trailingSpace - SIDE_BAR_OPEN_DISTANCE;
