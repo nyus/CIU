@@ -829,16 +829,17 @@
 /* Begin PBXShellScriptBuildPhase section */
 		50FBFFDC1A7E3FEB0090EE4B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "APP_ID=\"54ccf13951de5e9f042ed3f9\"\nAPI_KEY=\"VeAeUuuxqvBxGoASov5OmldSkOTdWVTQ\"\nsource \"${SRCROOT}\"/CrittercismSDK/dsym_upload.sh";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
