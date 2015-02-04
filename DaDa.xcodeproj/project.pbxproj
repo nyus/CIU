@@ -1077,7 +1077,7 @@
 		652BABB3199D3CCA009F5F5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CIU.app/CIU";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1099,7 +1099,7 @@
 		652BABB4199D3CCA009F5F5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CIU.app/CIU";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
