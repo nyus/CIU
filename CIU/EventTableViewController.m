@@ -76,6 +76,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)handleDataDisplayPeripheral{
     
+    // Reset
+    _localDataCount = 0;
+    _serverDataCount = 0;
+    
     self.dataSource = nil;
     [self.tableView reloadData];
     [self pullDataFromLocal];
