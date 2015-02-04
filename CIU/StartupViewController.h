@@ -10,7 +10,5 @@
 
 @interface StartupViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewLeadingSpaceConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewTrailingSpaceConstraint;
 
 @end

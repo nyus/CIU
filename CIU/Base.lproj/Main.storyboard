@@ -81,13 +81,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="8ni-1f-edL"/>
+                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="IE3-RX-BLh"/>
+                            <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="leading" secondItem="2Bz-Ve-11G" secondAttribute="leading" id="NaE-Nj-F3y"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Eq0-Rf-Yyq" secondAttribute="bottom" id="Psv-BU-AfO"/>
                             <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Qi6-Yk-sqB"/>
-                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="g5E-26-BXO"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2Bz-Ve-11G" secondAttribute="bottom" id="kb5-Cx-MIT"/>
-                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="q0x-fM-6Nm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2Bz-Ve-11G" secondAttribute="trailing" constant="-16" id="ssa-er-REp"/>
+                            <constraint firstItem="2Bz-Ve-11G" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="kQ3-bW-88b"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2Bz-Ve-11G" secondAttribute="bottom" id="wJ1-VZ-j6Y"/>
                             <constraint firstItem="Eq0-Rf-Yyq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="xiW-bv-fmE"/>
                         </constraints>
                         <connections>
@@ -96,8 +95,7 @@
                     </view>
                     <connections>
                         <outlet property="container" destination="2Bz-Ve-11G" id="TOP-g9-qcJ"/>
-                        <outlet property="containerViewLeadingSpaceConstraint" destination="q0x-fM-6Nm" id="RXV-Ia-dbV"/>
-                        <outlet property="containerViewTrailingSpaceConstraint" destination="ssa-er-REp" id="8qy-E7-Set"/>
+                        <outlet property="containerViewLeadingSpaceConstraint" destination="NaE-Nj-F3y" id="bui-KO-PBu"/>
                         <outlet property="tableView" destination="Eq0-Rf-Yyq" id="ogL-Qf-DGw"/>
                     </connections>
                 </viewController>
