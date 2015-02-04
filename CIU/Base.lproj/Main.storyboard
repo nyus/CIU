@@ -1527,8 +1527,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0l-EI-3bd" userLabel="comment button">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0l-EI-3bd" userLabel="comment button">
                                                     <rect key="frame" x="285" y="8" width="27" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="27" id="d72-s7-97c"/>
+                                                        <constraint firstAttribute="height" constant="27" id="yBS-Ue-3wH"/>
+                                                    </constraints>
                                                     <state key="normal" image="3comment">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -1545,7 +1549,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                         <action selector="commentButtonTapped:" destination="9Gj-Yp-pNZ" eventType="touchUpInside" id="SY5-vp-UTy"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tO5-pW-olH" userLabel="comment number label">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tO5-pW-olH" userLabel="comment number label">
                                                     <rect key="frame" x="289" y="34" width="6" height="12"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="10"/>
                                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1574,7 +1578,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="204" id="GZq-9W-268"/>
-                                                        <constraint firstAttribute="width" constant="225" id="ldC-hA-jqQ"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="LbA-Y4-sB1">
                                                         <size key="itemSize" width="204" height="204"/>
@@ -1629,10 +1632,15 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <constraints>
                                                 <constraint firstItem="eDb-hJ-x8y" firstAttribute="top" secondItem="UdE-hF-gNT" secondAttribute="top" constant="8" id="2te-uG-v63"/>
                                                 <constraint firstItem="eDb-hJ-x8y" firstAttribute="leading" secondItem="e3g-LQ-3Oo" secondAttribute="trailing" constant="7" id="3C5-Om-0jw"/>
+                                                <constraint firstItem="b0l-EI-3bd" firstAttribute="top" secondItem="UdE-hF-gNT" secondAttribute="top" constant="8" id="4BX-bQ-022"/>
+                                                <constraint firstAttribute="trailing" secondItem="b0l-EI-3bd" secondAttribute="trailing" constant="8" id="5Xu-OU-ln8"/>
+                                                <constraint firstAttribute="trailing" secondItem="tO5-pW-olH" secondAttribute="trailing" constant="25" id="8ed-Lr-0Z7"/>
                                                 <constraint firstItem="vth-Qq-CBS" firstAttribute="leading" secondItem="eDb-hJ-x8y" secondAttribute="leading" id="Csb-YC-of6"/>
+                                                <constraint firstItem="tO5-pW-olH" firstAttribute="top" secondItem="b0l-EI-3bd" secondAttribute="bottom" constant="-1" id="EFn-UB-fFz"/>
                                                 <constraint firstItem="e3g-LQ-3Oo" firstAttribute="top" secondItem="UdE-hF-gNT" secondAttribute="top" constant="6" id="FO2-0O-kwq"/>
                                                 <constraint firstAttribute="trailing" secondItem="kLv-8s-Ntf" secondAttribute="trailing" constant="43" id="Ipj-vi-bbS"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="leading" secondItem="3Tp-ye-A5T" secondAttribute="leading" id="UMu-QO-Gvt"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Tp-ye-A5T" secondAttribute="trailing" constant="8" id="UUG-CA-bfU"/>
                                                 <constraint firstAttribute="trailing" secondItem="Dc6-vF-VGG" secondAttribute="trailing" constant="8" id="XDe-GZ-PpS"/>
                                                 <constraint firstItem="kLv-8s-Ntf" firstAttribute="top" secondItem="vth-Qq-CBS" secondAttribute="bottom" constant="2" id="bFo-eT-n2y"/>
                                                 <constraint firstItem="vth-Qq-CBS" firstAttribute="top" secondItem="eDb-hJ-x8y" secondAttribute="bottom" constant="1" id="jQC-N5-vsb"/>
@@ -2001,13 +2009,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2">
                                 <rect key="frame" x="0.0" y="480" width="320" height="44"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKE-V6-MdF">
-                                        <rect key="frame" x="6" y="6" width="31" height="32"/>
-                                        <state key="normal" title="Button" image="revine_icon.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGr-AU-WVR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGr-AU-WVR">
                                         <rect key="frame" x="273" y="7" width="36" height="30"/>
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
@@ -2017,7 +2019,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <action selector="sendComment:" destination="6eh-bT-svD" eventType="touchUpInside" id="0NA-YG-6YW"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OyZ-RV-VZ0">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyZ-RV-VZ0">
                                         <rect key="frame" x="10" y="5" width="250" height="33"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2029,7 +2031,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 </subviews>
                                 <color key="backgroundColor" red="0.96862751250000001" green="0.96862751250000001" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GGr-AU-WVR" secondAttribute="trailing" constant="11" id="75R-Vm-VYd"/>
+                                    <constraint firstItem="GGr-AU-WVR" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="13" id="Ify-em-W7e"/>
+                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="5" id="Oy8-xB-Fau"/>
+                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="6" id="ayD-fb-YfV"/>
+                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="leading" secondItem="CiX-P4-dV2" secondAttribute="leading" constant="10" id="kU4-jR-4ch"/>
                                     <constraint firstAttribute="height" constant="44" id="nZH-gE-d1N"/>
+                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" id="t46-6I-IM5"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2661,7 +2669,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <image name="linkedin" width="25" height="25"/>
         <image name="little_panda" width="75" height="75"/>
         <image name="radionButton_selected" width="13" height="13"/>
-        <image name="revine_icon.png" width="228" height="43"/>
         <image name="test.png" width="408" height="408"/>
         <image name="twitter" width="25" height="25"/>
         <image name="wewantyou.png" width="166" height="123"/>
