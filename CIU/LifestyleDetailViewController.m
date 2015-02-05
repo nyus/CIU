@@ -440,12 +440,14 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     }
     self.pfQuery = [[PFQuery alloc] initWithClassName:parseClassName];
     //latest post goes to the top.
-    [self.pfQuery orderByAscending:@"name"];
+    
 
     if (IS_RES_MARKT) {
         [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
+        [self.pfQuery orderByAscending:@"name"];
     } else{
         [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
+        [self.pfQuery orderByDescending:@"createdAt"];
     }
 
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

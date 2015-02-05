@@ -248,10 +248,14 @@ static CGFloat leadingSpace;
     }
     //Feedback
     else if(indexPath.row == 3){
-        MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
-        [vc setToRecipients:@[@"8miletech@gmail.com"]];
-        vc.mailComposeDelegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+            [vc setToRecipients:@[@"8miletech@gmail.com"]];
+            vc.mailComposeDelegate = self;
+            [self presentViewController:vc animated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:nil message:@"Your device is not configured to send emails. Please check settings of your Mail app." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
+        }
     }
     //share this app
     else if(indexPath.row == 4){
