@@ -140,7 +140,9 @@
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
                     if(succeeded){
-                        
+                        // Store PFUser on PFInstallation
+                        [self storeUserOnInstallation:newUser];
+
                         //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
                         NSData *highResData = UIImagePNGRepresentation(weakSelf.avatarImageView.image);
                         UIImage *scaled = [Helper scaleImage:weakSelf.avatarImageView.image downToSize:weakSelf.avatarImageView.frame.size];
