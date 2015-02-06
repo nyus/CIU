@@ -128,6 +128,14 @@ typedef NS_ENUM(NSUInteger, Direction){
     [query whereKey:@"objectId" equalTo:self.statusObjectId];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
+            // Send push notification
+            PFQuery *poster = [PFQuery queryWithClassName:[PFUser parseClassName]];
+            [poster whereKey:DDUserNameKey equalTo:object[DDPosterUserNameKey]];
+            
+            PFPush *push = [[PFPush alloc] init];
+            [push setQuery:poster];
+            [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", object[DDPosterFirstNameKey], object[DDPosterLastNameKey]]];
+            [push sendPushInBackground];
             
             //increase comment count on Status object
             object[@"commentCount"] = [NSNumber numberWithInt:[object[@"commentCount"] intValue] +1];

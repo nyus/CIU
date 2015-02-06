@@ -12,6 +12,8 @@
 #import "LifestyleObject+Utilities.h"
 #import "SharedDataManager.h"
 #import <Parse/Parse.h>
+#import "UIAlertView+Blocks.h"
+
 #define CONTENT_LABEL_WIDTH 280.0f
 
 NSString *const kNamekey = @"Name";
@@ -190,23 +192,28 @@ NSString *const kIntroductionKey = @"Introduction";
 {
     NSDictionary *dict = self.dataSource[indexPath.row];
     if (dict[kAddressKey]) {
-        NSString *addressString = @"http://maps.apple.com/?q=";
-        addressString = [addressString stringByAppendingString:[dict[kAddressKey] stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
-        NSURL *url = [NSURL URLWithString:addressString];
-        if([[UIApplication sharedApplication] canOpenURL:url]){
-            [[UIApplication sharedApplication] openURL:url];
-        }
+        [UIAlertView showWithTitle:nil message:@"The location will be displayed in Maps app." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Open in Maps"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Open in Maps"]) {
+                NSString *addressString = @"http://maps.apple.com/?q=";
+                addressString = [addressString stringByAppendingString:[dict[kAddressKey] stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+                NSURL *url = [NSURL URLWithString:addressString];
+                if([[UIApplication sharedApplication] canOpenURL:url]){
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            }
+        }];
     } else if (dict[kPhoneKey]) {
-//        tel:1-408-555-555
-       NSString *string = [NSString stringWithFormat:@"tel:%@", dict[kPhoneKey]];
-        string = [string stringByReplacingOccurrencesOfString:@"(" withString:@""];
-        string = [string stringByReplacingOccurrencesOfString:@")" withString:@""];
-        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-        string = [string stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSURL *url = [NSURL URLWithString:string];
-        if([[UIApplication sharedApplication] canOpenURL:url]){
-            [[UIApplication sharedApplication] openURL:url];
-        }
+        [UIAlertView showWithTitle:nil message:[NSString stringWithFormat:@"Call %@?", dict[kPhoneKey]] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Call"] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            NSString *string = [NSString stringWithFormat:@"tel:%@", dict[kPhoneKey]];
+            string = [string stringByReplacingOccurrencesOfString:@"(" withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@")" withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+            string = [string stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            NSURL *url = [NSURL URLWithString:string];
+            if([[UIApplication sharedApplication] canOpenURL:url]){
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

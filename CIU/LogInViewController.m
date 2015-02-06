@@ -61,26 +61,12 @@
                                                       otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             } else {
-                
-//                FBRequest *request = [FBRequest requestForMe];
-//                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//                    if (!error) {
-                        // handle successful response
-//                    } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
-//                                isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-//                        NSLog(@"The facebook session was invalidated");
-//                        [self logoutButtonAction:nil];
-//                    } else {
-//                        NSLog(@"Some other error: %@", error);
-//                    }
-//                }];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"Something went wrong, please try again"
                                                                delegate:nil
                                                       cancelButtonTitle:nil
                                                       otherButtonTitles:@"Dismiss", nil];
                 [alert show];
-//                errorMessage = [error localizedDescription];
             }
 
         } else {
@@ -159,6 +145,9 @@
                     if (gender) {
                         [me setObject:gender forKey:@"gender"];
                     }
+                    
+                    me[DDIsAdminKey] = @NO;
+                    
                     [me saveEventually:^(BOOL succeeded, NSError *error) {
                         if(succeeded){
                             //set user on PFInstallation object so that we can send out targeted pushes

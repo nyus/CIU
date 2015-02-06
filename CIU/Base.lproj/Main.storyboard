@@ -2206,24 +2206,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <action selector="loginWithFBTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="zwf-qe-tbh"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6p-o0-Lp8">
-                                        <rect key="frame" x="55" y="0.0" width="45" height="45"/>
-                                        <state key="normal" backgroundImage="twitter">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIq-lN-Nbg">
-                                        <rect key="frame" x="110" y="0.0" width="45" height="45"/>
-                                        <state key="normal" backgroundImage="googlr">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUy-7d-Lxk">
-                                        <rect key="frame" x="165" y="0.0" width="45" height="45"/>
-                                        <state key="normal" backgroundImage="linkedin">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="daT-oh-yvo" firstAttribute="leading" secondItem="A8l-jB-M0q" secondAttribute="leading" constant="83" id="Jlh-TG-Z4R"/>
@@ -2663,14 +2645,11 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <image name="flag_off" width="25" height="21"/>
         <image name="flag_off.png" width="50" height="42"/>
         <image name="flag_on.png" width="50" height="42"/>
-        <image name="googlr" width="25" height="25"/>
         <image name="input_psw" width="148" height="28"/>
         <image name="input_username" width="148" height="28"/>
-        <image name="linkedin" width="25" height="25"/>
         <image name="little_panda" width="75" height="75"/>
         <image name="radionButton_selected" width="13" height="13"/>
         <image name="test.png" width="408" height="408"/>
-        <image name="twitter" width="25" height="25"/>
         <image name="wewantyou.png" width="166" height="123"/>
         <image name="yes.png" width="80" height="80"/>
     </resources>
