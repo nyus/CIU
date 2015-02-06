@@ -34,3 +34,4 @@ extern NSString *const DDEventContentKey;
 extern NSString *const DDSenderUserNameKey;
 extern NSString *const DDSenderFirstNameKey;
 extern NSString *const DDSenderLastNameKey;
+extern NSString *const DDObjectIdKey;

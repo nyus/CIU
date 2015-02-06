@@ -109,7 +109,30 @@ static NSString *const kEntityName = @"StatusObject";
 
 - (void)pullDataFromLocal{
     
-    [self pullDataFromLocalWithEntityName:kEntityName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:kStatusRadius];
+    NSArray *fetchedObjects = [self pullDataFromLocalWithEntityName:kEntityName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:kStatusRadius];
+    NSMutableArray *objectIds = [NSMutableArray arrayWithCapacity:fetchedObjects.count];
+    for (StatusObject *status in fetchedObjects) {
+        [objectIds addObject:status.objectId];
+    }
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Status"];
+    [query whereKey:DDObjectIdKey containedIn:objectIds];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *pfObject in objects) {
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kEntityName];
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"SELF.objectId == %@", pfObject.objectId];
+                NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+                if (fetchedObjects.count > 0) {
+                    StatusObject *status = fetchedObjects[0];
+                    status.commentCount = pfObject[DDCommentCountKey];
+                }
+            }
+            [[SharedDataManager sharedInstance] saveContext];
+            
+            [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }];
 }
 
 -(void)fetchNewStatusWithCount:(int)count{

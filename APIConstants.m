@@ -37,3 +37,4 @@ NSString *const DDEventContentKey = @"eventContent";
 NSString *const DDSenderUserNameKey = @"senderUsername";
 NSString *const DDSenderFirstNameKey = @"senderFirstName";
 NSString *const DDSenderLastNameKey = @"senderLastName";
+NSString *const DDObjectIdKey = @"objectId";

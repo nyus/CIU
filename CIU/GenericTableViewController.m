@@ -10,6 +10,7 @@
 #import "Helper.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
+#import "StatusObject.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
@@ -64,12 +65,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
-// Shared by EventVC and SurpriseVC
-- (void)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
+// Used by SurpriseVC
+- (NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
 {
     NSDictionary *dictionary = [Helper userLocation];
     if (!dictionary) {
-        return;
+        return nil;
     }
     
     if (!self.dataSource) {
@@ -102,6 +103,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects.count>0) {
+        
         // This has to be called before adding new objects to the data source
         NSUInteger currentCount = self.dataSource.count;
         NSMutableArray *indexPaths = [NSMutableArray array];
@@ -114,6 +116,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
+    
+    return fetchedObjects;
 }
 
 -(void)pullDataFromServer{
