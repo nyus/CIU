@@ -89,6 +89,7 @@ static NSString *const kEntityName = @"StatusObject";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[PFUser currentUser] refresh];
     [Flurry logEvent:@"View surprise" timed:YES];
 }
 

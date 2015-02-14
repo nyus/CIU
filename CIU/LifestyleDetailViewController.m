@@ -235,6 +235,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[PFUser currentUser] refresh];
     if (IS_RESTAURANT) {
         [Flurry logEvent:@"View restaurant" timed:YES];
     }else if (IS_MARKET){

@@ -128,6 +128,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[PFUser currentUser] refresh];
     [Flurry logEvent:@"View event" timed:YES];
 }
 

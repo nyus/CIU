@@ -21,7 +21,7 @@
     if ([PFInstallation currentInstallation]) {
         PFInstallation *installation = [PFInstallation currentInstallation];
         [self setupInstallation:installation withUser:user];
-        [installation saveEventually];
+        [installation saveInBackground];
     }
 }
 
@@ -50,9 +50,9 @@
 
 - (void)setupInstallation:(PFInstallation *)installation withUser:(PFUser *)user
 {
-    installation[DDUserKey] = user;
+    [installation setObject:user forKey:DDUserKey];
     if (user.username) {
-        installation[DDUserNameKey] = user.username;
+        [installation setObject:user.username forKey:DDUserNameKey];
     }
 }
 

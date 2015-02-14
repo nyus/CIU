@@ -179,35 +179,17 @@
         if ([self.emailOrUsernameTextField.text rangeOfString:@"@"].location == NSNotFound) {
             
             //username to log in
-            [PFUser logInWithUsernameInBackground:self.emailOrUsernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-                if (!error) {
-                    [self showStatusTableView];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
-                }else{
-                    [self showIncorrectPasswordOrFieldWithName:@"username"];
-                }
-                
-                [self.activityIndicator stopAnimating];
-            }];
+            [self loginUserWithUsername:self.emailOrUsernameTextField.text password:self.passwordTextField.text incorrectFieldName:@"username"];
         }else{
             //email to log in
             PFQuery *query = [PFQuery queryWithClassName:[PFUser parseClassName]];
             [query whereKey:@"email" equalTo:self.emailOrUsernameTextField.text];
             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 if (!error && object) {
-                    [PFUser logInWithUsernameInBackground:object[@"username"] password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-                        if (!error) {
-                            [self showStatusTableView];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
-                        }else{
-                            [self showIncorrectPasswordOrFieldWithName:@"email"];
-                        }
-                    }];
-
+                    [self loginUserWithUsername:object[@"username"] password:self.passwordTextField.text incorrectFieldName:@"email"];
                 }else{
                     [self showIncorrectPasswordOrFieldWithName:@"email"];
                 }
-                
                 [self.activityIndicator stopAnimating];
             }];
         }
@@ -216,6 +198,29 @@
         //invalid input
         //pop up alert
     }
+}
+
+- (void)loginUserWithUsername:(NSString *)username password:(NSString *)password incorrectFieldName:(NSString *)incorrectFieldName
+{
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        
+        if (!error) {
+            [self storeUserOnInstallation:user];
+            [self showStatusTableView];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
+        }else{
+            [self showIncorrectPasswordOrFieldWithName:incorrectFieldName];
+        }
+        
+        [self.activityIndicator stopAnimating];
+    }];
+}
+
+- (void)handleUserLogIn:(PFUser *)user
+{
+    [self storeUserOnInstallation:user];
+    [self showStatusTableView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
 }
 
 -(void)showIncorrectPasswordOrFieldWithName:(NSString *)wrongFieldName{

@@ -138,7 +138,9 @@ typedef NS_ENUM(NSUInteger, Direction){
             PFPush *push = [[PFPush alloc] init];
             [push setQuery:pushQuery];
             [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", [PFUser currentUser][DDFirstNameKey], [PFUser currentUser][DDLastNameKey]]];
-            [push sendPushInBackground];
+            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                
+            }];
             
             //increase comment count on Status object
             object[@"commentCount"] = [NSNumber numberWithInt:[object[@"commentCount"] intValue] +1];
@@ -155,6 +157,11 @@ typedef NS_ENUM(NSUInteger, Direction){
         }
     }];
     
+    if (![[PFUser currentUser] objectForKey:DDFirstNameKey]) {
+        [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            
+        }];
+    }
     //create a new Comment object
     PFObject *object = [[PFObject alloc] initWithClassName:@"Comment"];
     object[@"senderUsername"]= [PFUser currentUser].username;
