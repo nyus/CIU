@@ -20,7 +20,6 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) PFQuery *fetchQuery;
 -(void)pullDataFromServer;
--(void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey;
 -(void)pullDataFromLocal;
 -(NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius;
 -(void)loadRemoteDataForVisibleCells;

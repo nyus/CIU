@@ -11,6 +11,8 @@
 #import "SignUpViewController.h"
 #import "Helper.h"
 #import "FPLogger.h"
+#import "UIResponder+Utilities.h"
+
 @interface LogInViewController ()<UIAlertViewDelegate>
 
 @end

@@ -39,16 +39,4 @@ NSString *const kNoKey = @"No";
     }];
 }
 
--(void)storeUserOnInstallation:(PFUser *)user
-{
-    // Store PFUser on PFInstallation
-    if ([PFInstallation currentInstallation]) {
-        PFInstallation *installation = [PFInstallation currentInstallation];
-        installation[DDUserKey] = user;
-        if (user.username) {
-            installation[DDUserNameKey] = user.username;
-        }
-        [installation saveEventually];
-    }
-}
 @end

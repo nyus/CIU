@@ -23,6 +23,7 @@
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
 		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
+		5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */; };
 		5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */; };
 		5038A13019C47FA700D91354 /* CodeSnippets in Resources */ = {isa = PBXBuildFile; fileRef = 5038A12F19C47FA600D91354 /* CodeSnippets */; };
 		503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventTableViewController.m */; };
@@ -157,6 +158,8 @@
 		501A5E7219A6CE610050BFA6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5022BE761A0574CE0017170E /* DisplayPeripheralHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayPeripheralHeaderView.h; sourceTree = "<group>"; };
 		5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayPeripheralHeaderView.m; sourceTree = "<group>"; };
+		5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+Utilities.m"; sourceTree = "<group>"; };
+		5029A91D1A8FB267002B0212 /* UIResponder+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+Utilities.h"; sourceTree = "<group>"; };
 		5030AC171A6FEB8D00A45ABA /* TermsAndPrivacyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsAndPrivacyVC.h; sourceTree = "<group>"; };
 		5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsAndPrivacyVC.m; sourceTree = "<group>"; };
 		5038A12F19C47FA600D91354 /* CodeSnippets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeSnippets; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 		50B28C5019A8FA2100398BA4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */,
+				5029A91D1A8FB267002B0212 /* UIResponder+Utilities.h */,
 				501A5E6619A583B10050BFA6 /* LifestyleCategory+Utilities.h */,
 				501A5E6719A583B10050BFA6 /* LifestyleCategory+Utilities.m */,
 				50B28C5119A8FA3000398BA4 /* NSString+Map.h */,
@@ -909,6 +914,7 @@
 				503AF35419BB80B40023EC02 /* CreateEventViewController.m in Sources */,
 				0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */,
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
+				5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */,
 				65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */,
 				503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */,
 				50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */,
@@ -1036,8 +1042,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sihang Huang (6979SLWFTS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1058,7 +1064,7 @@
 					"$(PROJECT_DIR)/CrittercismSDK",
 				);
 				PRODUCT_NAME = "DaDa哒哒";
-				PROVISIONING_PROFILE = "3a3ff9cd-15db-4f07-b578-69ab2d0f9719";
+				PROVISIONING_PROFILE = "bd09f7c8-832d-41e9-8386-34e78119322d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1069,7 +1075,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: 8Mile Tech LLC (CL6A6X43DN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1091,7 +1097,7 @@
 					"$(PROJECT_DIR)/CrittercismSDK",
 				);
 				PRODUCT_NAME = "DaDa哒哒";
-				PROVISIONING_PROFILE = "75a9b5a9-29e8-4afa-b954-e1281c5750e2";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

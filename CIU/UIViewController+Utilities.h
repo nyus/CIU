@@ -13,5 +13,5 @@
 @interface UIViewController (Utilities)
 
 - (void)flagObjectForId:(NSString *)objectId parseClassName:(NSString *)parseClassName completion:(void(^)(BOOL succeeded, NSError *error))completion;
-- (void)storeUserOnInstallation:(PFUser *)user;
+
 @end

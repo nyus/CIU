@@ -13,6 +13,7 @@
 #import "GAI.h"
 #import "Flurry.h"
 #import "Crittercism.h"
+#import "UIResponder+Utilities.h"
 
 @implementation AppDelegate
 
@@ -74,12 +75,11 @@
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self storeUserOnInstallation:[PFUser currentUser]];
+        }
+    }];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

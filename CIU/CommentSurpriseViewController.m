@@ -129,15 +129,15 @@ typedef NS_ENUM(NSUInteger, Direction){
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             // Send push notification
-            PFQuery *device = [PFInstallation query];
-            if ([PFUser currentUser].username) {
-                [device whereKey:DDUserNameKey equalTo:[PFUser currentUser].username];
-            }else if([PFUser currentUser]){
-                [device whereKey:DDUserKey equalTo:[PFUser currentUser]];
-            }
+            PFQuery *userQuery = [PFUser query];
+            [userQuery whereKey:DDUserNameKey equalTo:object[DDPosterUserNameKey]];
+            
+            PFQuery *pushQuery = [PFInstallation query];
+            [pushQuery whereKey:DDUserKey matchesQuery:userQuery];
+            
             PFPush *push = [[PFPush alloc] init];
-            [push setQuery:device];
-            [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", object[DDPosterFirstNameKey], object[DDPosterLastNameKey]]];
+            [push setQuery:pushQuery];
+            [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", [PFUser currentUser][DDFirstNameKey], [PFUser currentUser][DDLastNameKey]]];
             [push sendPushInBackground];
             
             //increase comment count on Status object

@@ -12,6 +12,7 @@
 #import "FPLogger.h"
 #import "Helper.h"
 #import "APIConstants.h"
+#import "UIResponder+Utilities.h"
 
 @interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     UIAlertView *signUpSuccessAlert;
@@ -51,21 +52,30 @@
 }
 
 -(void)showStatusTableView{
-    //set user on PFInstallation object so that we can send out targeted pushes
-    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
-    [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [FPLogger record:@"successfully set PFUser on PFInstallation"];
-            NSLog(@"successfully set PFUser on PFInstallation");
-        }else{
-            [FPLogger record:@"set PFUser on PFInstallation falied"];
-            NSLog(@"set PFUser on PFInstallation falied");
-        }
-        
+    
+    [self storeUserOnInstallation:[PFUser currentUser] completion:^(BOOL succeeded, NSError *error) {
         [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
-        [self dismissViewControllerAnimated:NO completion:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
     }];
+    
+    [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
+    
+
+//    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+//    [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            [FPLogger record:@"successfully set PFUser on PFInstallation"];
+//            NSLog(@"successfully set PFUser on PFInstallation");
+//        }else{
+//            [FPLogger record:@"set PFUser on PFInstallation falied"];
+//            NSLog(@"set PFUser on PFInstallation falied");
+//        }
+//        
+//        [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
+//        [self dismissViewControllerAnimated:NO completion:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
+//    }];
 }
 
 - (IBAction)avatarImageViewTapped:(id)sender {
@@ -140,8 +150,6 @@
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
                     if(succeeded){
-                        // Store PFUser on PFInstallation
-                        [self storeUserOnInstallation:newUser];
 
                         //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
                         NSData *highResData = UIImagePNGRepresentation(weakSelf.avatarImageView.image);

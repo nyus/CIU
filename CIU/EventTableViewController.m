@@ -223,11 +223,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [self pullDataFromLocalWithEntityName:managedObjectName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:[[self eventRadius] floatValue]];
 }
 
-- (void)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
+- (NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
 {
     NSDictionary *dictionary = [Helper userLocation];
     if (!dictionary) {
-        return;
+        return nil;
     }
     
     if (!self.dataSource) {
@@ -266,6 +266,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         
         [self.tableView reloadData];
     }
+    
+    return fetchedObjects;
 }
 
 -(void)refreshControlTriggered:(UIRefreshControl *)sender{
