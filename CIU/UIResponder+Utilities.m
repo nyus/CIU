@@ -19,9 +19,8 @@
     
     // Store PFUser on PFInstallation
     if ([PFInstallation currentInstallation]) {
-        PFInstallation *installation = [PFInstallation currentInstallation];
-        [self setupInstallation:installation withUser:user];
-        [installation saveInBackground];
+        [self setupInstallationWithUser:user];
+        [[PFInstallation currentInstallation] saveInBackground];
     }
 }
 
@@ -40,19 +39,18 @@
     
     // Store PFUser on PFInstallation
     if ([PFInstallation currentInstallation]) {
-        PFInstallation *installation = [PFInstallation currentInstallation];
-        [self setupInstallation:installation withUser:user];
-        [installation saveEventually:^(BOOL succeeded, NSError *error) {
+        [self setupInstallationWithUser:user];
+        [[PFInstallation currentInstallation] saveEventually:^(BOOL succeeded, NSError *error) {
             completion (succeeded, error);
         }];
     }
 }
 
-- (void)setupInstallation:(PFInstallation *)installation withUser:(PFUser *)user
+- (void)setupInstallationWithUser:(PFUser *)user
 {
-    [installation setObject:user forKey:DDUserKey];
+    [[PFInstallation currentInstallation] setObject:user forKey:DDUserKey];
     if (user.username) {
-        [installation setObject:user.username forKey:DDUserNameKey];
+        [[PFInstallation currentInstallation] setObject:user.username forKey:DDUserNameKey];
     }
 }
 

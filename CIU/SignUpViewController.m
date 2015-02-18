@@ -60,22 +60,6 @@
     [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
     [self dismissViewControllerAnimated:NO completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
-    
-
-//    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
-//    [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            [FPLogger record:@"successfully set PFUser on PFInstallation"];
-//            NSLog(@"successfully set PFUser on PFInstallation");
-//        }else{
-//            [FPLogger record:@"set PFUser on PFInstallation falied"];
-//            NSLog(@"set PFUser on PFInstallation falied");
-//        }
-//        
-//        [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
-//        [self dismissViewControllerAnimated:NO completion:nil];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
-//    }];
 }
 
 - (IBAction)avatarImageViewTapped:(id)sender {
