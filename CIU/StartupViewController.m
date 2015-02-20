@@ -282,8 +282,8 @@ static CGFloat leadingSpace;
 -(void)shareToFacebook{
     // Check if the Facebook app is installed and we can present the share dialog
     FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
-#warning this link should be replaced by app store link
-    params.link = [NSURL URLWithString:@"http://www.8miletech.com"];
+    // App store link for DaDa
+    params.link = [NSURL URLWithString:@"http://itunes.apple.com/app/id959323646"];
     
     // If the Facebook app is installed and we can present the share dialog
     if ([FBDialogs canPresentShareDialogWithParams:params]) {
