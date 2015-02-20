@@ -21,7 +21,6 @@ For Profile:
 
 #import "Query.h"
 #import <Parse/Parse.h>
-#import "FPLogger.h"
 #import "Helper.h"
 #import "PFQuery+Utilities.h"
 @interface Query()

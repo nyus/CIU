@@ -40,4 +40,5 @@
     #import "Reachability.h"
     #import "UIViewController+Utilities.h"
     #import "APIConstants.h"
+    #import "FPLogger.h"
 #endif

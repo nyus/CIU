@@ -74,10 +74,14 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [FPLogger record:[NSString stringWithFormat:@"App delegate: currentInstallation is %@", currentInstallation]];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            [FPLogger record:@"App delegate: currentInstallation save success"];
             [self storeUserOnInstallation:[PFUser currentUser]];
+        } else {
+            [FPLogger record:@"App delegate: currentInstallation save failure"];
         }
     }];
 }

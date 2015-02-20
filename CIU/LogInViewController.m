@@ -10,7 +10,6 @@
 #import <Parse/Parse.h>
 #import "SignUpViewController.h"
 #import "Helper.h"
-#import "FPLogger.h"
 #import "UIResponder+Utilities.h"
 
 @interface LogInViewController ()<UIAlertViewDelegate>
@@ -152,6 +151,7 @@
                     [me saveEventually:^(BOOL succeeded, NSError *error) {
                         if(succeeded){
                             //set user on PFInstallation object so that we can send out targeted pushes
+                            [FPLogger record:[NSString stringWithFormat:@"Log in VC:FB call storeUserOnInstallation with user:%@",me]];
                             [self storeUserOnInstallation:me];
                         }
                     }];
@@ -205,6 +205,7 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
         
         if (!error) {
+            [FPLogger record:[NSString stringWithFormat:@"Log in VC:Account call storeUserOnInstallation with user:%@",user]];
             [self storeUserOnInstallation:user];
             [self showStatusTableView];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];

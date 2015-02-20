@@ -15,7 +15,6 @@
 #import "CommentSurpriseViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import "FPLogger.h"
 #import "CommentSurpriseViewController.h"
 #import <CoreData/CoreData.h>
 #import "SharedDataManager.h"
@@ -115,6 +114,8 @@ static NSString *const kEntityName = @"StatusObject";
     for (StatusObject *status in fetchedObjects) {
         [objectIds addObject:status.objectId];
     }
+    
+    [self.tableView reloadData];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Status"];
     [query whereKey:DDObjectIdKey containedIn:objectIds];

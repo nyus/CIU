@@ -14,19 +14,25 @@
 -(void)storeUserOnInstallation:(PFUser *)user
 {
     if (!user) {
+        [FPLogger record:@"storeUserOnInstallation: failed with nil user object"];
         return;
     }
     
     // Store PFUser on PFInstallation
     if ([PFInstallation currentInstallation]) {
         [self setupInstallationWithUser:user];
-        [[PFInstallation currentInstallation] saveInBackground];
+        [[PFInstallation currentInstallation] saveEventually:^(BOOL succeeded, NSError *error) {
+            [FPLogger record:[NSString stringWithFormat:@"storeUserOnInstallation: save current installation %@", succeeded ? @"success" : @"failure"]];
+        }];
+    } else {
+        [FPLogger record:@"storeUserOnInstallation: current installation is nil"];
     }
 }
 
 -(void)storeUserOnInstallation:(PFUser *)user completion:(void(^)(BOOL succeeded, NSError *error))completion
 {
     if (!user) {
+        [FPLogger record:@"storeUserOnInstallation:completion: failed with nil user object"];
         NSString *domain = @"com.sihangHuang.DaDa.ErrorDomain";
         NSString *desc = NSLocalizedString(@"Unabled to store nil PFUser on PFInstallation.", @"");
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
@@ -41,8 +47,11 @@
     if ([PFInstallation currentInstallation]) {
         [self setupInstallationWithUser:user];
         [[PFInstallation currentInstallation] saveEventually:^(BOOL succeeded, NSError *error) {
+            [FPLogger record:[NSString stringWithFormat:@"storeUserOnInstallation:completion: save current installation %@", succeeded ? @"success" : @"failure"]];
             completion (succeeded, error);
         }];
+    } else {
+        [FPLogger record:@"storeUserOnInstallation:completion: current installation is nil"];
     }
 }
 

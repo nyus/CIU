@@ -7,7 +7,6 @@
 //
 
 #import "Helper.h"
-#import "FPLogger.h"
 #import <Parse/Parse.h>
 #define Default_Radius 5
 static Helper *_helper;
@@ -325,11 +324,11 @@ static UIImagePickerController *_imagePicker;
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         if (!_imagePicker) {
             _imagePicker = [[UIImagePickerController alloc] init];
-            _imagePicker.delegate = controller;
         }
+        _imagePicker.delegate = controller;
         _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         _imagePicker.allowsEditing = YES;
-        _imagePicker.cameraCaptureMode = (UIImagePickerControllerCameraCaptureModePhoto);
+        _imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         [controller presentViewController:_imagePicker animated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Camera is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
@@ -355,7 +354,9 @@ static UIImagePickerController *_imagePicker;
 
 +(void)saveChosenPhoto:(UIImage *)photo andSetOnImageView:(UIImageView *)imageView
 {
-    
+    if (!photo) {
+        return;
+    }
     //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
     NSData *highResData = UIImagePNGRepresentation(photo);
     UIImage *scaled = [Helper scaleImage:photo downToSize:imageView.frame.size];

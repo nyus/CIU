@@ -397,7 +397,6 @@ static CGFloat leadingSpace;
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     //0 take a photo, 1 add from gallery
-    
     if (buttonIndex == 0) {
         [self launchCameraPicker];
     }else if (buttonIndex ==1){
@@ -418,9 +417,14 @@ static CGFloat leadingSpace;
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *photo = nil;
     if (info[@"UIImagePickerControllerEditedImage"]) {
+        [FPLogger record:@"StartupVC: Change avartar to edited image"];
         photo = info[@"UIImagePickerControllerEditedImage"];
-    } else {
+    } else if (info[@"UIImagePickerControllerOriginalImage"]){
+        [FPLogger record:@"StartupVC: Change avartar to original image"];
         photo = info[@"UIImagePickerControllerOriginalImage"];
+    } else {
+        [FPLogger record:@"StartupVC: Change avartar to nil image"];
+        return;
     }
     
     //access cell

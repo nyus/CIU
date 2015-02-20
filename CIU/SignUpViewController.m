@@ -9,7 +9,6 @@
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
 #import "LogInViewController.h"
-#import "FPLogger.h"
 #import "Helper.h"
 #import "APIConstants.h"
 #import "UIResponder+Utilities.h"
@@ -46,6 +45,7 @@
 
 -(void)showStatusTableView{
     
+    [FPLogger record:[NSString stringWithFormat:@"SignVC: call storeUserOnInstallation on currentUser:%@", [PFUser currentUser]]];
     [self storeUserOnInstallation:[PFUser currentUser] completion:^(BOOL succeeded, NSError *error) {
         [signUpSuccessAlert dismissWithClickedButtonIndex:0 animated:YES];
     }];
@@ -266,10 +266,16 @@
 
     UIImage *photo = nil;
     if (info[@"UIImagePickerControllerEditedImage"]) {
+        [FPLogger record:@"SignupVC: Change avartar to edited image"];
         photo = info[@"UIImagePickerControllerEditedImage"];
-    } else {
+    } else if (info[@"UIImagePickerControllerOriginalImage"]){
+        [FPLogger record:@"SignupVC: Change avartar to original image"];
         photo = info[@"UIImagePickerControllerOriginalImage"];
+    } else {
+        [FPLogger record:@"SignupVC: Change avartar to nil image"];
+        return;
     }
+    
     self.avatarImageView.image = photo;
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
