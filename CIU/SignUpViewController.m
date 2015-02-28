@@ -22,15 +22,6 @@
 
 @implementation SignUpViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -253,7 +244,8 @@
  
         [self.passwordTextField becomeFirstResponder];
     }else if(textField == self.passwordTextField){
-
+        
+        [self.passwordTextField resignFirstResponder];
         [self signUpButtonTapped:nil];
     }
     
