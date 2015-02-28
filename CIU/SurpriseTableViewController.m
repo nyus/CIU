@@ -31,8 +31,8 @@
 static float const kStatusRadius = 30;
 static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
-static NSInteger const kSurpriseDisclaimerAlertTag = 50;
-static NSString *const kSurpriseDisclaimerKey = @"kSurpriseDisclaimerKey";
+//static NSInteger const kSurpriseDisclaimerAlertTag = 50;
+//static NSString *const kSurpriseDisclaimerKey = @"kSurpriseDisclaimerKey";
 #define BACKGROUND_CELL_HEIGHT 300.0f
 #define ORIGIN_Y_CELL_MESSAGE_LABEL 54.0f
 static UIImage *defaultAvatar;
@@ -62,11 +62,11 @@ static NSString *const kEntityName = @"StatusObject";
 - (void)viewDidLoad{
     [super viewDidLoad];
     [[GAnalyticsManager shareManager] trackScreen:@"View Surprise"];
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kSurpriseDisclaimerKey]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，Surprise是一个分享美好事物的地方！不是一个约Pao、政治和生意平台，所以严禁淫秽、暴力、广告以及各种违法内容喔！也欢迎大家点击下方的感叹号图标进行举报！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
-        alert.tag = kSurpriseDisclaimerAlertTag;
-        [alert show];
-    }
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kSurpriseDisclaimerKey]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，Surprise是一个分享美好事物的地方！不是一个约Pao、政治和生意平台，所以严禁淫秽、暴力、广告以及各种违法内容喔！也欢迎大家点击下方的感叹号图标进行举报！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+//        alert.tag = kSurpriseDisclaimerAlertTag;
+//        [alert show];
+//    }
 
     [self addRefreshControll];
     
@@ -88,7 +88,9 @@ static NSString *const kEntityName = @"StatusObject";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refresh];
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+    }];
     [Flurry logEvent:@"View surprise" timed:YES];
 }
 
@@ -586,9 +588,9 @@ static NSString *const kEntityName = @"StatusObject";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == kSurpriseDisclaimerAlertTag) {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kSurpriseDisclaimerKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//    if (alertView.tag == kSurpriseDisclaimerAlertTag) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kSurpriseDisclaimerKey];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
 }
 @end

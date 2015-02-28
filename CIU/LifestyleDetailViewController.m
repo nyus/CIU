@@ -41,10 +41,10 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadius";
 static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 
-static NSInteger const kJobDisclaimerAlertTag = 50;
-static NSInteger const kTradeDisclaimerAlertTag = 51;
-static NSString *const kJobDisclaimerKey = @"kJobDisclaimerKey";
-static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
+//static NSInteger const kJobDisclaimerAlertTag = 50;
+//static NSInteger const kTradeDisclaimerAlertTag = 51;
+//static NSString *const kJobDisclaimerKey = @"kJobDisclaimerKey";
+//static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 @interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
@@ -175,17 +175,17 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
         
         if (IS_JOB) {
             self.title = @"Jobs";
-            if (![[NSUserDefaults standardUserDefaults] objectForKey:kJobDisclaimerKey]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，这里需要您理解并同意，DaDa哒哒仅为信息发布平台，并非实际招聘公司或企业，如您因参与招聘活动而产生任何人身损害及/或财物损失，我们无法承担任何责任喔！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
-                alert.tag = kJobDisclaimerAlertTag;
-                [alert show];
-            }
+//            if (![[NSUserDefaults standardUserDefaults] objectForKey:kJobDisclaimerKey]) {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，这里需要您理解并同意，DaDa哒哒仅为信息发布平台，并非实际招聘公司或企业，如您因参与招聘活动而产生任何人身损害及/或财物损失，我们无法承担任何责任喔！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+//                alert.tag = kJobDisclaimerAlertTag;
+//                [alert show];
+//            }
         } else {
-            if (![[NSUserDefaults standardUserDefaults] objectForKey:kTradeDisclaimerKey]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，这里需要理解并同意，DaDa哒哒仅为信息发布平台，并非买卖或交易中的任何一方，如您因在卖货或交易活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
-                alert.tag = kTradeDisclaimerAlertTag;
-                [alert show];
-            }
+//            if (![[NSUserDefaults standardUserDefaults] objectForKey:kTradeDisclaimerKey]) {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，这里需要理解并同意，DaDa哒哒仅为信息发布平台，并非买卖或交易中的任何一方，如您因在卖货或交易活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+//                alert.tag = kTradeDisclaimerAlertTag;
+//                [alert show];
+//            }
             self.title = @"Trade & Sell";
         }
         
@@ -235,7 +235,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refresh];
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+    }];
     if (IS_RESTAURANT) {
         [Flurry logEvent:@"View restaurant" timed:YES];
     }else if (IS_MARKET){
@@ -744,14 +746,14 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == kJobDisclaimerAlertTag) {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kJobDisclaimerKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    if (alertView.tag == kTradeDisclaimerAlertTag) {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kTradeDisclaimerKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//    if (alertView.tag == kJobDisclaimerAlertTag) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kJobDisclaimerKey];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+//    
+//    if (alertView.tag == kTradeDisclaimerAlertTag) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kTradeDisclaimerKey];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
 }
 @end

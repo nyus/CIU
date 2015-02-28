@@ -22,8 +22,8 @@ static float const kLocalFetchCount = 20;
 static NSString *managedObjectName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 
-static NSInteger const kEventDisclaimerAlertTag = 50;
-static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
+//static NSInteger const kEventDisclaimerAlertTag = 50;
+//static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
@@ -95,11 +95,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [[GAnalyticsManager shareManager] trackScreen:@"Event"];
     
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请您务必理解并同意，DaDa哒哒仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
-        alert.tag = kEventDisclaimerAlertTag;
-        [alert show];
-    }
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，请您务必理解并同意，DaDa哒哒仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+//        alert.tag = kEventDisclaimerAlertTag;
+//        [alert show];
+//    }
     
     [self addRefreshControll];
     
@@ -128,13 +128,16 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refresh];
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+    }];
     [Flurry logEvent:@"View event" timed:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View event" withParameters:nil];
+    [self.fetchQuery cancel];
     self.dateFormatter = nil;
 }
 
@@ -387,10 +390,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == kEventDisclaimerAlertTag) {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kEventDisclaimerKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//    if (alertView.tag == kEventDisclaimerAlertTag) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kEventDisclaimerKey];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
 }
 
 @end
