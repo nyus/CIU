@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -1206,7 +1206,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <scene sceneID="757-E7-CTN">
             <objects>
                 <tableViewController id="T9w-Lu-orH" customClass="EventTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="171" sectionHeaderHeight="22" sectionFooterHeight="22" id="62h-fm-Qe3">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="62h-fm-Qe3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2193,13 +2193,16 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8l-jB-M0q">
                                 <rect key="frame" x="55" y="461" width="210" height="45"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
-                                        <rect key="frame" x="83" y="0.0" width="45" height="45"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
+                                        <rect key="frame" x="2" y="0.0" width="199" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="4wQ-Ov-qOy"/>
-                                            <constraint firstAttribute="width" constant="45" id="t4v-C3-Jbb"/>
+                                            <constraint firstAttribute="width" constant="199" id="s3Z-IF-eWg"/>
+                                            <constraint firstAttribute="height" constant="44" id="xcm-zf-ir3"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="facebook">
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Log in with Facebook" image="facebook">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2208,10 +2211,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="daT-oh-yvo" firstAttribute="leading" secondItem="A8l-jB-M0q" secondAttribute="leading" constant="83" id="Jlh-TG-Z4R"/>
-                                    <constraint firstItem="daT-oh-yvo" firstAttribute="top" secondItem="A8l-jB-M0q" secondAttribute="top" id="PRV-uo-XQY"/>
+                                    <constraint firstAttribute="centerX" secondItem="daT-oh-yvo" secondAttribute="centerX" constant="3.5" id="2x9-Xg-Uab"/>
                                     <constraint firstAttribute="height" constant="45" id="nkH-gQ-VON"/>
                                     <constraint firstAttribute="width" constant="210" id="pk9-wW-rTu"/>
+                                    <constraint firstAttribute="centerY" secondItem="daT-oh-yvo" secondAttribute="centerY" constant="0.5" id="tDD-xP-Pdc"/>
                                 </constraints>
                             </view>
                         </subviews>

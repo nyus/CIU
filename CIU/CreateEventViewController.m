@@ -10,6 +10,8 @@
 #import "EventTableViewCell.h"
 #import <Parse/Parse.h>
 #import "HitTestView.h"
+#import "Helper.h"
+
 @interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
     NSString *eventContent;
@@ -197,15 +199,16 @@
         
         if (self.locationValidated) {
                 //publish
-            CLPlacemark *placemark = self.placeMarksArray[self.selectedPlaceMarkIndexPath.row];
-            CLLocation *location = placemark.location;
+//            CLPlacemark *placemark = self.placeMarksArray[self.selectedPlaceMarkIndexPath.row];
+            NSDictionary *dictionary = [Helper userLocation];
+//            CLLocation *location = placemark.location;
             PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
             [event setObject:eventName forKey:@"eventName"];
             [event setObject:eventContent forKey:@"eventContent"];
             [event setObject:eventDate forKey:@"eventDate"];
             [event setObject:@NO forKey:@"isBadContent"];
-            [event setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
-            [event setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
+            [event setObject:dictionary[@"latitude"] forKey:@"latitude"];
+            [event setObject:dictionary[@"longitude"] forKey:@"longitude"];
             [event setObject:eventLocation forKey:@"eventLocation"];
             [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
             [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
@@ -228,9 +231,15 @@
                     });
                 }
                 
-                [[GAnalyticsManager shareManager] trackUIAction:@"publish event" label:[NSString stringWithFormat:@"event location:%f %f",location.coordinate.latitude, location.coordinate.longitude] value:nil];
-                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude":@(location.coordinate.latitude),
-                                                                   @"longitude":@(location.coordinate.longitude)}];
+                NSNumber *latitude = dictionary[@"latitude"];
+                NSNumber *longitude = dictionary[@"longitude"];
+                [[GAnalyticsManager shareManager] trackUIAction:@"publish event"
+                                                          label:[NSString stringWithFormat:@"event location:%f %f",
+                                                                                        latitude ? latitude.doubleValue : -1,
+                                                                                        longitude ? longitude.doubleValue : -1]
+                                                          value:nil];
+                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude": latitude ? latitude : @(-1),
+                                                                   @"longitude": longitude ? longitude : @(-1)}];
             }];
         }else{
             //verify location

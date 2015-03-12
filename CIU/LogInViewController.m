@@ -44,7 +44,7 @@
 - (IBAction)loginWithFBTapped:(id)sender {
     
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[ @"user_about_me", @"user_location",@"email"];
+    NSArray *permissionsArray = @[ @"user_about_me"];
     
     [self.activityIndicator startAnimating]; // Show loading indicator until login is finished
     __block LogInViewController *weakSelf = self;
@@ -104,9 +104,9 @@
                     NSString *facebookID = userData[@"id"];
                     NSString *firstName = userData[@"first_name"];
                     NSString *lastName = userData[@"last_name"];
-                    NSString *location = userData[@"location"][@"name"];
+//                    NSString *location = userData[@"location"][@"name"];
                     NSString *gender = userData[@"gender"];
-                    NSString *email = userData[@"email"];
+//                    NSString *email = userData[@"email"];
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
                     
                     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
@@ -137,12 +137,12 @@
                         [me setObject:lastName forKey:@"lastName"];
                     }
                     [me setObject:@YES forKey:@"isFacebookUser"];
-                    if (location) {
-                        [me setObject:location forKey:@"location"];
-                    }
-                    if (email) {
-                        [me setObject:email forKey:@"email"];
-                    }
+//                    if (location) {
+//                        [me setObject:location forKey:@"location"];
+//                    }
+//                    if (email) {
+//                        [me setObject:email forKey:@"email"];
+//                    }
                     if (gender) {
                         [me setObject:gender forKey:@"gender"];
                     }

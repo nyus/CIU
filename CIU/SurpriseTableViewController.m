@@ -232,13 +232,13 @@ static NSString *const kEntityName = @"StatusObject";
     return self.dataSource.count;
 }
 
-//hides the liine separtors when data source has 0 objects
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] init];
-    
-    return view;
-}
+////hides the liine separtors when data source has 0 objects
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] init];
+//    
+//    return view;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

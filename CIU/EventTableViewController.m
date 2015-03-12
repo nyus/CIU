@@ -109,8 +109,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         [self pullDataFromLocal];
     }
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     __weak EventTableViewController *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         if (!INTERNET_AVAILABLE) {
@@ -286,7 +284,13 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    if (self.dataSource == nil || self.dataSource.count == 0) {
+        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        return 0;
+    } else {
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        return self.dataSource.count;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -311,6 +315,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.dataSource == nil || self.dataSource.count == 0) {
+        return 44.0;
+    }
+    
     Event *event = self.dataSource[indexPath.row];
     //status.statusCellHeight defaults to 0, so cant check nil
     if (event.cellHeight.floatValue != 0) {

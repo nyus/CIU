@@ -46,7 +46,6 @@
 		5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */; };
-		50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50675BC219B420B600845CD9 /* FacebookSDK.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		507F2F6E19BB46AF00E8275F /* event28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6D19BB46AF00E8275F /* event28.png */; };
 		507F2F7019BB46BB00E8275F /* surprise28.png in Resources */ = {isa = PBXBuildFile; fileRef = 507F2F6F19BB46BB00E8275F /* surprise28.png */; };
@@ -59,6 +58,7 @@
 		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
+		50CFB4801AB1C5350066045D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CFB47F1AB1C5350066045D /* FacebookSDK.framework */; };
 		50D769321A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */; };
 		50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
@@ -202,7 +202,6 @@
 		5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAnalyticsManager.m; sourceTree = "<group>"; };
 		5063E9DF1A65F73000275F2B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.0.0.a; sourceTree = "<group>"; };
-		50675BC219B420B600845CD9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		507F2F6D19BB46AF00E8275F /* event28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event28.png; sourceTree = "<group>"; };
 		507F2F6F19BB46BB00E8275F /* surprise28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surprise28.png; sourceTree = "<group>"; };
@@ -223,6 +222,7 @@
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
 		50C44A2119C28EAC00DF50D8 /* HitTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitTestView.h; sourceTree = "<group>"; };
 		50C44A2219C28EAC00DF50D8 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
+		50CFB47F1AB1C5350066045D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		50D7692D1A34BFB6005B31E3 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		50D7692E1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		50D7692F1A34BFB6005B31E3 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -333,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */,
+				50CFB4801AB1C5350066045D /* FacebookSDK.framework in Frameworks */,
 				5040548219A6CFA50050853A /* libz.dylib in Frameworks */,
 				6564F24419A7835000629B48 /* MapKit.framework in Frameworks */,
 				5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */,
@@ -348,7 +349,6 @@
 				5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */,
 				501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */,
 				652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */,
-				50675BC319B420B600845CD9 /* FacebookSDK.framework in Frameworks */,
 				652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */,
 				501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */,
 			);
@@ -589,12 +589,12 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50CFB47F1AB1C5350066045D /* FacebookSDK.framework */,
 				0B03B4751A8272B600526A37 /* UIAlertView+Blocks */,
 				50FBFFD41A7E3E5F0090EE4B /* CrittercismSDK */,
 				5063E9DE1A65F73000275F2B /* Flurry */,
 				504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */,
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
-				50675BC219B420B600845CD9 /* FacebookSDK.framework */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
 				5040548519A6CFAE0050853A /* QuartzCore.framework */,
 				5040548319A6CFAA0050853A /* MobileCoreServices.framework */,
