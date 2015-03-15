@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "UIColor+CIUColors.h"
+#import <StoreKit/StoreKit.h>
 
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
@@ -26,7 +27,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 static CGFloat leadingSpace;
 
 
-@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate>{
+@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate, SKStoreProductViewControllerDelegate>{
     CGPoint previousPoint;
 }
 
@@ -231,6 +232,11 @@ static CGFloat leadingSpace;
     return cell;
 }
 
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //Profile
     if (indexPath.row == 0) {
@@ -243,8 +249,10 @@ static CGFloat leadingSpace;
     }
     //Rate CIU
     else if (indexPath.row == 2){
-        NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/appid"];
-        [[UIApplication sharedApplication] openURL:url];
+        NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id959323646"];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
     }
     //Feedback
     else if(indexPath.row == 3){

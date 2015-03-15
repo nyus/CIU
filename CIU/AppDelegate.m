@@ -37,7 +37,7 @@
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-58518621-1"];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-58518621-2"];
     
 #if DEBUG
     [Parse setApplicationId:@"5iuZZ1iDu1brQG79t8VXWbztxRWFprDUx22zEAxl"
