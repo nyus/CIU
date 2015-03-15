@@ -301,6 +301,12 @@ static NSString *const kEntityName = @"StatusObject";
         
         cell.collectionView.hidden = NO;
         
+        // Clear out old photos
+        if (self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
+            [self.surpriseImagesArrayByIndexPath removeObjectForKey:[self keyForIndexPath:indexPath]];
+        }
+        [cell.collectionView reloadData];
+        
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
         if (postImages.count == status.photoCount.intValue) {
             self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = postImages;
