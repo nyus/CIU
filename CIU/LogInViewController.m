@@ -41,19 +41,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)loginWithFBTapped:(id)sender {
+- (IBAction)loginWithFBTapped:(id)sender
+{
+    // Utilize Parse.com SDK
+    
+    [self.activityIndicator startAnimating];
+    __weak typeof(self) weakSelf = self;
     
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = @[ @"user_about_me"];
-    
-    [self.activityIndicator startAnimating]; // Show loading indicator until login is finished
-    __block LogInViewController *weakSelf = self;
-    // Login PFUser using Facebook
+    NSArray *permissionsArray = @[@"public_profile"];
+
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        [self.activityIndicator stopAnimating]; // Hide loading indicator
         
         if (!user) {
-
+            [self.activityIndicator stopAnimating];
+            
             if (!error) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                                 message:@"You've cancelled the Facebook login."
@@ -71,61 +73,37 @@
             }
 
         } else {
-            if (user.isNew) {
-                NSLog(@"User with facebook signed up and logged in!");
-            } else {
-                NSLog(@"User with facebook logged in!");
-            }
             
             FBRequest *request = [FBRequest requestForMe];
             [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if (!error) {
-                    /*
-                     {
-                     "first_name" = DrThridteen;
-                     gender = male;
-                     id = 1529017197309951;
-                     "last_name" = Mile;
-                     link = "https://www.facebook.com/app_scoped_user_id/1529017197309951/";
-                     locale = "en_US";
-                     location =     {
-                     id = 114586701886732;
-                     name = "Detroit, Michigan";
-                     };
-                     name = "DrThridteen Mile";
-                     timezone = "-4";
-                     "updated_time" = "2014-09-01T13:53:28+0000";
-                     verified = 1;
-                     }
-                    */
-                    // result is a dictionary with the user's Facebook data
+                
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                    message:@"Something went wrong, please try again"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:nil
+                                                          otherButtonTitles:@"Dismiss", nil];
+                    [alert show];
+                } else {
                     NSDictionary *userData = (NSDictionary *)result;
-                    
                     NSString *facebookID = userData[@"id"];
                     NSString *firstName = userData[@"first_name"];
                     NSString *lastName = userData[@"last_name"];
-//                    NSString *location = userData[@"location"][@"name"];
                     NSString *gender = userData[@"gender"];
-//                    NSString *email = userData[@"email"];
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
                     
                     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
                     [NSURLConnection sendAsynchronousRequest:urlRequest
                                                        queue:[NSOperationQueue mainQueue]
-                                           completionHandler:
-                     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                         if (connectionError == nil && data != nil) {
-                             
-                             NSLog(@"username %@",user.username);
-                             // Set the image in the header imageView
-                             [Helper saveAvatar:data forUser:user.username isHighRes:YES];
-                             UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
-                             [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
-                             [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
-                         }
-                     }];
+                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                               if (!connectionError && data) {
+                                                     [Helper saveAvatar:data forUser:user.username isHighRes:YES];
+                                                     UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
+                                                     [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
+                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
+                                                 }
+                                           }];
                     
-                    // Now add the data to the UI elements
                     PFUser *me = [PFUser currentUser];
                     if (facebookID) {
                         [me setObject:facebookID forKey:@"facebookID"];
@@ -136,18 +114,11 @@
                     if (lastName) {
                         [me setObject:lastName forKey:@"lastName"];
                     }
-                    [me setObject:@YES forKey:@"isFacebookUser"];
-//                    if (location) {
-//                        [me setObject:location forKey:@"location"];
-//                    }
-//                    if (email) {
-//                        [me setObject:email forKey:@"email"];
-//                    }
                     if (gender) {
                         [me setObject:gender forKey:@"gender"];
                     }
                     me[DDIsAdminKey] = @NO;
-                    
+                    me[DDIsFacebookUserKey] = @YES;
                     [me saveEventually:^(BOOL succeeded, NSError *error) {
                         if(succeeded){
                             //set user on PFInstallation object so that we can send out targeted pushes
@@ -159,6 +130,8 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
                 }
+                
+                [self.activityIndicator stopAnimating];
             }];
         }
     }];
