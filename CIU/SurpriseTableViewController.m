@@ -134,7 +134,10 @@ static NSString *const kEntityName = @"StatusObject";
             }
             [[SharedDataManager sharedInstance] saveContext];
             
-            [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+            if (!self.tableView.isDecelerating && !self.tableView.isDragging) {
+                [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows
+                                      withRowAnimation:UITableViewRowAnimationNone];
+            }
         }
     }];
 }

@@ -194,7 +194,11 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
             newStatus[@"photoCount"] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
             newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
             newStatus[@"isBadContent"] = @NO;
-            newStatus[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
+            if ([[PFUser currentUser] objectForKey:DDIsAdminKey]) {
+                newStatus[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
+            } else {
+                newStatus[DDIsStickyPostKey] = @NO;
+            }
             
             NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
