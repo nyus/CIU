@@ -22,8 +22,8 @@ static float const kLocalFetchCount = 20;
 static NSString *managedObjectName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 
-//static NSInteger const kEventDisclaimerAlertTag = 50;
-//static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
+static NSInteger const kEventDisclaimerAlertTag = 50;
+static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
@@ -95,11 +95,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [[GAnalyticsManager shareManager] trackScreen:@"Event"];
     
-//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，请您务必理解并同意，DaDa哒哒仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
-//        alert.tag = kEventDisclaimerAlertTag;
-//        [alert show];
-//    }
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:kEventDisclaimerKey]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"亲，请您务必理解并同意，DaDa哒哒仅为信息发布平台，并非活动的主办方或发起人，如您因在参与活动而产生任何人身损害及/或财物损失，我们对此不承担任何责任。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"同意并接受", nil];
+        alert.tag = kEventDisclaimerAlertTag;
+        [alert show];
+    }
     
     [self addRefreshControll];
     
@@ -163,14 +163,14 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     }
     
     // Subquries: fetch geo-bounded objects and "on top" objects
-    PFQuery *geoQuery = [[PFQuery alloc] initWithClassName:className];
+    self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-    [geoQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
     
-    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
-    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
+//    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
+//    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
     
-    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
+//    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
     [self.fetchQuery orderByAscending:DDCreatedAtKey];
     [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
@@ -399,10 +399,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-//    if (alertView.tag == kEventDisclaimerAlertTag) {
-//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kEventDisclaimerKey];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//    }
+    if (alertView.tag == kEventDisclaimerAlertTag) {
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kEventDisclaimerKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 @end

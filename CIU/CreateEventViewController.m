@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "HitTestView.h"
 #import "Helper.h"
+#import "APIConstants.h"
 
 @interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
@@ -28,6 +29,8 @@
 @property (strong, nonatomic) NSArray *placeMarksArray;
 @property (strong, nonatomic) NSIndexPath *selectedPlaceMarkIndexPath;
 @property (nonatomic) BOOL locationValidated;
+@property (nonatomic, strong) __block CLLocation *adminEventLocation;
+
 @end
 
 @implementation CreateEventViewController
@@ -197,51 +200,9 @@
         return;
     }else{
         
-        if (self.locationValidated) {
-                //publish
-//            CLPlacemark *placemark = self.placeMarksArray[self.selectedPlaceMarkIndexPath.row];
-            NSDictionary *dictionary = [Helper userLocation];
-//            CLLocation *location = placemark.location;
-            PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
-            [event setObject:eventName forKey:@"eventName"];
-            [event setObject:eventContent forKey:@"eventContent"];
-            [event setObject:eventDate forKey:@"eventDate"];
-            [event setObject:@NO forKey:@"isBadContent"];
-            [event setObject:dictionary[@"latitude"] forKey:@"latitude"];
-            [event setObject:dictionary[@"longitude"] forKey:@"longitude"];
-            [event setObject:eventLocation forKey:@"eventLocation"];
-            [event setObject:[PFUser currentUser].username forKey:@"senderUsername"];
-            [event setObject:[[PFUser currentUser] objectForKey:@"firstName"] forKey:@"senderFirstName"];
-            [event setObject:[[PFUser currentUser] objectForKey:@"lastName"] forKey:@"senderLastName"];
-            event[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
-            
-            [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        [alert show];
-                        [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
-                    });
-                }else{
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        [alert show];
-                    });
-                }
-                
-                NSNumber *latitude = dictionary[@"latitude"];
-                NSNumber *longitude = dictionary[@"longitude"];
-                [[GAnalyticsManager shareManager] trackUIAction:@"publish event"
-                                                          label:[NSString stringWithFormat:@"event location:%f %f",
-                                                                                        latitude ? latitude.doubleValue : -1,
-                                                                                        longitude ? longitude.doubleValue : -1]
-                                                          value:nil];
-                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude": latitude ? latitude : @(-1),
-                                                                   @"longitude": longitude ? longitude : @(-1)}];
-            }];
-        }else{
+        BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
+        
+        if (isAdmin && !self.locationValidated) {
             //verify location
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -279,8 +240,10 @@
                         if (dict[@"State"]) {
                             [text appendFormat:@"%@",dict[@"State"]];
                         }
-
+                        
                         [self.optionsTBViewDatasource addObject:text];
+                        
+                        self.adminEventLocation = placeMark.location;
                     }
                     [self.optionsTBView reloadData];
                     
@@ -297,6 +260,61 @@
                         [alert show];
                     });
                 }
+            }];
+        } else {
+            //publish
+            PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
+            [event setObject:eventName forKey:DDEventNameKey];
+            [event setObject:eventContent forKey:DDEventContentKey];
+            [event setObject:eventDate forKey:DDEventDateKey];
+            [event setObject:@NO forKey:DDIsBadContentKey];
+            if (isAdmin) {
+                [event setObject:@(self.adminEventLocation.coordinate.latitude) forKey:DDLatitudeKey];
+                [event setObject:@(self.adminEventLocation.coordinate.longitude) forKey:DDLongitudeKey];
+            } else {
+                NSDictionary *dictionary = [Helper userLocation];
+                [event setObject:dictionary[DDLatitudeKey] forKey:DDLatitudeKey];
+                [event setObject:dictionary[DDLongitudeKey] forKey:DDLongitudeKey];
+            }
+            [event setObject:eventLocation forKey:DDEventLocationKey];
+            [event setObject:[PFUser currentUser].username forKey:DDSenderUserNameKey];
+            [event setObject:[[PFUser currentUser] objectForKey:DDFirstNameKey] forKey:DDSenderFirstNameKey];
+            [event setObject:[[PFUser currentUser] objectForKey:DDLastNameKey] forKey:DDSenderLastNameKey];
+            event[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
+            
+            [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [alert show];
+                        [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
+                    });
+                }else{
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [alert show];
+                    });
+                }
+                
+                NSNumber *latitude;
+                NSNumber *longitude;
+                if (isAdmin) {
+                    latitude = @(self.adminEventLocation.coordinate.latitude);
+                    longitude = @(self.adminEventLocation.coordinate.longitude);
+                } else {
+                    NSDictionary *dictionary = [Helper userLocation];
+                    latitude = dictionary[@"latitude"];
+                    longitude = dictionary[@"longitude"];
+                }
+                [[GAnalyticsManager shareManager] trackUIAction:@"publish event"
+                                                          label:[NSString stringWithFormat:@"event location:%f %f",
+                                                                 latitude ? latitude.doubleValue : -1,
+                                                                 longitude ? longitude.doubleValue : -1]
+                                                          value:nil];
+                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude": latitude ? latitude : @(-1),
+                                                                   @"longitude": longitude ? longitude : @(-1)}];
             }];
         }
     }
