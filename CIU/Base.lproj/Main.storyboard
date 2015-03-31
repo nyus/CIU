@@ -1347,7 +1347,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FgN-bC-ZQu">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FgN-bC-ZQu">
                                                     <rect key="frame" x="20" y="10" width="280" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1358,6 +1358,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="FgN-bC-ZQu" secondAttribute="trailing" constant="12" id="R4J-Mn-xtV"/>
+                                                <constraint firstItem="FgN-bC-ZQu" firstAttribute="top" secondItem="UV2-gW-0az" secondAttribute="topMargin" constant="2" id="i5g-Qf-QGH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="FgN-bC-ZQu" secondAttribute="bottom" constant="6.5" id="otf-9T-8pb"/>
+                                                <constraint firstItem="FgN-bC-ZQu" firstAttribute="leading" secondItem="UV2-gW-0az" secondAttribute="leadingMargin" constant="12" id="ro9-gT-rM9"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameTextField" destination="FgN-bC-ZQu" id="dVv-LZ-MUo"/>
@@ -1370,7 +1376,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-Pq-1lZ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-Pq-1lZ">
                                                     <rect key="frame" x="20" y="10" width="280" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1381,6 +1387,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="Vtg-Pq-1lZ" firstAttribute="leading" secondItem="6Wi-5f-c0m" secondAttribute="leadingMargin" constant="12" id="MGD-la-WIU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Vtg-Pq-1lZ" secondAttribute="bottom" constant="6.5" id="YRw-BD-fFx"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Vtg-Pq-1lZ" secondAttribute="trailing" constant="12" id="c0L-9F-VTg"/>
+                                                <constraint firstItem="Vtg-Pq-1lZ" firstAttribute="top" secondItem="6Wi-5f-c0m" secondAttribute="topMargin" constant="2" id="czX-32-w2Y"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="locationTextField" destination="Vtg-Pq-1lZ" id="oF0-co-Jbi"/>
@@ -1393,7 +1405,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFP-RI-fz3">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFP-RI-fz3">
                                                     <rect key="frame" x="15" y="10" width="290" height="149"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1401,6 +1413,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="TFP-RI-fz3" firstAttribute="leading" secondItem="lVd-cG-n0Q" secondAttribute="leadingMargin" constant="7" id="17z-ZC-Nm8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="TFP-RI-fz3" secondAttribute="bottom" constant="7.5" id="d8F-Cu-ye4"/>
+                                                <constraint firstItem="TFP-RI-fz3" firstAttribute="top" secondItem="lVd-cG-n0Q" secondAttribute="topMargin" constant="2" id="fRR-42-plf"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="TFP-RI-fz3" secondAttribute="trailing" constant="7" id="lht-az-vA1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="descriptionTextView" destination="TFP-RI-fz3" id="3v8-dn-dto"/>
@@ -1413,7 +1431,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="3EF-cN-F7n">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="3EF-cN-F7n">
                                                     <rect key="frame" x="30" y="10" width="260" height="162"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="431717729.94156498">
                                                         <!--2014-09-06 17:35:29 +0000-->
@@ -1424,6 +1442,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 </datePicker>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3EF-cN-F7n" secondAttribute="bottom" constant="9.5" id="5lu-uK-Bcl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3EF-cN-F7n" secondAttribute="trailing" constant="22" id="UMq-2y-pYl"/>
+                                                <constraint firstItem="3EF-cN-F7n" firstAttribute="leading" secondItem="vpZ-Al-JdT" secondAttribute="leadingMargin" constant="22" id="UbW-7I-Gc6"/>
+                                                <constraint firstItem="3EF-cN-F7n" firstAttribute="top" secondItem="vpZ-Al-JdT" secondAttribute="topMargin" constant="2" id="fmf-GL-Ubj"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="datePicker" destination="3EF-cN-F7n" id="Sao-Ed-b8z"/>

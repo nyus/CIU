@@ -13,6 +13,9 @@
 #import "Helper.h"
 #import "APIConstants.h"
 
+const float kHorizontalMarginLeft = 20.0;
+const float kOptionsTBViewHeight = 280.0;
+
 @interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
     NSString *eventContent;
@@ -215,7 +218,12 @@
                         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)];
                         tap.delegate = self;
                         [self.optionsTBViewShadow addGestureRecognizer:tap];
-                        self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height/2-100, 280, 200) style:UITableViewStylePlain];
+                        self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(0,
+                                                                                           0,
+                                                                                           kOptionsTBViewHeight,
+                                                                                           CGRectGetWidth(self.view.frame) - 2 * kHorizontalMarginLeft)
+                                                                          style:UITableViewStylePlain];
+                        self.optionsTBView.center = self.optionsTBViewShadow.center;
                         self.optionsTBView.delegate = self;
                         self.optionsTBView.dataSource = self;
                         
