@@ -117,138 +117,115 @@
                         <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Tw-ZU-JoD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
+                                                <rect key="frame" x="30" y="183" width="260" height="1"/>
+                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="QvV-wZ-Y6a"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找房子, 买车子, 吃中餐? 还是交朋友，拼车郊游，参加派对? 陪你从吃喝玩乐到谈论人森理想 好男人就是我!我就是Dada哒哒!" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
+                                                <rect key="frame" x="30" y="109" width="220" height="64"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="220" id="Cnh-1d-oTt"/>
+                                                    <constraint firstAttribute="height" constant="64" id="j9d-XW-DuQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
+                                                <rect key="frame" x="142" y="532" width="92" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="ZgA-3u-QMq"/>
+                                                    <constraint firstAttribute="width" constant="92" id="wt0-Jd-ec1"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ciu logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
-                                                <rect key="frame" x="120" y="21" width="80" height="80"/>
+                                                <rect key="frame" x="203" y="21" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="VOL-U6-7zP"/>
                                                     <constraint firstAttribute="width" constant="80" id="piO-iq-Xb4"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找工作？找房子？想买车？吃中餐？还是交朋友？别等了！就在Dada 哒哒！" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
-                                                <rect key="frame" x="37" y="109" width="246" height="28"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="246" id="Cnh-1d-oTt"/>
-                                                    <constraint firstAttribute="height" constant="28" id="j9d-XW-DuQ"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DaDa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-CB-7lM">
+                                                <rect key="frame" x="30" y="8" width="101" height="50"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="38"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
-                                                <rect key="frame" x="10" y="145" width="301" height="101"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="哒哒" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quk-Jw-1rF">
+                                                <rect key="frame" x="30" y="51" width="107" height="56"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                                <rect key="frame" x="30" y="197" width="260" height="147"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="101" id="9A7-VQ-XQL"/>
                                                     <constraint firstAttribute="width" constant="301" id="PHR-BW-wt7"/>
                                                 </constraints>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="DaDa ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="哒哒">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="STSongti-SC-Bold"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="16" name="TimesNewRomanPS-BoldMT"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content">is the best Chinese lifestyle application for your mobile device in the USA – all in your palm of your hand. Whether you are looking for an authentic Chinese restaurant that is open now or a Spring Festival Event in your neighborhood, Dada </string>
-                                                        <attributes>
-                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="哒哒">
-                                                        <attributes>
-                                                            <font key="NSFont" size="12" name="STSongti-SC-Regular"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <font key="NSOriginalFont" size="12" name="TimesNewRomanPSMT"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.">
-                                                        <attributes>
-                                                            <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <mutableString key="text">DaDa 哒哒 is the best Chinese lifestyle application for your mobile device – all in the palm of your hand. Whether you are looking for an authentic Chinese restaurant or a Spring Festival event in your neighborhood, Dada 哒哒 is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</mutableString>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
-                                                <rect key="frame" x="8" y="266" width="304" height="216"/>
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                                <rect key="frame" x="28" y="347" width="260" height="255"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="304" id="5e4-hL-qBS"/>
                                                     <constraint firstAttribute="height" constant="216" id="9E6-vU-q26"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="DaDa ">
+                                                    <fragment content="DADA">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
-                                                            <real key="NSKern" value="0.0"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="哒哒">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="STSongti-SC-Bold"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment content=" ">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="12" name="TimesNewRomanPSMT"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
                                                             <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="helps you">
+                                                    <fragment content="HELPS YOU">
                                                         <attributes>
-                                                            <font key="NSFont" size="13" name=".LucidaGrandeUI"/>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
                                                             <real key="NSKern" value="0.0"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
                                                             <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </attributes>
                                                     </fragment>
                                                     <fragment content=":">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="TimesNewRomanPS-BoldMT"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36"/>
+                                                            <color key="NSStrokeColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
                                                         <attributes>
                                                             <color key="NSColor" red="0.26666666666666666" green="0.47058823529411764" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             <font key="NSFont" size="13" name=".LucidaGrandeUI"/>
@@ -558,82 +535,47 @@ Cg
                                                 <nil key="highlightedColor"/>
                                                 <string key="userLabel">Label - 8Mile Tech team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off.  Our mission is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</string>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
-                                                <rect key="frame" x="142" y="532" width="92" height="21"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="ZgA-3u-QMq"/>
-                                                    <constraint firstAttribute="width" constant="92" id="wt0-Jd-ec1"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="companyLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="396-Qi-Mzl">
-                                                <rect key="frame" x="242" y="493" width="60" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="JcD-Ma-FSb"/>
-                                                    <constraint firstAttribute="height" constant="60" id="blw-Tq-LPF"/>
-                                                </constraints>
-                                            </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="Lc5-ar-Bhl" userLabel="contact textview">
-                                                <rect key="frame" x="55" y="552" width="250" height="63"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="250" id="AhD-wE-hZc"/>
-                                                    <constraint firstAttribute="height" constant="63" id="rig-Ic-pIz"/>
-                                                </constraints>
-                                                <string key="text">General contact: Info@8MileTech.com
-Technology Inquiry: Sihang@8MileTech.com
-Business Inquiry: Ronan@8miletech.com</string>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                                            </textView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wewantyou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xfp-Ik-q2x">
-                                                <rect key="frame" x="111" y="623" width="98" height="73"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="73" id="2Kp-Cl-jG8"/>
-                                                    <constraint firstAttribute="width" constant="98" id="O7j-JW-Jjq"/>
-                                                </constraints>
-                                            </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vZV-ms-hqw">
-                                                <rect key="frame" x="40" y="704" width="240" height="112"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="112" id="k0N-MD-UG6"/>
-                                                    <constraint firstAttribute="width" constant="240" id="r2E-Bs-lHE"/>
-                                                </constraints>
-                                                <string key="text">Part-time iOS Developer
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpB-cr-Hdb">
+                                                <rect key="frame" x="0.0" y="603" width="320" height="216"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-mw-yQY">
+                                                        <rect key="frame" x="33" y="15" width="225" height="79"/>
+                                                        <string key="text">Part-time iOS Developer
 Regional Business Development
 College Ambassadors
 All Great MINDS!
-Job Applications: Jobs@8MileTech.com</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                            </textView>
+Job Application: Jobs@8MileTech.com</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqn-pW-N1E">
+                                                        <rect key="frame" x="33" y="102" width="202" height="106"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <string key="text">General Contact:
+Info@8MileTech.com 
+Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileTech.com</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="850" id="6HZ-ut-6KB"/>
-                                            <constraint firstAttribute="trailing" secondItem="Lc5-ar-Bhl" secondAttribute="trailing" constant="15" id="6jq-2L-BZj"/>
-                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" id="84g-4C-PAT"/>
-                                            <constraint firstItem="Lc5-ar-Bhl" firstAttribute="top" secondItem="396-Qi-Mzl" secondAttribute="bottom" constant="-1" id="8qN-o2-j3y"/>
+                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" constant="-83" id="84g-4C-PAT"/>
+                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="8bY-iT-aIc"/>
                                             <constraint firstAttribute="centerX" secondItem="leb-r2-Kxz" secondAttribute="centerX" constant="-0.5" id="9xL-A2-OPZ"/>
-                                            <constraint firstAttribute="centerX" secondItem="Xfp-Ik-q2x" secondAttribute="centerX" id="Aep-YY-rkF"/>
-                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="top" secondItem="leb-r2-Kxz" secondAttribute="bottom" constant="20" id="BPE-0o-17z"/>
-                                            <constraint firstItem="396-Qi-Mzl" firstAttribute="top" secondItem="fPU-AX-waZ" secondAttribute="bottom" constant="11" id="EXW-zQ-BMU"/>
-                                            <constraint firstAttribute="centerX" secondItem="x0j-65-YEm" secondAttribute="centerX" id="MHW-0B-NKn"/>
-                                            <constraint firstItem="Vpj-fq-TF0" firstAttribute="bottom" secondItem="396-Qi-Mzl" secondAttribute="bottom" id="O6J-7o-Z7S"/>
-                                            <constraint firstAttribute="trailing" secondItem="396-Qi-Mzl" secondAttribute="trailing" constant="18" id="PMI-ZZ-pCc"/>
+                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="top" secondItem="leb-r2-Kxz" secondAttribute="bottom" constant="-8" id="BPE-0o-17z"/>
+                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" constant="10" id="Kg4-5x-y8m"/>
+                                            <constraint firstAttribute="centerX" secondItem="x0j-65-YEm" secondAttribute="centerX" constant="20" id="MHW-0B-NKn"/>
                                             <constraint firstAttribute="centerX" secondItem="fPU-AX-waZ" secondAttribute="centerX" id="TVz-OJ-fWu"/>
                                             <constraint firstItem="Aui-IU-LHk" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="21" id="dHy-o2-639"/>
-                                            <constraint firstAttribute="centerX" secondItem="vZV-ms-hqw" secondAttribute="centerX" id="fAF-Za-x3h"/>
-                                            <constraint firstItem="vZV-ms-hqw" firstAttribute="top" secondItem="Xfp-Ik-q2x" secondAttribute="bottom" constant="8" id="iGQ-iF-Js5"/>
+                                            <constraint firstAttribute="trailing" secondItem="7fd-lN-Pm2" secondAttribute="trailing" constant="30" id="fey-5h-UtU"/>
                                             <constraint firstItem="x0j-65-YEm" firstAttribute="top" secondItem="Aui-IU-LHk" secondAttribute="bottom" constant="8" id="lba-Hs-c96"/>
-                                            <constraint firstItem="396-Qi-Mzl" firstAttribute="leading" secondItem="Vpj-fq-TF0" secondAttribute="trailing" constant="8" id="qgh-ol-C6S"/>
-                                            <constraint firstItem="Xfp-Ik-q2x" firstAttribute="top" secondItem="Lc5-ar-Bhl" secondAttribute="bottom" constant="8" id="sPm-2s-VhI"/>
-                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" constant="8" id="z07-f2-ihM"/>
+                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" id="z07-f2-ihM"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -662,7 +604,7 @@ Job Applications: Jobs@8MileTech.com</string>
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
+                    <size key="freeformSize" width="320" height="2000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2665,7 +2607,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <image name="3share" width="28" height="28"/>
         <image name="camera.png" width="256" height="256"/>
         <image name="ciu logo.png" width="229" height="226"/>
-        <image name="companyLogo.png" width="436" height="436"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
         <image name="event_dot" width="8" height="8"/>
         <image name="facebook" width="25" height="25"/>
@@ -2677,7 +2618,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <image name="little_panda" width="75" height="75"/>
         <image name="radionButton_selected" width="13" height="13"/>
         <image name="test.png" width="408" height="408"/>
-        <image name="wewantyou.png" width="166" height="123"/>
         <image name="yes.png" width="80" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
