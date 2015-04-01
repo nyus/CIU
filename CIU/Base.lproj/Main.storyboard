@@ -117,77 +117,58 @@
                         <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Tw-ZU-JoD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7J-qZ-UaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="835"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
-                                                <rect key="frame" x="30" y="183" width="260" height="1"/>
+                                                <rect key="frame" x="30" y="195" width="260" height="1"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="QvV-wZ-Y6a"/>
+                                                    <constraint firstAttribute="height" constant="1" id="THv-5Y-idR"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找房子, 买车子, 吃中餐? 还是交朋友，拼车郊游，参加派对? 陪你从吃喝玩乐到谈论人森理想 好男人就是我!我就是Dada哒哒!" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
-                                                <rect key="frame" x="30" y="109" width="220" height="64"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="220" id="Cnh-1d-oTt"/>
-                                                    <constraint firstAttribute="height" constant="64" id="j9d-XW-DuQ"/>
-                                                </constraints>
+                                                <rect key="frame" x="30" y="125.5" width="187" height="57.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpj-fq-TF0">
-                                                <rect key="frame" x="142" y="532" width="92" height="21"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="ZgA-3u-QMq"/>
-                                                    <constraint firstAttribute="width" constant="92" id="wt0-Jd-ec1"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="0.49803921568627452" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ciu logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aui-IU-LHk">
-                                                <rect key="frame" x="203" y="21" width="80" height="80"/>
+                                                <rect key="frame" x="170" y="21" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="VOL-U6-7zP"/>
                                                     <constraint firstAttribute="width" constant="80" id="piO-iq-Xb4"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DaDa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-CB-7lM">
-                                                <rect key="frame" x="30" y="8" width="101" height="50"/>
-                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="38"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DaDa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-CB-7lM">
+                                                <rect key="frame" x="30" y="8" width="105.5" height="48"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="哒哒" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quk-Jw-1rF">
-                                                <rect key="frame" x="30" y="51" width="107" height="56"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哒哒" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quk-Jw-1rF">
+                                                <rect key="frame" x="30" y="51" width="110" height="64.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="55"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
-                                                <rect key="frame" x="30" y="197" width="260" height="147"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="101" id="9A7-VQ-XQL"/>
-                                                    <constraint firstAttribute="width" constant="301" id="PHR-BW-wt7"/>
-                                                </constraints>
-                                                <mutableString key="text">DaDa 哒哒 is the best Chinese lifestyle application for your mobile device – all in the palm of your hand. Whether you are looking for an authentic Chinese restaurant or a Spring Festival event in your neighborhood, Dada 哒哒 is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</mutableString>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                                <rect key="frame" x="30" y="210" width="260" height="115"/>
+                                                <string key="text">DaDa 哒哒 is the best Chinese lifestyle application for your mobile device – all in the palm of your hand. Whether you are looking for an authentic Chinese restaurant or a Spring Festival event in your neighborhood, Dada 哒哒 is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
-                                                <rect key="frame" x="28" y="347" width="260" height="255"/>
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                                <rect key="frame" x="28" y="347" width="260" height="248"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="304" id="5e4-hL-qBS"/>
-                                                    <constraint firstAttribute="height" constant="216" id="9E6-vU-q26"/>
+                                                    <constraint firstAttribute="height" constant="248" id="WKj-0L-2XT"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
                                                     <fragment content="DADA">
@@ -535,65 +516,92 @@ Cg
                                                 <nil key="highlightedColor"/>
                                                 <string key="userLabel">Label - 8Mile Tech team’s diverse skill set allows us to expertly tailor our services to match your exact needs. From full-service engagements to a la carte services, we help our clients launch the best apps &amp; websites possible. Our renowned strategy &amp; planning team works alongside our world class branding and digital design experts. We create beautiful and engaging designs, matched only by the intuitive and innovative user interfaces that those designs are based on. Our expert development and finishing cap it all off.  Our mission is to bring high quality custom mobile solutions to market that are unique and compelling. We start by quickly translating your vision into the mobile experience your customer will love. With innovation and integrity, our consulting services in mobile app development help our customers do amazing things with mobile.</string>
                                             </label>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpB-cr-Hdb">
-                                                <rect key="frame" x="0.0" y="603" width="320" height="216"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpB-cr-Hdb">
+                                                <rect key="frame" x="0.0" y="603" width="320" height="232"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-mw-yQY">
-                                                        <rect key="frame" x="33" y="15" width="225" height="79"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-mw-yQY">
+                                                        <rect key="frame" x="33" y="15" width="180.5" height="60"/>
                                                         <string key="text">Part-time iOS Developer
 Regional Business Development
 College Ambassadors
 All Great MINDS!
 Job Application: Jobs@8MileTech.com</string>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqn-pW-N1E">
-                                                        <rect key="frame" x="33" y="102" width="202" height="106"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqn-pW-N1E">
+                                                        <rect key="frame" x="30" y="91" width="121" height="111.5"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <string key="text">General Contact:
-Info@8MileTech.com 
+Info@8MileTech.com
+
 Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileTech.com</string>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                     </textView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8mile_icon_about.png" translatesAutoresizingMaskIntoConstraints="NO" id="T6i-Zx-yjr">
+                                                        <rect key="frame" x="169" y="102" width="61" height="90"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="90" id="1nu-0q-DK6"/>
+                                                            <constraint firstAttribute="width" constant="61" id="cUs-Jh-WkC"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="T6i-Zx-yjr" firstAttribute="top" secondItem="Ksa-mw-yQY" secondAttribute="bottom" constant="27" id="5dE-w4-Bq6"/>
+                                                    <constraint firstItem="Ksa-mw-yQY" firstAttribute="leading" secondItem="fpB-cr-Hdb" secondAttribute="leading" constant="33" id="J6O-fX-O9D"/>
+                                                    <constraint firstItem="Ksa-mw-yQY" firstAttribute="top" secondItem="fpB-cr-Hdb" secondAttribute="top" constant="15" id="Pq8-OM-OV5"/>
+                                                    <constraint firstItem="Rqn-pW-N1E" firstAttribute="top" secondItem="Ksa-mw-yQY" secondAttribute="bottom" constant="16" id="fnG-TM-Hus"/>
+                                                    <constraint firstAttribute="height" constant="232" id="fro-hQ-sTn"/>
+                                                    <constraint firstItem="T6i-Zx-yjr" firstAttribute="leading" secondItem="Rqn-pW-N1E" secondAttribute="trailing" constant="18" id="moL-6y-HoT"/>
+                                                    <constraint firstItem="Rqn-pW-N1E" firstAttribute="leading" secondItem="fpB-cr-Hdb" secondAttribute="leading" constant="30" id="zHd-AJ-EHQ"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="850" id="6HZ-ut-6KB"/>
-                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" constant="-83" id="84g-4C-PAT"/>
-                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="8bY-iT-aIc"/>
-                                            <constraint firstAttribute="centerX" secondItem="leb-r2-Kxz" secondAttribute="centerX" constant="-0.5" id="9xL-A2-OPZ"/>
-                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="top" secondItem="leb-r2-Kxz" secondAttribute="bottom" constant="-8" id="BPE-0o-17z"/>
-                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" constant="10" id="Kg4-5x-y8m"/>
-                                            <constraint firstAttribute="centerX" secondItem="x0j-65-YEm" secondAttribute="centerX" constant="20" id="MHW-0B-NKn"/>
-                                            <constraint firstAttribute="centerX" secondItem="fPU-AX-waZ" secondAttribute="centerX" id="TVz-OJ-fWu"/>
+                                            <constraint firstItem="Uga-CB-7lM" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="8" id="0Ax-J9-IvZ"/>
+                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" constant="12" id="2ty-Sd-jHT"/>
+                                            <constraint firstAttribute="height" constant="835" id="6HZ-ut-6KB"/>
+                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="top" secondItem="7fd-lN-Pm2" secondAttribute="bottom" constant="14" id="6ne-DL-Beo"/>
+                                            <constraint firstAttribute="centerX" secondItem="Aui-IU-LHk" secondAttribute="centerX" constant="-50" id="84g-4C-PAT"/>
+                                            <constraint firstItem="x0j-65-YEm" firstAttribute="top" secondItem="Quk-Jw-1rF" secondAttribute="bottom" constant="10" id="DBE-ik-NBE"/>
+                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="top" secondItem="leb-r2-Kxz" secondAttribute="bottom" constant="22" id="Dci-VU-mH3"/>
+                                            <constraint firstAttribute="trailing" secondItem="fPU-AX-waZ" secondAttribute="trailing" constant="32" id="Jh2-pg-w5q"/>
+                                            <constraint firstAttribute="trailing" secondItem="7fd-lN-Pm2" secondAttribute="trailing" constant="30" id="ONk-ip-vjd"/>
+                                            <constraint firstItem="fpB-cr-Hdb" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" id="PdY-fU-c6c"/>
+                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="Sjb-AF-EY8"/>
+                                            <constraint firstItem="Quk-Jw-1rF" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="Yne-bu-kr6"/>
+                                            <constraint firstAttribute="trailing" secondItem="fpB-cr-Hdb" secondAttribute="trailing" id="a6R-Jd-KxB"/>
                                             <constraint firstItem="Aui-IU-LHk" firstAttribute="top" secondItem="utY-MJ-PRu" secondAttribute="top" constant="21" id="dHy-o2-639"/>
-                                            <constraint firstAttribute="trailing" secondItem="7fd-lN-Pm2" secondAttribute="trailing" constant="30" id="fey-5h-UtU"/>
-                                            <constraint firstItem="x0j-65-YEm" firstAttribute="top" secondItem="Aui-IU-LHk" secondAttribute="bottom" constant="8" id="lba-Hs-c96"/>
-                                            <constraint firstItem="leb-r2-Kxz" firstAttribute="top" secondItem="x0j-65-YEm" secondAttribute="bottom" id="z07-f2-ihM"/>
+                                            <constraint firstItem="7fd-lN-Pm2" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="gSl-yr-td7"/>
+                                            <constraint firstItem="Uga-CB-7lM" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="jTO-QM-kAB"/>
+                                            <constraint firstAttribute="trailing" secondItem="leb-r2-Kxz" secondAttribute="trailing" constant="30" id="mmI-p5-9Pc"/>
+                                            <constraint firstItem="fPU-AX-waZ" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="28" id="noM-Lr-bDL"/>
+                                            <constraint firstItem="Quk-Jw-1rF" firstAttribute="top" secondItem="Uga-CB-7lM" secondAttribute="bottom" constant="-5" id="pKa-uq-HMQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="fpB-cr-Hdb" secondAttribute="bottom" id="wON-dm-OhK"/>
+                                            <constraint firstItem="x0j-65-YEm" firstAttribute="leading" secondItem="utY-MJ-PRu" secondAttribute="leading" constant="30" id="wWO-si-7FQ"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="96V-EO-T14"/>
-                                    <constraint firstAttribute="bottom" secondItem="utY-MJ-PRu" secondAttribute="bottom" id="TQG-Y7-yIu"/>
-                                    <constraint firstAttribute="trailing" secondItem="utY-MJ-PRu" secondAttribute="trailing" id="Unh-ky-tET"/>
-                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="top" secondItem="N7J-qZ-UaZ" secondAttribute="top" id="bzv-Y0-P7j"/>
-                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="leading" secondItem="N7J-qZ-UaZ" secondAttribute="leading" id="zLe-dY-qDz"/>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="top" secondItem="N7J-qZ-UaZ" secondAttribute="top" id="6lO-iw-EiW"/>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="leading" secondItem="N7J-qZ-UaZ" secondAttribute="leading" id="JYi-cX-aZo"/>
+                                    <constraint firstAttribute="bottom" secondItem="utY-MJ-PRu" secondAttribute="bottom" id="PQL-Br-8iW"/>
+                                    <constraint firstAttribute="trailing" secondItem="utY-MJ-PRu" secondAttribute="trailing" id="Twb-fH-cZa"/>
+                                    <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="lT2-Tv-hSv"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="top" secondItem="8Tw-ZU-JoD" secondAttribute="top" id="nxr-dL-QFD"/>
-                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="leading" secondItem="8Tw-ZU-JoD" secondAttribute="leading" id="qMm-Tj-ycm"/>
-                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="centerY" secondItem="8Tw-ZU-JoD" secondAttribute="centerY" id="qsN-8s-cPr"/>
-                            <constraint firstAttribute="trailing" secondItem="N7J-qZ-UaZ" secondAttribute="trailing" id="zsk-Qz-xWW"/>
+                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="leading" secondItem="8Tw-ZU-JoD" secondAttribute="leading" id="Ou5-LC-O5n"/>
+                            <constraint firstItem="N7J-qZ-UaZ" firstAttribute="top" secondItem="8Tw-ZU-JoD" secondAttribute="top" id="ZT5-HF-W8p"/>
+                            <constraint firstAttribute="bottom" secondItem="N7J-qZ-UaZ" secondAttribute="bottom" id="t8Q-Mj-73h"/>
+                            <constraint firstAttribute="trailing" secondItem="N7J-qZ-UaZ" secondAttribute="trailing" id="vF4-9x-JN3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nbU-S9-33w">
@@ -604,7 +612,7 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="2000"/>
+                    <size key="freeformSize" width="320" height="568"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33e-cs-NzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2605,6 +2613,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <image name="3comment" width="28" height="28"/>
         <image name="3like_before " width="28" height="28"/>
         <image name="3share" width="28" height="28"/>
+        <image name="8mile_icon_about.png" width="154" height="228"/>
         <image name="camera.png" width="256" height="256"/>
         <image name="ciu logo.png" width="229" height="226"/>
         <image name="default-user-icon-profile.png" width="200" height="200"/>
