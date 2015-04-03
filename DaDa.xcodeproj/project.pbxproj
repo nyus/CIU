@@ -22,6 +22,8 @@
 		501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6D19A6B1F40050BFA6 /* FPLogger.m */; };
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
 		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
+		50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD51ACECB8E00945D04 /* EulaVC.m */; };
+		50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD81ACECFF600945D04 /* UIViewController+EULA.m */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
 		5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */; };
 		5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */; };
@@ -158,6 +160,10 @@
 		501A5E6F19A6CBE00050BFA6 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		501A5E7019A6CBE00050BFA6 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		501A5E7219A6CE610050BFA6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		50203CD41ACECB8E00945D04 /* EulaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EulaVC.h; sourceTree = "<group>"; };
+		50203CD51ACECB8E00945D04 /* EulaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EulaVC.m; sourceTree = "<group>"; };
+		50203CD71ACECFF600945D04 /* UIViewController+EULA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+EULA.h"; sourceTree = "<group>"; };
+		50203CD81ACECFF600945D04 /* UIViewController+EULA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EULA.m"; sourceTree = "<group>"; };
 		5022BE761A0574CE0017170E /* DisplayPeripheralHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayPeripheralHeaderView.h; sourceTree = "<group>"; };
 		5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayPeripheralHeaderView.m; sourceTree = "<group>"; };
 		5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+Utilities.m"; sourceTree = "<group>"; };
@@ -502,6 +508,8 @@
 				5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */,
 				5030AC171A6FEB8D00A45ABA /* TermsAndPrivacyVC.h */,
 				5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */,
+				50203CD41ACECB8E00945D04 /* EulaVC.h */,
+				50203CD51ACECB8E00945D04 /* EulaVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -531,6 +539,8 @@
 				50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */,
 				0B03B4791A82764700526A37 /* UIViewController+Utilities.h */,
 				0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */,
+				50203CD71ACECFF600945D04 /* UIViewController+EULA.h */,
+				50203CD81ACECFF600945D04 /* UIViewController+EULA.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -876,6 +886,7 @@
 				6564F1FC199E3E8D00629B48 /* GenericTableViewController.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
+				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
 				50FBFFC91A7DCC270090EE4B /* APIConstants.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeViewController.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
@@ -922,6 +933,7 @@
 				503AF35419BB80B40023EC02 /* CreateEventViewController.m in Sources */,
 				0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */,
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
+				50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */,
 				5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */,
 				65C4F11219AFBD53004452C3 /* SignUpViewController.m in Sources */,
 				503AF34519BB678D0023EC02 /* EventTableViewController.m in Sources */,

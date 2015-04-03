@@ -12,8 +12,9 @@
 #import "Helper.h"
 #import "APIConstants.h"
 #import "UIResponder+Utilities.h"
+#import "UIViewController+EULA.h"
 
-@interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, EulaVCDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageviewTopSpaceToTopLayoutConstraint;
@@ -69,8 +70,8 @@
     [Helper launchPhotoLibraryInController:self];
 }
 
-- (IBAction)signUpButtonTapped:(id)sender {
-    
+- (void)signup
+{
     if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
         self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
         [UIView animateWithDuration:.3 animations:^{
@@ -118,7 +119,7 @@
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
                     if(succeeded){
-
+                        
                         //save avatar to local and server. the reason to do it now is becuase we need to associate the avatar with a username
                         NSData *highResData = UIImagePNGRepresentation(weakSelf.avatarImageView.image);
                         UIImage *scaled = [Helper scaleImage:weakSelf.avatarImageView.image downToSize:weakSelf.avatarImageView.frame.size];
@@ -136,7 +137,7 @@
                             [weakSelf performSelector:@selector(showStatusTableView) withObject:nil afterDelay:.5];
                         });
                     }else{
-
+                        
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [weakSelf.activityIndicator stopAnimating];
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Sign up failed. Please try again" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
@@ -155,6 +156,10 @@
             }
         }];
     }
+}
+
+- (IBAction)signUpButtonTapped:(id)sender {
+    [self showEULA];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -271,4 +276,5 @@
     self.avatarImageView.image = photo;
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

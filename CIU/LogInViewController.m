@@ -11,8 +11,9 @@
 #import "SignUpViewController.h"
 #import "Helper.h"
 #import "UIResponder+Utilities.h"
+#import "UIViewController+EULA.h"
 
-@interface LogInViewController ()<UIAlertViewDelegate>
+@interface LogInViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -43,6 +44,11 @@
 
 - (IBAction)loginWithFBTapped:(id)sender
 {
+    [self showEULA];
+}
+
+- (void)logInWithFB
+{
     // Utilize Parse.com SDK
     
     [self.activityIndicator startAnimating];
@@ -50,7 +56,7 @@
     
     // Set permissions required from the facebook user account
     NSArray *permissionsArray = @[@"public_profile"];
-
+    
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         
         if (!user) {
@@ -71,7 +77,7 @@
                                                       otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             }
-
+            
         } else {
             
             FBRequest *request = [FBRequest requestForMe];
@@ -97,11 +103,11 @@
                                                        queue:[NSOperationQueue mainQueue]
                                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                                if (!connectionError && data) {
-                                                     [Helper saveAvatar:data forUser:user.username isHighRes:YES];
-                                                     UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
-                                                     [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
-                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
-                                                 }
+                                                   [Helper saveAvatar:data forUser:user.username isHighRes:YES];
+                                                   UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
+                                                   [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
+                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
+                                               }
                                            }];
                     
                     PFUser *me = [PFUser currentUser];
@@ -221,7 +227,6 @@
         textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [self.passwordTextField becomeFirstResponder];
     }else if(textField == self.passwordTextField){
-//        [self animateMoveViewDown];
         textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [textField resignFirstResponder];
     }
@@ -237,10 +242,11 @@
 #pragma mark - UIAlertView
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
     if (buttonIndex == 1) {
         
         BOOL regexPassed = [[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".+@.+\\..+"] evaluateWithObject:[alertView textFieldAtIndex:0].text];
-
+        
         if (!regexPassed){
             return;
         }

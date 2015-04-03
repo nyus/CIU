@@ -9,6 +9,7 @@
 #import "Helper.h"
 #import <Parse/Parse.h>
 #define Default_Radius 5
+
 static Helper *_helper;
 static UIImagePickerController *_imagePicker;
 @interface Helper () <UIAlertViewDelegate>{
@@ -369,4 +370,5 @@ static UIImagePickerController *_imagePicker;
     
     [_imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

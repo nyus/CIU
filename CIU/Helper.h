@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+static const NSInteger EULA_TAG = 50;
+
 @class PFQuery;
 @interface Helper : NSObject
 //Avatar
