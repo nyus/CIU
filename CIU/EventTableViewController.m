@@ -131,6 +131,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View event" withParameters:nil];
     [self.fetchQuery cancel];
+    [self.refreshControl endRefreshing];
 }
 
 -(void)pullDataFromServerWithMemorizedLocation
