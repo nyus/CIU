@@ -44,4 +44,29 @@
     [self.delegate flagBadContentButtonTappedOnCell:self];
 }
 
++ (CGFloat)eventLablesWidth
+{
+    return 273.0;
+}
+
+// Typeface
++ (UIFont *)fontForEventName
+{
+    return [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
+}
+
++ (UIFont *)fontForEventDate
+{
+    return [UIFont fontWithName:@"Helvetica-Light" size:14.0];
+}
++ (UIFont *)fontForEventLocation
+{
+    return [UIFont fontWithName:@"Helvetica-Light" size:14.0];
+}
+
++ (UIFont *)fontForEventDescription
+{
+    return [UIFont fontWithName:@"Helvetica-Light" size:14.0];
+}
+
 @end

@@ -23,10 +23,6 @@ static NSString *managedObjectName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
-static const float kEventNameFontSize = 18.0;
-static const float kEventDateFontSize = 14.0;
-static const float kEventLocationFontSize = 14.0;
-static const float kEventDescriptionFontSize = 14.0;
 
 @interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
@@ -127,9 +123,7 @@ static const float kEventDescriptionFontSize = 14.0;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-    }];
+    [[PFUser currentUser] refresh];
     [Flurry logEvent:@"View event" timed:YES];
 }
 
@@ -137,7 +131,6 @@ static const float kEventDescriptionFontSize = 14.0;
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View event" withParameters:nil];
     [self.fetchQuery cancel];
-    self.dateFormatter = nil;
 }
 
 -(void)pullDataFromServerWithMemorizedLocation
@@ -145,6 +138,19 @@ static const float kEventDescriptionFontSize = 14.0;
     NSDictionary *dictionary = [Helper userLocation];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     [self pullDataFromServerAroundCenter:center];
+}
+
+#pragma mark - Getter
+
+- (NSDateFormatter *)dateFormatter
+{
+    if(!_dateFormatter){
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+        _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    }
+    
+    return _dateFormatter;
 }
 
 #pragma mark - Override
@@ -296,22 +302,24 @@ static const float kEventDescriptionFontSize = 14.0;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
-    EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier
+                                                                                     forIndexPath:indexPath];
     cell.delegate = self;
+    
     Event *event = self.dataSource[indexPath.row];
-    cell.eventNameLabel.text = event.eventName;
-    
-    cell.flagButton.hidden = event.isStickyPost.boolValue;
+    // Cell.flagButton.hidden = event.isStickyPost.boolValue;
     cell.flagButton.enabled = !event.isBadContent.boolValue;
-    
-    if(!self.dateFormatter){
-        self.dateFormatter = [[NSDateFormatter alloc] init];
-        self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
-        self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
-    }
+    cell.eventNameLabel.text = event.eventName;
     cell.eventDateLabel.text = [self.dateFormatter stringFromDate:event.eventDate];
     cell.eventLocationLabel.text = event.eventLocation;
     cell.eventDescriptionLabel.text = event.eventContent;
+    
+    // font
+    cell.eventNameLabel.font = [EventTableViewCell fontForEventName];
+    cell.eventDateLabel.font = [EventTableViewCell fontForEventDate];
+    cell.eventLocationLabel.font = [EventTableViewCell fontForEventLocation];
+    cell.eventDescriptionLabel.font = [EventTableViewCell fontForEventDescription];
+    
     return cell;
 }
 
@@ -341,24 +349,26 @@ static const float kEventDescriptionFontSize = 14.0;
         
     }else{
 
-        CGSize size = CGSizeMake(273, MAXFLOAT);
-        CGRect nameRect = [event.eventName boundingRectWithSize:CGSizeMake(273, MAXFLOAT)
+        CGSize size = CGSizeMake([EventTableViewCell eventLablesWidth], MAXFLOAT);
+        CGRect nameRect = [event.eventName boundingRectWithSize:size
                                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]}
+                                                     attributes:@{NSFontAttributeName:[EventTableViewCell fontForEventName]}
                                                         context:NULL];
-        if(!self.dateFormatter){
-            self.dateFormatter = [[NSDateFormatter alloc] init];
-            self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
-            self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        }
         CGRect dateRect = [[self.dateFormatter stringFromDate:event.eventDate]
                            boundingRectWithSize:size
                            options:NSStringDrawingUsesLineFragmentOrigin
-                           attributes:attributes context:NULL];
-        CGRect locationRect = [event.eventLocation boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
-        CGRect descriptionRect = [event.eventContent boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+                           attributes:@{NSFontAttributeName:[EventTableViewCell fontForEventDate]}
+                           context:NULL];
+        CGRect locationRect = [event.eventLocation boundingRectWithSize:size
+                                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                                             attributes:@{NSFontAttributeName:[EventTableViewCell fontForEventLocation]}
+                                                                context:NULL];
+        CGRect descriptionRect = [event.eventContent boundingRectWithSize:size
+                                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                                               attributes:@{NSFontAttributeName:[EventTableViewCell fontForEventDescription]}
+                                                                  context:NULL];
         
-        event.cellHeight = [NSNumber numberWithFloat:CGRectGetMaxY(nameRect)+5+dateRect.size.height+5+locationRect.size.height+5+descriptionRect.size.height+20 + 50];//50 is for flag button
+        event.cellHeight = [NSNumber numberWithFloat:CGRectGetMaxY(nameRect) + 5 + dateRect.size.height + 5 + locationRect.size.height + 5 + descriptionRect.size.height + 20 + 50];//50 is for flag button
         [[SharedDataManager sharedInstance] saveContext];
         return event.cellHeight.floatValue;
     }

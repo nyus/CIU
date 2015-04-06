@@ -29,6 +29,7 @@
 + (UIFont *)fontForEventDate;
 + (UIFont *)fontForEventLocation;
 + (UIFont *)fontForEventDescription;
++ (CGFloat)eventLablesWidth;
 
 //create event table view cell
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;

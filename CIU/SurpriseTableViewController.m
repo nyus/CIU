@@ -273,7 +273,7 @@ static NSString *const kEntityName = @"StatusObject";
     cell.commentCountLabel.text = status.commentCount.stringValue;
     
     // Flag button
-    cell.flagButton.hidden = status.isStickyPost.boolValue;
+//    cell.flagButton.hidden = status.isStickyPost.boolValue;
     cell.flagButton.enabled = !status.isBadContent.boolValue;
     
     // Avatar
