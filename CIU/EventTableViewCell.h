@@ -11,15 +11,24 @@
 @class EventTableViewCell;
 
 @protocol EventTableViewCellDelegate
+
 @optional
+
 -(void)nameTextFieldEdited:(UITextField *)textField;
 -(void)descriptionTextViewEdidited:(UITextView *)textView;
 -(void)datePickerValueChanged:(UIDatePicker *)datePicker;
 -(void)locationTextFieldChanged:(UITextField *)textField;
 -(void)flagBadContentButtonTappedOnCell:(EventTableViewCell *)cell;
+
 @end
 
 @interface EventTableViewCell : UITableViewCell
+
+// Typeface
++ (UIFont *)fontForEventName;
++ (UIFont *)fontForEventDate;
++ (UIFont *)fontForEventLocation;
++ (UIFont *)fontForEventDescription;
 
 //create event table view cell
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;

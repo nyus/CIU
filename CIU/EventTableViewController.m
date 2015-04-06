@@ -18,14 +18,15 @@
 
 static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
-
+static NSInteger const kEventDisclaimerAlertTag = 50;
 static NSString *managedObjectName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
-
-static NSInteger const kEventDisclaimerAlertTag = 50;
 static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
-
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
+static const float kEventNameFontSize = 18.0;
+static const float kEventDateFontSize = 14.0;
+static const float kEventLocationFontSize = 14.0;
+static const float kEventDescriptionFontSize = 14.0;
 
 @interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
@@ -339,15 +340,21 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         return event.cellHeight.floatValue;
         
     }else{
-        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]};
+
         CGSize size = CGSizeMake(273, MAXFLOAT);
-        CGRect nameRect = [event.eventName boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect nameRect = [event.eventName boundingRectWithSize:CGSizeMake(273, MAXFLOAT)
+                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]}
+                                                        context:NULL];
         if(!self.dateFormatter){
             self.dateFormatter = [[NSDateFormatter alloc] init];
             self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
             self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
         }
-        CGRect dateRect = [[self.dateFormatter stringFromDate:event.eventDate] boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
+        CGRect dateRect = [[self.dateFormatter stringFromDate:event.eventDate]
+                           boundingRectWithSize:size
+                           options:NSStringDrawingUsesLineFragmentOrigin
+                           attributes:attributes context:NULL];
         CGRect locationRect = [event.eventLocation boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
         CGRect descriptionRect = [event.eventContent boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:NULL];
         
