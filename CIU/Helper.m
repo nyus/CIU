@@ -246,21 +246,6 @@ static UIImagePickerController *_imagePicker;
     return scaledImage;
 }
 
-#pragma mark - map display category name to parse class name
-+(NSString *)getParseClassNameForCategoryName:(NSString *)categoryName{
-    if ([categoryName isEqualToString:@"Restaurant"]) {
-        return @"Restaurant";
-    }else if ([categoryName isEqualToString:@"Supermarket"]){
-        return @"Supermarket";
-    }else if ([categoryName isEqualToString:@"Jobs"]){
-        return @"Job";
-    }else if ([categoryName isEqualToString:@"Trade and Sell"]){
-        return @"Trade";
-    }else{
-        return nil;
-    }
-}
-
 #pragma mark - user location
 
 +(NSDictionary *)userLocation{

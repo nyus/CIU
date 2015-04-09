@@ -28,15 +28,14 @@
 #import "UIColor+CIUColors.h"
 
 #define MILE_PER_DELTA 69.0
-#define IS_JOB_TRADE [self.categoryName isEqualToString:@"Jobs"] || [self.categoryName isEqualToString:@"Trade and Sell"]
-#define IS_JOB [self.categoryName isEqualToString:@"Jobs"]
-#define IS_TRADE [self.categoryName isEqualToString:@"Trade and Sell"]
-#define IS_RES_MARKT [self.categoryName isEqualToString:@"Restaurant"] || [self.categoryName isEqualToString:@"Supermarket"]
-#define IS_RESTAURANT [self.categoryName isEqualToString:@"Restaurant"]
-#define IS_MARKET [self.categoryName isEqualToString:@"Supermarket"]
+#define IS_JOB_TRADE self.categoryType == DDCategoryTypeJob || self.categoryType == DDCategoryTypeTradeAndSell
+#define IS_JOB self.categoryType == DDCategoryTypeJob
+#define IS_TRADE self.categoryType == DDCategoryTypeTradeAndSell
+#define IS_RES_MARKT self.categoryType == DDCategoryTypeRestaurant || self.categoryType == DDCategoryTypeSupermarket
+#define IS_RESTAURANT self.categoryType == DDCategoryTypeRestaurant
+#define IS_MARKET self.categoryType == DDCategoryTypeSupermarket
 
 NSInteger const kRefreshControlTag = 31;
-
 static const CGFloat kLocationNotifyThreshold = 1.0;
 static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadius";
 static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
@@ -222,9 +221,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
         }else if (IS_RES_MARKT) {
             self.locationManager = [Helper initLocationManagerWithDelegate:self];
             
-            //this is becuase we requested for authorization in GenericTableViewController already. may need work to improve this flow
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                
+            BOOL authorized = IS_IOS_8 ? [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse : YES;
+            if (authorized) {
                 NSDictionary *userLocation = [Helper userLocation];
                 CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
                 [self fetchServerDataForListAroundCenter:coor raidus:rememberedRadius];
@@ -271,7 +269,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
     UINavigationController *vc = (UINavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:@"compose"];
     ComposeViewController *compose = (ComposeViewController *)vc.topViewController;
-    compose.categoryName = self.categoryName;
+    compose.categoryType = self.categoryType;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -301,7 +299,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Predicate
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
-    NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[Helper getParseClassNameForCategoryName:self.categoryName]];
+    NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[LifestyleCategory getParseClassNameForCategoryType:self.categoryType]];
     if (IS_RES_MARKT) {
         NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation, categoryPredicate]];
@@ -349,7 +347,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
         self.query = nil;
     }
     
-    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    NSString *parseClassName = [LifestyleCategory getParseClassNameForCategoryType:self.categoryType];
     if (parseClassName==nil) {
         return;
     }
@@ -437,7 +435,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     
     __block LifestyleDetailViewController *weakSelf = self;
     
-    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    NSString *parseClassName = [LifestyleCategory getParseClassNameForCategoryType:self.categoryType];
     if (!parseClassName) {
         return;
     }
@@ -736,7 +734,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     
     cell.flagButton.enabled = NO;
     
-    [self flagObjectForId:lifeObject.objectId parseClassName:[Helper getParseClassNameForCategoryName:self.categoryName] completion:^(BOOL succeeded, NSError *error) {
+    [self flagObjectForId:lifeObject.objectId parseClassName:[LifestyleCategory getParseClassNameForCategoryType:self.categoryType] completion:^(BOOL succeeded, NSError *error) {
         lifeObject.isBadContent = @YES;
         [[SharedDataManager sharedInstance] saveContext];
     }];

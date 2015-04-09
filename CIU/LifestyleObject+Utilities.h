@@ -7,7 +7,11 @@
 //
 
 #import "LifestyleObject.h"
+
 @class PFObject;
+
 @interface LifestyleObject (Utilities)
+
 -(void)populateFromObject:(PFObject *)object;
+
 @end

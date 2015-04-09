@@ -12,6 +12,7 @@
 #import "Helper.h"
 #import "LifestyleDetailViewController.h"
 #import "LifestyleTableViewCell.h"
+#import "LifestyleCategory+Utilities.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 @interface LifestyleTableViewController ()
@@ -206,7 +207,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         LifestyleCategory *category = self.dataSource[indexPath.row];
         LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
-        vc.categoryName = category.name;
+        vc.categoryType = [LifestyleCategory typeForCategoryName:category.name];
         [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
         [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];
     }

@@ -7,7 +7,22 @@
 //
 
 #import "LifestyleCategory.h"
+
+typedef NS_ENUM(NSInteger, DDCategoryType) {
+    DDCategoryTypeNone,
+    DDCategoryTypeRestaurant,
+    DDCategoryTypeSupermarket,
+    DDCategoryTypeJob,
+    DDCategoryTypeTradeAndSell
+};
+
 @class PFObject;
+
 @interface LifestyleCategory (Utilities)
+
++ (NSString *)nameForCategoryType:(DDCategoryType)categoryType;
++ (DDCategoryType)typeForCategoryName:(NSString *)categoryName;
++ (NSString *)getParseClassNameForCategoryType:(DDCategoryType)categoryType;
 -(void)populateFromParseojbect:(PFObject *)parseObject;
+
 @end

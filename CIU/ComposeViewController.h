@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LifestyleCategory+Utilities.h"
 
 @interface ComposeViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (strong, nonatomic) NSString *categoryName;
+@property (nonatomic) DDCategoryType categoryType;
+
 @end

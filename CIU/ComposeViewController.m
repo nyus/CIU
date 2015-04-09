@@ -9,6 +9,7 @@
 #import "ComposeViewController.h"
 #import <Parse/Parse.h>
 #import "Helper.h"
+
 @interface ComposeViewController ()
 
 @end
@@ -32,13 +33,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [Flurry logEvent:[NSString stringWithFormat:@"View compose %@",self.categoryName] timed:YES];
+    [Flurry logEvent:[NSString stringWithFormat:@"View compose %@",[LifestyleCategory nameForCategoryType:self.categoryType]] timed:YES];
     [self.textView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [Flurry endTimedEvent:[NSString stringWithFormat:@"View compose %@",self.categoryName] withParameters:nil];
+    [Flurry endTimedEvent:[NSString stringWithFormat:@"View compose %@",[LifestyleCategory nameForCategoryType:self.categoryType]] withParameters:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,7 +56,7 @@
         return;
     }
     
-    NSString *parseClassName = [Helper getParseClassNameForCategoryName:self.categoryName];
+    NSString *parseClassName = [LifestyleCategory getParseClassNameForCategoryType:self.categoryType];
     if (parseClassName==nil) {
         return;
     }

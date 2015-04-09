@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import "LifestyleCategory+Utilities.h"
 
 static const NSInteger EULA_TAG = 50;
 
@@ -32,9 +33,6 @@ static const NSInteger EULA_TAG = 50;
 +(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId totalCount:(int)totalCount isHighRes:(BOOL)isHighRes;
 //image processing
 +(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size;
-
-//map category names displayed in the app to what's on parse. so that when decide to change the display name, the backend wont be affected
-+(NSString *)getParseClassNameForCategoryName:(NSString *)categoryName;
 
 //access user location
 +(NSDictionary *)userLocation;
