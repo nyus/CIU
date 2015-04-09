@@ -39,6 +39,7 @@ NSInteger const kRefreshControlTag = 31;
 static const CGFloat kLocationNotifyThreshold = 1.0;
 static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadius";
 static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
+static NSString *const kTradeAndSellDataRadiusKey = @"kTradeAndSellDataRadiusKey";
 
 static NSInteger const kJobDisclaimerAlertTag = 50;
 static NSInteger const kTradeDisclaimerAlertTag = 51;
@@ -67,53 +68,91 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 @implementation LifestyleDetailViewController
 
-- (NSNumber *)restaurantDataRadius
+#pragma mark - Set and get data radius
+
+- (NSString *)getDataRadiusKeyWithCategoryType:(DDCategoryType)categoryType
 {
-    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kRestaurantDataRadiusKey];
+    switch (categoryType) {
+        case DDCategoryTypeRestaurant:
+            return kRestaurantDataRadiusKey;
+            break;
+        case DDCategoryTypeSupermarket:
+            return kSupermarketDataRadiusKey;
+            break;
+        case DDCategoryTypeTradeAndSell:
+            return kTradeAndSellDataRadiusKey;
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+- (NSNumber *)getDataRadiusWithKey:(NSString *)key
+{
+    if ([key isEqualToString:kTradeAndSellDataRadiusKey]) {
+        return [self tradeAndSellDataRadius];
+    } else if ([key isEqualToString:kRestaurantDataRadiusKey]) {
+        return [self restaurantDataRadius];
+    } else if ([key isEqualToString:kSupermarketDataRadiusKey]) {
+        return [self supermarketDataRadius];
+    } else {
+        return nil;
+    }
+}
+
+- (NSNumber *)tradeAndSellDataRadius
+{
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kTradeAndSellDataRadiusKey];
     if (!radius) {
-        [self setRestaurantDataRadius:@5];
+        [self setDataRadius:@5 forKey:kTradeAndSellDataRadiusKey];
         return @5;
     } else {
         return radius;
     }
 }
 
-- (void)setRestaurantDataRadius:(NSNumber *)newRadius
+- (NSNumber *)restaurantDataRadius
 {
-    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kRestaurantDataRadiusKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kRestaurantDataRadiusKey];
+    if (!radius) {
+        [self setDataRadius:@5 forKey:kRestaurantDataRadiusKey];
+        return @5;
+    } else {
+        return radius;
+    }
 }
 
 - (NSNumber *)supermarketDataRadius
 {
     NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kSupermarketDataRadiusKey];
     if (!radius) {
-        [self setSupermarketDataRadius:@5];
+        [self setDataRadius:@5 forKey:kSupermarketDataRadiusKey];
         return @5;
     } else {
         return radius;
     }
 }
 
-- (void)setSupermarketDataRadius:(NSNumber *)newRadius
+- (void)setDataRadius:(NSNumber *)newRadius forKey:(NSString *)key
 {
-    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kSupermarketDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (DisplayPeripheralHeaderView *)headerView
 {
     if (!_headerView) {
-        NSNumber *radius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
-        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius stepValue:@(5.0) minimunValue:@(5.0) maximunValue:@(30.0) actionBlock:^(double newValue) {
-            
-            if (IS_RESTAURANT) {
-                [self setRestaurantDataRadius:@(newValue)];
-            } else {
-                [self setSupermarketDataRadius:@(newValue)];
-            }
-            [self handleDataDisplayPeripheral:newValue];
-        }];
+        NSString *key = [self getDataRadiusKeyWithCategoryType:self.categoryType];
+        NSNumber *radius = [self getDataRadiusWithKey:key];
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius
+                                                                      stepValue:@(5.0)
+                                                                   minimunValue:@(5.0)
+                                                                   maximunValue:@(30.0)
+                                                                    actionBlock:^(double newValue) {
+                                                                        [self setDataRadius:@(newValue) forKey:key];
+                                                                        [self handleDataDisplayPeripheral:newValue];
+                                                                    }];
     }
     
     return _headerView;
@@ -211,21 +250,25 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 {
     NSNumber *rememberedRadius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
     if(isOffline){
-        [self fetchLocalDataForListWithRadius:rememberedRadius];
+        [self fetchLocalDataForListWithRadius:rememberedRadius categoryType:self.categoryType];
         
     }else{
-        if (IS_JOB_TRADE) {
+        if (IS_JOB) {
             //jobs, trade and sell don't need location info yet
-            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0) raidus:rememberedRadius];
+            [self fetchServerDataForListAroundCenter:CLLocationCoordinate2DMake(0, 0)
+                                              raidus:rememberedRadius
+                                        categoryType:self.categoryType];
             
-        }else if (IS_RES_MARKT) {
+        }else {
             self.locationManager = [Helper initLocationManagerWithDelegate:self];
             
             BOOL authorized = IS_IOS_8 ? [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse : YES;
             if (authorized) {
                 NSDictionary *userLocation = [Helper userLocation];
                 CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
-                [self fetchServerDataForListAroundCenter:coor raidus:rememberedRadius];
+                [self fetchServerDataForListAroundCenter:coor
+                                                  raidus:rememberedRadius
+                                            categoryType:self.categoryType];
             }
         }
     }
@@ -295,12 +338,13 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 - (NSFetchRequest *)localDataFetchRequestWithRegion:(MKCoordinateRegion)region
+                                       categoryType:(DDCategoryType)categoryType
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Predicate
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
     NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[LifestyleCategory getParseClassNameForCategoryType:self.categoryType]];
-    if (IS_RES_MARKT) {
+    if (categoryType != DDCategoryTypeJob) {
         NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
         fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation, categoryPredicate]];
     } else {
@@ -317,7 +361,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     self.mapViewDataSource = nil;
     self.mapViewDataSource = [NSMutableArray array];
     
-    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region];
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region
+                                                            categoryType:self.categoryType];
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
     if (fetchedObjects.count>0) {
         
@@ -408,7 +453,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 #pragma mar - all method table view needs
 
--(void)fetchLocalDataForListWithRadius:(NSNumber *)radius{
+-(void)fetchLocalDataForListWithRadius:(NSNumber *)radius categoryType:(DDCategoryType)categoryType{
 
     self.tableViewDataSource = nil;
     self.tableViewDataSource = [NSMutableArray array];
@@ -417,7 +462,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:radius];
     
-    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region];
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithRegion:region
+                                                            categoryType:self.categoryType];
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
     if (fetchedObjects.count > 0) {
         [self.tableViewDataSource addObjectsFromArray:fetchedObjects];
@@ -426,7 +472,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     }
 }
 
--(void)fetchServerDataForListAroundCenter:(CLLocationCoordinate2D)center raidus:(NSNumber *)radius{
+-(void)fetchServerDataForListAroundCenter:(CLLocationCoordinate2D)center
+                                   raidus:(NSNumber *)radius
+                             categoryType:(DDCategoryType)categoryType{
     
     if (self.pfQuery) {
         [self.pfQuery cancel];
@@ -443,10 +491,11 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     //latest post goes to the top.
     
 
-    if (IS_RES_MARKT) {
+    if (categoryType != DDCategoryTypeJob) {
         [self.pfQuery addBoundingCoordinatesToCenter:center radius:radius];
         [self.pfQuery orderByAscending:@"name"];
-    } else{
+    }
+    if (categoryType == DDCategoryTypeJob || categoryType == DDCategoryTypeTradeAndSell) {
         [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
         [self.pfQuery orderByDescending:@"createdAt"];
     }
@@ -492,14 +541,18 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 -(void)handleDataDisplayPeripheral:(double)newValue{
-    [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:IS_RESTAURANT ? @"Restaurant" : @"Supermarket" value:@(newValue)];
-    [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius",IS_RESTAURANT ? @"Restaurant" : @"Supermarket"] withParameters:@{@"radius":@(newValue)}];
+    NSString *label = IS_RESTAURANT ? @"Restaurant" : (IS_MARKET ? @"Supermarket" : @"Trade and Sell");
+    
+    [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:label value:@(newValue)];
+    [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius", label] withParameters:@{@"radius":@(newValue)}];
     if (![Reachability canReachInternet]) {
-        [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue]];
+        [self fetchLocalDataForListWithRadius:[NSNumber numberWithDouble:newValue] categoryType:self.categoryType];
     } else {
         NSDictionary *userLocation = [Helper userLocation];
         CLLocationCoordinate2D coor = CLLocationCoordinate2DMake([userLocation[@"latitude"] doubleValue], [userLocation[@"longitude"] doubleValue]);
-        [self fetchServerDataForListAroundCenter:coor raidus:[NSNumber numberWithDouble:newValue]];
+        [self fetchServerDataForListAroundCenter:coor
+                                          raidus:[NSNumber numberWithDouble:newValue]
+                                    categoryType:self.categoryType];
     }
 }
 
@@ -525,7 +578,9 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     //job and trade doesnt require location information
     if (IS_RES_MARKT && (self.tableViewDataSource == nil || self.tableViewDataSource.count == 0)) {
         NSNumber *rememberedRadius = IS_RESTAURANT ? [self restaurantDataRadius] : [self supermarketDataRadius];
-        [self fetchServerDataForListAroundCenter:location.coordinate raidus:rememberedRadius];
+        [self fetchServerDataForListAroundCenter:location.coordinate
+                                          raidus:rememberedRadius
+                                    categoryType:self.categoryType];
     }
 }
 

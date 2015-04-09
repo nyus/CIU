@@ -67,6 +67,12 @@
     [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];
     [object setObject:parseClassName forKey:@"category"];
     [object setObject:@NO forKey:@"isBadContent"];
+    
+    NSDictionary *userLocation = [Helper userLocation];
+    if (self.categoryType == DDCategoryTypeTradeAndSell && userLocation) {
+        object[@"latitude"] = userLocation[@"latitude"];
+        object[@"longitude"] = userLocation[@"longitude"];
+    }
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
