@@ -594,7 +594,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section==0 && IS_RES_MARKT) {
+    if (section==0 && !(IS_JOB)) {
         return self.headerView;
     }else{
         return nil;
@@ -602,7 +602,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0 && IS_RES_MARKT) {
+    if (section==0 && !(IS_JOB)) {
         return 40.0f;
     } else {
         return 0;
