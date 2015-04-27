@@ -12,6 +12,5 @@
 @interface UIViewController (EULA) <EulaVCDelegate>
 
 - (void)showEULA;
-- (void)logInWithFB;
 
 @end

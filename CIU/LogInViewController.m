@@ -47,7 +47,16 @@
     [self showEULA];
 }
 
-- (void)logInWithFB
+#pragma mark - EULADelegate
+
+- (void)acceptedEULAOnVC:(EulaVC *)vc
+{
+    [vc dismissViewControllerAnimated:YES completion:^{
+        [self logInUser];
+    }];
+}
+
+- (void)logInUser
 {
     // Utilize Parse.com SDK
     

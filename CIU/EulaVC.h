@@ -12,7 +12,7 @@
 
 @protocol EulaVCDelegate <NSObject>
 
-- (void)acceptButtonTappedOnVC:(EulaVC *)vc;
+- (void)acceptedEULAOnVC:(EulaVC *)vc;
 
 @end
 

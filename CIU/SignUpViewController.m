@@ -14,11 +14,17 @@
 #import "UIResponder+Utilities.h"
 #import "UIViewController+EULA.h"
 
+static CGFloat const kViewPositionOriginal = 20;
+static CGFloat const kViewPositionMid = 0;
+static CGFloat const kViewPositionHigh = -20;
+
 @interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, EulaVCDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageviewTopSpaceToTopLayoutConstraint;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+
 @end
 
 @implementation SignUpViewController
@@ -162,6 +168,15 @@
     [self showEULA];
 }
 
+#pragma mark - EULA Delegate
+
+- (void)acceptedEULAOnVC:(EulaVC *)vc
+{
+    [vc dismissViewControllerAnimated:YES completion:^{
+        [self signup];
+    }];
+}
+
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -195,36 +210,36 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == self.emailTextField) {
-        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
-            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant != kViewPositionOriginal) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionOriginal;
             [UIView animateWithDuration:.3 animations:^{
                 [self.view layoutIfNeeded];
             }];
         }
     }else if (textField == self.firstNameTextField){
-        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
-            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant != kViewPositionOriginal) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionOriginal;
             [UIView animateWithDuration:.3 animations:^{
                 [self.view layoutIfNeeded];
             }];
         }
     }else if (textField == self.lastNameTextField){
-        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
-            self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant != kViewPositionOriginal) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionOriginal;
             [UIView animateWithDuration:.3 animations:^{
                 [self.view layoutIfNeeded];
             }];
         }
     }else if (textField == self.usernameTextField){
-        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=0) {
-            self.imageviewTopSpaceToTopLayoutConstraint.constant = 0;
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant != kViewPositionMid) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionMid;
             [UIView animateWithDuration:.3 animations:^{
                 [self.view layoutIfNeeded];
             }];
         }
     }else if(textField == self.passwordTextField){
-        if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=-20) {
-            self.imageviewTopSpaceToTopLayoutConstraint.constant =-20;
+        if (self.imageviewTopSpaceToTopLayoutConstraint.constant != kViewPositionHigh) {
+            self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionHigh;
             [UIView animateWithDuration:.3 animations:^{
                 [self.view layoutIfNeeded];
             }];
@@ -251,7 +266,10 @@
     }else if(textField == self.passwordTextField){
         
         [self.passwordTextField resignFirstResponder];
-        [self signUpButtonTapped:nil];
+        self.imageviewTopSpaceToTopLayoutConstraint.constant = kViewPositionOriginal;
+        [UIView animateWithDuration:.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
     }
     
     return NO;

@@ -25,7 +25,7 @@
 }
 
 - (IBAction)acceptButtonTapped:(id)sender {
-    [self.delegate acceptButtonTappedOnVC:self];
+    [self.delegate acceptedEULAOnVC:self];
 }
 
 - (IBAction)declineButtonTapped:(id)sender {

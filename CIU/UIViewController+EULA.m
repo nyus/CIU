@@ -21,18 +21,4 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)logInWithFB
-{
-    //Override
-}
-
-#pragma mark - EULA Delegate
-
-- (void)acceptButtonTappedOnVC:(EulaVC *)vc
-{
-    [vc dismissViewControllerAnimated:YES completion:^{
-        [self logInWithFB];
-    }];
-}
-
 @end
