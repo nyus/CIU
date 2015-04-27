@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1859,7 +1860,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9JK-0o-Noz">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="466"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" rowHeight="300" id="mM4-7q-gDo" userLabel="loading cell" customClass="LoadingTableViewCell">
@@ -1957,10 +1958,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2">
-                                <rect key="frame" x="0.0" y="475" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="466" width="320" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGr-AU-WVR">
-                                        <rect key="frame" x="273" y="7" width="36" height="30"/>
+                                        <rect key="frame" x="273" y="11" width="36" height="30"/>
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1970,7 +1971,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyZ-RV-VZ0">
-                                        <rect key="frame" x="10" y="5" width="250" height="34"/>
+                                        <rect key="frame" x="10" y="5" width="250" height="42"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1984,10 +1985,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     <constraint firstAttribute="trailing" secondItem="GGr-AU-WVR" secondAttribute="trailing" constant="11" id="75R-Vm-VYd"/>
                                     <constraint firstItem="GGr-AU-WVR" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="13" id="Ify-em-W7e"/>
                                     <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="5" id="Oy8-xB-Fau"/>
-                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="5" id="ayD-fb-YfV"/>
+                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="7" id="ayD-fb-YfV"/>
                                     <constraint firstItem="OyZ-RV-VZ0" firstAttribute="leading" secondItem="CiX-P4-dV2" secondAttribute="leading" constant="10" id="kU4-jR-4ch"/>
-                                    <constraint firstAttribute="height" constant="44" id="nZH-gE-d1N"/>
-                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" id="t46-6I-IM5"/>
+                                    <constraint firstAttribute="height" constant="54" id="nZH-gE-d1N"/>
+                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" constant="1" id="t46-6I-IM5"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1998,7 +1999,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <constraint firstAttribute="trailingMargin" secondItem="9JK-0o-Noz" secondAttribute="trailing" constant="-16" id="Z78-Zk-wHM"/>
                             <constraint firstItem="9JK-0o-Noz" firstAttribute="top" secondItem="QBz-gn-ZFh" secondAttribute="bottom" constant="-44" id="dup-O5-nh2"/>
                             <constraint firstItem="9JK-0o-Noz" firstAttribute="leading" secondItem="MiO-P8-Ew2" secondAttribute="leadingMargin" constant="-16" id="jWJ-ZV-Peh"/>
-                            <constraint firstItem="ubh-mR-9g7" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="bottom" id="lIU-Qw-dCv"/>
+                            <constraint firstItem="ubh-mR-9g7" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="bottom" constant="-1" id="lIU-Qw-dCv"/>
                             <constraint firstItem="CiX-P4-dV2" firstAttribute="top" secondItem="9JK-0o-Noz" secondAttribute="bottom" id="rCn-0A-qh7"/>
                         </constraints>
                     </view>
