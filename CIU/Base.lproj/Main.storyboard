@@ -2104,16 +2104,20 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-ns-1F6" userLabel="Remember me">
-                                <rect key="frame" x="53" y="351" width="100" height="25"/>
+                                <rect key="frame" x="39" y="351" width="114" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="WT6-dS-aNH"/>
+                                    <constraint firstAttribute="width" constant="114" id="WT6-dS-aNH"/>
                                     <constraint firstAttribute="height" constant="25" id="hcP-jc-VRj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="11" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Remeber me">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="rememberMeButtonTapped:" destination="9AR-xE-k4i" eventType="touchUpInside" id="T3m-ko-on1"/>
+                                </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QAe-qP-GMO">
                                 <rect key="frame" x="150" y="485" width="20" height="20"/>
@@ -2186,7 +2190,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <constraint firstItem="FQT-fB-mtH" firstAttribute="trailing" secondItem="fG4-WT-exN" secondAttribute="trailing" id="NdR-bt-0EG"/>
                             <constraint firstItem="7Xw-aj-aGp" firstAttribute="leading" secondItem="vZQ-PC-gfF" secondAttribute="leading" constant="133" id="PU7-QG-ckw"/>
                             <constraint firstItem="efv-aF-JGG" firstAttribute="top" secondItem="7Xw-aj-aGp" secondAttribute="bottom" constant="20" id="SLD-5K-jgH"/>
-                            <constraint firstItem="L3a-ns-1F6" firstAttribute="leading" secondItem="CLo-k3-6uH" secondAttribute="trailing" id="TMP-Sj-GJf"/>
+                            <constraint firstItem="L3a-ns-1F6" firstAttribute="leading" secondItem="CLo-k3-6uH" secondAttribute="trailing" constant="-14" id="TMP-Sj-GJf"/>
                             <constraint firstItem="txJ-Qd-1nF" firstAttribute="top" secondItem="c6W-Fi-ugg" secondAttribute="bottom" constant="21" id="VSt-e9-BmQ"/>
                             <constraint firstItem="FQT-fB-mtH" firstAttribute="top" secondItem="Pnw-q4-MRY" secondAttribute="bottom" constant="30" id="Yzl-FG-4HD"/>
                             <constraint firstItem="CLo-k3-6uH" firstAttribute="leading" secondItem="FQT-fB-mtH" secondAttribute="leading" id="eJL-RM-61e"/>
@@ -2207,6 +2211,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <outlet property="activityIndicator" destination="QAe-qP-GMO" id="oxY-EW-hQ2"/>
                         <outlet property="emailOrUsernameTextField" destination="yjy-Z9-Wae" id="gJN-lM-bbO"/>
                         <outlet property="passwordTextField" destination="Pnw-q4-MRY" id="YBz-6T-WQ8"/>
+                        <outlet property="rememberMeImageView" destination="CLo-k3-6uH" id="59a-pb-E3e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdH-vG-qyP" userLabel="First Responder" sceneMemberID="firstResponder"/>

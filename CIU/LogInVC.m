@@ -13,7 +13,12 @@
 #import "UIResponder+Utilities.h"
 #import "UIViewController+EULA.h"
 
+static NSString *const kDoNotMemorizeUsernameKey = @"doNotMemorizeUsername";
+static NSString *const kUsernameKey = @"username";
+
 @interface LogInVC () <UIAlertViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *rememberMeImageView;
 
 @end
 
@@ -28,6 +33,15 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.backBarButtonItem = nil;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL doNotMemorize = [defaults boolForKey:kDoNotMemorizeUsernameKey];
+    if (doNotMemorize) {
+        self.rememberMeImageView.image = [UIImage imageNamed:@"radionButton_unselected"];
+    } else {
+        self.rememberMeImageView.image = [UIImage imageNamed:@"radionButton_selected"];
+        self.emailOrUsernameTextField.text = [defaults objectForKey:kUsernameKey];
+    }
     
 }
 
@@ -166,6 +180,9 @@
         //hit api and store user info
         if ([self.emailOrUsernameTextField.text rangeOfString:@"@"].location == NSNotFound) {
             
+            [[NSUserDefaults standardUserDefaults] setObject:self.emailOrUsernameTextField.text forKey:kUsernameKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             //username to log in
             [self loginUserWithUsername:self.emailOrUsernameTextField.text password:self.passwordTextField.text incorrectFieldName:@"username"];
         }else{
@@ -271,6 +288,22 @@
             }
         }];
     }
+}
+
+#pragma mark - Action
+
+- (IBAction)rememberMeButtonTapped:(id)sender {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL doNotMemorize = [defaults boolForKey:kDoNotMemorizeUsernameKey];
+    if (doNotMemorize) {
+        [defaults setBool:NO forKey:kDoNotMemorizeUsernameKey];
+        self.rememberMeImageView.image = [UIImage imageNamed:@"radionButton_selected"];
+    } else {
+        [defaults setBool:YES forKey:kDoNotMemorizeUsernameKey];
+        self.rememberMeImageView.image = [UIImage imageNamed:@"radionButton_unselected"];
+    }
+    [defaults synchronize];
 }
 
 @end
