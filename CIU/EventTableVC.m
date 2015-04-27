@@ -29,7 +29,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong, readwrite) NSNumber *eventRadius;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

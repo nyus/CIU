@@ -51,13 +51,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     [[GAnalyticsManager shareManager] trackScreen:@"Compose Surprise"];
     
     [self configureTextView];
-    
-    if (!IS_4_INCH_SCREEN) {
-        int delta = self.textViewHeightConstraint.constant - 140;
-        self.textViewHeightConstraint.constant = 140;
-        self.collectionViewTopSpacingConstraint.constant = self.collectionViewTopSpacingConstraint.constant - delta;
-    }
-    
+        
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         kOptionsViewOriginalBottomSpace = self.optionsViewBottomSpaceConstraint.constant;
