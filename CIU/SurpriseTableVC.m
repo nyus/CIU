@@ -6,20 +6,20 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "SurpriseTableViewController.h"
+#import "SurpriseTableVC.h"
 #import "SurpriseTableViewCell.h"
 #import <Parse/Parse.h>
-#import "ComposeNewSurpriseViewController.h"
-#import "LogInViewController.h"
+#import "ComposeSurpriseVC.h"
+#import "LogInVC.h"
 #import "Helper.h"
-#import "CommentSurpriseViewController.h"
+#import "CommentVC.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import "CommentSurpriseViewController.h"
+#import "CommentVC.h"
 #import <CoreData/CoreData.h>
 #import "SharedDataManager.h"
 #import "StatusObject.h"
-#import "ComposeNewSurpriseViewController.h"
+#import "ComposeSurpriseVC.h"
 #import "SpinnerImageView.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
@@ -39,10 +39,10 @@ static UIImage *defaultAvatar;
 
 static NSString *const kEntityName = @"StatusObject";
 
-@interface SurpriseTableViewController () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
+@interface SurpriseTableVC () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
     SurpriseTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;
-    CommentSurpriseViewController *commentVC;
+    CommentVC *commentVC;
     CGRect commentViewOriginalFrame;
     NSIndexPath *selectedPath;
 }
@@ -52,7 +52,7 @@ static NSString *const kEntityName = @"StatusObject";
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
 @end
 
-@implementation SurpriseTableViewController
+@implementation SurpriseTableVC
 
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
 {
@@ -76,7 +76,7 @@ static NSString *const kEntityName = @"StatusObject";
         [self fetchNewStatusWithCount:kServerFetchCount];
     }
     
-    __weak SurpriseTableViewController *weakSelf = self;
+    __weak SurpriseTableVC *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [weakSelf pullDataFromLocal];
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
@@ -582,10 +582,10 @@ static NSString *const kEntityName = @"StatusObject";
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"toCommentView"]){
-        CommentSurpriseViewController *vc = (CommentSurpriseViewController *)segue.destinationViewController;
+        CommentVC *vc = (CommentVC *)segue.destinationViewController;
         __block StatusObject *status = self.dataSource[selectedPath.row];
         vc.statusObjectId = status.objectId;
-        __weak SurpriseTableViewController *weakSelf= self;
+        __weak SurpriseTableVC *weakSelf= self;
         [vc updateCommentCountWithBlock:^{
             status.commentCount = [NSNumber numberWithInt:status.commentCount.intValue+1];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];

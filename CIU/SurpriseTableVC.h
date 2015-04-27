@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GenericTableViewController.h"
-@interface SurpriseTableViewController : GenericTableViewController
+#import "GenericTableVC.h"
+
+@interface SurpriseTableVC : GenericTableVC
+
 @end

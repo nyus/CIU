@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "GenericTableViewController.h"
+#import "GenericTableVC.h"
 #import "Helper.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
@@ -14,11 +14,11 @@
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
-@interface GenericTableViewController()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
+@interface GenericTableVC()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *previousLocation;
 @end
-@implementation GenericTableViewController
+@implementation GenericTableVC
 
 -(void)viewDidLoad{
     [super viewDidLoad];

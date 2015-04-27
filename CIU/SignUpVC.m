@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "SignUpViewController.h"
+#import "SignUpVC.h"
 #import <Parse/Parse.h>
-#import "LogInViewController.h"
+#import "LogInVC.h"
 #import "Helper.h"
 #import "APIConstants.h"
 #import "UIResponder+Utilities.h"
@@ -18,7 +18,7 @@ static CGFloat const kViewPositionOriginal = 20;
 static CGFloat const kViewPositionMid = 0;
 static CGFloat const kViewPositionHigh = -20;
 
-@interface SignUpViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, EulaVCDelegate>{
+@interface SignUpVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, EulaVCDelegate>{
     UIAlertView *signUpSuccessAlert;
 }
 
@@ -27,7 +27,7 @@ static CGFloat const kViewPositionHigh = -20;
 
 @end
 
-@implementation SignUpViewController
+@implementation SignUpVC
 
 - (void)viewDidLoad
 {
@@ -100,7 +100,7 @@ static CGFloat const kViewPositionHigh = -20;
         [self.activityIndicator startAnimating];
         
         //
-        __block SignUpViewController *weakSelf = self;
+        __block SignUpVC *weakSelf = self;
         //compound query. OR two conditions together
         PFQuery *username = [[PFQuery alloc] initWithClassName:[PFUser parseClassName]];
         [username whereKey:DDUserNameKey equalTo:userNameString];

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "CreateEventViewController.h"
+#import "CreateEventVC.h"
 #import "EventTableViewCell.h"
 #import <Parse/Parse.h>
 #import "HitTestView.h"
@@ -16,7 +16,7 @@
 const float kHorizontalMarginLeft = 20.0;
 const float kOptionsTBViewHeight = 280.0;
 
-@interface CreateEventViewController()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
+@interface CreateEventVC()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
     NSString *eventName;
     NSString *eventContent;
     NSDate *eventDate;
@@ -36,7 +36,7 @@ const float kOptionsTBViewHeight = 280.0;
 
 @end
 
-@implementation CreateEventViewController
+@implementation CreateEventVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

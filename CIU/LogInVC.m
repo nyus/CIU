@@ -6,18 +6,18 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "LogInViewController.h"
+#import "LogInVC.h"
 #import <Parse/Parse.h>
-#import "SignUpViewController.h"
+#import "SignUpVC.h"
 #import "Helper.h"
 #import "UIResponder+Utilities.h"
 #import "UIViewController+EULA.h"
 
-@interface LogInViewController () <UIAlertViewDelegate>
+@interface LogInVC () <UIAlertViewDelegate>
 
 @end
 
-@implementation LogInViewController
+@implementation LogInVC
 
 - (void)viewDidLoad
 {

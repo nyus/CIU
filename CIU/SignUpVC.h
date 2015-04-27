@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-@class LogInViewController;
-@interface SignUpViewController : UIViewController<UITextFieldDelegate>
+
+@class LogInVC;
+
+@interface SignUpVC : UIViewController<UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong ,nonatomic) LogInViewController *loginVC;
+@property (strong ,nonatomic) LogInVC *loginVC;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+
 - (IBAction)signUpButtonTapped:(id)sender;
+
 @end

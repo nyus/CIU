@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "LifestyleDetailViewController.h"
+#import "LifestyleDetailVC.h"
 #import "Query.h"
 #import "SharedDataManager.h"
 #import <CoreLocation/CoreLocation.h>
@@ -16,11 +16,11 @@
 #import "LifestyleObject.h"
 #import "LifestyleObject+Utilities.h"
 #import "CustomMKPointAnnotation.h"
-#import "LifestyleObjectDetailTableViewController.h"
+#import "LifestyleObjectDetailTableVC.h"
 #import "PFQuery+Utilities.h"
 #import "Reachability.h"
 #import "Helper.h"
-#import "ComposeViewController.h"
+#import "ComposeVC.h"
 #import "LoadingTableViewCell.h"
 #import "GenericTableViewCell.h"
 #import "JobTradeTableViewCell.h"
@@ -46,7 +46,7 @@ static NSInteger const kTradeDisclaimerAlertTag = 51;
 static NSString *const kJobDisclaimerKey = @"kJobDisclaimerKey";
 static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
-@interface LifestyleDetailViewController()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
+@interface LifestyleDetailVC()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
     LifestyleObject *lifestyleToPass;
     CLLocation *previousLocation;
@@ -66,7 +66,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 @end
 
-@implementation LifestyleDetailViewController
+@implementation LifestyleDetailVC
 
 #pragma mark - Set and get data radius
 
@@ -311,7 +311,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
     UINavigationController *vc = (UINavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:@"compose"];
-    ComposeViewController *compose = (ComposeViewController *)vc.topViewController;
+    ComposeVC *compose = (ComposeVC *)vc.topViewController;
     compose.categoryType = self.categoryType;
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -481,7 +481,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
         self.pfQuery = nil;
     }
     
-    __block LifestyleDetailViewController *weakSelf = self;
+    __block LifestyleDetailVC *weakSelf = self;
     
     NSString *parseClassName = [LifestyleCategory getParseClassNameForCategoryType:self.categoryType];
     if (!parseClassName) {
@@ -776,7 +776,7 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             LifestyleObject *life = self.tableViewDataSource[indexPath.row];
             lifestyleToPass = life;
         }
-        LifestyleObjectDetailTableViewController *vc = (LifestyleObjectDetailTableViewController *)segue.destinationViewController;
+        LifestyleObjectDetailTableVC *vc = (LifestyleObjectDetailTableVC *)segue.destinationViewController;
         vc.lifestyleObject = lifestyleToPass;
     }
 }

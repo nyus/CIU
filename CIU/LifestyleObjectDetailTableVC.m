@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "LifestyleObjectDetailTableViewController.h"
+#import "LifestyleObjectDetailTableVC.h"
 #import "LifestyleObject.h"
 #import "GenericTableViewCell.h"
 #import "LifestyleObject+Utilities.h"
@@ -23,11 +23,11 @@ NSString *const kAddressKey = @"Address";
 NSString *const kHoursKey = @"Hours";
 NSString *const kIntroductionKey = @"Introduction";
 
-@interface LifestyleObjectDetailTableViewController ()
+@interface LifestyleObjectDetailTableVC ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
-@implementation LifestyleObjectDetailTableViewController
+@implementation LifestyleObjectDetailTableVC
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

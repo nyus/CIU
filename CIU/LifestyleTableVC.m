@@ -6,20 +6,20 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "LifestyleTableViewController.h"
+#import "LifestyleTableVC.h"
 #import "LifestyleCategory.h"
 #import "LifestyleCategory+Utilities.h"
 #import "Helper.h"
-#import "LifestyleDetailViewController.h"
+#import "LifestyleDetailVC.h"
 #import "LifestyleTableViewCell.h"
 #import "LifestyleCategory+Utilities.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
-@interface LifestyleTableViewController ()
+@interface LifestyleTableVC ()
 @property (nonatomic, strong) NSMutableDictionary *queries;
 @end
 
-@implementation LifestyleTableViewController
+@implementation LifestyleTableVC
 
 - (void)viewDidLoad
 {
@@ -206,7 +206,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         UITableViewCell *cell = (UITableViewCell *)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         LifestyleCategory *category = self.dataSource[indexPath.row];
-        LifestyleDetailViewController *vc = (LifestyleDetailViewController *)segue.destinationViewController;
+        LifestyleDetailVC *vc = (LifestyleDetailVC *)segue.destinationViewController;
         vc.categoryType = [LifestyleCategory typeForCategoryName:category.name];
         [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
         [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];

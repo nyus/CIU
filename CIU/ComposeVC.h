@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LifestyleCategory+Utilities.h"
 
-@interface ComposeViewController : UIViewController
+@interface ComposeVC : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic) DDCategoryType categoryType;

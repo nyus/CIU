@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "ComposeViewController.h"
+#import "ComposeVC.h"
 #import <Parse/Parse.h>
 #import "Helper.h"
 
-@interface ComposeViewController ()
+@interface ComposeVC ()
 
 @end
 
-@implementation ComposeViewController
+@implementation ComposeVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,7 +61,7 @@
         return;
     }
     
-    __block ComposeViewController *weakSelf = self;
+    __block ComposeVC *weakSelf = self;
     PFObject *object = [[PFObject alloc] initWithClassName:parseClassName];
     [object setObject:self.textView.text forKey:@"content"];
     [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];

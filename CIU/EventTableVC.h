@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "GenericTableViewController.h"
-@interface EventTableViewController : GenericTableViewController
+#import "GenericTableVC.h"
+
+@interface EventTableVC : GenericTableVC
 
 @end

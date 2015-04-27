@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "AboutUsViewController.h"
+#import "AboutUsVC.h"
 
-@interface AboutUsViewController ()
+@interface AboutUsVC ()
 
 @end
 
-@implementation AboutUsViewController
+@implementation AboutUsVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

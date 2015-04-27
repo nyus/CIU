@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GenericTableViewController.h"
-@interface LifestyleTableViewController : GenericTableViewController
+#import "GenericTableVC.h"
+
+@interface LifestyleTableVC : GenericTableVC
 
 @end

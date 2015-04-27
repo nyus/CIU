@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "SharedDataManager.h"
 
-@interface GenericTableViewController : UITableViewController
+@interface GenericTableVC : UITableViewController
 {
     @protected
     NSUInteger _localDataCount;

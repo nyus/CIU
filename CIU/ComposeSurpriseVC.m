@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "ComposeNewSurpriseViewController.h"
+#import "ComposeSurpriseVC.h"
 #import "ComposeSurprisePhotoCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import "StatusObject.h"
@@ -21,7 +21,7 @@
 
 static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
-@interface ComposeNewSurpriseViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
+@interface ComposeSurpriseVC ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
     UIImagePickerController *imagePicker;
     UILabel *placeHolderLabel;
     NSMutableArray *collectionViewDataSource;
@@ -33,7 +33,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 @property (strong, nonatomic) UIActionSheet *photosActionSheet;
 @end
 
-@implementation ComposeNewSurpriseViewController
+@implementation ComposeSurpriseVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

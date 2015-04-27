@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartupViewController : UIViewController
+@interface StartupVC : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

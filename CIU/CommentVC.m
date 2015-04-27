@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "CommentSurpriseViewController.h"
+#import "CommentVC.h"
 #import <Parse/Parse.h>
 #import "AvatarAndUsernameTableViewCell.h"
 #import "Helper.h"
@@ -22,7 +22,7 @@ static CGFloat const kCommentLabelOriginY = 19.0;
 
 static UIImage *defaultAvatar;
 
-@interface CommentSurpriseViewController () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
+@interface CommentVC () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
     NSMutableDictionary *cellHeightMap;
     BOOL isLoading;
@@ -37,7 +37,7 @@ static UIImage *defaultAvatar;
 @property (nonatomic, copy) void(^completion)();
 @end
 
-@implementation CommentSurpriseViewController
+@implementation CommentVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

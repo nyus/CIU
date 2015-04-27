@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @class LifestyleObject;
-@interface LifestyleObjectDetailTableViewController : UITableViewController
+
+@interface LifestyleObjectDetailTableVC : UITableViewController
+
 @property (nonatomic, strong) LifestyleObject *lifestyleObject;
+
 @end

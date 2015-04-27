@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Startup View Controller-->
+        <!--StartupVC-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="StartupViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="StartupVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -108,10 +107,10 @@
             </objects>
             <point key="canvasLocation" x="279" y="11"/>
         </scene>
-        <!--About Us View Controller-->
+        <!--About UsVC-->
         <scene sceneID="NPU-SB-DHA">
             <objects>
-                <viewController id="XbT-pN-baN" customClass="AboutUsViewController" sceneMemberID="viewController">
+                <viewController id="XbT-pN-baN" customClass="AboutUsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rk4-Ka-fyb"/>
                         <viewControllerLayoutGuide type="bottom" id="2Cn-Cz-5qJ"/>
@@ -621,7 +620,7 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
         <!--Terms of Use-->
         <scene sceneID="O4M-Sk-yeM">
             <objects>
-                <viewController id="hFz-FA-fev" customClass="AboutUsViewController" sceneMemberID="viewController">
+                <viewController id="hFz-FA-fev" customClass="AboutUsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PKM-ta-mkN"/>
                         <viewControllerLayoutGuide type="bottom" id="Wtk-N7-yiT"/>
@@ -665,7 +664,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--Privacy Policy-->
         <scene sceneID="GxZ-pg-YOq">
             <objects>
-                <viewController id="dJt-cu-X1w" customClass="AboutUsViewController" sceneMemberID="viewController">
+                <viewController id="dJt-cu-X1w" customClass="AboutUsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="041-Qe-ger"/>
                         <viewControllerLayoutGuide type="bottom" id="Huc-V1-zIL"/>
@@ -728,7 +727,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--免责声明-->
         <scene sceneID="H8F-mf-VyD">
             <objects>
-                <viewController id="eiR-iz-sdm" customClass="AboutUsViewController" sceneMemberID="viewController">
+                <viewController id="eiR-iz-sdm" customClass="AboutUsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hhn-85-hzE"/>
                         <viewControllerLayoutGuide type="bottom" id="RwD-dl-T8Z"/>
@@ -799,7 +798,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--Lifestyle-->
         <scene sceneID="3hz-4f-FE8">
             <objects>
-                <tableViewController id="w3S-5W-69p" customClass="LifestyleTableViewController" sceneMemberID="viewController">
+                <tableViewController id="w3S-5W-69p" customClass="LifestyleTableVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="8EE-IP-PMj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -872,10 +871,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="1859" y="-937.5"/>
         </scene>
-        <!--Compose View Controller-->
+        <!--ComposeVC-->
         <scene sceneID="Fwn-zr-ePG">
             <objects>
-                <viewController id="4qE-VP-UVh" customClass="ComposeViewController" sceneMemberID="viewController">
+                <viewController id="4qE-VP-UVh" customClass="ComposeVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4AZ-mH-G54"/>
                         <viewControllerLayoutGuide type="bottom" id="Fz2-fV-687"/>
@@ -921,10 +920,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="2340" y="-1588"/>
         </scene>
-        <!--Lifestyle Detail View Controller-->
+        <!--Lifestyle DetailVC-->
         <scene sceneID="0z8-OV-xjN">
             <objects>
-                <viewController id="eIB-DE-riQ" customClass="LifestyleDetailViewController" sceneMemberID="viewController">
+                <viewController id="eIB-DE-riQ" customClass="LifestyleDetailVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zpI-qw-K9r"/>
                         <viewControllerLayoutGuide type="bottom" id="exl-Rq-jlm"/>
@@ -1063,10 +1062,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="2249" y="-937"/>
         </scene>
-        <!--Lifestyle Object Detail Table View Controller-->
+        <!--Lifestyle Object Detail TableVC-->
         <scene sceneID="LHt-Op-Nxw">
             <objects>
-                <tableViewController id="am1-I8-ohK" customClass="LifestyleObjectDetailTableViewController" sceneMemberID="viewController">
+                <tableViewController id="am1-I8-ohK" customClass="LifestyleObjectDetailTableVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZzW-Mn-HCf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1155,7 +1154,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--Events-->
         <scene sceneID="757-E7-CTN">
             <objects>
-                <tableViewController id="T9w-Lu-orH" customClass="EventTableViewController" sceneMemberID="viewController">
+                <tableViewController id="T9w-Lu-orH" customClass="EventTableVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="62h-fm-Qe3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1274,10 +1273,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="1859" y="-270"/>
         </scene>
-        <!--Create Event View Controller-->
+        <!--Create EventVC-->
         <scene sceneID="2up-1v-2B8">
             <objects>
-                <viewController id="3PJ-bc-EcL" customClass="CreateEventViewController" sceneMemberID="viewController">
+                <viewController id="3PJ-bc-EcL" customClass="CreateEventVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CXl-R7-nbs"/>
                         <viewControllerLayoutGuide type="bottom" id="eN6-cA-Wzh"/>
@@ -1445,7 +1444,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--Surprise-->
         <scene sceneID="Gwk-Md-7Ba">
             <objects>
-                <tableViewController id="Ck2-t7-iad" customClass="SurpriseTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Ck2-t7-iad" customClass="SurpriseTableVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eNm-gj-zk2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1655,7 +1654,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
         <!--Compose-->
         <scene sceneID="bd3-1m-REd">
             <objects>
-                <viewController storyboardIdentifier="composeStatus" id="qlb-rj-1I4" customClass="ComposeNewSurpriseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="composeStatus" id="qlb-rj-1I4" customClass="ComposeSurpriseVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A3M-kJ-dCg"/>
                         <viewControllerLayoutGuide type="bottom" id="BmU-L4-7cT"/>
@@ -1848,10 +1847,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="2294" y="1068"/>
         </scene>
-        <!--Comment Surprise View Controller-->
+        <!--CommentVC-->
         <scene sceneID="mJd-yc-oO5">
             <objects>
-                <viewController storyboardIdentifier="commentView" id="6eh-bT-svD" customClass="CommentSurpriseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="commentView" id="6eh-bT-svD" customClass="CommentVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QBz-gn-ZFh"/>
                         <viewControllerLayoutGuide type="bottom" id="ubh-mR-9g7"/>
@@ -2018,10 +2017,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="2317" y="338"/>
         </scene>
-        <!--Log In View Controller-->
+        <!--Log InVC-->
         <scene sceneID="r3O-CQ-0zv">
             <objects>
-                <viewController storyboardIdentifier="logInView" id="9AR-xE-k4i" customClass="LogInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="logInView" id="9AR-xE-k4i" customClass="LogInVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c6W-Fi-ugg"/>
                         <viewControllerLayoutGuide type="bottom" id="efv-aF-JGG"/>
@@ -2214,10 +2213,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="255" y="-739"/>
         </scene>
-        <!--Sign Up View Controller-->
+        <!--Sign UpVC-->
         <scene sceneID="I4Z-QH-LL4">
             <objects>
-                <viewController storyboardIdentifier="signUpVC" id="5tM-om-rp3" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signUpVC" id="5tM-om-rp3" customClass="SignUpVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3KA-a6-kpE"/>
                         <viewControllerLayoutGuide type="bottom" id="qij-oU-OxQ"/>

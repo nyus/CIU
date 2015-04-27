@@ -10,7 +10,8 @@
 #import <MapKit/MapKit.h>
 #import "LifestyleCategory+Utilities.h"
 
-@interface LifestyleDetailViewController : UIViewController
+@interface LifestyleDetailVC : UIViewController
+
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) DDCategoryType categoryType;

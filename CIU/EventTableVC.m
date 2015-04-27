@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "EventTableViewController.h"
+#import "EventTableVC.h"
 #import "Event.h"
 #import "Event+Utilities.h"
 #import "EventTableViewCell.h"
@@ -24,7 +24,7 @@ static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
-@interface EventTableViewController()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
+@interface EventTableVC()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -33,7 +33,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 @end
 
-@implementation EventTableViewController{
+@implementation EventTableVC{
     NSNumber *_eventRadius;
 }
 
@@ -106,7 +106,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         [self pullDataFromLocal];
     }
     
-    __weak EventTableViewController *weakSelf = self;
+    __weak EventTableVC *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         if (!INTERNET_AVAILABLE) {
             [weakSelf pullDataFromLocal];

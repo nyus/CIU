@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComposeNewSurpriseViewController : UIViewController
+@interface ComposeSurpriseVC : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *textPhotoSeparatorView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopSpacingConstraint;
+
 - (IBAction)attachPhotoButtonTapped:(id)sender;
 - (IBAction)sendButtonTapped:(id)sender;
 - (IBAction)cancelButtonTapped:(id)sender;

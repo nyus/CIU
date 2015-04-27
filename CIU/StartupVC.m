@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "StartupViewController.h"
+#import "StartupVC.h"
 #import "AvatarAndUsernameTableViewCell.h"
 #import "Helper.h"
 #import <Parse/Parse.h>
@@ -27,7 +27,7 @@ NS_ENUM(NSUInteger, SideBarStatus){
 static CGFloat leadingSpace;
 
 
-@interface StartupViewController()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate, SKStoreProductViewControllerDelegate>{
+@interface StartupVC()<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate, AvatarAndUsernameTableViewCellDelegate, SKStoreProductViewControllerDelegate>{
     CGPoint previousPoint;
 }
 
@@ -39,7 +39,7 @@ static CGFloat leadingSpace;
 
 @end
 
-@implementation StartupViewController
+@implementation StartupVC
 
 -(void)viewDidLoad{
     [self reloadTableView];
