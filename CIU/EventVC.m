@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "EventTableVC.h"
+#import "EventVC.h"
 #import "Event.h"
 #import "Event+Utilities.h"
 #import "EventTableViewCell.h"
@@ -24,7 +24,7 @@ static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 static NSString *const kEventDisclaimerKey = @"kEventDisclaimerKey";
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
-@interface EventTableVC()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
+@interface EventVC()<UITableViewDataSource,UITableViewDelegate, EventTableViewCellDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -32,7 +32,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 @end
 
-@implementation EventTableVC{
+@implementation EventVC{
     NSNumber *_eventRadius;
 }
 
@@ -105,7 +105,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         [self pullDataFromLocal];
     }
     
-    __weak EventTableVC *weakSelf = self;
+    __weak EventVC *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         if (!INTERNET_AVAILABLE) {
             [weakSelf pullDataFromLocal];
@@ -122,7 +122,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refresh];
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+    }];
     [Flurry logEvent:@"View event" timed:YES];
 }
 

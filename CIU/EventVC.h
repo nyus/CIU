@@ -8,6 +8,6 @@
 
 #import "GenericTableVC.h"
 
-@interface EventTableVC : GenericTableVC
+@interface EventVC : GenericTableVC
 
 @end

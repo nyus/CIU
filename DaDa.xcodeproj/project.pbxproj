@@ -26,7 +26,7 @@
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
 		5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5029A91C1A8FB267002B0212 /* UIResponder+Utilities.m */; };
 		5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */; };
-		503AF34519BB678D0023EC02 /* EventTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventTableVC.m */; };
+		503AF34519BB678D0023EC02 /* EventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34419BB678D0023EC02 /* EventVC.m */; };
 		503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34D19BB6D660023EC02 /* Event+Utilities.m */; };
 		503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35019BB7F970023EC02 /* EventTableViewCell.m */; };
 		503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35319BB80B40023EC02 /* CreateEventVC.m */; };
@@ -161,8 +161,8 @@
 		5029A91D1A8FB267002B0212 /* UIResponder+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+Utilities.h"; sourceTree = "<group>"; };
 		5030AC171A6FEB8D00A45ABA /* TermsAndPrivacyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsAndPrivacyVC.h; sourceTree = "<group>"; };
 		5030AC181A6FEB8D00A45ABA /* TermsAndPrivacyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsAndPrivacyVC.m; sourceTree = "<group>"; };
-		503AF34319BB678D0023EC02 /* EventTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableVC.h; sourceTree = "<group>"; };
-		503AF34419BB678D0023EC02 /* EventTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableVC.m; sourceTree = "<group>"; };
+		503AF34319BB678D0023EC02 /* EventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventVC.h; sourceTree = "<group>"; };
+		503AF34419BB678D0023EC02 /* EventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventVC.m; sourceTree = "<group>"; };
 		503AF34C19BB6D660023EC02 /* Event+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+Utilities.h"; sourceTree = "<group>"; };
 		503AF34D19BB6D660023EC02 /* Event+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+Utilities.m"; sourceTree = "<group>"; };
 		503AF34F19BB7F970023EC02 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
@@ -398,8 +398,8 @@
 		503AF34119BB67680023EC02 /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				503AF34319BB678D0023EC02 /* EventTableVC.h */,
-				503AF34419BB678D0023EC02 /* EventTableVC.m */,
+				503AF34319BB678D0023EC02 /* EventVC.h */,
+				503AF34419BB678D0023EC02 /* EventVC.m */,
 				503AF34F19BB7F970023EC02 /* EventTableViewCell.h */,
 				503AF35019BB7F970023EC02 /* EventTableViewCell.m */,
 				503AF35219BB80B40023EC02 /* CreateEventVC.h */,
@@ -913,7 +913,7 @@
 				50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */,
 				5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */,
 				65C4F11219AFBD53004452C3 /* SignUpVC.m in Sources */,
-				503AF34519BB678D0023EC02 /* EventTableVC.m in Sources */,
+				503AF34519BB678D0023EC02 /* EventVC.m in Sources */,
 				50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
