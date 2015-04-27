@@ -15,19 +15,14 @@
 #import "Helper.h"
 #import "SurpriseTableViewCell.h"
 
-#define COMMENT_LABEL_WIDTH 234.0f
-#define NO_COMMENT_CELL_HEIGHT 250.0f
-#define CELL_IMAGEVIEW_MAX_Y 35+10
+static CGFloat const kCommentLabelWidth = 245.0;
+static CGFloat const kNoCommentCellHeight = 250.0;
+static CGFloat const kCellImageViewMaxY = 35.0 + 10.0;
+static CGFloat const kCommentLabelOriginY = 19.0;
 
 static UIImage *defaultAvatar;
-typedef NS_ENUM(NSUInteger, Direction){
-    DirectionUp,
-    DirectionDown,
-    DirectionRight,
-    DirectionLeft
-};
 
-@interface CommentSurpriseViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
+@interface CommentSurpriseViewController () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
     NSMutableDictionary *cellHeightMap;
     UISwipeGestureRecognizer *leftSwipeGesture;
@@ -244,7 +239,7 @@ typedef NS_ENUM(NSUInteger, Direction){
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.dataSource == nil || self.dataSource.count == 0) {
-        return NO_COMMENT_CELL_HEIGHT;
+        return kNoCommentCellHeight;
     }else{
         return 100;
     }
@@ -289,76 +284,30 @@ typedef NS_ENUM(NSUInteger, Direction){
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(!self.dataSource || self.dataSource.count == 0){
-        return NO_COMMENT_CELL_HEIGHT;
+        return kNoCommentCellHeight;
     }else{
         
         PFObject *comment = self.dataSource[indexPath.row];
         NSString *key =[NSString stringWithFormat:@"%lu",(unsigned long)comment.hash];
-        //        NSLog(@"indexPath:%@",indexPath);
         //is cell height has been calculated, return it
         if ([cellHeightMap objectForKey:key]) {
-            //            NSLog(@"return stored cell height: %f",[[cellHeightMap objectForKey:key] floatValue]);
-            return [[cellHeightMap objectForKey:key] floatValue];
             
+            return [[cellHeightMap objectForKey:key] floatValue];
         }else{
             NSString *contentString = comment[@"contentString"];
-            CGRect boundingRect =[contentString boundingRectWithSize:CGSizeMake(COMMENT_LABEL_WIDTH, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-            if (boundingRect.size.height < CELL_IMAGEVIEW_MAX_Y) {
-                [cellHeightMap setObject:[NSNumber numberWithInt:CELL_IMAGEVIEW_MAX_Y] forKey:key];
-                return CELL_IMAGEVIEW_MAX_Y;
+            CGRect boundingRect =[contentString boundingRectWithSize:CGSizeMake(kCommentLabelWidth, MAXFLOAT)
+                                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}
+                                                             context:nil];
+            if (boundingRect.size.height < kCellImageViewMaxY) {
+                [cellHeightMap setObject:[NSNumber numberWithInt:kCellImageViewMaxY] forKey:key];
+                
+                return kCellImageViewMaxY;
             }else{
-                [cellHeightMap setObject:@(boundingRect.size.height+10) forKey:key];
-                return boundingRect.size.height+10;
+                [cellHeightMap setObject:@(kCommentLabelOriginY + boundingRect.size.height + 10) forKey:key];
+                
+                return kCommentLabelOriginY + boundingRect.size.height + 10;
             }
-            
-        }
-    }
-}
-
-#pragma mark - UIScrollViewDelegate
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    if (!isAnimating && scrollView.contentOffset.y<0) {
-//        isAnimating = YES;
-//        //dismiss view
-//        [self animateToDismissSelfWithDirection:DirectionDown];
-//    }
-//
-//    if (!isAnimating && ((scrollView.contentSize.height<scrollView.frame.size.height && scrollView.contentOffset.y>0) ||
-//        (scrollView.contentSize.height>=scrollView.frame.size.height && scrollView.contentOffset.y>scrollView.contentSize.height-scrollView.frame.size.height))) {
-//        isAnimating = YES;
-//        [self animateToDismissSelfWithDirection:DirectionUp];
-//    }
-//}
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [self loadImagesForOnscreenRows];
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (!decelerate)
-	{
-//        [self loadImagesForOnscreenRows];
-    }
-}
-
-- (void)loadImagesForOnscreenRows
-{
-    if(self.dataSource == nil || self.dataSource.count == 0){
-        return;
-    }
-    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
-    
-    for (NSIndexPath *indexPath in visiblePaths)
-    {
-        __block AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        
-        PFObject *comment = self.dataSource[indexPath.row];
-        BOOL avatar = [Helper isLocalAvatarExistForUser:comment[@"senderUsername"]  isHighRes:NO];
-        if (!avatar) {
-            [Helper getServerAvatarForUser:comment[@"senderUsername"] isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                cell.avatarImageView.image = image;
-            }];
         }
     }
 }

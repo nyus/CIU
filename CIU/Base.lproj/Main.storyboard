@@ -1882,8 +1882,8 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9JK-0o-Noz">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9JK-0o-Noz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" rowHeight="300" id="mM4-7q-gDo" userLabel="loading cell" customClass="LoadingTableViewCell">
@@ -1929,7 +1929,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="245" translatesAutoresizingMaskIntoConstraints="NO" id="Qoe-UT-SqM" userLabel="content label">
-                                                    <rect key="frame" x="55" y="18" width="245" height="16"/>
+                                                    <rect key="frame" x="55" y="19" width="245" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="245" id="iZX-Zo-MXT"/>
                                                     </constraints>
@@ -1942,7 +1942,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 <constraint firstItem="fuK-08-tvv" firstAttribute="top" secondItem="1Jg-ag-N4n" secondAttribute="top" constant="5" id="M45-rw-KUx"/>
                                                 <constraint firstItem="ige-Od-w4P" firstAttribute="top" secondItem="1Jg-ag-N4n" secondAttribute="top" constant="5" id="S6g-Z9-G5X"/>
                                                 <constraint firstItem="Qoe-UT-SqM" firstAttribute="leading" secondItem="ige-Od-w4P" secondAttribute="trailing" constant="10" id="Yie-1A-F1r"/>
-                                                <constraint firstItem="Qoe-UT-SqM" firstAttribute="top" secondItem="fuK-08-tvv" secondAttribute="bottom" constant="-1" id="ebQ-yE-Da0"/>
+                                                <constraint firstItem="Qoe-UT-SqM" firstAttribute="top" secondItem="fuK-08-tvv" secondAttribute="bottom" id="ebQ-yE-Da0"/>
                                                 <constraint firstItem="fuK-08-tvv" firstAttribute="leading" secondItem="ige-Od-w4P" secondAttribute="trailing" constant="10" id="iVC-6E-QJJ"/>
                                                 <constraint firstItem="ige-Od-w4P" firstAttribute="leading" secondItem="1Jg-ag-N4n" secondAttribute="leading" constant="15" id="jPB-6m-5SE"/>
                                             </constraints>
@@ -2019,7 +2019,11 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <constraints>
                             <constraint firstItem="CiX-P4-dV2" firstAttribute="leading" secondItem="MiO-P8-Ew2" secondAttribute="leading" id="2u5-XW-Qta"/>
                             <constraint firstAttribute="trailing" secondItem="CiX-P4-dV2" secondAttribute="trailing" id="EBW-Ma-3jx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9JK-0o-Noz" secondAttribute="trailing" constant="-16" id="Z78-Zk-wHM"/>
+                            <constraint firstItem="9JK-0o-Noz" firstAttribute="top" secondItem="QBz-gn-ZFh" secondAttribute="bottom" constant="-44" id="dup-O5-nh2"/>
+                            <constraint firstItem="9JK-0o-Noz" firstAttribute="leading" secondItem="MiO-P8-Ew2" secondAttribute="leadingMargin" constant="-16" id="jWJ-ZV-Peh"/>
                             <constraint firstItem="ubh-mR-9g7" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="bottom" constant="-5" id="lIU-Qw-dCv"/>
+                            <constraint firstItem="CiX-P4-dV2" firstAttribute="top" secondItem="9JK-0o-Noz" secondAttribute="bottom" id="rCn-0A-qh7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hdJ-fI-RbM"/>
