@@ -14,6 +14,7 @@
 @class ImageCollectionViewCell;
 
 @protocol StatusTableViewCellDelegate <NSObject>
+
 @optional
 - (void)usernameLabelTappedOnCell:(SurpriseTableViewCell *)cell;
 - (void)flagBadContentButtonTappedOnCell:(SurpriseTableViewCell *)cell;
@@ -23,6 +24,7 @@
 - (NSInteger)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 - (ImageCollectionViewCell *)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (CGSize)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @interface SurpriseTableViewCell : UITableViewCell
@@ -33,12 +35,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusCellUsernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusCellDateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *statusCellAvatarImageView;
-@property (weak, nonatomic) IBOutlet UIView *reviveProgressView;
 @property (weak, nonatomic) IBOutlet UILabel *reviveCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentCountLabel;
-@property (weak, nonatomic) IBOutlet UIButton *userNameButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
-@property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;

@@ -1459,14 +1459,8 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdE-hF-gNT" userLabel="content container">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="369"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="368"/>
                                             <subviews>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-8o-iim" userLabel="avatar button">
-                                                    <rect key="frame" x="20" y="6" width="60" height="60"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-user-icon-profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="e3g-LQ-3Oo" userLabel="avatar">
                                                     <rect key="frame" x="20" y="6" width="60" height="60"/>
                                                     <gestureRecognizers/>
@@ -1529,9 +1523,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-4T-Xpp" userLabel="revive progress view">
-                                                    <color key="backgroundColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
-                                                </view>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whs-Zd-zCS" userLabel="like button">
                                                     <rect key="frame" x="285" y="120" width="27" height="27"/>
                                                     <state key="normal" image="3like_before ">
@@ -1540,12 +1531,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     <connections>
                                                         <action selector="commentButtonTapped:" destination="9Gj-Yp-pNZ" eventType="touchUpInside" id="eeU-kE-VWU"/>
                                                     </connections>
-                                                </button>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18P-pu-4lo" userLabel="username button">
-                                                    <rect key="frame" x="88" y="28" width="83" height="30"/>
-                                                    <state key="normal">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
                                                 </button>
                                                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Tp-ye-A5T">
                                                     <rect key="frame" x="87" y="143" width="225" height="204"/>
@@ -1587,8 +1572,8 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-vF-VGG">
-                                                    <rect key="frame" x="286" y="344" width="26" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-vF-VGG" userLabel="flagButton">
+                                                    <rect key="frame" x="286" y="343" width="26" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="Fvj-zY-6W7"/>
                                                         <constraint firstAttribute="width" constant="26" id="l64-2O-YML"/>
@@ -1627,30 +1612,23 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="UdE-hF-gNT" secondAttribute="bottom" constant="-8.5" id="1Mi-H5-IHa"/>
                                         <constraint firstItem="UdE-hF-gNT" firstAttribute="leading" secondItem="Uh6-SQ-RNZ" secondAttribute="leading" id="KoU-UF-25L"/>
                                         <constraint firstAttribute="trailing" secondItem="UdE-hF-gNT" secondAttribute="trailing" id="L3d-lx-zyU"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="UdE-hF-gNT" secondAttribute="trailing" constant="-8" id="QKp-WF-7Y9"/>
-                                        <constraint firstAttribute="bottom" secondItem="UdE-hF-gNT" secondAttribute="bottom" constant="-1" id="fYA-ag-gUK"/>
-                                        <constraint firstItem="UdE-hF-gNT" firstAttribute="leading" secondItem="Uh6-SQ-RNZ" secondAttribute="leadingMargin" constant="-8" id="jQZ-UL-6jg"/>
+                                        <constraint firstAttribute="bottom" secondItem="UdE-hF-gNT" secondAttribute="bottom" id="fYA-ag-gUK"/>
                                         <constraint firstItem="UdE-hF-gNT" firstAttribute="top" secondItem="Uh6-SQ-RNZ" secondAttribute="top" id="qNB-vg-gte"/>
-                                        <constraint firstItem="UdE-hF-gNT" firstAttribute="top" secondItem="Uh6-SQ-RNZ" secondAttribute="topMargin" constant="-8" id="z5b-MT-S2R"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="avatarButton" destination="Yw5-8o-iim" id="ZPD-MC-0IX"/>
                                     <outlet property="collectionView" destination="3Tp-ye-A5T" id="Dlf-E5-bvy"/>
                                     <outlet property="commentButton" destination="b0l-EI-3bd" id="jYc-zt-DaY"/>
                                     <outlet property="commentCountLabel" destination="tO5-pW-olH" id="nVx-uS-VCn"/>
                                     <outlet property="contentContainerView" destination="UdE-hF-gNT" id="0i8-cw-vqI"/>
                                     <outlet property="flagButton" destination="Dc6-vF-VGG" id="u0k-LH-5Fl"/>
-                                    <outlet property="reviveProgressView" destination="Ia7-4T-Xpp" id="Pj8-Sp-sKy"/>
                                     <outlet property="statusCellAvatarImageView" destination="e3g-LQ-3Oo" id="eLu-ze-v45"/>
                                     <outlet property="statusCellDateLabel" destination="eDb-hJ-x8y" id="ODh-1u-U3g"/>
                                     <outlet property="statusCellMessageLabel" destination="kLv-8s-Ntf" id="bbt-gQ-lL4"/>
                                     <outlet property="statusCellUsernameLabel" destination="vth-Qq-CBS" id="qw7-rb-5v0"/>
-                                    <outlet property="userNameButton" destination="18P-pu-4lo" id="7DD-08-gMr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

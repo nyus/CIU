@@ -17,7 +17,7 @@
 
 static CGFloat const kCommentLabelWidth = 245.0;
 static CGFloat const kNoCommentCellHeight = 250.0;
-static CGFloat const kCellImageViewMaxY = 35.0 + 10.0;
+static CGFloat const kCellImageViewMaxY = 45;
 static CGFloat const kCommentLabelOriginY = 19.0;
 
 static UIImage *defaultAvatar;
@@ -25,8 +25,6 @@ static UIImage *defaultAvatar;
 @interface CommentSurpriseViewController () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
     NSMutableDictionary *cellHeightMap;
-    UISwipeGestureRecognizer *leftSwipeGesture;
-    UISwipeGestureRecognizer *rightSwipeGesture;
     BOOL isLoading;
     BOOL isAnimating;
 }
@@ -46,6 +44,7 @@ static UIImage *defaultAvatar;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        cellHeightMap = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -299,7 +298,7 @@ static UIImage *defaultAvatar;
                                                              options:NSStringDrawingUsesLineFragmentOrigin
                                                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}
                                                              context:nil];
-            if (boundingRect.size.height < kCellImageViewMaxY) {
+            if (kCommentLabelOriginY + boundingRect.size.height < kCellImageViewMaxY) {
                 [cellHeightMap setObject:[NSNumber numberWithInt:kCellImageViewMaxY] forKey:key];
                 
                 return kCellImageViewMaxY;

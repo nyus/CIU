@@ -53,12 +53,6 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     [self.delegate commentButtonTappedOnCell:self];
 }
 
--(void)enableButtonsOnCell:(BOOL)enable{
-    self.avatarButton.userInteractionEnabled = enable;
-    self.userNameButton.userInteractionEnabled = enable;
-    self.commentButton.userInteractionEnabled = enable;
-}
-
 #pragma mark - uicollectionview delegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
