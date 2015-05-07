@@ -46,6 +46,7 @@ NSString *const kIntroductionKey = @"Introduction";
     } else {
         [[GAnalyticsManager shareManager] trackScreen:@"Restaurant Detail"];
     }
+
     [self buildDataSource];
     [self syncWithServer];
 }

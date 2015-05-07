@@ -964,25 +964,23 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <outlet property="browseMoreButton" destination="gXX-r1-01L" id="Gvb-g5-cKa"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="ZH8-Ah-cuu" detailTextLabel="biB-Tm-Xks" style="IBUITableViewCellStyleSubtitle" id="5L2-t8-88X">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="58" id="5L2-t8-88X" customClass="NameAddressTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5L2-t8-88X" id="6Vd-gg-KWG">
                                             <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZH8-Ah-cuu">
-                                                    <rect key="frame" x="15" y="3" width="34" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCf-kg-73t">
+                                                    <rect key="frame" x="18" y="8" width="46" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biB-Tm-Xks">
-                                                    <rect key="frame" x="15" y="25" width="43" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkN-fF-8IQ">
+                                                    <rect key="frame" x="18" y="28" width="64" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1860,7 +1858,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9JK-0o-Noz">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" rowHeight="300" id="mM4-7q-gDo" userLabel="loading cell" customClass="LoadingTableViewCell">
@@ -1958,7 +1956,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2" userLabel="enterTextContainer">
-                                <rect key="frame" x="0.0" y="465" width="320" height="54"/>
+                                <rect key="frame" x="0.0" y="475" width="320" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGr-AU-WVR">
                                         <rect key="frame" x="273" y="11" width="36" height="30"/>
@@ -1971,7 +1969,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyZ-RV-VZ0">
-                                        <rect key="frame" x="10" y="5" width="250" height="42"/>
+                                        <rect key="frame" x="10" y="4" width="250" height="36"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1984,11 +1982,11 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="GGr-AU-WVR" secondAttribute="trailing" constant="11" id="75R-Vm-VYd"/>
                                     <constraint firstItem="GGr-AU-WVR" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="13" id="Ify-em-W7e"/>
-                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="5" id="Oy8-xB-Fau"/>
-                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="7" id="ayD-fb-YfV"/>
+                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="4" id="Oy8-xB-Fau"/>
+                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="4" id="ayD-fb-YfV"/>
                                     <constraint firstItem="OyZ-RV-VZ0" firstAttribute="leading" secondItem="CiX-P4-dV2" secondAttribute="leading" constant="10" id="kU4-jR-4ch"/>
-                                    <constraint firstAttribute="height" constant="54" id="nZH-gE-d1N"/>
-                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" constant="1" id="t46-6I-IM5"/>
+                                    <constraint firstAttribute="height" constant="44" id="nZH-gE-d1N"/>
+                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" constant="-4" id="t46-6I-IM5"/>
                                 </constraints>
                             </view>
                         </subviews>

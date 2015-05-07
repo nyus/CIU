@@ -26,6 +26,7 @@
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
 #import "UIColor+CIUColors.h"
+#import "NameAddressTableViewCell.h"
 
 #define MILE_PER_DELTA 69.0
 #define IS_JOB_TRADE self.categoryType == DDCategoryTypeJob || self.categoryType == DDCategoryTypeTradeAndSell
@@ -45,6 +46,8 @@ static NSInteger const kJobDisclaimerAlertTag = 50;
 static NSInteger const kTradeDisclaimerAlertTag = 51;
 static NSString *const kJobDisclaimerKey = @"kJobDisclaimerKey";
 static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
+static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
+static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 @interface LifestyleDetailVC()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
     BOOL mapRenderedOnStartup;
@@ -194,6 +197,8 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
     
     // Note: empty back button title is set in IB. Select navigation bar in LifestyleTableViewController. The tilte is set to an empty string.
     
@@ -624,13 +629,13 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.tableViewDataSource[indexPath.row];
-    static NSString *regularCell = @"cell";
     static NSString *jobAndTradeCell = @"cellJob";
 
     if (IS_RES_MARKT) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:regularCell forIndexPath:indexPath];
-        cell.textLabel.text = object.name;
-        cell.detailTextLabel.text = object.address;
+        NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
+        cell.nameLabel.text = object.name;
+        cell.addressLabel.text = object.address;
+        
         return cell;
     }else{
         JobTradeTableViewCell *cell = (JobTradeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
@@ -665,8 +670,12 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LifestyleObject *object = self.tableViewDataSource[indexPath.row];
+    
     if (IS_RES_MARKT) {
-        return 44;
+        
+        return [NameAddressTableViewCell heightForCellWithName:object.name address:object.address cellWidth:tableView.frame.size.width];
     } else {
         LifestyleObject *object = self.tableViewDataSource[indexPath.row];
         NSString *content = object.content;
@@ -680,6 +689,12 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
             return rect.size.height + 40 +5.0f;
         }
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:cell];
 }
 
 #pragma mark - map delegate
@@ -765,12 +780,13 @@ static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
     CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
     lifestyleToPass = annotation.lifetstyleObject;
     //push to detail
-    [self performSegueWithIdentifier:@"toObjectDetail" sender:self];
+    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"toObjectDetail"]) {
-        if ([sender isKindOfClass:[UITableViewCell class]]) {
+    
+    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID]) {
+        if ([sender isKindOfClass:[NameAddressTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
             [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
             LifestyleObject *life = self.tableViewDataSource[indexPath.row];
