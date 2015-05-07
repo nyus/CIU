@@ -88,6 +88,7 @@ static NSString *const kEntityName = @"StatusObject";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
     [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
     }];
@@ -590,16 +591,9 @@ static NSString *const kEntityName = @"StatusObject";
             status.commentCount = [NSNumber numberWithInt:status.commentCount.intValue+1];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
+        // This is a hack. need to do it the right way which consumes lots of time. so hold
+        self.tabBarController.tabBar.hidden = YES;
     }
 }
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-//    if (alertView.tag == kSurpriseDisclaimerAlertTag) {
-//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:kSurpriseDisclaimerKey];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//    }
-}
 @end

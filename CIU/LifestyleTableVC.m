@@ -15,8 +15,11 @@
 #import "LifestyleCategory+Utilities.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
+
 @interface LifestyleTableVC ()
+
 @property (nonatomic, strong) NSMutableDictionary *queries;
+
 @end
 
 @implementation LifestyleTableVC
@@ -30,8 +33,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    //    self.queries= [NSMutableDictionary dictionary];
     
     PFUser *user = [PFUser currentUser];
     if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
@@ -66,6 +67,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = NO;
     
     //we add a right bar button item on statusViewcOntroller. since all the tabs are sharing the same navigation bar, here we take out the right item
     //add right bar item(compose)
@@ -201,6 +204,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    self.tabBarController.tabBar.hidden = YES;
     
     if ([segue.identifier isEqualToString:@"toDetailA"]) {
         UITableViewCell *cell = (UITableViewCell *)sender;
