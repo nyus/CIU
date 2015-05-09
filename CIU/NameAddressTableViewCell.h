@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, assign) BOOL isAuthetic;
+@property (nonatomic, assign) BOOL isVerified;
 
 @end

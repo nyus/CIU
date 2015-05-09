@@ -78,9 +78,7 @@ const float kOptionsTBViewHeight = 280.0;
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     self.tableviewBottomSpaceToBottomLayoutConstraint.constant = rect.size.height;
-//    [UIView animateWithDuration:.3 animations:^{
-        [self.view layoutIfNeeded];
-//    }];
+    [self.view layoutIfNeeded];
 }
 
 -(void)handleKeyboardWillHide:(NSNotification *)notification{

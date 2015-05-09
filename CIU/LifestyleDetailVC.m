@@ -635,6 +635,9 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
         cell.nameLabel.text = object.name;
         cell.addressLabel.text = object.address;
+#warning fake code
+        cell.isVerified = (int)rand() % 2 == 0;
+        cell.isAuthetic = (int)rand() % 2 == 0;
         
         return cell;
     }else{
