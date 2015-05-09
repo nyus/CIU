@@ -66,7 +66,6 @@
 		50FBFFC91A7DCC270090EE4B /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFC81A7DCC270090EE4B /* APIConstants.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
 		50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFD21A7E31120090EE4B /* StatusObject.m */; };
-		50FBFFDA1A7E3E5F0090EE4B /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 50FBFFD81A7E3E5F0090EE4B /* dsym_upload.sh */; };
 		50FBFFDB1A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */; };
 		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
@@ -809,7 +808,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50FBFFDA1A7E3E5F0090EE4B /* dsym_upload.sh in Resources */,
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
 				0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */,
