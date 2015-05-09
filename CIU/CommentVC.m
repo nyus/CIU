@@ -267,17 +267,48 @@ static UIImage *defaultAvatar;
             defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
         }
         cell.avatarImageView.image = defaultAvatar;
-        UIImage *image = [Helper getLocalAvatarForUser:comment[@"senderUsername"] isHighRes:NO];
-        if (image) {
-            cell.avatarImageView.image = image;
-        }else{
-            if (tableView.isDecelerating == NO && tableView.isDragging == NO && cell.avatarImageView.image == nil) {
-                [Helper getServerAvatarForUser:comment[@"senderUsername"] isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                    cell.avatarImageView.image = image;
-                }];
-            }
-        }
+        [self getAvatarForCell:cell withUsername:comment[@"senderUsername"] loadIfStill:YES];
+
         return cell;
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self loadRemoteDataForVisibleCells];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self loadRemoteDataForVisibleCells];
+    }
+}
+
+- (void)getAvatarForCell:(AvatarAndUsernameTableViewCell *)cell withUsername:(NSString *)username loadIfStill:(BOOL)loadIfStill
+{
+    UIImage *image = [Helper getLocalAvatarForUser:username isHighRes:NO];
+    if (image) {
+        cell.avatarImageView.image = image;
+    }else{
+        if (loadIfStill && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+            return;
+        }
+        
+        [Helper getServerAvatarForUser:username
+                             isHighRes:NO
+                            completion:^(NSError *error, UIImage *image) {
+                                cell.avatarImageView.image = image;
+                            }];
+    }
+}
+
+- (void)loadRemoteDataForVisibleCells
+{
+    for (AvatarAndUsernameTableViewCell *cell in self.tableView.visibleCells) {
+        if ([cell isKindOfClass:[AvatarAndUsernameTableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            PFObject *comment = self.dataSource[indexPath.row];
+            [self getAvatarForCell:cell withUsername:comment[@"senderUsername"] loadIfStill:NO];
+        }
     }
 }
 

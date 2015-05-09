@@ -11,7 +11,7 @@
 static CGFloat const kLeftSpace = 16.0;
 static CGFloat const kNameLabelTopSpace = 20.0;
 static CGFloat const kAddressLabelTopSpace = 10.0;
-static CGFloat const kAddressLabelBottomSpace = 8.0;
+static CGFloat const kAddressLabelBottomSpace = 10.0;
 
 @implementation NameAddressTableViewCell
 
@@ -19,12 +19,12 @@ static CGFloat const kAddressLabelBottomSpace = 8.0;
 {
     CGRect nameRect = [name boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                      attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]]}
+                                      attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:9.5]}
                                          context:nil];
     
     CGRect addressRect = [address boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:[UIFont systemFontSize]]}
+                                            attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Light" size:8.5]}
                                                context:nil];
     
     return kNameLabelTopSpace + CGRectGetHeight(nameRect) + kAddressLabelTopSpace + CGRectGetHeight(addressRect) + kAddressLabelBottomSpace;
@@ -36,9 +36,11 @@ static CGFloat const kAddressLabelBottomSpace = 8.0;
     
     if (self) {
         _nameLabel = [UILabel new];
+        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:9.5];
         [self.contentView addSubview:_nameLabel];
         
         _addressLabel = [UILabel new];
+        _addressLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:8.5];
         [self.contentView addSubview:_addressLabel];
         
         [self setupConstraints];
