@@ -196,8 +196,7 @@ static UIImage *defaultAvatar;
 
 -(void)handleKeyboardWillShow:(NSNotification *)notification{
     CGRect rect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat tabbarHeight = CGRectGetHeight(self.tabBarController.tabBar.frame);
-    self.enterMessageContainerViewBottomSpaceConstraint.constant = rect.size.height - tabbarHeight;
+    self.enterMessageContainerViewBottomSpaceConstraint.constant = rect.size.height;
     [UIView animateWithDuration:.3 animations:^{
         [self.view layoutIfNeeded];
     }];
