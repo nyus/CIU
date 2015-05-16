@@ -901,13 +901,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                     </view>
                     <navigationItem key="navigationItem" id="hho-cC-mkc">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="T3z-dE-Oom">
-                            <color key="tintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="4qE-VP-UVh" id="HVW-56-XO6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Publish" id="C7L-kq-Gxt">
-                            <color key="tintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="publishButtonTapped:" destination="4qE-VP-UVh" id="5IH-U8-Eb0"/>
                             </connections>
@@ -1225,9 +1225,8 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                 <constraint firstAttribute="width" constant="26" id="vRN-ak-9GW"/>
                                             </constraints>
                                             <state key="normal" backgroundImage="flag_off"/>
-                                            <state key="disabled" backgroundImage="flag_on.png"/>
+                                            <state key="disabled" backgroundImage="flag_on"/>
                                             <state key="selected" backgroundImage="flag_on.png"/>
-                                            <state key="highlighted" backgroundImage="flag_on.png"/>
                                             <connections>
                                                 <action selector="flagBadContentButtonTapped:" destination="DWS-Ha-6Q5" eventType="touchUpInside" id="4g9-QA-kcu"/>
                                             </connections>
@@ -1589,7 +1588,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                                     <state key="normal" backgroundImage="flag_off">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="disabled" backgroundImage="flag_on.png"/>
+                                                    <state key="disabled" backgroundImage="flag_on"/>
                                                     <connections>
                                                         <action selector="flagBadContentButtonTapped:" destination="9Gj-Yp-pNZ" eventType="touchUpInside" id="npM-TP-M1M"/>
                                                     </connections>
@@ -1648,7 +1647,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                     <navigationItem key="navigationItem" title="Surprise" id="i4K-wz-4Ql">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="YV7-WK-JGW">
                             <connections>
-                                <segue destination="qlb-rj-1I4" kind="modal" id="3d5-kQ-Atj"/>
+                                <segue destination="gMx-Ts-gw3" kind="modal" id="3d5-kQ-Atj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1673,7 +1672,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0N2-JB-aLB">
-                                <rect key="frame" x="0.0" y="64" width="320" height="175"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="239"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
@@ -1745,6 +1744,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrx-uB-PAm">
                                         <rect key="frame" x="28" y="12" width="44" height="44"/>
+                                        <color key="tintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                         <state key="normal" image="camera.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1790,41 +1790,19 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     <constraint firstAttribute="trailing" secondItem="paJ-mi-ogC" secondAttribute="trailing" constant="43" id="xpa-lD-pV7"/>
                                 </constraints>
                             </view>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIN-ew-izO">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Compose" id="Mtq-lF-yyf">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="FwC-2B-lan">
-                                            <color key="tintColor" red="0.63921568627450975" green="0.87058823529411766" blue="0.8666666666666667" alpha="1" colorSpace="deviceRGB"/>
-                                            <connections>
-                                                <action selector="cancelButtonTapped:" destination="qlb-rj-1I4" id="K17-3n-j06"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Send" id="f8Q-zS-oWX">
-                                            <color key="tintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
-                                            <connections>
-                                                <action selector="sendButtonTapped:" destination="qlb-rj-1I4" id="reU-1u-Naz"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kPN-gW-lKw" firstAttribute="top" secondItem="0N2-JB-aLB" secondAttribute="bottom" constant="1" id="0fX-4l-R4V"/>
-                            <constraint firstItem="qIN-ew-izO" firstAttribute="trailing" secondItem="ODb-JL-mGp" secondAttribute="trailing" id="3zu-br-QUZ"/>
                             <constraint firstItem="kPN-gW-lKw" firstAttribute="top" secondItem="ETZ-N6-6mu" secondAttribute="bottom" id="ChE-gb-fJM"/>
-                            <constraint firstItem="qIN-ew-izO" firstAttribute="top" secondItem="A3M-kJ-dCg" secondAttribute="bottom" id="HEw-W3-je7"/>
                             <constraint firstItem="0N2-JB-aLB" firstAttribute="leading" secondItem="j7E-68-ZJu" secondAttribute="leading" id="SoF-Kg-UFC"/>
                             <constraint firstItem="ODb-JL-mGp" firstAttribute="width" secondItem="j7E-68-ZJu" secondAttribute="width" id="T2s-IH-TzZ"/>
                             <constraint firstItem="ETZ-N6-6mu" firstAttribute="top" secondItem="ODb-JL-mGp" secondAttribute="bottom" id="V5G-OR-vNp"/>
                             <constraint firstItem="kPN-gW-lKw" firstAttribute="width" secondItem="j7E-68-ZJu" secondAttribute="width" id="eS8-mH-pAF"/>
                             <constraint firstItem="ETZ-N6-6mu" firstAttribute="leading" secondItem="j7E-68-ZJu" secondAttribute="leading" id="fTz-WZ-9TF"/>
-                            <constraint firstItem="0N2-JB-aLB" firstAttribute="top" secondItem="A3M-kJ-dCg" secondAttribute="bottom" constant="44" id="hx7-c4-2hU"/>
+                            <constraint firstItem="0N2-JB-aLB" firstAttribute="top" secondItem="A3M-kJ-dCg" secondAttribute="bottom" constant="-64" id="hx7-c4-2hU"/>
                             <constraint firstItem="kPN-gW-lKw" firstAttribute="leading" secondItem="j7E-68-ZJu" secondAttribute="leading" id="oHQ-6S-XJs"/>
                             <constraint firstItem="0N2-JB-aLB" firstAttribute="width" secondItem="j7E-68-ZJu" secondAttribute="width" id="ouF-pp-URt"/>
-                            <constraint firstItem="qIN-ew-izO" firstAttribute="leading" secondItem="ODb-JL-mGp" secondAttribute="leading" id="pYW-KY-y7d"/>
                             <constraint firstItem="ETZ-N6-6mu" firstAttribute="width" secondItem="j7E-68-ZJu" secondAttribute="width" id="qY7-Gd-jlY"/>
                             <constraint firstItem="ODb-JL-mGp" firstAttribute="leading" secondItem="j7E-68-ZJu" secondAttribute="leading" id="u7a-r8-7AO"/>
                             <constraint firstItem="BmU-L4-7cT" firstAttribute="top" secondItem="kPN-gW-lKw" secondAttribute="bottom" constant="268" id="yAZ-9P-uTd"/>
@@ -1832,11 +1810,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                     </view>
                     <navigationItem key="navigationItem" title="Compose" id="4jp-d4-mkB">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="tkW-49-8Sr">
+                            <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="qlb-rj-1I4" id="iIc-dk-UWI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Send" id="ScR-Y5-Edz">
+                            <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="sendButtonTapped:" destination="qlb-rj-1I4" id="D8d-5W-Ahq"/>
                             </connections>
@@ -1854,7 +1834,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VwB-0E-gAN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="1068"/>
+            <point key="canvasLocation" x="2826" y="1068"/>
         </scene>
         <!--CommentVC-->
         <scene sceneID="mJd-yc-oO5">
@@ -4567,6 +4547,7 @@ DaDa</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="M1D-Fy-0t7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -4752,6 +4733,25 @@ DaDa</string>
             </objects>
             <point key="canvasLocation" x="-537" y="1406"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="45i-A9-3KY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gMx-Ts-gw3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vi9-9J-yIp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qlb-rj-1I4" kind="relationship" relationship="rootViewController" id="kE8-b8-SUd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XGq-i1-S3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2294" y="1068"/>
+        </scene>
     </scenes>
     <resources>
         <image name="2retserant" width="30" height="30"/>
@@ -4766,6 +4766,7 @@ DaDa</string>
         <image name="event_dot" width="8" height="8"/>
         <image name="facebook" width="25" height="25"/>
         <image name="flag_off" width="25" height="21"/>
+        <image name="flag_on" width="25" height="21"/>
         <image name="flag_on.png" width="50" height="42"/>
         <image name="input_psw" width="148" height="28"/>
         <image name="input_username" width="148" height="28"/>

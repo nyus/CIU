@@ -7,6 +7,8 @@
 //
 
 extern NSString *const DDEventParseClassName;
+extern NSString *const DDStatusParseClassName;
+extern NSString *const DDAuditParseClassName;
 
 extern NSString *const DDFirstNameKey;
 extern NSString *const DDLastNameKey;
