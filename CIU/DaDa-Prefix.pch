@@ -43,4 +43,5 @@
     #import "UIViewController+Utilities.h"
     #import "APIConstants.h"
     #import "FPLogger.h"
+    #import "AnalyticsManager.h"
 #endif

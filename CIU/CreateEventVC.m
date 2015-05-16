@@ -17,10 +17,10 @@ const float kHorizontalMarginLeft = 20.0;
 const float kOptionsTBViewHeight = 280.0;
 
 @interface CreateEventVC()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
-    NSString *eventName;
-    NSString *eventContent;
-    NSDate *eventDate;
-    NSString *eventLocation;
+    NSString *_eventName;
+    NSString *_eventContent;
+    NSDate *_eventDate;
+    NSString *_eventLocation;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -193,31 +193,45 @@ const float kOptionsTBViewHeight = 280.0;
 - (IBAction)publishButtonTapped:(id)sender {
     
     if (![Reachability canReachInternet]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like you do not have internet access. Please try again later." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Looks like you do not have internet access. Please try again later.", nil) delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     
-    if (!eventName){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event name!" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+    if (!_eventName){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify an event name!", nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     
-    if(!eventDate){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify an event date." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+    if(!_eventDate){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify an event date.", nil)
+                                                       delegate:self 
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     
-    if(!eventContent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please tell us a bit more about the event." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+    if(!_eventContent) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please tell us a bit more about the event.", nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     
-    if (!eventLocation) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify the location of the event." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+    if (!_eventLocation) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify the location of the event.", nil)
+                                                       delegate:self 
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
         [alert show];
         return;
     } else{
@@ -225,7 +239,7 @@ const float kOptionsTBViewHeight = 280.0;
         if (!self.locationValidated) {
             //verify location
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-            [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            [geocoder geocodeAddressString:_eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
                 if (!error && placemarks.count>0) {
                     
                     if (!self.optionsTBView) {
@@ -272,10 +286,10 @@ const float kOptionsTBViewHeight = 280.0;
             BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
             
             //publish
-            PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
-            [event setObject:eventName forKey:DDEventNameKey];
-            [event setObject:eventContent forKey:DDEventContentKey];
-            [event setObject:eventDate forKey:DDEventDateKey];
+            PFObject *event = [[PFObject alloc] initWithClassName:DDEventParseClassName];
+            [event setObject:_eventName forKey:DDEventNameKey];
+            [event setObject:_eventContent forKey:DDEventContentKey];
+            [event setObject:_eventDate forKey:DDEventDateKey];
             [event setObject:@NO forKey:DDIsBadContentKey];
             if (isAdmin) {
                 [event setObject:@(self.adminEventLocation.coordinate.latitude) forKey:DDLatitudeKey];
@@ -285,7 +299,7 @@ const float kOptionsTBViewHeight = 280.0;
                 [event setObject:dictionary[DDLatitudeKey] forKey:DDLatitudeKey];
                 [event setObject:dictionary[DDLongitudeKey] forKey:DDLongitudeKey];
             }
-            [event setObject:eventLocation forKey:DDEventLocationKey];
+            [event setObject:_eventLocation forKey:DDEventLocationKey];
             [event setObject:[PFUser currentUser].username forKey:DDSenderUserNameKey];
             [event setObject:[[PFUser currentUser] objectForKey:DDFirstNameKey] forKey:DDSenderFirstNameKey];
             [event setObject:[[PFUser currentUser] objectForKey:DDLastNameKey] forKey:DDSenderLastNameKey];
@@ -293,41 +307,29 @@ const float kOptionsTBViewHeight = 280.0;
             
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Event successfully published!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        [alert show];
-                        [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
-                    });
+                    [self showAlert:NSLocalizedString(@"Event successfully published!", nil) needDismissSelf:YES];
                 }else{
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong, please try again." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                        [alert show];
-                    });
+                    [self showAlert:NSLocalizedString(@"Something went wrong, please try again.", nil) needDismissSelf:NO];
                 }
                 
-                NSNumber *latitude;
-                NSNumber *longitude;
-                if (isAdmin) {
-                    latitude = @(self.adminEventLocation.coordinate.latitude);
-                    longitude = @(self.adminEventLocation.coordinate.longitude);
-                } else {
-                    NSDictionary *dictionary = [Helper userLocation];
-                    latitude = dictionary[@"latitude"];
-                    longitude = dictionary[@"longitude"];
-                }
-                [[GAnalyticsManager shareManager] trackUIAction:@"publish event"
-                                                          label:[NSString stringWithFormat:@"event location:%f %f",
-                                                                 latitude ? latitude.doubleValue : -1,
-                                                                 longitude ? longitude.doubleValue : -1]
-                                                          value:nil];
-                [Flurry logEvent:@"Publich event" withParameters:@{@"latitude": latitude ? latitude : @(-1),
-                                                                   @"longitude": longitude ? longitude : @(-1)}];
+                NSNumber *latitude = isAdmin ? @(self.adminEventLocation.coordinate.latitude) : [Helper userLocation][DDLatitudeKey];
+                NSNumber *longitude = isAdmin ? @(self.adminEventLocation.coordinate.longitude) : [Helper userLocation][DDLongitudeKey];
+                [AnalyticsManager logPublicEventWithLatitude:latitude longitude:longitude];
             }];
         }
-    
     }
+}
+
+- (void)showAlert:(NSString *)message needDismissSelf:(BOOL)needDismissSelf
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alert show];
+        
+        if (needDismissSelf) {
+            [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
+        }
+    });
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -336,7 +338,7 @@ const float kOptionsTBViewHeight = 280.0;
         self.selectedPlaceMarkIndexPath = indexPath;
         EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
         locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
-        eventLocation = self.optionsTBViewDatasource[indexPath.row];
+        _eventLocation = self.optionsTBViewDatasource[indexPath.row];
         [self hideOptionsTBViewShadow];
     }
 }
@@ -375,19 +377,19 @@ const float kOptionsTBViewHeight = 280.0;
 #pragma mark - event table view cell delegate
 
 -(void)nameTextFieldEdited:(UITextField *)textField{
-    eventName = textField.text;
+    _eventName = textField.text;
 }
 
 -(void)descriptionTextViewEdidited:(UITextView *)textView{
-    eventContent = textView.text;
+    _eventContent = textView.text;
 }
 
 -(void)datePickerValueChanged:(UIDatePicker *)datePicker{
-    eventDate = datePicker.date;
+    _eventDate = datePicker.date;
 }
 
 -(void)locationTextFieldChanged:(UITextField *)textField{
     self.locationValidated = NO;
-    eventLocation = textField.text;
+    _eventLocation = textField.text;
 }
 @end

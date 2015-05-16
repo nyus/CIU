@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Huang, Sihang. All rights reserved.
 //
 
+extern NSString *const DDEventParseClassName;
+
 extern NSString *const DDFirstNameKey;
 extern NSString *const DDLastNameKey;
 extern NSString *const DDIsAdminKey;
