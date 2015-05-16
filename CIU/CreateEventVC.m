@@ -169,6 +169,27 @@ const float kOptionsTBViewHeight = 280.0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)createVerifyLocationTBView
+{
+    self.optionsTBViewShadow = [[HitTestView alloc] initWithFrame:self.view.frame];
+    self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
+    self.optionsTBViewShadow.alpha = 0.7f;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)];
+    tap.delegate = self;
+    [self.optionsTBViewShadow addGestureRecognizer:tap];
+    self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(0,
+                                                                       0,
+                                                                       kOptionsTBViewHeight,
+                                                                       CGRectGetWidth(self.view.frame) - 2 * kHorizontalMarginLeft)
+                                                      style:UITableViewStylePlain];
+    self.optionsTBView.center = self.optionsTBViewShadow.center;
+    self.optionsTBView.delegate = self;
+    self.optionsTBView.dataSource = self;
+    
+    [self.optionsTBViewShadow addSubview:self.optionsTBView];
+    [self.view addSubview:self.optionsTBViewShadow];
+}
+
 - (IBAction)publishButtonTapped:(id)sender {
     
     if (![Reachability canReachInternet]) {
@@ -199,39 +220,19 @@ const float kOptionsTBViewHeight = 280.0;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please specify the location of the event." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
         [alert show];
         return;
-    }else{
+    } else{
         
-        BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
-        
-        if (isAdmin && !self.locationValidated) {
+        if (!self.locationValidated) {
             //verify location
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder geocodeAddressString:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
                 if (!error && placemarks.count>0) {
                     
-                    if (!self.optionsTBViewShadow) {
-                        self.optionsTBViewShadow = [[HitTestView alloc] initWithFrame:self.view.frame];
-                        self.optionsTBViewShadow.backgroundColor = [UIColor darkGrayColor];
-                        self.optionsTBViewShadow.alpha = 0.7f;
-                        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnOptionsTableViewShadow)];
-                        tap.delegate = self;
-                        [self.optionsTBViewShadow addGestureRecognizer:tap];
-                        self.optionsTBView = [[UITableView alloc] initWithFrame:CGRectMake(0,
-                                                                                           0,
-                                                                                           kOptionsTBViewHeight,
-                                                                                           CGRectGetWidth(self.view.frame) - 2 * kHorizontalMarginLeft)
-                                                                          style:UITableViewStylePlain];
-                        self.optionsTBView.center = self.optionsTBViewShadow.center;
-                        self.optionsTBView.delegate = self;
-                        self.optionsTBView.dataSource = self;
-                        
-                        [self.optionsTBViewShadow addSubview:self.optionsTBView];
-                        [self.view addSubview:self.optionsTBViewShadow];
+                    if (!self.optionsTBView) {
+                        [self createVerifyLocationTBView];
                     }
                     
-                    if (self.optionsTBViewDatasource) {
-                        self.optionsTBViewDatasource = nil;
-                    }
+                    self.optionsTBViewDatasource = nil;
                     self.placeMarksArray = placemarks;
                     self.optionsTBViewDatasource = [NSMutableArray array];
                     for (CLPlacemark *placeMark in placemarks) {
@@ -268,6 +269,8 @@ const float kOptionsTBViewHeight = 280.0;
                 }
             }];
         } else {
+            BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
+            
             //publish
             PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
             [event setObject:eventName forKey:DDEventNameKey];
@@ -323,6 +326,7 @@ const float kOptionsTBViewHeight = 280.0;
                                                                    @"longitude": longitude ? longitude : @(-1)}];
             }];
         }
+    
     }
 }
 
