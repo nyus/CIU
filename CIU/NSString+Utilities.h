@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (Utilities)
-+(NSString *)generateUniqueId;
+
++ (NSString *)generateUniqueId;
+- (BOOL)containsURL;
+
 @end

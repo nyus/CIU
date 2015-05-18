@@ -9,7 +9,9 @@
 #import "NSString+Utilities.h"
 
 @implementation NSString (Utilities)
-+(NSString *)generateUniqueId{
+
++(NSString *)generateUniqueId
+{
     static NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
     NSMutableString *uid = [NSMutableString stringWithCapacity:20];
     for (NSUInteger i = 0U; i < 20; i++) {
@@ -19,4 +21,20 @@
     }
     return uid;
 }
+
+- (BOOL)containsURL
+{
+    NSError *error;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
+    if (!error) {
+        NSTextCheckingResult *result = [detector firstMatchInString:self options:NSMatchingReportCompletion range:NSMakeRange(0, self.length)];
+        
+        if (result) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 @end
