@@ -30,20 +30,20 @@ static NSString *const kBookmarkAssetName = @"bookmark";
 
 @implementation NameAddressTableViewCell
 
-+ (CGFloat)heightForCellWithName:(NSString *)name address:(NSString *)address cellWidth:(CGFloat)cellWidth
-{
-    CGRect nameRect = [name boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
-                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                      attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:9.5]}
-                                         context:nil];
-    
-    CGRect addressRect = [address boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Light" size:8.5]}
-                                               context:nil];
-    
-    return kNameLabelTopSpace + CGRectGetHeight(nameRect) + kInterViewTopSpace + kStarRatingViewHeight + kInterViewTopSpace + CGRectGetHeight(addressRect) + kAddressLabelBottomSpace;
-}
+//+ (CGFloat)heightForCellWithName:(NSString *)name address:(NSString *)address cellWidth:(CGFloat)cellWidth
+//{
+//    CGRect nameRect = [name boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
+//                                         options:NSStringDrawingUsesLineFragmentOrigin
+//                                      attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:9.5]}
+//                                         context:nil];
+//    
+//    CGRect addressRect = [address boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
+//                                               options:NSStringDrawingUsesLineFragmentOrigin
+//                                            attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Light" size:8.5]}
+//                                               context:nil];
+//    
+//    return kNameLabelTopSpace + CGRectGetHeight(nameRect) + kInterViewTopSpace + kStarRatingViewHeight + kInterViewTopSpace + CGRectGetHeight(addressRect) + kAddressLabelBottomSpace;
+//}
 
 - (void)setIsAuthetic:(BOOL)isAuthetic
 {
@@ -63,27 +63,124 @@ static NSString *const kBookmarkAssetName = @"bookmark";
     _bookmark.hidden = !isVerified;
 }
 
+//- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+//{
+//    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+//    
+//    if (self) {
+//        _nameLabel = [UILabel new];
+//        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:9.5];
+//        [self.contentView addSubview:_nameLabel];
+//        
+//        _starRatingView = [StarRatingView new];
+//        [self.contentView addSubview:_starRatingView];
+//        
+//        _addressLabel = [UILabel new];
+//        _addressLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:8.5];
+//        [self.contentView addSubview:_addressLabel];
+//        
+//        _chineseKnot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kChineseKnotAssetName]];
+//        [self.contentView addSubview:_chineseKnot];
+//        
+//        _bookmark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kBookmarkAssetName]];
+//        [self.contentView addSubview:_bookmark];
+//        
+//        [self setupConstraints];
+//    }
+//    
+//    return self;
+//}
+
+//- (void)setupConstraints
+//{
+//    // Name label
+//    
+//    _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:|-(%f)-[_nameLabel]-(%f)-|", kLeftSpace, kLeftSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_nameLabel)]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:|-(%f)-[_nameLabel]", kNameLabelTopSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_nameLabel)]];
+//    
+//    // Star Rating
+//    _starRatingView.translatesAutoresizingMaskIntoConstraints = NO;
+//    // - 6.0 is more of a hack to align the first start with the labels
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:|-(%f)-[_starRatingView(%f)]", kLeftSpace - 6.0, kStarRatingViewWidth)
+//                                                                            options:kNilOptions
+//                                                                            metrics:nil
+//                                                                              views:NSDictionaryOfVariableBindings(_starRatingView)]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:[_nameLabel]-(%f)-[_starRatingView(%f)]", kInterViewTopSpace, kStarRatingViewHeight)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_nameLabel,_starRatingView)]];
+//    
+//    // Address label
+//    
+//    _addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:|-(%f)-[_addressLabel]-(%f)-|", kLeftSpace, kLeftSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_addressLabel)]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:[_starRatingView]-(%f)-[_addressLabel]", kInterViewTopSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_starRatingView,_addressLabel)]];
+//    
+//    // Chinese know
+//    _chineseKnot.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:[_chineseKnot]-(%f)-[_bookmark]", kChineseKnowRightSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_chineseKnot, _bookmark)]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:|-(0.0)-[_chineseKnot]")
+//                                                                             options:kNilOptions 
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_chineseKnot)]];
+//    
+//    // Bookmark
+//    _bookmark.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:[_bookmark]-(%f)-|", kBookmarkRightSpace)
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_bookmark)]];
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:|-(0.0)-[_bookmark]")
+//                                                                             options:kNilOptions
+//                                                                             metrics:nil
+//                                                                               views:NSDictionaryOfVariableBindings(_bookmark)]];
+//}
+
+#pragma mark - Without new desgin
+
++ (CGFloat)heightForCellWithName:(NSString *)name address:(NSString *)address cellWidth:(CGFloat)cellWidth
+{
+    CGRect nameRect = [name boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Light" size:14.0]}
+                                         context:nil];
+    
+    CGRect addressRect = [address boundingRectWithSize:CGSizeMake(cellWidth, MAXFLOAT)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Light" size:12.0]}
+                                               context:nil];
+    
+    return kNameLabelTopSpace + CGRectGetHeight(nameRect) + kInterViewTopSpace + CGRectGetHeight(addressRect) + kAddressLabelBottomSpace;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
         _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:9.5];
+        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14.0];
         [self.contentView addSubview:_nameLabel];
         
-        _starRatingView = [StarRatingView new];
-        [self.contentView addSubview:_starRatingView];
-        
         _addressLabel = [UILabel new];
-        _addressLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:8.5];
+        _addressLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:12.0];
         [self.contentView addSubview:_addressLabel];
-        
-        _chineseKnot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kChineseKnotAssetName]];
-        [self.contentView addSubview:_chineseKnot];
-        
-        _bookmark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:kBookmarkAssetName]];
-        [self.contentView addSubview:_bookmark];
         
         [self setupConstraints];
     }
@@ -105,18 +202,6 @@ static NSString *const kBookmarkAssetName = @"bookmark";
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_nameLabel)]];
     
-    // Star Rating
-    _starRatingView.translatesAutoresizingMaskIntoConstraints = NO;
-    // - 6.0 is more of a hack to align the first start with the labels
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:|-(%f)-[_starRatingView(%f)]", kLeftSpace - 6.0, kStarRatingViewWidth)
-                                                                            options:kNilOptions
-                                                                            metrics:nil
-                                                                              views:NSDictionaryOfVariableBindings(_starRatingView)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:[_nameLabel]-(%f)-[_starRatingView(%f)]", kInterViewTopSpace, kStarRatingViewHeight)
-                                                                             options:kNilOptions
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_nameLabel,_starRatingView)]];
-    
     // Address label
     
     _addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -124,33 +209,10 @@ static NSString *const kBookmarkAssetName = @"bookmark";
                                                                              options:kNilOptions
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_addressLabel)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:[_starRatingView]-(%f)-[_addressLabel]", kInterViewTopSpace)
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:[_nameLabel]-(%f)-[_addressLabel]", kInterViewTopSpace)
                                                                              options:kNilOptions
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_starRatingView,_addressLabel)]];
-    
-    // Chinese know
-    _chineseKnot.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:[_chineseKnot]-(%f)-[_bookmark]", kChineseKnowRightSpace)
-                                                                             options:kNilOptions
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_chineseKnot, _bookmark)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:|-(0.0)-[_chineseKnot]")
-                                                                             options:kNilOptions 
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_chineseKnot)]];
-    
-    // Bookmark
-    _bookmark.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"H:[_bookmark]-(%f)-|", kBookmarkRightSpace)
-                                                                             options:kNilOptions
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_bookmark)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:FSTRING(@"V:|-(0.0)-[_bookmark]")
-                                                                             options:kNilOptions
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_bookmark)]];
-    
+                                                                               views:NSDictionaryOfVariableBindings(_nameLabel,_addressLabel)]];
 }
 
 @end

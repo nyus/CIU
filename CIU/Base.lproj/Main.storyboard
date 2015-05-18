@@ -989,7 +989,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="UNi-oq-vOg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellJob" rowHeight="69" id="Pjn-hz-d6R" customClass="JobTradeTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellJob" rowHeight="69" id="Pjn-hz-d6R" customClass="JobTradeTableViewCell">
                                         <rect key="frame" x="0.0" y="110" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pjn-hz-d6R" id="pWd-7x-FKe">
@@ -997,13 +997,13 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDW-NT-m3G">
-                                                    <rect key="frame" x="16" y="5" width="296" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="16" y="5" width="296" height="14"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zb-tF-J7P">
-                                                    <rect key="frame" x="282" y="36" width="26" height="22"/>
+                                                    <rect key="frame" x="282" y="29" width="26" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="26" id="11X-34-MoF"/>
                                                         <constraint firstAttribute="height" constant="22" id="amP-zI-Rh3"/>
