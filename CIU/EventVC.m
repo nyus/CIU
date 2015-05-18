@@ -175,11 +175,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
-    
-//    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
-//    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
-    
-//    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
     [self.fetchQuery orderByAscending:DDCreatedAtKey];
     [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
@@ -309,12 +304,16 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     cell.delegate = self;
     
     Event *event = self.dataSource[indexPath.row];
-    // Cell.flagButton.hidden = event.isStickyPost.boolValue;
     cell.flagButton.enabled = !event.isBadContent.boolValue;
     cell.eventNameLabel.text = event.eventName;
     cell.eventDateLabel.text = [self.dateFormatter stringFromDate:event.eventDate];
     cell.eventLocationLabel.text = event.eventLocation;
+    
+    BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     cell.eventDescriptionLabel.text = event.eventContent;
+    cell.eventDescriptionLabel.hidden = isAdmin;
+    cell.contentTextView.text = event.eventContent;
+    cell.contentTextView.hidden = !isAdmin;
     
     // font
     cell.eventNameLabel.font = [EventTableViewCell fontForEventName];
@@ -405,12 +404,12 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block Event *event = self.dataSource[indexPath.row];
-
-    cell.flagButton.enabled = NO;
-    
     [self flagObjectForId:event.objectId parseClassName:managedObjectName completion:^(BOOL succeeded, NSError *error) {
-        event.isBadContent = @YES;
-        [[SharedDataManager sharedInstance] saveContext];
+        if (succeeded) {
+            event.isBadContent = @YES;
+            [[SharedDataManager sharedInstance] saveContext];
+            cell.flagButton.enabled = NO;
+        }
     }];
 }
 

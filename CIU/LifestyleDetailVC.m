@@ -635,16 +635,15 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
         cell.nameLabel.text = object.name;
         cell.addressLabel.text = object.address;
-#warning fake code
-        cell.isVerified = (int)rand() % 2 == 0;
-        cell.isAuthetic = (int)rand() % 2 == 0;
+        cell.isVerified = NO;
+        cell.isAuthetic = NO;
         
         return cell;
     }else{
         JobTradeTableViewCell *cell = (JobTradeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
         cell.delegate = self;
         cell.contentLabel.text = object.content;
-        cell.contentLabel.font = [UIFont systemFontOfSize:14.0f];
+        cell.contentLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14.0];
         
         if (object.isBadContent.boolValue) {
             cell.flagButton.enabled = NO;
@@ -696,8 +695,12 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:cell];
+    if ([cell isKindOfClass:[NameAddressTableViewCell class]]) {
+        [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:cell];
+    }
 }
 
 #pragma mark - map delegate
@@ -743,8 +746,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-//                [alert show];
                 break;
             }
                 
@@ -788,15 +789,11 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID]) {
-        if ([sender isKindOfClass:[NameAddressTableViewCell class]]) {
-            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-            LifestyleObject *life = self.tableViewDataSource[indexPath.row];
-            lifestyleToPass = life;
-        }
+    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID] &&
+        [sender isKindOfClass:[NameAddressTableViewCell class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         LifestyleObjectDetailTableVC *vc = (LifestyleObjectDetailTableVC *)segue.destinationViewController;
-        vc.lifestyleObject = lifestyleToPass;
+        vc.lifestyleObject = self.tableViewDataSource[indexPath.row];
     }
 }
 

@@ -7,23 +7,19 @@
 //
 
 #import "EventTableViewCell.h"
-@interface EventTableViewCell()<UITextViewDelegate>
-@end
-@implementation EventTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
+@interface EventTableViewCell()<UITextViewDelegate>
+
+@end
+
+@implementation EventTableViewCell
 
 - (void)awakeFromNib
 {
     // Initialization code
     self.descriptionTextView.delegate = self;
+    self.contentTextView.textContainerInset = UIEdgeInsetsZero;
+    self.contentTextView.textContainer.lineFragmentPadding = 0.0;
 }
 
 - (IBAction)datePickerValueChanged:(id)sender {

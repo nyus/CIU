@@ -236,14 +236,6 @@ static NSString *const kEntityName = @"StatusObject";
     return self.dataSource.count;
 }
 
-////hides the liine separtors when data source has 0 objects
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    UIView *view = [[UIView alloc] init];
-//    
-//    return view;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -274,7 +266,6 @@ static NSString *const kEntityName = @"StatusObject";
     cell.commentCountLabel.text = status.commentCount.stringValue;
     
     // Flag button
-//    cell.flagButton.hidden = status.isStickyPost.boolValue;
     cell.flagButton.enabled = !status.isBadContent.boolValue;
     
     // Avatar
@@ -516,11 +507,13 @@ static NSString *const kEntityName = @"StatusObject";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block StatusObject *statusObject = self.dataSource[indexPath.row];
     
-    cell.flagButton.enabled = NO;
-    
-    [self flagObjectForId:statusObject.objectId parseClassName:@"Status" completion:^(BOOL succeeded, NSError *error) {
-        statusObject.isBadContent = @YES;
-        [[SharedDataManager sharedInstance] saveContext];
+    [self flagObjectForId:statusObject.objectId parseClassName:DDStatusParseClassName completion:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            statusObject.isBadContent = @YES;
+            [[SharedDataManager sharedInstance] saveContext];
+            cell.flagButton.enabled = NO;
+            [self.dataSource removeObject:statusObject];
+        }
     }];
 }
 

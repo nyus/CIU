@@ -8,6 +8,11 @@
 
 #import "APIConstants.h"
 
+// Parse class name
+NSString *const DDEventParseClassName = @"Event";
+NSString *const DDStatusParseClassName = @"Status";
+NSString *const DDAuditParseClassName = @"Audit";
+
 NSString *const DDFirstNameKey = @"firstName";
 NSString *const DDLastNameKey = @"lastName";
 NSString *const DDIsAdminKey = @"isAdmin";

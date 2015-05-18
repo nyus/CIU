@@ -39,6 +39,7 @@
 		5040548219A6CFA50050853A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548119A6CFA50050853A /* libz.dylib */; };
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
+		50445DD61B06C82600379B03 /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50445DD51B06C82600379B03 /* AnalyticsManager.m */; };
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
@@ -180,6 +181,8 @@
 		5040548119A6CFA50050853A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5040548319A6CFAA0050853A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		50445DD41B06C82600379B03 /* AnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsManager.h; sourceTree = "<group>"; };
+		50445DD51B06C82600379B03 /* AnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsManager.m; sourceTree = "<group>"; };
 		504AE5881A2241C7000C62D9 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */,
 				50CFC9741AFE261A005EBAE4 /* StarRatingView.h */,
 				50CFC9751AFE261A005EBAE4 /* StarRatingView.m */,
+				50445DD41B06C82600379B03 /* AnalyticsManager.h */,
+				50445DD51B06C82600379B03 /* AnalyticsManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -878,6 +883,7 @@
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
+				50445DD61B06C82600379B03 /* AnalyticsManager.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeSurpriseVC.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,

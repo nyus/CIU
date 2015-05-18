@@ -20,21 +20,23 @@ NSString *const kNoKey = @"No";
     [UIAlertView showWithTitle:nil message:@"是否确认举报此条不良信息？" cancelButtonTitle:kNoKey otherButtonTitles:@[kYesKey] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:kYesKey]) {
             PFQuery *query = [PFQuery queryWithClassName:parseClassName];
-            [query whereKey:@"objectId" equalTo:objectId];
+            [query whereKey:DDObjectIdKey equalTo:objectId];
             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 if (error) {
                     NSLog(@"get status object with id:%@ failed",object.objectId);
                 } else {
-                    [object setObject:@YES forKey:@"isBadContent"];
+                    [object setObject:@YES forKey:DDIsBadContentKey];
                     [object saveEventually:^(BOOL succeeded, NSError *error) {
                         completion (succeeded, error);
                     }];
                     
-                    PFObject *audit = [PFObject objectWithClassName:@"Audit"];
+                    PFObject *audit = [PFObject objectWithClassName:DDAuditParseClassName];
                     audit[@"auditObjectId"] = object.objectId;
                     [audit saveEventually];
                 }
             }];
+        } else {
+            completion(NO, [NSError errorWithDomain:@"Reported Canceld" code:0 userInfo:nil]);
         }
     }];
 }
