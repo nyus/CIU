@@ -11,6 +11,8 @@
 		0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */; };
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
+		0B4CC1AA1B0BBC2C00697F0F /* ELCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */; };
+		0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
@@ -135,6 +137,11 @@
 		0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableVC.m; sourceTree = "<group>"; };
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
+		0B4CC1A51B0BBC2C00697F0F /* ELCConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCConsole.h; sourceTree = "<group>"; };
+		0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCConsole.m; sourceTree = "<group>"; };
+		0B4CC1A71B0BBC2C00697F0F /* ELCImagePickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerHeader.h; sourceTree = "<group>"; };
+		0B4CC1A81B0BBC2C00697F0F /* ELCOverlayImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCOverlayImageView.h; sourceTree = "<group>"; };
+		0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCOverlayImageView.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableVC.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableVC.m; sourceTree = "<group>"; };
@@ -694,6 +701,11 @@
 		65C4F0E719AFBBEA004452C3 /* ELCImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				0B4CC1A51B0BBC2C00697F0F /* ELCConsole.h */,
+				0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */,
+				0B4CC1A71B0BBC2C00697F0F /* ELCImagePickerHeader.h */,
+				0B4CC1A81B0BBC2C00697F0F /* ELCOverlayImageView.h */,
+				0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */,
 				65C4F0E819AFBBEA004452C3 /* ELCAlbumPickerController.h */,
 				65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */,
 				65C4F0EA19AFBBEA004452C3 /* ELCAsset.h */,
@@ -911,11 +923,13 @@
 				50FBFFCD1A7E30860090EE4B /* Event.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsVC.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
+				0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */,
 				5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInVC.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */,
+				0B4CC1AA1B0BBC2C00697F0F /* ELCConsole.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */,
