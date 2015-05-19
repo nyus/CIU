@@ -21,4 +21,9 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+- (void)acceptedEULAOnVC:(EulaVC *)vc
+{
+    // Override by subclass
+}
+
 @end

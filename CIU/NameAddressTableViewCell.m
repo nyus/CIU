@@ -12,11 +12,11 @@
 static CGFloat const kLeftSpace = 16.0;
 static CGFloat const kNameLabelTopSpace = 20.0;
 static CGFloat const kAddressLabelBottomSpace = 10.0;
-static CGFloat const kStarRatingViewWidth = 150.0;
-static CGFloat const kStarRatingViewHeight = 20.0;
+//static CGFloat const kStarRatingViewWidth = 150.0;
+//static CGFloat const kStarRatingViewHeight = 20.0;
 static CGFloat const kInterViewTopSpace = 10.0;
-static CGFloat const kChineseKnowRightSpace = 5.0;
-static CGFloat const kBookmarkRightSpace = 20.0;
+//static CGFloat const kChineseKnowRightSpace = 5.0;
+//static CGFloat const kBookmarkRightSpace = 20.0;
 static NSString *const kChineseKnotAssetName = @"chineseKnot";
 static NSString *const kBookmarkAssetName = @"bookmark";
 
