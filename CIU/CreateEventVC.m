@@ -12,6 +12,7 @@
 #import "HitTestView.h"
 #import "Helper.h"
 #import "APIConstants.h"
+#import "NSString+Utilities.h"
 
 const float kHorizontalMarginLeft = 20.0;
 const float kOptionsTBViewHeight = 280.0;
@@ -218,8 +219,18 @@ const float kOptionsTBViewHeight = 280.0;
         return;
     }
     
-    if(!_eventContent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please tell us a bit more about the event.", nil)
+    BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
+    
+    if(!_eventContent || (isAdmin && [_eventContent containsURL])) {
+        NSString *msg = nil;
+        if (!_eventContent) {
+            msg = NSLocalizedString(@"Please tell us a bit more about the event.", nil);
+        } else {
+            msg = NSLocalizedString(@"External website links are not allowed.", nil);
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:msg
                                                        delegate:self
                                               cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
                                               otherButtonTitles:nil, nil];
@@ -233,6 +244,7 @@ const float kOptionsTBViewHeight = 280.0;
                                               cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
                                               otherButtonTitles:nil, nil];
         [alert show];
+        
         return;
     } else{
         
@@ -283,7 +295,6 @@ const float kOptionsTBViewHeight = 280.0;
                 }
             }];
         } else {
-            BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
             
             //publish
             PFObject *event = [[PFObject alloc] initWithClassName:DDEventParseClassName];

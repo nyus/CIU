@@ -64,7 +64,6 @@
 		50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D769311A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
-		50FBFFC91A7DCC270090EE4B /* APIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFC81A7DCC270090EE4B /* APIConstants.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
 		50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFD21A7E31120090EE4B /* StatusObject.m */; };
 		50FBFFDB1A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */; };
@@ -237,7 +236,6 @@
 		50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+Utilities.h"; sourceTree = "<group>"; };
 		50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatusObject+Utilities.m"; sourceTree = "<group>"; };
 		50FBFFC71A7DCC270090EE4B /* APIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIConstants.h; path = ../APIConstants.h; sourceTree = "<group>"; };
-		50FBFFC81A7DCC270090EE4B /* APIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIConstants.m; path = ../APIConstants.m; sourceTree = "<group>"; };
 		50FBFFCA1A7E30440090EE4B /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		50FBFFCB1A7E30860090EE4B /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		50FBFFCC1A7E30860090EE4B /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 				501A5E6219A57D800050BFA6 /* LifestyleCategory.h */,
 				501A5E6319A57D800050BFA6 /* LifestyleCategory.m */,
 				50FBFFC71A7DCC270090EE4B /* APIConstants.h */,
-				50FBFFC81A7DCC270090EE4B /* APIConstants.m */,
 				65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */,
 				65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */,
 				65C4F0B819AFB21D004452C3 /* SurpriseTableViewCell.h */,
@@ -878,7 +875,6 @@
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
-				50FBFFC91A7DCC270090EE4B /* APIConstants.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeVC.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,

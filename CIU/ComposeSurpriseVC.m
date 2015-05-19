@@ -18,6 +18,7 @@
 #import "Helper.h"
 #import "NSString+Utilities.h"
 #import "SurpriseTableViewCell.h"
+#import "NSString+Utilities.h"
 
 static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
@@ -172,6 +173,16 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
         return;
     }
     
+    BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
+    if (isAdmin && [self.textView.text containsURL]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:NSLocalizedString(@"External website links are not allowed.", nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
     //send to parse
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -179,15 +190,15 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
         dispatch_async(queue, ^{
             
             //save to server
-            PFObject *newStatus = [PFObject objectWithClassName:@"Status"];
-            newStatus[@"message"] = self.textView.text;
-            newStatus[@"posterUsername"] = [[PFUser currentUser] username];
-            newStatus[@"posterFirstName"] = [[PFUser currentUser] objectForKey:@"firstName"];
-            newStatus[@"posterLastName"] = [[PFUser currentUser] objectForKey:@"lastName"];
-            newStatus[@"commentCount"]=@0;
-            newStatus[@"photoCount"] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
-            newStatus[@"anonymous"] = [NSNumber numberWithBool:self.anonymousSwitch.on];
-            newStatus[@"isBadContent"] = @NO;
+            PFObject *newStatus = [PFObject objectWithClassName:DDStatusParseClassName];
+            newStatus[DDMessageKey] = self.textView.text;
+            newStatus[DDPosterUserNameKey] = [[PFUser currentUser] username];
+            newStatus[DDPosterFirstNameKey] = [[PFUser currentUser] objectForKey:DDFirstNameKey];
+            newStatus[DDPosterLastNameKey] = [[PFUser currentUser] objectForKey:DDLastNameKey];
+            newStatus[DDCommentCountKey] = @0;
+            newStatus[DDPhotoCountKey] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
+            newStatus[DDAnonymousKey] = [NSNumber numberWithBool:self.anonymousSwitch.on];
+            newStatus[DDIsBadContentKey] = @NO;
             if ([[PFUser currentUser] objectForKey:DDIsAdminKey]) {
                 newStatus[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
             } else {
@@ -196,17 +207,21 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
             
             NSDictionary *dictionary = [Helper userLocation];
             if (dictionary) {
-                newStatus[@"latitude"] = dictionary[@"latitude"];
-                newStatus[@"longitude"] = dictionary[@"longitude"];
-                [[GAnalyticsManager shareManager] trackUIAction:@"compose new surprise" label:[NSString stringWithFormat:@"location:%f %f", [dictionary[@"latitude"] floatValue], [dictionary[@"longitude"] floatValue]] value:nil];
-                [Flurry logEvent:@"Compose new surprise" withParameters:@{@"latitude":@([dictionary[@"latitude"] floatValue]),
-                                                                          @"longitude":@([dictionary[@"longitude"] floatValue])}];
+                newStatus[DDLatitudeKey] = dictionary[DDLatitudeKey];
+                newStatus[DDLongitudeKey] = dictionary[DDLongitudeKey];
+                [[GAnalyticsManager shareManager] trackUIAction:@"compose new surprise"
+                                                          label:[NSString stringWithFormat:@"location:%f %f",
+                                                                 [dictionary[DDLatitudeKey] floatValue],
+                                                                 [dictionary[DDLongitudeKey] floatValue]]
+                                                          value:nil];
+                [Flurry logEvent:@"Compose new surprise" withParameters:@{DDLatitudeKey:@([dictionary[DDLatitudeKey] floatValue]),
+                                                                          DDLongitudeKey:@([dictionary[DDLongitudeKey] floatValue])}];
             }
             
             NSString *photoID;
             if (collectionViewDataSource.count!=0) {
                 photoID =[NSString generateUniqueId];
-                newStatus[@"photoID"] = photoID;
+                newStatus[DDPhotoIdKey] = photoID;
             }
             //save to parse and local
             [newStatus saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -219,11 +234,11 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
                         PFFile *photo = [PFFile fileWithData:UIImagePNGRepresentation(scaled)];
                         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
-                                PFObject *object = [[PFObject alloc] initWithClassName:@"Photo"];
-                                [object setObject:photoID forKey:@"photoID"];
-                                [object setObject:photo forKey:@"image"];
-                                [object setObject:@NO forKey:@"isHighRes"];
-                                [object setObject:[PFUser currentUser].username forKey:@"username"];
+                                PFObject *object = [[PFObject alloc] initWithClassName:DDPhotoParseClassName];
+                                object[DDPhotoIdKey] = photoID;
+                                object[DDImageKey] = photo;
+                                object[DDIsHighResKey] = @NO;
+                                object[DDUserNameKey] = [PFUser currentUser].username;
                                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                     if (!succeeded) {
                                         [object saveEventually];

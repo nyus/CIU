@@ -9,54 +9,45 @@
 #import "ComposeVC.h"
 #import <Parse/Parse.h>
 #import "Helper.h"
-
-@interface ComposeVC ()
-
-@end
+#import "NSString+Utilities.h"
 
 @implementation ComposeVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [Flurry logEvent:[NSString stringWithFormat:@"View compose %@",[LifestyleCategory nameForCategoryType:self.categoryType]] timed:YES];
     [self.textView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [Flurry endTimedEvent:[NSString stringWithFormat:@"View compose %@",[LifestyleCategory nameForCategoryType:self.categoryType]] withParameters:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)cancelButtonTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)publishButtonTapped:(id)sender {
     
     if (self.textView.text == nil || [self.textView.text isEqualToString:@""]) {
         return;
     }
     
+    BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
+    if (isAdmin && [self.textView.text containsURL]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:NSLocalizedString(@"External website links are not allowed.", nil)
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
     NSString *parseClassName = [LifestyleCategory getParseClassNameForCategoryType:self.categoryType];
+    
     if (parseClassName==nil) {
         return;
     }
@@ -64,14 +55,14 @@
     __block ComposeVC *weakSelf = self;
     PFObject *object = [[PFObject alloc] initWithClassName:parseClassName];
     [object setObject:self.textView.text forKey:@"content"];
-    [object setObject:[PFUser currentUser].username forKey:@"posterUsername"];
+    [object setObject:[PFUser currentUser].username forKey:DDPosterUserNameKey];
     [object setObject:parseClassName forKey:@"category"];
-    [object setObject:@NO forKey:@"isBadContent"];
+    [object setObject:@NO forKey:DDIsBadContentKey];
     
     NSDictionary *userLocation = [Helper userLocation];
     if (self.categoryType == DDCategoryTypeTradeAndSell && userLocation) {
-        object[@"latitude"] = userLocation[@"latitude"];
-        object[@"longitude"] = userLocation[@"longitude"];
+        object[DDLatitudeKey] = userLocation[DDLatitudeKey];
+        object[DDLongitudeKey] = userLocation[DDLongitudeKey];
     }
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -97,16 +88,5 @@
         }
     }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
