@@ -153,6 +153,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                                                                       stepValue:@(5.0)
                                                                    minimunValue:@(5.0)
                                                                    maximunValue:@(30.0)
+                                                                    contentMode:ContentModeLeft
                                                                     actionBlock:^(double newValue) {
                                                                         [self setDataRadius:@(newValue) forKey:key];
                                                                         [self handleDataDisplayPeripheral:newValue];

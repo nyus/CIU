@@ -9,13 +9,25 @@
 #import "DisplayPeripheralHeaderView.h"
 #import "UIColor+CIUColors.h"
 
+static CGFloat const kLabelLeadingSpaceModeCenter = 28.0;
+static CGFloat const kLabelLeadingSpaceModeLeft = 15.0;
+static CGFloat const kLabelHeight = 200.0;
+
 @interface DisplayPeripheralHeaderView()
+
 @property (copy) void (^completion)(double newValue);
+
 @end
 
 @implementation DisplayPeripheralHeaderView
 
--(instancetype)initWithCurrentValue:(NSNumber *)currentValue stepValue:(NSNumber *)stepValue minimunValue:(NSNumber *)minimunValue maximunValue:(NSNumber *)maximunValue actionBlock:(void (^)(double))stepperValueChangedTo{
+-(instancetype)initWithCurrentValue:(NSNumber *)currentValue
+                          stepValue:(NSNumber *)stepValue
+                       minimunValue:(NSNumber *)minimunValue 
+                       maximunValue:(NSNumber *)maximunValue
+                        contentMode:(ContentMode)contentMode
+                        actionBlock:(void (^)(double))stepperValueChangedTo
+{
     
     self = [super init];
     
@@ -37,7 +49,8 @@
         
         self.contentLabel.text = string;
         [self addSubview:self.contentLabel];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-28.0-[_contentLabel(%f)]",200.0]
+        NSString *visualString = [NSString stringWithFormat:@"H:|-(%f)-[_contentLabel(%f)]", contentMode == ContentModeCenter ? kLabelLeadingSpaceModeCenter : kLabelLeadingSpaceModeLeft, kLabelHeight];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:visualString
                                                                     options:kNilOptions
                                                                     metrics:nil
                                                                        views:NSDictionaryOfVariableBindings(_contentLabel)]];
@@ -46,7 +59,8 @@
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self
                                                          attribute:NSLayoutAttributeCenterY
-                                                        multiplier:1.0f constant:0.0f]];
+                                                        multiplier:1.0f
+                                                          constant:0.0f]];
         
         
         self.stepper = [[UIStepper alloc] initWithFrame:CGRectMake(0, 0, 94, 15)];

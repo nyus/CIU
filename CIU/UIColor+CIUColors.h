@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (CIUColors)
+@interface UIColor (Utilities)
+
 + (UIColor *)themeGreen;
 + (UIColor *)themeTextGrey;
+
 @end

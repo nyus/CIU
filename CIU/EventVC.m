@@ -59,7 +59,12 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 - (DisplayPeripheralHeaderView *)headerView
 {
     if (!_headerView) {
-        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:[self eventRadius] stepValue:@10 minimunValue:@10 maximunValue:@50 actionBlock:^(double newValue) {
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:[self eventRadius]
+                                                                      stepValue:@10
+                                                                   minimunValue:@10
+                                                                   maximunValue:@50
+                                                                    contentMode:ContentModeCenter
+                                                                    actionBlock:^(double newValue) {
             
             [[GAnalyticsManager shareManager] trackUIAction:@"event - change display radius" label:@"event" value:@(newValue)];
             [Flurry logEvent:@"event - change display radius" withParameters:@{@"radius":@(newValue)}];

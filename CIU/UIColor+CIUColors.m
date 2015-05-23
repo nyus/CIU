@@ -8,7 +8,7 @@
 
 #import "UIColor+CIUColors.h"
 
-@implementation UIColor (CIUColors)
+@implementation UIColor (Utilities)
 + (UIColor *)themeGreen
 {
     return [UIColor colorWithRed:163.0/255.0 green:222.0/255.0 blue:221.0/255.0 alpha:1.0f];

@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, ContentMode)
+{
+    ContentModeLeft,
+    ContentModeCenter
+};
+
 @interface DisplayPeripheralHeaderView : UIView
 
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIStepper *stepper;
 
-- (instancetype)initWithCurrentValue:(NSNumber *)currentValue stepValue:(NSNumber *)stepValue minimunValue:(NSNumber *)minimunValue maximunValue:(NSNumber *)maximunValue actionBlock:(void(^)(double newValue))stepperValueChangedTo;
+- (instancetype)initWithCurrentValue:(NSNumber *)currentValue
+                           stepValue:(NSNumber *)stepValue
+                        minimunValue:(NSNumber *)minimunValue
+                        maximunValue:(NSNumber *)maximunValue
+                         contentMode:(ContentMode)contentMode
+                         actionBlock:(void(^)(double newValue))stepperValueChangedTo;
 
 @end
