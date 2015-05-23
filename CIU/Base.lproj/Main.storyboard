@@ -989,49 +989,6 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="UNi-oq-vOg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellJob" rowHeight="69" id="Pjn-hz-d6R" customClass="JobTradeTableViewCell">
-                                        <rect key="frame" x="0.0" y="110" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pjn-hz-d6R" id="pWd-7x-FKe">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDW-NT-m3G">
-                                                    <rect key="frame" x="16" y="5" width="296" height="14"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zb-tF-J7P">
-                                                    <rect key="frame" x="282" y="29" width="26" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="26" id="11X-34-MoF"/>
-                                                        <constraint firstAttribute="height" constant="22" id="amP-zI-Rh3"/>
-                                                    </constraints>
-                                                    <state key="normal" backgroundImage="flag_off">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="disabled" backgroundImage="flag_on.png"/>
-                                                    <state key="selected" backgroundImage="flag_on.png"/>
-                                                    <state key="highlighted" backgroundImage="flag_on.png"/>
-                                                    <connections>
-                                                        <action selector="flagBadContentButtonTapped:" destination="Pjn-hz-d6R" eventType="touchUpInside" id="92A-DF-pdh"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8zb-tF-J7P" firstAttribute="top" secondItem="mDW-NT-m3G" secondAttribute="bottom" constant="10" id="b5p-6e-7oy"/>
-                                                <constraint firstItem="8zb-tF-J7P" firstAttribute="trailing" secondItem="pWd-7x-FKe" secondAttribute="trailingMargin" constant="-4" id="b7D-FQ-IWw"/>
-                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="top" secondItem="pWd-7x-FKe" secondAttribute="topMargin" constant="-3" id="gjX-Hb-1gr"/>
-                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="trailing" secondItem="pWd-7x-FKe" secondAttribute="trailingMargin" id="nNV-uN-6FD"/>
-                                                <constraint firstItem="mDW-NT-m3G" firstAttribute="leading" secondItem="pWd-7x-FKe" secondAttribute="leadingMargin" constant="8" id="ye8-CX-5gA"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="contentLabel" destination="mDW-NT-m3G" id="Gux-m8-Fxl"/>
-                                            <outlet property="flagButton" destination="8zb-tF-J7P" id="x2a-w6-l9L"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="eIB-DE-riQ" id="Fax-zT-7fY"/>
@@ -1193,17 +1150,11 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DescriptionDescriptionDescriptionDescriptionDescriptionDescription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="273" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-0y-scn">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="What what what" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
                                             <rect key="frame" x="40" y="106" width="273" height="33"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="273" id="ZkB-yk-Gfn"/>
+                                                <constraint firstAttribute="width" constant="273" id="Wj0-vI-AKU"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
-                                            <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
-                                            <rect key="frame" x="40" y="106" width="273" height="33"/>
                                             <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
@@ -1236,29 +1187,24 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="OQP-hb-Ada" secondAttribute="trailing" constant="20" id="2aL-aZ-7fP"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="7dE-Js-y0f" secondAttribute="bottom" constant="2" id="5Dk-nQ-cfp"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="width" secondItem="mmD-a5-jYq" secondAttribute="width" id="B8l-Yq-8mt"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="top" secondItem="aQ4-lY-R2B" secondAttribute="bottom" priority="900" constant="4" id="E09-fA-T4t"/>
+                                        <constraint firstItem="mmD-a5-jYq" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="Ciw-B8-oPV"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="Kju-df-Jgj"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="leading" secondItem="ThS-qo-8Bc" secondAttribute="leading" constant="40" id="L8A-4G-F2r"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="leading" secondItem="nKt-Wv-nPC" secondAttribute="trailing" constant="8" symbolic="YES" id="Laf-Pf-wOP"/>
                                         <constraint firstItem="7dE-Js-y0f" firstAttribute="trailing" secondItem="ThS-qo-8Bc" secondAttribute="trailingMargin" id="SQf-J8-rFD"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="leading" secondItem="mmD-a5-jYq" secondAttribute="leading" id="TFd-x8-pJb"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="leading" secondItem="hI7-qU-Wjm" secondAttribute="leading" id="UHH-F5-h5k"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="VGF-rp-otH"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="height" secondItem="mmD-a5-jYq" secondAttribute="height" id="e7T-zQ-STa"/>
+                                        <constraint firstItem="mmD-a5-jYq" firstAttribute="top" secondItem="aQ4-lY-R2B" secondAttribute="bottom" constant="4" id="bhH-kR-OCg"/>
                                         <constraint firstItem="aQ4-lY-R2B" firstAttribute="top" secondItem="hDl-1d-VoP" secondAttribute="bottom" priority="900" constant="5" id="hsZ-1l-ifn"/>
                                         <constraint firstItem="nKt-Wv-nPC" firstAttribute="top" secondItem="ThS-qo-8Bc" secondAttribute="topMargin" constant="4" id="k5z-Kf-zgg"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="top" secondItem="hI7-qU-Wjm" secondAttribute="bottom" priority="990" constant="5" id="mg1-MA-unL"/>
-                                        <constraint firstItem="xjX-0y-scn" firstAttribute="top" secondItem="mmD-a5-jYq" secondAttribute="top" id="sTT-Pr-Hta"/>
                                         <constraint firstItem="OQP-hb-Ada" firstAttribute="leading" secondItem="ThS-qo-8Bc" secondAttribute="leadingMargin" constant="20" id="tIm-ex-eP6"/>
                                         <constraint firstAttribute="bottom" secondItem="OQP-hb-Ada" secondAttribute="bottom" id="uhg-0h-q2i"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="top" secondItem="ThS-qo-8Bc" secondAttribute="top" constant="5" id="wAz-QJ-tmJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="contentTextView" destination="mmD-a5-jYq" id="7cn-KQ-c4a"/>
                                     <outlet property="eventDateLabel" destination="hDl-1d-VoP" id="QR9-Ho-pEt"/>
-                                    <outlet property="eventDescriptionLabel" destination="xjX-0y-scn" id="ODr-Vp-6zH"/>
+                                    <outlet property="eventDescriptionTextView" destination="mmD-a5-jYq" id="S7k-Kk-CRg"/>
                                     <outlet property="eventLocationLabel" destination="aQ4-lY-R2B" id="SKX-HJ-xVu"/>
                                     <outlet property="eventNameLabel" destination="hI7-qU-Wjm" id="iR0-NI-qzp"/>
                                     <outlet property="flagButton" destination="7dE-Js-y0f" id="1Og-mY-qfr"/>

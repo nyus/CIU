@@ -14,12 +14,40 @@
 
 @implementation EventTableViewCell
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if (self) {
+        // font
+        self.eventNameLabel.font = [EventTableViewCell fontForEventName];
+        self.eventDateLabel.font = [EventTableViewCell fontForEventDate];
+        self.eventLocationLabel.font = [EventTableViewCell fontForEventLocation];
+        self.eventDescriptionTextView.font = [EventTableViewCell fontForEventDescription];
+        self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+        self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
+    }
+    
+    return self;
+}
+
 - (void)awakeFromNib
 {
     // Initialization code
     self.descriptionTextView.delegate = self;
-    self.contentTextView.textContainerInset = UIEdgeInsetsZero;
-    self.contentTextView.textContainer.lineFragmentPadding = 0.0;
+    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0.0;
 }
 
 - (IBAction)datePickerValueChanged:(id)sender {

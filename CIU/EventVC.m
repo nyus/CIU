@@ -308,18 +308,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     cell.eventNameLabel.text = event.eventName;
     cell.eventDateLabel.text = [self.dateFormatter stringFromDate:event.eventDate];
     cell.eventLocationLabel.text = event.eventLocation;
-    
-    BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
-    cell.eventDescriptionLabel.text = event.eventContent;
-    cell.eventDescriptionLabel.hidden = isAdmin;
-    cell.contentTextView.text = event.eventContent;
-    cell.contentTextView.hidden = !isAdmin;
-    
-    // font
-    cell.eventNameLabel.font = [EventTableViewCell fontForEventName];
-    cell.eventDateLabel.font = [EventTableViewCell fontForEventDate];
-    cell.eventLocationLabel.font = [EventTableViewCell fontForEventLocation];
-    cell.eventDescriptionLabel.font = [EventTableViewCell fontForEventDescription];
+    cell.eventDescriptionTextView.text = event.eventContent;
     
     return cell;
 }

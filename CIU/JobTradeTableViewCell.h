@@ -7,7 +7,9 @@
 //
 
 #import "GenericTableViewCell.h"
+
 @class JobTradeTableViewCell;
+
 @protocol JobTradeTableViewCellDelegate <NSObject>
 
 -(void)flagBadContentButtonTappedOnCell:(JobTradeTableViewCell *)cell;
@@ -15,6 +17,12 @@
 @end
 
 @interface JobTradeTableViewCell : GenericTableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *flagButton;
+
++ (UIFont *)fontForContentTextView;
++ (CGFloat)heightForCellWithContentString:(NSString *)contentString cellWidth:(CGFloat)cellWidth;
+
+@property (strong, nonatomic) IBOutlet UIButton *flagButton;
+@property (strong, nonatomic) IBOutlet UITextView *contentTextView;
 @property (assign, nonatomic) id<JobTradeTableViewCellDelegate>delegate;
+
 @end

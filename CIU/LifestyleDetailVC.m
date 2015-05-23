@@ -47,6 +47,7 @@ static NSInteger const kTradeDisclaimerAlertTag = 51;
 static NSString *const kJobDisclaimerKey = @"kJobDisclaimerKey";
 static NSString *const kTradeDisclaimerKey = @"kTradeDisclaimerKey";
 static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
+static NSString *const kJobAndTradeCellReuseID = @"kJobAndTradeCellReuseID";
 static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 @interface LifestyleDetailVC()<LoadingTableViewCellDelegate,CLLocationManagerDelegate,MKMapViewDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, JobTradeTableViewCellDelegate>{
@@ -199,6 +200,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     [super viewDidLoad];
     
     [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
+    [self.tableView registerClass:[JobTradeTableViewCell class] forCellReuseIdentifier:kJobAndTradeCellReuseID];
     
     // Note: empty back button title is set in IB. Select navigation bar in LifestyleTableViewController. The tilte is set to an empty string.
     
@@ -629,7 +631,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.tableViewDataSource[indexPath.row];
-    static NSString *jobAndTradeCell = @"cellJob";
 
     if (IS_RES_MARKT) {
         NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
@@ -640,16 +641,10 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         
         return cell;
     }else{
-        JobTradeTableViewCell *cell = (JobTradeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:jobAndTradeCell forIndexPath:indexPath];
+        JobTradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kJobAndTradeCellReuseID forIndexPath:indexPath];
         cell.delegate = self;
-        cell.contentLabel.text = object.content;
-        cell.contentLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14.0];
-        
-        if (object.isBadContent.boolValue) {
-            cell.flagButton.enabled = NO;
-        } else {
-            cell.flagButton.enabled = YES;
-        }
+        cell.contentTextView.text = object.content;
+        cell.flagButton.enabled = !object.isBadContent.boolValue;
         
         return cell;
     }
@@ -680,16 +675,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         return [NameAddressTableViewCell heightForCellWithName:object.name address:object.address cellWidth:tableView.frame.size.width];
     } else {
         LifestyleObject *object = self.tableViewDataSource[indexPath.row];
-        NSString *content = object.content;
-        CGRect rect = [content boundingRectWithSize:CGSizeMake(280, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:NULL];
         
-        //40 takes the flag button into consideration. 10 spacing and 30 button height
-        if (rect.size.height + 40 <44.0f) {
-            return 44.0f;
-        } else {
-            //5.0f is becuase the top margin is 5 pixels
-            return rect.size.height + 40 +5.0f;
-        }
+        return [JobTradeTableViewCell heightForCellWithContentString:object.content cellWidth:CGRectGetWidth(tableView.frame)];
     }
 }
 
@@ -803,11 +790,12 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block LifestyleObject *lifeObject = self.tableViewDataSource[indexPath.row];
     
-    cell.flagButton.enabled = NO;
-    
     [self flagObjectForId:lifeObject.objectId parseClassName:[LifestyleCategory getParseClassNameForCategoryType:self.categoryType] completion:^(BOOL succeeded, NSError *error) {
-        lifeObject.isBadContent = @YES;
-        [[SharedDataManager sharedInstance] saveContext];
+        if (succeeded) {
+            lifeObject.isBadContent = @YES;
+            [[SharedDataManager sharedInstance] saveContext];
+            cell.flagButton.enabled = NO;
+        }
     }];
 }
 
