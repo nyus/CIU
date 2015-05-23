@@ -644,6 +644,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     }else{
         JobTradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kJobAndTradeCellReuseID forIndexPath:indexPath];
         cell.delegate = self;
+        cell.contentTextView.text = nil;
         cell.contentTextView.text = object.content;
         cell.flagButton.enabled = !object.isBadContent.boolValue;
         

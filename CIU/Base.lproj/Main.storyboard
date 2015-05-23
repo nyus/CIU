@@ -3556,6 +3556,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ReR-1Q-JTU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="G9E-H2-4M2" kind="relationship" relationship="rootViewController" id="qSS-5v-4xp"/>

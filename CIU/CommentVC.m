@@ -117,79 +117,76 @@ static UIImage *defaultAvatar;
         return;
     }
     
-    //update status
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Status"];
-    [query whereKey:@"objectId" equalTo:self.statusObjectId];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error) {
-            // Send push notification
-            PFQuery *userQuery = [PFUser query];
-            [userQuery whereKey:DDUserNameKey equalTo:object[DDPosterUserNameKey]];
-            
-            PFQuery *pushQuery = [PFInstallation query];
-            [pushQuery whereKey:DDUserKey matchesQuery:userQuery];
-            
-            PFPush *push = [[PFPush alloc] init];
-            [push setQuery:pushQuery];
-            [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", [PFUser currentUser][DDFirstNameKey], [PFUser currentUser][DDLastNameKey]]];
-            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+        //update status
+        PFQuery *query = [[PFQuery alloc] initWithClassName:DDStatusParseClassName];
+        [query whereKey:DDObjectIdKey equalTo:self.statusObjectId];
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (!error) {
+                // Send push notification
+                PFQuery *userQuery = [PFUser query];
+                [userQuery whereKey:DDUserNameKey equalTo:object[DDPosterUserNameKey]];
                 
-            }];
-            
-            //increase comment count on Status object
-            object[@"commentCount"] = [NSNumber numberWithInt:[object[@"commentCount"] intValue] +1];
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!succeeded) {
-                    [object saveEventually];
+                PFQuery *pushQuery = [PFInstallation query];
+                [pushQuery whereKey:DDUserKey matchesQuery:userQuery];
+                
+                PFPush *push = [[PFPush alloc] init];
+                [push setQuery:pushQuery];
+                [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", [PFUser currentUser][DDFirstNameKey], [PFUser currentUser][DDLastNameKey]]];
+                [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     
-                    if (self.completion) {
-                        // Callback on SurpriseTableViewController that we have increamented the commetn count
-                        self.completion();
+                }];
+                
+                //increase comment count on Status object
+                object[DDCommentCountKey] = [NSNumber numberWithInt:[object[DDCommentCountKey] intValue] +1];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!succeeded) {
+                        [object saveEventually];
+                        
+                        if (self.completion) {
+                            // Callback on SurpriseTableViewController that we have increamented the commetn count
+                            self.completion();
+                        }
                     }
-                }
-            }];
-        }
-    }];
-    
-    if (![[PFUser currentUser] objectForKey:DDFirstNameKey]) {
-        [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            
+                }];
+            }
         }];
-    }
-    //create a new Comment object
-    PFObject *object = [[PFObject alloc] initWithClassName:@"Comment"];
-    object[@"senderUsername"]= [PFUser currentUser].username;
-    object[@"firstName"] = [[PFUser currentUser] objectForKey:@"firstName"];
-    object[@"lastName"] = [[PFUser currentUser] objectForKey:@"lastName"];
-    object[@"contentString"] = self.textView.text;
-    object[@"statusId"] = self.statusObjectId;
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!succeeded) {
-            [object saveEventually];
+        
+        //create a new Comment object
+        PFObject *object = [[PFObject alloc] initWithClassName:DDCommentParseClassName];
+        object[DDSenderUserNameKey]= [PFUser currentUser].username;
+        object[DDFirstNameKey] = [[PFUser currentUser] objectForKey:DDFirstNameKey];
+        object[DDLastNameKey] = [[PFUser currentUser] objectForKey:DDLastNameKey];
+        object[DDContentStringKey] = self.textView.text;
+        object[DDStatusIdKey] = self.statusObjectId;
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!succeeded) {
+                [object saveEventually];
+            }
+        }];
+        
+        //notify SurpriseTableViewController to update the coment count on the cell
+        self.completion();
+        
+        [self.tableView beginUpdates];
+        
+        //delete "No one has said anything yet" cell
+        if ((!self.dataSource || self.dataSource.count==0) && [self.tableView numberOfRowsInSection:0]!=0) {
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
+        [self.dataSource addObject:object];
+        //insert into table view
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(int)self.dataSource.count-1 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        
+        //clear out
+        self.textView.text = nil;
+        
+        //increament comment count on the status tb cell
+        self.statusTBCell.commentCountLabel.text = [NSString stringWithFormat:@"%d",self.statusTBCell.commentCountLabel.text.intValue+1];
     }];
-    
-    //notify SurpriseTableViewController to update the coment count on the cell
-    self.completion();
-    
-    [self.tableView beginUpdates];
-
-    //delete "No one has said anything yet" cell
-    if ((!self.dataSource || self.dataSource.count==0) && [self.tableView numberOfRowsInSection:0]!=0) {
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    [self.dataSource addObject:object];
-    //insert into table view
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(int)self.dataSource.count-1 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-    
-    //clear out
-    self.textView.text = nil;
-    
-    //increament comment count on the status tb cell
-    self.statusTBCell.commentCountLabel.text = [NSString stringWithFormat:@"%d",self.statusTBCell.commentCountLabel.text.intValue+1];
 }
 
 #pragma mark - keyboard notification 
@@ -259,14 +256,14 @@ static UIImage *defaultAvatar;
     }else{
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
-        cell.commentStringLabel.text = comment[@"contentString"];
-        cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[@"firstName"],comment[@"lastName"]];
+        cell.commentStringLabel.text = comment[DDContentStringKey];
+        cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
         // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
         if (!defaultAvatar) {
             defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
         }
         cell.avatarImageView.image = defaultAvatar;
-        [self getAvatarForCell:cell withUsername:comment[@"senderUsername"] loadIfStill:YES];
+        [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
 
         return cell;
     }
@@ -306,7 +303,7 @@ static UIImage *defaultAvatar;
         if ([cell isKindOfClass:[AvatarAndUsernameTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             PFObject *comment = self.dataSource[indexPath.row];
-            [self getAvatarForCell:cell withUsername:comment[@"senderUsername"] loadIfStill:NO];
+            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:NO];
         }
     }
 }
@@ -323,7 +320,7 @@ static UIImage *defaultAvatar;
             
             return [[cellHeightMap objectForKey:key] floatValue];
         }else{
-            NSString *contentString = comment[@"contentString"];
+            NSString *contentString = comment[DDContentStringKey];
             CGRect boundingRect =[contentString boundingRectWithSize:CGSizeMake(kCommentLabelWidth, MAXFLOAT)
                                                              options:NSStringDrawingUsesLineFragmentOrigin
                                                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}

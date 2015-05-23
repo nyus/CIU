@@ -9,6 +9,7 @@ static NSString *const DDEventParseClassName = @"Event";
 static NSString *const DDStatusParseClassName = @"Status";
 static NSString *const DDAuditParseClassName = @"Audit";
 static NSString *const DDPhotoParseClassName = @"Photo";
+static NSString *const DDCommentParseClassName = @"Comment";
 
 static NSString *const DDIsHighResKey = @"isHighRes";
 static NSString *const DDImageKey = @"image";
@@ -43,3 +44,6 @@ static NSString *const DDSenderFirstNameKey = @"senderFirstName";
 static NSString *const DDSenderLastNameKey = @"senderLastName";
 static NSString *const DDObjectIdKey = @"objectId";
 static NSString *const DDUserKey = @"user";
+
+static NSString *const DDStatusIdKey = @"statusId";
+static NSString *const DDContentStringKey = @"contentString";
