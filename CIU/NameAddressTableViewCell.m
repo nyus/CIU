@@ -9,7 +9,7 @@
 #import "NameAddressTableViewCell.h"
 #import "StarRatingView.h"
 
-static CGFloat const kLeftSpace = 16.0;
+static CGFloat const kLeftSpace = 15.0;
 static CGFloat const kNameLabelTopSpace = 20.0;
 static CGFloat const kAddressLabelBottomSpace = 10.0;
 //static CGFloat const kStarRatingViewWidth = 150.0;
@@ -214,5 +214,7 @@ static NSString *const kBookmarkAssetName = @"bookmark";
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_nameLabel,_addressLabel)]];
 }
+
+
 
 @end
