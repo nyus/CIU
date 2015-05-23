@@ -28,9 +28,10 @@
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
     if (!error) {
         // Replace space with nil to stop somethings like www.   google   .com
-        NSTextCheckingResult *result = [detector firstMatchInString:[self stringByReplacingOccurrencesOfString:@" " withString:@""]
+        NSString *string = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSTextCheckingResult *result = [detector firstMatchInString:string
                                                             options:NSMatchingReportCompletion
-                                                              range:NSMakeRange(0, self.length)];
+                                                              range:NSMakeRange(0, string.length)];
         
         if (result) {
             return YES;

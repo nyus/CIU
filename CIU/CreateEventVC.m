@@ -221,20 +221,20 @@ const float kOptionsTBViewHeight = 280.0;
     
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     
-    if(!_eventContent || (isAdmin && [_eventContent containsURL])) {
+    if(!_eventContent || (!isAdmin && ([_eventContent containsURL] || [_eventName containsURL]))) {
         NSString *msg = nil;
         if (!_eventContent) {
             msg = NSLocalizedString(@"Please tell us a bit more about the event.", nil);
         } else {
-            msg = NSLocalizedString(@"External website links are not allowed.", nil);
+            msg = NSLocalizedString(@"External links are not allowed.", nil);
         }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:msg
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [[[UIAlertView alloc] initWithTitle:nil
+                                    message:msg
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"Got it", nil)
+                          otherButtonTitles:nil, nil] show];
+        
         return;
     }
     

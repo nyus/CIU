@@ -174,13 +174,14 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     }
     
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
-    if (isAdmin && [self.textView.text containsURL]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:NSLocalizedString(@"External website links are not allowed.", nil)
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+    if (!isAdmin && [self.textView.text containsURL]) {
+        [[[UIAlertView alloc] initWithTitle:nil
+                                    message:NSLocalizedString(@"External links are not allowed.", nil)
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"Got it", nil)
+                          otherButtonTitles:nil, nil] show];
+        
+        return;
     }
     
     //send to parse
