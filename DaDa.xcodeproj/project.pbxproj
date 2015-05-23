@@ -51,6 +51,8 @@
 		5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
+		5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091FAF11B10C74E00523183 /* UIFont+Utilities.m */; };
+		5091FAF51B10C75A00523183 /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091FAF41B10C75A00523183 /* UIColor+Utilities.m */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
 		5092160E19AA463700304EDD /* LifestyleObjectDetailTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160D19AA463700304EDD /* LifestyleObjectDetailTableVC.m */; };
 		50A0AAE11ACC2E75009FFC0B /* 8mile_icon_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A0AAE01ACC2E75009FFC0B /* 8mile_icon_about.png */; };
@@ -213,6 +215,10 @@
 		5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		506D69501AB5CC65006EDDCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
+		5091FAF01B10C74E00523183 /* UIFont+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Utilities.h"; sourceTree = "<group>"; };
+		5091FAF11B10C74E00523183 /* UIFont+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Utilities.m"; sourceTree = "<group>"; };
+		5091FAF31B10C75A00523183 /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
+		5091FAF41B10C75A00523183 /* UIColor+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utilities.m"; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
 		5092160A19AA45AD00304EDD /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
 		5092160C19AA463700304EDD /* LifestyleObjectDetailTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObjectDetailTableVC.h; sourceTree = "<group>"; };
@@ -562,6 +568,10 @@
 				0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */,
 				50203CD71ACECFF600945D04 /* UIViewController+EULA.h */,
 				50203CD81ACECFF600945D04 /* UIViewController+EULA.m */,
+				5091FAF01B10C74E00523183 /* UIFont+Utilities.h */,
+				5091FAF11B10C74E00523183 /* UIFont+Utilities.m */,
+				5091FAF31B10C75A00523183 /* UIColor+Utilities.h */,
+				5091FAF41B10C75A00523183 /* UIColor+Utilities.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -871,6 +881,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */,
+				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
 				65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
@@ -888,6 +899,7 @@
 				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeVC.m in Sources */,
+				5091FAF51B10C75A00523183 /* UIColor+Utilities.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
