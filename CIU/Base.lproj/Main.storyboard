@@ -987,11 +987,12 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                     <connections>
                         <outlet property="mapView" destination="Dyu-G3-vyr" id="apP-kC-kbB"/>
                         <outlet property="tableView" destination="8ZR-dD-Gu2" id="PEb-6B-YeN"/>
+                        <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="U2u-m7-vss"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jca-Tg-eSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2249" y="-937"/>
+            <point key="canvasLocation" x="2256" y="-937"/>
         </scene>
         <!--Lifestyle Object Detail TableVC-->
         <scene sceneID="LHt-Op-Nxw">

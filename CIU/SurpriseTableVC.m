@@ -512,7 +512,6 @@ static NSString *const kEntityName = @"StatusObject";
             statusObject.isBadContent = @YES;
             [[SharedDataManager sharedInstance] saveContext];
             cell.flagButton.enabled = NO;
-            [self.dataSource removeObject:statusObject];
         }
     }];
 }
