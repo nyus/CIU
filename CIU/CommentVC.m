@@ -257,7 +257,11 @@ static UIImage *defaultAvatar;
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[DDContentStringKey];
-        cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
+        if ([comment[DDAnonymousKey] boolValue]) {
+            cell.usernameLabel.text = @"Anonymous";
+        } else {
+            cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
+        }
         // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
         if (!defaultAvatar) {
             defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
