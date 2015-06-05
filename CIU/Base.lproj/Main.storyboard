@@ -1890,7 +1890,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <outlet property="delegate" destination="6eh-bT-svD" id="aJj-Kq-MbE"/>
                                         </connections>
                                     </textView>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m8w-Nr-SyQ">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m8w-Nr-SyQ">
                                         <rect key="frame" x="215" y="14" width="51" height="31"/>
                                         <color key="onTintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                                     </switch>
