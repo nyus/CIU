@@ -28,6 +28,8 @@ static UIImage *defaultAvatar;
     BOOL isLoading;
     BOOL isAnimating;
 }
+
+@property (weak, nonatomic) IBOutlet UISwitch *anonymousSwitch;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *enterMessageContainerView;
@@ -85,8 +87,8 @@ static UIImage *defaultAvatar;
     
     //fetch all the comments
     isLoading = YES;
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Comment"];
-    [query whereKey:@"statusId" equalTo:statusObjectId];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDCommentParseClassName];
+    [query whereKey:DDStatusIdKey equalTo:statusObjectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         isLoading = NO;
@@ -159,6 +161,7 @@ static UIImage *defaultAvatar;
         object[DDLastNameKey] = [[PFUser currentUser] objectForKey:DDLastNameKey];
         object[DDContentStringKey] = self.textView.text;
         object[DDStatusIdKey] = self.statusObjectId;
+        object[DDAnonymousKey] = @(self.anonymousSwitch.on);
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 [object saveEventually];

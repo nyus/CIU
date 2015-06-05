@@ -1771,7 +1771,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9JK-0o-Noz">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="469"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" rowHeight="300" id="mM4-7q-gDo" userLabel="loading cell" customClass="LoadingTableViewCell">
@@ -1869,10 +1869,10 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-P4-dV2" userLabel="enterTextContainer">
-                                <rect key="frame" x="0.0" y="475" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="469" width="320" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGr-AU-WVR">
-                                        <rect key="frame" x="273" y="11" width="36" height="30"/>
+                                        <rect key="frame" x="276" y="13" width="36" height="30"/>
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1882,7 +1882,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OyZ-RV-VZ0">
-                                        <rect key="frame" x="10" y="4" width="250" height="36"/>
+                                        <rect key="frame" x="8" y="7" width="192" height="36"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1890,16 +1890,33 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                             <outlet property="delegate" destination="6eh-bT-svD" id="aJj-Kq-MbE"/>
                                         </connections>
                                     </textView>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m8w-Nr-SyQ">
+                                        <rect key="frame" x="215" y="14" width="51" height="31"/>
+                                        <color key="tintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="onTintColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anonymous" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJN-ue-GTk">
+                                        <rect key="frame" x="211" y="0.0" width="60" height="15"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="11"/>
+                                        <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96862751250000001" green="0.96862751250000001" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="GGr-AU-WVR" secondAttribute="trailing" constant="11" id="75R-Vm-VYd"/>
-                                    <constraint firstItem="GGr-AU-WVR" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="13" id="Ify-em-W7e"/>
-                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="4" id="Oy8-xB-Fau"/>
-                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="4" id="ayD-fb-YfV"/>
-                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="leading" secondItem="CiX-P4-dV2" secondAttribute="leading" constant="10" id="kU4-jR-4ch"/>
-                                    <constraint firstAttribute="height" constant="44" id="nZH-gE-d1N"/>
-                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" constant="-4" id="t46-6I-IM5"/>
+                                    <constraint firstAttribute="trailing" secondItem="GGr-AU-WVR" secondAttribute="trailing" constant="8" id="75R-Vm-VYd"/>
+                                    <constraint firstItem="GGr-AU-WVR" firstAttribute="leading" secondItem="m8w-Nr-SyQ" secondAttribute="trailing" constant="12" id="ABV-Bv-LWv"/>
+                                    <constraint firstItem="CJN-ue-GTk" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="11" id="EFI-ho-kr0"/>
+                                    <constraint firstItem="CJN-ue-GTk" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" id="Epv-KH-qHb"/>
+                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="7" id="Oy8-xB-Fau"/>
+                                    <constraint firstItem="m8w-Nr-SyQ" firstAttribute="leading" secondItem="OyZ-RV-VZ0" secondAttribute="trailing" constant="15" id="ZiR-RP-PNM"/>
+                                    <constraint firstAttribute="bottom" secondItem="OyZ-RV-VZ0" secondAttribute="bottom" constant="7" id="ayD-fb-YfV"/>
+                                    <constraint firstAttribute="bottom" secondItem="CJN-ue-GTk" secondAttribute="bottom" constant="35" id="fKw-xB-g7V"/>
+                                    <constraint firstItem="m8w-Nr-SyQ" firstAttribute="top" secondItem="CiX-P4-dV2" secondAttribute="top" constant="14" id="g6u-eD-Xdu"/>
+                                    <constraint firstItem="OyZ-RV-VZ0" firstAttribute="leading" secondItem="CiX-P4-dV2" secondAttribute="leading" constant="8" id="kU4-jR-4ch"/>
+                                    <constraint firstAttribute="height" constant="50" id="nZH-gE-d1N"/>
+                                    <constraint firstAttribute="centerY" secondItem="GGr-AU-WVR" secondAttribute="centerY" constant="-3" id="t46-6I-IM5"/>
+                                    <constraint firstAttribute="trailing" secondItem="CJN-ue-GTk" secondAttribute="trailing" constant="49" id="ufU-HW-LYQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1917,6 +1934,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                     <navigationItem key="navigationItem" id="hdJ-fI-RbM"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="anonymousSwitch" destination="m8w-Nr-SyQ" id="6hU-aj-jEm"/>
                         <outlet property="enterMessageContainerView" destination="CiX-P4-dV2" id="jld-ev-fj1"/>
                         <outlet property="enterMessageContainerViewBottomSpaceConstraint" destination="lIU-Qw-dCv" id="acC-Wx-ez5"/>
                         <outlet property="tableView" destination="9JK-0o-Noz" id="tH5-AA-a05"/>
