@@ -778,11 +778,18 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID] &&
-        [sender isKindOfClass:[NameAddressTableViewCell class]]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID]){
+        
         LifestyleObjectDetailTableVC *vc = (LifestyleObjectDetailTableVC *)segue.destinationViewController;
-        vc.lifestyleObject = self.tableViewDataSource[indexPath.row];
+        
+        // from tb view or from map
+        
+        if ([sender isKindOfClass:[NameAddressTableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            vc.lifestyleObject = self.tableViewDataSource[indexPath.row];
+        } else {
+            vc.lifestyleObject = lifestyleToPass;
+        }
     }
 }
 
