@@ -19,14 +19,12 @@
 #import "CustomMKPointAnnotation.h"
 #import "LifestyleObjectDetailTableVC.h"
 #import "PFQuery+Utilities.h"
-#import "Reachability.h"
 #import "Helper.h"
 #import "ComposeVC.h"
 #import "LoadingTableViewCell.h"
 #import "GenericTableViewCell.h"
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
-#import "UIColor+CIUColors.h"
 #import "NameAddressTableViewCell.h"
 
 #define MILE_PER_DELTA 69.0
@@ -172,8 +170,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         _reResearchButton.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         _reResearchButton.layer.borderWidth = 1.0;
         [_reResearchButton setTitle:@"Redo search in this area" forState:UIControlStateNormal];
-        [_reResearchButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _reResearchButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
+        [_reResearchButton setTitleColor:[UIColor themeTextGrey] forState:UIControlStateNormal];
+        _reResearchButton.titleLabel.font = [UIFont themeFontWithSize:18.0];
         _reResearchButton.hidden = YES;
         _reResearchButton.backgroundColor = [UIColor themeGreen];
         [_reResearchButton addTarget:self

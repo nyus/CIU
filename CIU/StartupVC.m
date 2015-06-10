@@ -11,7 +11,6 @@
 #import "Helper.h"
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import "UIColor+CIUColors.h"
 #import <StoreKit/StoreKit.h>
 
 NS_ENUM(NSUInteger, SideBarStatus){

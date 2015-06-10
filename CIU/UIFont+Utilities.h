@@ -10,5 +10,6 @@
 
 @interface UIFont (Utilities)
 
++ (UIFont *)themeFontWithSize:(CGFloat)size;
 
 @end

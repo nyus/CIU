@@ -11,7 +11,6 @@
 #import <Parse/Parse.h>
 #import "HitTestView.h"
 #import "Helper.h"
-#import "APIConstants.h"
 #import "NSString+Utilities.h"
 
 const float kHorizontalMarginLeft = 20.0;

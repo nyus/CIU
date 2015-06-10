@@ -7,7 +7,6 @@
 //
 
 #import "TabbarController.h"
-#import "UIColor+CIUColors.h"
 @interface TabbarController ()
 
 @end

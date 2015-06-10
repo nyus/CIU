@@ -7,8 +7,6 @@
 //
 
 #import "AnalyticsManager.h"
-#import "GAnalyticsManager.h"
-#import "Flurry.h"
 
 static NSString *const kPublishEventName = @"Publish Event";
 static NSString *const kLatitudeKey = @"Latitude";

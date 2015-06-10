@@ -7,7 +7,6 @@
 //
 
 #import "DisplayPeripheralHeaderView.h"
-#import "UIColor+CIUColors.h"
 
 static CGFloat const kLabelLeadingSpaceModeCenter = 28.0;
 static CGFloat const kLabelLeadingSpaceModeLeft = 15.0;

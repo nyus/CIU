@@ -11,7 +11,6 @@
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "GAI.h"
-#import "Flurry.h"
 #import "Crittercism.h"
 #import "UIResponder+Utilities.h"
 

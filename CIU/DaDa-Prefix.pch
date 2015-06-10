@@ -41,7 +41,8 @@
     #import "APIConstants.h"
     #import "Reachability.h"
     #import "UIViewController+Utilities.h"
-    #import "APIConstants.h"
     #import "FPLogger.h"
     #import "AnalyticsManager.h"
+    #import "UIColor+CIUColors.h"
+    #import "UIFont+Utilities.h"
 #endif

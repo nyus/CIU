@@ -10,7 +10,6 @@
 #import <Parse/Parse.h>
 #import "LogInVC.h"
 #import "Helper.h"
-#import "APIConstants.h"
 #import "UIResponder+Utilities.h"
 #import "UIViewController+EULA.h"
 

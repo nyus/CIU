@@ -10,5 +10,9 @@
 
 @implementation UIFont (Utilities)
 
++ (UIFont *)themeFontWithSize:(CGFloat)size
+{
+    return [UIFont fontWithName:@"Helvetica-Light" size:size];
+}
 
 @end
