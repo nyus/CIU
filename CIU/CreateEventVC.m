@@ -226,7 +226,7 @@ const float kOptionsTBViewHeight = 280.0;
         if (!_eventContent) {
             msg = NSLocalizedString(@"Please tell us a bit more about the event.", nil);
         } else {
-            msg = NSLocalizedString(@"External links are not allowed.", nil);
+            msg = NSLocalizedString(@"External links are not allowed", nil);
         }
         
         [[[UIAlertView alloc] initWithTitle:nil

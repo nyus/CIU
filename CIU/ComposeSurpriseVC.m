@@ -176,7 +176,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     if (!isAdmin && [self.textView.text containsURL]) {
         [[[UIAlertView alloc] initWithTitle:nil
-                                    message:NSLocalizedString(@"External links are not allowed.", nil)
+                                    message:NSLocalizedString(@"External links are not allowed", nil)
                                    delegate:self
                           cancelButtonTitle:NSLocalizedString(@"Got it", nil)
                           otherButtonTitles:nil, nil] show];
