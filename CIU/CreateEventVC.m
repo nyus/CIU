@@ -105,11 +105,10 @@ const float kOptionsTBViewHeight = 280.0;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (tableView==self.optionsTBView) {
+        
         return @"Did you mean?";
     }else{
-        if ([self.dataSource[section] isEqualToString:@"Event Location"]) {
-            return [self.dataSource[section] stringByAppendingString:@"(注明门牌号，路名和城市)"];
-        }
+        
         return self.dataSource[section];
     }
 }
