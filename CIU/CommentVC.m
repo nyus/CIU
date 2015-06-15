@@ -47,6 +47,7 @@ static UIImage *defaultAvatar;
     if (self) {
         // Custom initialization
         cellHeightMap = [NSMutableDictionary dictionary];
+        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     return self;
 }
@@ -255,22 +256,19 @@ static UIImage *defaultAvatar;
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noCommentCell" forIndexPath:indexPath];
             return cell;
         }
-        
     }else{
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[DDContentStringKey];
+        
+        cell.avatarImageView.image = defaultAvatar;
+
         if ([comment[DDAnonymousKey] boolValue]) {
             cell.usernameLabel.text = @"Anonymous";
         } else {
             cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
+            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
         }
-        // Only load cached images; defer new downloads until scrolling ends. if there is no local cache, we download avatar in scrollview delegate methods
-        if (!defaultAvatar) {
-            defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
-        }
-        cell.avatarImageView.image = defaultAvatar;
-        [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
 
         return cell;
     }
