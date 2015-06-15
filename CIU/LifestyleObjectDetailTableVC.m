@@ -153,11 +153,11 @@ NSString *const kIntroductionKey = @"Introduction";
     }
     
     //Name and Introduction are not tappable
-    if ([key isEqualToString:kNamekey] || [key isEqualToString:kIntroductionKey]) {
-        cell.userInteractionEnabled = NO;
-    } else {
-        cell.userInteractionEnabled = YES;
-    }
+//    if ([key isEqualToString:kNamekey] || [key isEqualToString:kIntroductionKey]) {
+//        cell.userInteractionEnabled = NO;
+//    } else {
+//        cell.userInteractionEnabled = YES;
+//    }
     
     cell.titleLabel.text = key;
     return cell;

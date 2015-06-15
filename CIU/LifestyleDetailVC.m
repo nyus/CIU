@@ -22,7 +22,6 @@
 #import "Helper.h"
 #import "ComposeVC.h"
 #import "LoadingTableViewCell.h"
-#import "GenericTableViewCell.h"
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
 #import "NameAddressTableViewCell.h"

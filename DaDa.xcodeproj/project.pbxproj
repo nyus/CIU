@@ -42,6 +42,7 @@
 		5040548419A6CFAA0050853A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548319A6CFAA0050853A /* MobileCoreServices.framework */; };
 		5040548619A6CFAE0050853A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040548519A6CFAE0050853A /* QuartzCore.framework */; };
 		50445DD61B06C82600379B03 /* AnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50445DD51B06C82600379B03 /* AnalyticsManager.m */; };
+		5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5048A4891B28FD750096F346 /* DDCopiableLabel.m */; };
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
@@ -200,6 +201,8 @@
 		5040548519A6CFAE0050853A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		50445DD41B06C82600379B03 /* AnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsManager.h; sourceTree = "<group>"; };
 		50445DD51B06C82600379B03 /* AnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsManager.m; sourceTree = "<group>"; };
+		5048A4881B28FD750096F346 /* DDCopiableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCopiableLabel.h; sourceTree = "<group>"; };
+		5048A4891B28FD750096F346 /* DDCopiableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCopiableLabel.m; sourceTree = "<group>"; };
 		504AE5881A2241C7000C62D9 /* LifestyleObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleObject.h; sourceTree = "<group>"; };
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5048A4881B28FD750096F346 /* DDCopiableLabel.h */,
+				5048A4891B28FD750096F346 /* DDCopiableLabel.m */,
 				50FBFFD11A7E31120090EE4B /* StatusObject.h */,
 				50FBFFD21A7E31120090EE4B /* StatusObject.m */,
 				50FBFFCB1A7E30860090EE4B /* Event.h */,
@@ -973,6 +978,7 @@
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
 				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
+				5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */,
 				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
