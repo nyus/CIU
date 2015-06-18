@@ -673,7 +673,7 @@
 				507312511A01C36000E3533E /* ciu logo.png */,
 				0B525D981A1265AC00F2AE72 /* companyLogo.png */,
 				65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */,
-				652BAB86199D3CCA009F5F5A /* CIU */,
+				652BAB86199D3CCA009F5F5A /* DaDa */,
 				652BABA5199D3CCA009F5F5A /* CIUTests */,
 				652BAB7F199D3CCA009F5F5A /* Frameworks */,
 				652BAB7E199D3CCA009F5F5A /* Products */,
@@ -721,7 +721,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		652BAB86199D3CCA009F5F5A /* CIU */ = {
+		652BAB86199D3CCA009F5F5A /* DaDa */ = {
 			isa = PBXGroup;
 			children = (
 				5092160F19AA479B00304EDD /* Classes */,
@@ -742,6 +742,7 @@
 				65D93E5319C239170044A48A /* AboutUsVC.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
 			);
+			name = DaDa;
 			path = CIU;
 			sourceTree = "<group>";
 		};
