@@ -13,6 +13,7 @@
 #import "LifestyleDetailVC.h"
 #import "LifestyleTableViewCell.h"
 #import "LifestyleCategory+Utilities.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 

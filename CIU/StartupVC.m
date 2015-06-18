@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <StoreKit/StoreKit.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,

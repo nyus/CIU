@@ -14,6 +14,7 @@
 		0B4CC1AA1B0BBC2C00697F0F /* ELCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */; };
 		0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
+		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
 		501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E5719A579D10050BFA6 /* CoreData.framework */; };
@@ -23,7 +24,6 @@
 		501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6A19A6B10D0050BFA6 /* Query.m */; };
 		501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6D19A6B1F40050BFA6 /* FPLogger.m */; };
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
-		501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 501A5E7219A6CE610050BFA6 /* Parse.framework */; };
 		50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD51ACECB8E00945D04 /* EulaVC.m */; };
 		50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD81ACECFF600945D04 /* UIViewController+EULA.m */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
@@ -33,6 +33,10 @@
 		503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF34D19BB6D660023EC02 /* Event+Utilities.m */; };
 		503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35019BB7F970023EC02 /* EventTableViewCell.m */; };
 		503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35319BB80B40023EC02 /* CreateEventVC.m */; };
+		503B67331B3277C900E4DEB5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67301B3277C900E4DEB5 /* Parse.framework */; };
+		503B67341B3277C900E4DEB5 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67311B3277C900E4DEB5 /* ParseFacebookUtils.framework */; };
+		503B67371B32784500E4DEB5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67361B32784500E4DEB5 /* Social.framework */; };
+		503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67381B32784C00E4DEB5 /* Accounts.framework */; };
 		5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547719A6CF610050853A /* SystemConfiguration.framework */; };
 		5040547A19A6CF690050853A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547919A6CF690050853A /* Security.framework */; };
 		5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547B19A6CF900050853A /* AudioToolbox.framework */; };
@@ -46,8 +50,6 @@
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
-		5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D71A64C1A400275F2B /* libAdIdAccess.a */; };
-		5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5063E9E01A65F73000275F2B /* libFlurry_6.0.0.a */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
@@ -60,16 +62,6 @@
 		50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B28C5519A90ACB00398BA4 /* PFQuery+Utilities.m */; };
 		50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */; };
 		50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */; };
-		50B87AFB1B10D4FE00451C72 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50B87AE31B10D4FE00451C72 /* Info.plist */; };
-		50B87AFC1B10D4FE00451C72 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AE51B10D4FE00451C72 /* MASCompositeConstraint.m */; };
-		50B87AFD1B10D4FE00451C72 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AE81B10D4FE00451C72 /* MASConstraint.m */; };
-		50B87AFE1B10D4FE00451C72 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AEA1B10D4FE00451C72 /* MASConstraintMaker.m */; };
-		50B87AFF1B10D4FE00451C72 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AEC1B10D4FE00451C72 /* MASLayoutConstraint.m */; };
-		50B87B001B10D4FE00451C72 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AF01B10D4FE00451C72 /* MASViewAttribute.m */; };
-		50B87B011B10D4FE00451C72 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AF21B10D4FE00451C72 /* MASViewConstraint.m */; };
-		50B87B021B10D4FE00451C72 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AF41B10D4FE00451C72 /* NSArray+MASAdditions.m */; };
-		50B87B031B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AF71B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		50B87B041B10D4FE00451C72 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B87AF91B10D4FE00451C72 /* View+MASAdditions.m */; };
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFB4801AB1C5350066045D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CFB47F1AB1C5350066045D /* FacebookSDK.framework */; };
@@ -172,7 +164,6 @@
 		501A5E6D19A6B1F40050BFA6 /* FPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLogger.m; sourceTree = "<group>"; };
 		501A5E6F19A6CBE00050BFA6 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		501A5E7019A6CBE00050BFA6 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
-		501A5E7219A6CE610050BFA6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		50203CD41ACECB8E00945D04 /* EulaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EulaVC.h; sourceTree = "<group>"; };
 		50203CD51ACECB8E00945D04 /* EulaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EulaVC.m; sourceTree = "<group>"; };
 		50203CD71ACECFF600945D04 /* UIViewController+EULA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+EULA.h"; sourceTree = "<group>"; };
@@ -191,6 +182,10 @@
 		503AF35019BB7F970023EC02 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		503AF35219BB80B40023EC02 /* CreateEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateEventVC.h; sourceTree = "<group>"; };
 		503AF35319BB80B40023EC02 /* CreateEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateEventVC.m; sourceTree = "<group>"; };
+		503B67301B3277C900E4DEB5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		503B67311B3277C900E4DEB5 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		503B67361B32784500E4DEB5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		503B67381B32784C00E4DEB5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		5040547719A6CF610050853A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5040547919A6CF690050853A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5040547B19A6CF900050853A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -207,20 +202,8 @@
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
 		504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobTradeTableViewCell.m; sourceTree = "<group>"; };
-		504C7BB31A64C0A300E9C6B8 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		504C7BB41A64C0A300E9C6B8 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		504C7BB51A64C0A300E9C6B8 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		504C7BB61A64C0A300E9C6B8 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		504C7BB71A64C0A300E9C6B8 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		504C7BB81A64C0A300E9C6B8 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		504C7BB91A64C0A300E9C6B8 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		504C7BBA1A64C0A300E9C6B8 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		504C7BBB1A64C0A300E9C6B8 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		504C7BBC1A64C0A300E9C6B8 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
-		5063E9D71A64C1A400275F2B /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdIdAccess.a; sourceTree = "<group>"; };
-		5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
 		5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAnalyticsManager.m; sourceTree = "<group>"; };
 		5063E9DF1A65F73000275F2B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -242,30 +225,6 @@
 		50B83F9619A96A42007BE9F7 /* LifestyleObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LifestyleObject+Utilities.m"; sourceTree = "<group>"; };
 		50B83F9819A97A90007BE9F7 /* CustomMKPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMKPointAnnotation.h; sourceTree = "<group>"; };
 		50B83F9919A97A90007BE9F7 /* CustomMKPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMKPointAnnotation.m; sourceTree = "<group>"; };
-		50B87AE31B10D4FE00451C72 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50B87AE41B10D4FE00451C72 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
-		50B87AE51B10D4FE00451C72 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
-		50B87AE61B10D4FE00451C72 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
-		50B87AE71B10D4FE00451C72 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
-		50B87AE81B10D4FE00451C72 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
-		50B87AE91B10D4FE00451C72 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
-		50B87AEA1B10D4FE00451C72 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
-		50B87AEB1B10D4FE00451C72 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
-		50B87AEC1B10D4FE00451C72 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
-		50B87AED1B10D4FE00451C72 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
-		50B87AEE1B10D4FE00451C72 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
-		50B87AEF1B10D4FE00451C72 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
-		50B87AF01B10D4FE00451C72 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
-		50B87AF11B10D4FE00451C72 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
-		50B87AF21B10D4FE00451C72 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
-		50B87AF31B10D4FE00451C72 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		50B87AF41B10D4FE00451C72 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		50B87AF51B10D4FE00451C72 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		50B87AF61B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		50B87AF71B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		50B87AF81B10D4FE00451C72 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
-		50B87AF91B10D4FE00451C72 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
-		50B87AFA1B10D4FE00451C72 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		50C2FBE419A92701009395A0 /* NSPredicate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+Utilities.h"; sourceTree = "<group>"; };
 		50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+Utilities.m"; sourceTree = "<group>"; };
 		50C44A2119C28EAC00DF50D8 /* HitTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitTestView.h; sourceTree = "<group>"; };
@@ -295,6 +254,7 @@
 		50FBFFD91A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v5_0_7.a; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa/Pods-DaDa.release.xcconfig"; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaDa哒哒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -368,6 +328,8 @@
 		65D93E5919C358DE0044A48A /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
 		65D93E6B19C73AD70044A48A /* ComposeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeVC.h; sourceTree = "<group>"; };
 		65D93E6C19C73AD70044A48A /* ComposeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeVC.m; sourceTree = "<group>"; };
+		95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa/Pods-DaDa.debug.xcconfig"; sourceTree = "<group>"; };
+		9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DaDa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewCell.h; sourceTree = "<group>"; };
 		B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableViewCell.m; sourceTree = "<group>"; };
 		B22C70C51A1183E90035D3C5 /* LoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextField.h; sourceTree = "<group>"; };
@@ -379,6 +341,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */,
+				503B67371B32784500E4DEB5 /* Social.framework in Frameworks */,
 				506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */,
 				5063E9E11A65F73000275F2B /* libFlurry_6.0.0.a in Frameworks */,
 				50CFB4801AB1C5350066045D /* FacebookSDK.framework in Frameworks */,
@@ -391,14 +355,14 @@
 				5040547E19A6CF960050853A /* CFNetwork.framework in Frameworks */,
 				50FBFFDB1A7E3E5F0090EE4B /* libCrittercism_v5_0_7.a in Frameworks */,
 				5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */,
-				5063E9D91A64C1A400275F2B /* libAdIdAccess.a in Frameworks */,
 				5040547A19A6CF690050853A /* Security.framework in Frameworks */,
-				5063E9DA1A64C1A400275F2B /* libGoogleAnalyticsServices.a in Frameworks */,
+				503B67331B3277C900E4DEB5 /* Parse.framework in Frameworks */,
 				5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */,
 				501A5E5819A579D10050BFA6 /* CoreData.framework in Frameworks */,
 				652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */,
 				652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */,
-				501A5E7319A6CE610050BFA6 /* Parse.framework in Frameworks */,
+				503B67341B3277C900E4DEB5 /* ParseFacebookUtils.framework in Frameworks */,
+				2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,25 +453,6 @@
 				B22C70C61A1183E90035D3C5 /* LoginTextField.m */,
 			);
 			name = Surprise;
-			sourceTree = "<group>";
-		};
-		504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				5063E9D71A64C1A400275F2B /* libAdIdAccess.a */,
-				5063E9D81A64C1A400275F2B /* libGoogleAnalyticsServices.a */,
-				504C7BB31A64C0A300E9C6B8 /* GAI.h */,
-				504C7BB41A64C0A300E9C6B8 /* GAIDictionaryBuilder.h */,
-				504C7BB51A64C0A300E9C6B8 /* GAIEcommerceFields.h */,
-				504C7BB61A64C0A300E9C6B8 /* GAIEcommerceProduct.h */,
-				504C7BB71A64C0A300E9C6B8 /* GAIEcommerceProductAction.h */,
-				504C7BB81A64C0A300E9C6B8 /* GAIEcommercePromotion.h */,
-				504C7BB91A64C0A300E9C6B8 /* GAIFields.h */,
-				504C7BBA1A64C0A300E9C6B8 /* GAILogger.h */,
-				504C7BBB1A64C0A300E9C6B8 /* GAITrackedViewController.h */,
-				504C7BBC1A64C0A300E9C6B8 /* GAITracker.h */,
-			);
-			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 		5063E9DE1A65F73000275F2B /* Flurry */ = {
@@ -610,37 +555,6 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
-		50B87AE21B10D4FE00451C72 /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				50B87AE31B10D4FE00451C72 /* Info.plist */,
-				50B87AE41B10D4FE00451C72 /* MASCompositeConstraint.h */,
-				50B87AE51B10D4FE00451C72 /* MASCompositeConstraint.m */,
-				50B87AE61B10D4FE00451C72 /* MASConstraint+Private.h */,
-				50B87AE71B10D4FE00451C72 /* MASConstraint.h */,
-				50B87AE81B10D4FE00451C72 /* MASConstraint.m */,
-				50B87AE91B10D4FE00451C72 /* MASConstraintMaker.h */,
-				50B87AEA1B10D4FE00451C72 /* MASConstraintMaker.m */,
-				50B87AEB1B10D4FE00451C72 /* MASLayoutConstraint.h */,
-				50B87AEC1B10D4FE00451C72 /* MASLayoutConstraint.m */,
-				50B87AED1B10D4FE00451C72 /* Masonry.h */,
-				50B87AEE1B10D4FE00451C72 /* MASUtilities.h */,
-				50B87AEF1B10D4FE00451C72 /* MASViewAttribute.h */,
-				50B87AF01B10D4FE00451C72 /* MASViewAttribute.m */,
-				50B87AF11B10D4FE00451C72 /* MASViewConstraint.h */,
-				50B87AF21B10D4FE00451C72 /* MASViewConstraint.m */,
-				50B87AF31B10D4FE00451C72 /* NSArray+MASAdditions.h */,
-				50B87AF41B10D4FE00451C72 /* NSArray+MASAdditions.m */,
-				50B87AF51B10D4FE00451C72 /* NSArray+MASShorthandAdditions.h */,
-				50B87AF61B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.h */,
-				50B87AF71B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.m */,
-				50B87AF81B10D4FE00451C72 /* View+MASAdditions.h */,
-				50B87AF91B10D4FE00451C72 /* View+MASAdditions.m */,
-				50B87AFA1B10D4FE00451C72 /* View+MASShorthandAdditions.h */,
-			);
-			path = Masonry;
-			sourceTree = "<group>";
-		};
 		50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +591,7 @@
 				652BABA5199D3CCA009F5F5A /* CIUTests */,
 				652BAB7F199D3CCA009F5F5A /* Frameworks */,
 				652BAB7E199D3CCA009F5F5A /* Products */,
+				FB91E6EE33DD99C139E9BA98 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -692,14 +607,16 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				50B87AE21B10D4FE00451C72 /* Masonry */,
+				503B67381B32784C00E4DEB5 /* Accounts.framework */,
+				503B67361B32784500E4DEB5 /* Social.framework */,
+				503B67301B3277C900E4DEB5 /* Parse.framework */,
+				503B67311B3277C900E4DEB5 /* ParseFacebookUtils.framework */,
 				65C4F0E719AFBBEA004452C3 /* ELCImagePicker */,
 				506D69501AB5CC65006EDDCE /* StoreKit.framework */,
 				50CFB47F1AB1C5350066045D /* FacebookSDK.framework */,
 				0B03B4751A8272B600526A37 /* UIAlertView+Blocks */,
 				50FBFFD41A7E3E5F0090EE4B /* CrittercismSDK */,
 				5063E9DE1A65F73000275F2B /* Flurry */,
-				504C7BB21A64C0A300E9C6B8 /* GoogleAnalytics */,
 				50D7692C1A34BFB6005B31E3 /* SVPullToRefresh */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
 				5040548519A6CFAE0050853A /* QuartzCore.framework */,
@@ -710,13 +627,13 @@
 				5040547B19A6CF900050853A /* AudioToolbox.framework */,
 				5040547919A6CF690050853A /* Security.framework */,
 				5040547719A6CF610050853A /* SystemConfiguration.framework */,
-				501A5E7219A6CE610050BFA6 /* Parse.framework */,
 				501A5E5719A579D10050BFA6 /* CoreData.framework */,
 				501A5E5019A578A00050BFA6 /* bundle1.o */,
 				652BAB80199D3CCA009F5F5A /* Foundation.framework */,
 				652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */,
 				652BAB84199D3CCA009F5F5A /* UIKit.framework */,
 				652BAB9F199D3CCA009F5F5A /* XCTest.framework */,
+				9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -813,6 +730,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		FB91E6EE33DD99C139E9BA98 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */,
+				5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -820,10 +746,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa" */;
 			buildPhases = (
+				5C6C9FA21FFD20596D334E8F /* Check Pods Manifest.lock */,
 				652BAB79199D3CCA009F5F5A /* Sources */,
 				652BAB7A199D3CCA009F5F5A /* Frameworks */,
 				652BAB7B199D3CCA009F5F5A /* Resources */,
 				50FBFFDC1A7E3FEB0090EE4B /* ShellScript */,
+				9899AFA6457C84019456E51F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -905,7 +833,6 @@
 				65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */,
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
 				65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */,
-				50B87AFB1B10D4FE00451C72 /* Info.plist in Resources */,
 				65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
 				507312521A01C36000E3533E /* ciu logo.png in Resources */,
@@ -941,6 +868,36 @@
 			shellScript = "APP_ID=\"54ccf13951de5e9f042ed3f9\"\nAPI_KEY=\"VeAeUuuxqvBxGoASov5OmldSkOTdWVTQ\"\nsource \"${SRCROOT}\"/CrittercismSDK/dsym_upload.sh";
 			showEnvVarsInLog = 0;
 		};
+		5C6C9FA21FFD20596D334E8F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9899AFA6457C84019456E51F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DaDa/Pods-DaDa-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -959,14 +916,11 @@
 				0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */,
 				5092160E19AA463700304EDD /* LifestyleObjectDetailTableVC.m in Sources */,
 				65C4F0FE19AFBBEA004452C3 /* ELCImagePickerController.m in Sources */,
-				50B87B031B10D4FE00451C72 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */,
-				50B87B021B10D4FE00451C72 /* NSArray+MASAdditions.m in Sources */,
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableVC.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
-				50B87B011B10D4FE00451C72 /* MASViewConstraint.m in Sources */,
 				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeVC.m in Sources */,
@@ -984,7 +938,6 @@
 				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
 				65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */,
-				50B87AFE1B10D4FE00451C72 /* MASConstraintMaker.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailVC.m in Sources */,
 				65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */,
@@ -992,8 +945,6 @@
 				B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
-				50B87B041B10D4FE00451C72 /* View+MASAdditions.m in Sources */,
-				50B87AFC1B10D4FE00451C72 /* MASCompositeConstraint.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				50D769331A34BFB6005B31E3 /* UIScrollView+SVPullToRefresh.m in Sources */,
@@ -1012,7 +963,6 @@
 				0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */,
 				5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInVC.m in Sources */,
-				50B87AFD1B10D4FE00451C72 /* MASConstraint.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */,
@@ -1025,11 +975,9 @@
 				652BAB8D199D3CCA009F5F5A /* main.m in Sources */,
 				50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */,
 				5029A91E1A8FB267002B0212 /* UIResponder+Utilities.m in Sources */,
-				50B87AFF1B10D4FE00451C72 /* MASLayoutConstraint.m in Sources */,
 				65C4F11219AFBD53004452C3 /* SignUpVC.m in Sources */,
 				503AF34519BB678D0023EC02 /* EventVC.m in Sources */,
 				50B28C5619A90ACB00398BA4 /* PFQuery+Utilities.m in Sources */,
-				50B87B001B10D4FE00451C72 /* MASViewAttribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,6 +1099,7 @@
 		};
 		652BABB0199D3CCA009F5F5A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1162,16 +1111,15 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/DaDa-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(inherited)/GoogleAnalytics/",
 				);
 				INFOPLIST_FILE = "CIU/DaDa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/CrittercismSDK",
 				);
@@ -1183,6 +1131,7 @@
 		};
 		652BABB1199D3CCA009F5F5A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1194,17 +1143,15 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIU/DaDa-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(inherited)/GoogleAnalytics/",
 				);
 				INFOPLIST_FILE = "CIU/DaDa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/GoogleAnalytics",
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/CrittercismSDK",
 				);

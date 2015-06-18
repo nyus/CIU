@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LocationManager.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "GAI.h"
 #import "Crittercism.h"

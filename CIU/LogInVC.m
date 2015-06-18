@@ -8,6 +8,7 @@
 
 #import "LogInVC.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "SignUpVC.h"
 #import "Helper.h"
 #import "UIResponder+Utilities.h"
