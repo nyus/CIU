@@ -7,4 +7,7 @@ target 'DaDa' do
   pod 'GoogleAnalytics-iOS-SDK'
   pod 'Facebook-iOS-SDK', '~> 3.23'
   pod 'ParseFacebookUtils', '~> 1.7'
+  pod 'CrittercismSDK', '~> 5.2'
+  pod 'FlurrySDK', '~> 6.5'
+  pod 'SVPullToRefresh', '~> 0.4'
 end
