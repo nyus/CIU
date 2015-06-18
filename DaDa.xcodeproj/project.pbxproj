@@ -11,8 +11,6 @@
 		0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */; };
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
-		0B4CC1AA1B0BBC2C00697F0F /* ELCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */; };
-		0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */; };
@@ -52,6 +50,13 @@
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */; };
+		5086CBF51B33069D00EAECD9 /* libPods-DaDa-Bolts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */; };
+		5086CBF61B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */; };
+		5086CBF71B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */; };
+		5086CBF81B33069D00EAECD9 /* libPods-DaDa-Masonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */; };
+		5086CBF91B33069D00EAECD9 /* libPods-DaDa-Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */; };
+		5086CBFA1B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */; };
+		5086CBFB1B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */; };
 		5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091FAF11B10C74E00523183 /* UIFont+Utilities.m */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
 		5092160E19AA463700304EDD /* LifestyleObjectDetailTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160D19AA463700304EDD /* LifestyleObjectDetailTableVC.m */; };
@@ -96,16 +101,6 @@
 		65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0DF19AFBBA8004452C3 /* LoadingTableViewCell.m */; };
 		65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E219AFBBB9004452C3 /* UITextView+Utilities.m */; };
 		65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E519AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m */; };
-		65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */; };
-		65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0EB19AFBBEA004452C3 /* ELCAsset.m */; };
-		65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0ED19AFBBEA004452C3 /* ELCAssetCell.m */; };
-		65C4F0FD19AFBBEA004452C3 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0F119AFBBEA004452C3 /* ELCAssetTablePicker.m */; };
-		65C4F0FE19AFBBEA004452C3 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F0F319AFBBEA004452C3 /* ELCImagePickerController.m */; };
-		65C4F0FF19AFBBEA004452C3 /* ELCAlbumPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F519AFBBEA004452C3 /* ELCAlbumPickerController.xib */; };
-		65C4F10019AFBBEA004452C3 /* ELCAssetPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F619AFBBEA004452C3 /* ELCAssetPicker.xib */; };
-		65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */; };
-		65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F819AFBBEA004452C3 /* Overlay.png */; };
-		65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */; };
 		65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */; };
 		65C4F10F19AFBD21004452C3 /* LogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F10E19AFBD21004452C3 /* LogInVC.m */; };
 		65C4F11219AFBD53004452C3 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpVC.m */; };
@@ -135,11 +130,6 @@
 		0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableVC.m; sourceTree = "<group>"; };
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
-		0B4CC1A51B0BBC2C00697F0F /* ELCConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCConsole.h; sourceTree = "<group>"; };
-		0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCConsole.m; sourceTree = "<group>"; };
-		0B4CC1A71B0BBC2C00697F0F /* ELCImagePickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerHeader.h; sourceTree = "<group>"; };
-		0B4CC1A81B0BBC2C00697F0F /* ELCOverlayImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCOverlayImageView.h; sourceTree = "<group>"; };
-		0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCOverlayImageView.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableVC.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableVC.m; sourceTree = "<group>"; };
@@ -201,6 +191,13 @@
 		506D69501AB5CC65006EDDCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
+		5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Bolts.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Bolts.a"; sourceTree = "<group>"; };
+		5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-ELCImagePickerController.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-ELCImagePickerController.a"; sourceTree = "<group>"; };
+		5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Facebook-iOS-SDK.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Facebook-iOS-SDK.a"; sourceTree = "<group>"; };
+		5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Masonry.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Masonry.a"; sourceTree = "<group>"; };
+		5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Parse.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Parse.a"; sourceTree = "<group>"; };
+		5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-ParseFacebookUtils.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-ParseFacebookUtils.a"; sourceTree = "<group>"; };
+		5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-SVPullToRefresh.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-SVPullToRefresh.a"; sourceTree = "<group>"; };
 		5091FAF01B10C74E00523183 /* UIFont+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Utilities.h"; sourceTree = "<group>"; };
 		5091FAF11B10C74E00523183 /* UIFont+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Utilities.m"; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
@@ -279,23 +276,6 @@
 		65C4F0E219AFBBB9004452C3 /* UITextView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Utilities.m"; sourceTree = "<group>"; };
 		65C4F0E419AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeSurprisePhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		65C4F0E519AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeSurprisePhotoCollectionViewCell.m; sourceTree = "<group>"; };
-		65C4F0E819AFBBEA004452C3 /* ELCAlbumPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAlbumPickerController.h; sourceTree = "<group>"; };
-		65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAlbumPickerController.m; sourceTree = "<group>"; };
-		65C4F0EA19AFBBEA004452C3 /* ELCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAsset.h; sourceTree = "<group>"; };
-		65C4F0EB19AFBBEA004452C3 /* ELCAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAsset.m; sourceTree = "<group>"; };
-		65C4F0EC19AFBBEA004452C3 /* ELCAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetCell.h; sourceTree = "<group>"; };
-		65C4F0ED19AFBBEA004452C3 /* ELCAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetCell.m; sourceTree = "<group>"; };
-		65C4F0EE19AFBBEA004452C3 /* ELCAssetPickerFilterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetPickerFilterDelegate.h; sourceTree = "<group>"; };
-		65C4F0EF19AFBBEA004452C3 /* ELCAssetSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetSelectionDelegate.h; sourceTree = "<group>"; };
-		65C4F0F019AFBBEA004452C3 /* ELCAssetTablePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetTablePicker.h; sourceTree = "<group>"; };
-		65C4F0F119AFBBEA004452C3 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
-		65C4F0F219AFBBEA004452C3 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
-		65C4F0F319AFBBEA004452C3 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		65C4F0F519AFBBEA004452C3 /* ELCAlbumPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAlbumPickerController.xib; sourceTree = "<group>"; };
-		65C4F0F619AFBBEA004452C3 /* ELCAssetPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetPicker.xib; sourceTree = "<group>"; };
-		65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
-		65C4F0F819AFBBEA004452C3 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
-		65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
 		65C4F10A19AFBC7E004452C3 /* SpinnerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpinnerImageView.h; sourceTree = "<group>"; };
 		65C4F10B19AFBC7E004452C3 /* SpinnerImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpinnerImageView.m; sourceTree = "<group>"; };
 		65C4F10D19AFBD21004452C3 /* LogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInVC.h; sourceTree = "<group>"; };
@@ -321,6 +301,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5086CBF51B33069D00EAECD9 /* libPods-DaDa-Bolts.a in Frameworks */,
+				5086CBF61B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a in Frameworks */,
+				5086CBF71B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a in Frameworks */,
+				5086CBF81B33069D00EAECD9 /* libPods-DaDa-Masonry.a in Frameworks */,
+				5086CBF91B33069D00EAECD9 /* libPods-DaDa-Parse.a in Frameworks */,
+				5086CBFA1B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a in Frameworks */,
+				5086CBFB1B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a in Frameworks */,
 				503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */,
 				503B67371B32784500E4DEB5 /* Social.framework in Frameworks */,
 				506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */,
@@ -549,10 +536,16 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */,
+				5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */,
+				5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */,
+				5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */,
+				5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */,
+				5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */,
+				5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */,
 				5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */,
 				503B67381B32784C00E4DEB5 /* Accounts.framework */,
 				503B67361B32784500E4DEB5 /* Social.framework */,
-				65C4F0E719AFBBEA004452C3 /* ELCImagePicker */,
 				506D69501AB5CC65006EDDCE /* StoreKit.framework */,
 				0B03B4751A8272B600526A37 /* UIAlertView+Blocks */,
 				6564F24319A7835000629B48 /* MapKit.framework */,
@@ -627,44 +620,6 @@
 				652BABA8199D3CCA009F5F5A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65C4F0E719AFBBEA004452C3 /* ELCImagePicker */ = {
-			isa = PBXGroup;
-			children = (
-				0B4CC1A51B0BBC2C00697F0F /* ELCConsole.h */,
-				0B4CC1A61B0BBC2C00697F0F /* ELCConsole.m */,
-				0B4CC1A71B0BBC2C00697F0F /* ELCImagePickerHeader.h */,
-				0B4CC1A81B0BBC2C00697F0F /* ELCOverlayImageView.h */,
-				0B4CC1A91B0BBC2C00697F0F /* ELCOverlayImageView.m */,
-				65C4F0E819AFBBEA004452C3 /* ELCAlbumPickerController.h */,
-				65C4F0E919AFBBEA004452C3 /* ELCAlbumPickerController.m */,
-				65C4F0EA19AFBBEA004452C3 /* ELCAsset.h */,
-				65C4F0EB19AFBBEA004452C3 /* ELCAsset.m */,
-				65C4F0EC19AFBBEA004452C3 /* ELCAssetCell.h */,
-				65C4F0ED19AFBBEA004452C3 /* ELCAssetCell.m */,
-				65C4F0EE19AFBBEA004452C3 /* ELCAssetPickerFilterDelegate.h */,
-				65C4F0EF19AFBBEA004452C3 /* ELCAssetSelectionDelegate.h */,
-				65C4F0F019AFBBEA004452C3 /* ELCAssetTablePicker.h */,
-				65C4F0F119AFBBEA004452C3 /* ELCAssetTablePicker.m */,
-				65C4F0F219AFBBEA004452C3 /* ELCImagePickerController.h */,
-				65C4F0F319AFBBEA004452C3 /* ELCImagePickerController.m */,
-				65C4F0F419AFBBEA004452C3 /* Resources */,
-			);
-			name = ELCImagePicker;
-			path = CIU/ELCImagePicker;
-			sourceTree = "<group>";
-		};
-		65C4F0F419AFBBEA004452C3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				65C4F0F519AFBBEA004452C3 /* ELCAlbumPickerController.xib */,
-				65C4F0F619AFBBEA004452C3 /* ELCAssetPicker.xib */,
-				65C4F0F719AFBBEA004452C3 /* ELCAssetTablePicker.xib */,
-				65C4F0F819AFBBEA004452C3 /* Overlay.png */,
-				65C4F0F919AFBBEA004452C3 /* Overlay@2x.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		FB91E6EE33DD99C139E9BA98 /* Pods */ = {
@@ -768,15 +723,10 @@
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
 				0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */,
-				65C4F10119AFBBEA004452C3 /* ELCAssetTablePicker.xib in Resources */,
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,
-				65C4F10219AFBBEA004452C3 /* Overlay.png in Resources */,
-				65C4F10319AFBBEA004452C3 /* Overlay@2x.png in Resources */,
 				652BAB8B199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
 				507312521A01C36000E3533E /* ciu logo.png in Resources */,
-				65C4F0FF19AFBBEA004452C3 /* ELCAlbumPickerController.xib in Resources */,
 				652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */,
-				65C4F10019AFBBEA004452C3 /* ELCAssetPicker.xib in Resources */,
 				50A0AAE11ACC2E75009FFC0B /* 8mile_icon_about.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -846,14 +796,11 @@
 				5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */,
 				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
-				65C4F0FB19AFBBEA004452C3 /* ELCAsset.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentVC.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
-				65C4F0FD19AFBBEA004452C3 /* ELCAssetTablePicker.m in Sources */,
 				0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */,
 				5092160E19AA463700304EDD /* LifestyleObjectDetailTableVC.m in Sources */,
-				65C4F0FE19AFBBEA004452C3 /* ELCImagePickerController.m in Sources */,
 				5030AC191A6FEB8D00A45ABA /* TermsAndPrivacyVC.m in Sources */,
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
@@ -870,10 +817,8 @@
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
-				65C4F0FC19AFBBEA004452C3 /* ELCAssetCell.m in Sources */,
 				5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */,
 				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,
-				65C4F0FA19AFBBEA004452C3 /* ELCAlbumPickerController.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
 				65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
@@ -896,13 +841,11 @@
 				50FBFFCD1A7E30860090EE4B /* Event.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsVC.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
-				0B4CC1AB1B0BBC2C00697F0F /* ELCOverlayImageView.m in Sources */,
 				5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */,
 				65C4F10F19AFBD21004452C3 /* LogInVC.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */,
-				0B4CC1AA1B0BBC2C00697F0F /* ELCConsole.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */,
@@ -1048,11 +991,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "CIU/DaDa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
-					"$(PROJECT_DIR)/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "bd09f7c8-832d-41e9-8386-34e78119322d";
@@ -1076,11 +1015,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "CIU/DaDa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
-					"$(PROJECT_DIR)/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "DaDa哒哒";
 				PROVISIONING_PROFILE = "32333778-5de1-4a3e-a119-59d69ec3c4f5";
 				USER_HEADER_SEARCH_PATHS = "$(inherited)";

@@ -8,7 +8,6 @@
 #import "ELCAlbumPickerController.h"
 #import "ELCImagePickerController.h"
 #import "ELCAssetTablePicker.h"
-#import <MobileCoreServices/UTCoreTypes.h>
 
 @interface ELCAlbumPickerController ()
 
@@ -26,9 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
-	[self.navigationItem setTitle:NSLocalizedString(@"Loading...", nil)];
+	[self.navigationItem setTitle:@"Loading..."];
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
 	[self.navigationItem setRightBarButtonItem:cancelButton];
@@ -68,17 +66,10 @@
             
             // Group Enumerator Failure Block
             void (^assetGroupEnumberatorFailure)(NSError *) = ^(NSError *error) {
-              
-                if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
-                    NSString *errorMessage = NSLocalizedString(@"This app does not have access to your photos or videos. You can enable access in Privacy Settings.", nil);
-                    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Access Denied", nil) message:errorMessage delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil] show];
-                  
-                } else {
-                    NSString *errorMessage = [NSString stringWithFormat:@"Album Error: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]];
-                    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:errorMessage delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil] show];
-                }
-
-                [self.navigationItem setTitle:nil];
+                
+                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Album Error: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
                 NSLog(@"A problem occured %@", [error description]);	                                 
             };	
                     
@@ -88,25 +79,13 @@
                                  failureBlock:assetGroupEnumberatorFailure];
         
         }
-    });
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:ALAssetsLibraryChangedNotification object:nil];
-    [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ALAssetsLibraryChangedNotification object:nil];
+    });    
 }
 
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:NSLocalizedString(@"Select an Album", nil)];
+	[self.navigationItem setTitle:@"Select an Album"];
 }
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount
@@ -114,30 +93,9 @@
     return [self.parent shouldSelectAsset:asset previousCount:previousCount];
 }
 
-- (BOOL)shouldDeselectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount
-{
-    return [self.parent shouldDeselectAsset:asset previousCount:previousCount];
-}
-
 - (void)selectedAssets:(NSArray*)assets
 {
 	[_parent selectedAssets:assets];
-}
-
-- (ALAssetsFilter *)assetFilter
-{
-    if([self.mediaTypes containsObject:(NSString *)kUTTypeImage] && [self.mediaTypes containsObject:(NSString *)kUTTypeMovie])
-    {
-        return [ALAssetsFilter allAssets];
-    }
-    else if([self.mediaTypes containsObject:(NSString *)kUTTypeMovie])
-    {
-        return [ALAssetsFilter allVideos];
-    }
-    else
-    {
-        return [ALAssetsFilter allPhotos];
-    }
 }
 
 #pragma mark -
@@ -169,28 +127,14 @@
     
     // Get count
     ALAssetsGroup *g = (ALAssetsGroup*)[self.assetGroups objectAtIndex:indexPath.row];
-    [g setAssetsFilter:[self assetFilter]];
+    [g setAssetsFilter:[ALAssetsFilter allPhotos]];
     NSInteger gCount = [g numberOfAssets];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@ (%ld)",[g valueForProperty:ALAssetsGroupPropertyName], (long)gCount];
-    UIImage* image = [UIImage imageWithCGImage:[g posterImage]];
-    image = [self resize:image to:CGSizeMake(78, 78)];
-    [cell.imageView setImage:image];
+    [cell.imageView setImage:[UIImage imageWithCGImage:[(ALAssetsGroup*)[self.assetGroups objectAtIndex:indexPath.row] posterImage]]];
 	[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	
     return cell;
-}
-
-// Resize a UIImage. From http://stackoverflow.com/questions/2658738/the-simplest-way-to-resize-an-uiimage
-- (UIImage *)resize:(UIImage *)image to:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 #pragma mark -
@@ -202,7 +146,7 @@
 	picker.parent = self;
 
     picker.assetGroup = [self.assetGroups objectAtIndex:indexPath.row];
-    [picker.assetGroup setAssetsFilter:[self assetFilter]];
+    [picker.assetGroup setAssetsFilter:[ALAssetsFilter allPhotos]];
     
 	picker.assetPickerFilterDelegate = self.assetPickerFilterDelegate;
 	
@@ -211,7 +155,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 95;
+	return 57;
 }
 
 @end

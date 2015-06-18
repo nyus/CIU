@@ -285,7 +285,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
     }];
     if (IS_RESTAURANT) {

@@ -7,10 +7,8 @@
 - (void)attachTapHandler
 {
     [self setUserInteractionEnabled:YES];
-    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                       action:@selector(handleTap:)];
+    
     UILongPressGestureRecognizer *longPree = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-//    [self addGestureRecognizer
     [self addGestureRecognizer:longPree];
 }
 

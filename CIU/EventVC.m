@@ -127,7 +127,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
     }];
     [Flurry logEvent:@"View event" timed:YES];

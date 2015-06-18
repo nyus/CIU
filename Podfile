@@ -10,4 +10,5 @@ target 'DaDa' do
   pod 'CrittercismSDK', '~> 5.2'
   pod 'FlurrySDK', '~> 6.5'
   pod 'SVPullToRefresh', '~> 0.4'
+  pod 'ELCImagePickerController', '~> 0.2'
 end

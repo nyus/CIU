@@ -6,6 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.2.0)
   - CrittercismSDK (5.2.0)
+  - ELCImagePickerController (0.2.0)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - FlurrySDK (6.5.0):
@@ -25,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - CrittercismSDK (~> 5.2)
+  - ELCImagePickerController (~> 0.2)
   - Facebook-iOS-SDK (~> 3.23)
   - FlurrySDK (~> 6.5)
   - GoogleAnalytics-iOS-SDK
@@ -35,9 +37,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
+  ELCImagePickerController: b1b7084434a7d49f2cfc916bde1f3ba353d38de9
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
   FlurrySDK: 7e749c1bd22f4fb0a863663e38c58bc841980b25
-  GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8
+  GoogleAnalytics-iOS-SDK: 13241762fa4aea845eb75bef6c0da3427a26e7b3
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   Parse: 6ca512c6e860b66739c95151b2f76ac4712b7842
   ParseFacebookUtils: 7115990b291ae95b920fde413272828d0eb0d963

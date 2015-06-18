@@ -120,7 +120,7 @@ static UIImage *defaultAvatar;
         return;
     }
     
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
         //update status
         PFQuery *query = [[PFQuery alloc] initWithClassName:DDStatusParseClassName];
         [query whereKey:DDObjectIdKey equalTo:self.statusObjectId];

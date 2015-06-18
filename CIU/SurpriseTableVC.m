@@ -89,7 +89,7 @@ static NSString *const kEntityName = @"StatusObject";
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
     }];
     [Flurry logEvent:@"View surprise" timed:YES];

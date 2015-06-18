@@ -275,9 +275,8 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
         [Helper launchCameraInController:self];
     }else if(buttonIndex == 1){
 
-        ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
+        ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] init];
         elcPicker.maximumImagesCount = 30;
-        elcPicker.returnsOriginalImage = NO; //Only return the fullScreenImage, not the fullResolutionImage
         elcPicker.imagePickerDelegate = self;
 
         [self presentViewController:elcPicker animated:YES completion:nil];
