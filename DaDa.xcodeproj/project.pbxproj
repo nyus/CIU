@@ -68,6 +68,7 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
+		50E45BCC1B3999B300EC12CC /* DaDa_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
@@ -112,6 +113,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		50E45BCD1B3999B300EC12CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 652BAB75199D3CCA009F5F5A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 652BAB7C199D3CCA009F5F5A;
+			remoteInfo = DaDa;
+		};
 		652BABA3199D3CCA009F5F5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 652BAB75199D3CCA009F5F5A /* Project object */;
@@ -219,6 +227,9 @@
 		50C44A2219C28EAC00DF50D8 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
 		50CFC9741AFE261A005EBAE4 /* StarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarRatingView.h; sourceTree = "<group>"; };
 		50CFC9751AFE261A005EBAE4 /* StarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingView.m; sourceTree = "<group>"; };
+		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDa_Tests.swift; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+Utilities.h"; sourceTree = "<group>"; };
@@ -297,6 +308,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		50E45BC41B3999B300EC12CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		652BAB7A199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,6 +526,23 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
+		50E45BC81B3999B300EC12CC /* DaDa Tests */ = {
+			isa = PBXGroup;
+			children = (
+				50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */,
+				50E45BC91B3999B300EC12CC /* Supporting Files */,
+			);
+			path = "DaDa Tests";
+			sourceTree = "<group>";
+		};
+		50E45BC91B3999B300EC12CC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				50E45BCA1B3999B300EC12CC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
@@ -518,6 +553,7 @@
 				65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */,
 				652BAB86199D3CCA009F5F5A /* DaDa */,
 				652BABA5199D3CCA009F5F5A /* CIUTests */,
+				50E45BC81B3999B300EC12CC /* DaDa Tests */,
 				652BAB7F199D3CCA009F5F5A /* Frameworks */,
 				652BAB7E199D3CCA009F5F5A /* Products */,
 				FB91E6EE33DD99C139E9BA98 /* Pods */,
@@ -529,6 +565,7 @@
 			children = (
 				652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */,
 				652BAB9E199D3CCA009F5F5A /* DaDaTests.xctest */,
+				50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -634,6 +671,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		50E45BC61B3999B300EC12CC /* DaDa Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50E45BD11B3999B300EC12CC /* Build configuration list for PBXNativeTarget "DaDa Tests" */;
+			buildPhases = (
+				50E45BC31B3999B300EC12CC /* Sources */,
+				50E45BC41B3999B300EC12CC /* Frameworks */,
+				50E45BC51B3999B300EC12CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50E45BCE1B3999B300EC12CC /* PBXTargetDependency */,
+			);
+			name = "DaDa Tests";
+			productName = "DaDa Tests";
+			productReference = 50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		652BAB7C199D3CCA009F5F5A /* DaDa */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 652BABAF199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDa" */;
@@ -681,6 +736,10 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Huang, Sihang";
 				TargetAttributes = {
+					50E45BC61B3999B300EC12CC = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 652BAB7C199D3CCA009F5F5A;
+					};
 					652BAB7C199D3CCA009F5F5A = {
 						DevelopmentTeam = CL6A6X43DN;
 						SystemCapabilities = {
@@ -710,11 +769,19 @@
 			targets = (
 				652BAB7C199D3CCA009F5F5A /* DaDa */,
 				652BAB9D199D3CCA009F5F5A /* DaDaTests */,
+				50E45BC61B3999B300EC12CC /* DaDa Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		50E45BC51B3999B300EC12CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		652BAB7B199D3CCA009F5F5A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -789,6 +856,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		50E45BC31B3999B300EC12CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50E45BCC1B3999B300EC12CC /* DaDa_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		652BAB79199D3CCA009F5F5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -871,6 +946,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		50E45BCE1B3999B300EC12CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 652BAB7C199D3CCA009F5F5A /* DaDa */;
+			targetProxy = 50E45BCD1B3999B300EC12CC /* PBXContainerItemProxy */;
+		};
 		652BABA4199D3CCA009F5F5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 652BAB7C199D3CCA009F5F5A /* DaDa */;
@@ -906,6 +986,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		50E45BCF1B3999B300EC12CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DaDa Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
+			};
+			name = Debug;
+		};
+		50E45BD01B3999B300EC12CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "DaDa Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
+			};
+			name = Release;
+		};
 		652BABAD199D3CCA009F5F5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1068,6 +1196,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		50E45BD11B3999B300EC12CC /* Build configuration list for PBXNativeTarget "DaDa Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50E45BCF1B3999B300EC12CC /* Debug */,
+				50E45BD01B3999B300EC12CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "DaDa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
