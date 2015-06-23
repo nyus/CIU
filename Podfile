@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 xcodeproj 'DaDa.xcodeproj'
@@ -11,4 +12,8 @@ target 'DaDa' do
   pod 'FlurrySDK', '~> 6.5'
   pod 'SVPullToRefresh', '~> 0.4'
   pod 'ELCImagePickerController', '~> 0.2'
+end
+
+target 'DaDa Tests', :exclusive => true do
+    pod 'KIF', '~> 3.0', :configurations => ['Debug']
 end

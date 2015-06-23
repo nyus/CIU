@@ -1,7 +1,7 @@
 PODS:
   - Bolts (1.2.0):
-    - Bolts/AppLinks (= 1.2.0)
-    - Bolts/Tasks (= 1.2.0)
+    - Bolts/AppLinks
+    - Bolts/Tasks
   - Bolts/AppLinks (1.2.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.2.0)
@@ -10,11 +10,14 @@ PODS:
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - FlurrySDK (6.5.0):
-    - FlurrySDK/FlurrySDK (= 6.5.0)
+    - FlurrySDK/FlurrySDK
   - FlurrySDK/FlurrySDK (6.5.0)
   - GoogleAnalytics-iOS-SDK (3.12):
-    - GoogleAnalytics-iOS-SDK/Core (= 3.12)
+    - GoogleAnalytics-iOS-SDK/Core
   - GoogleAnalytics-iOS-SDK/Core (3.12)
+  - KIF (3.2.3):
+    - KIF/XCTest
+  - KIF/XCTest (3.2.3)
   - Masonry (0.6.1)
   - Parse (1.7.4):
     - Bolts/Tasks (>= 1.1.5)
@@ -30,6 +33,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.23)
   - FlurrySDK (~> 6.5)
   - GoogleAnalytics-iOS-SDK
+  - KIF (~> 3.0)
   - Masonry (~> 0.6)
   - ParseFacebookUtils (~> 1.7)
   - SVPullToRefresh (~> 0.4)
@@ -41,9 +45,10 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
   FlurrySDK: 7e749c1bd22f4fb0a863663e38c58bc841980b25
   GoogleAnalytics-iOS-SDK: 13241762fa4aea845eb75bef6c0da3427a26e7b3
+  KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   Parse: 6ca512c6e860b66739c95151b2f76ac4712b7842
   ParseFacebookUtils: 7115990b291ae95b920fde413272828d0eb0d963
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.34.4

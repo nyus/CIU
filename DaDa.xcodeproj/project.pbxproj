@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0423E26A82074772A69A37B4 /* libPods-DaDa Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889482BCAD40C6C82BBCAC4 /* libPods-DaDa Tests.a */; };
 		0B03B4781A8272CD00526A37 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B4771A8272CD00526A37 /* UIAlertView+Blocks.m */; };
 		0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */; };
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */; };
@@ -82,11 +83,6 @@
 		652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BAB90199D3CCA009F5F5A /* AppDelegate.m */; };
 		652BAB94199D3CCA009F5F5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652BAB92199D3CCA009F5F5A /* Main.storyboard */; };
 		652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652BAB98199D3CCA009F5F5A /* Images.xcassets */; };
-		652BABA0199D3CCA009F5F5A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB9F199D3CCA009F5F5A /* XCTest.framework */; };
-		652BABA1199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
-		652BABA2199D3CCA009F5F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB84199D3CCA009F5F5A /* UIKit.framework */; };
-		652BABAA199D3CCA009F5F5A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 652BABA8199D3CCA009F5F5A /* InfoPlist.strings */; };
-		652BABAC199D3CCA009F5F5A /* CIUTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 652BABAB199D3CCA009F5F5A /* CIUTests.m */; };
 		6564F1F6199D422A00629B48 /* StartupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F5199D422A00629B48 /* StartupVC.m */; };
 		6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1F8199D4CAF00629B48 /* TabbarController.m */; };
 		6564F1FC199E3E8D00629B48 /* GenericTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FB199E3E8D00629B48 /* GenericTableVC.m */; };
@@ -120,16 +116,10 @@
 			remoteGlobalIDString = 652BAB7C199D3CCA009F5F5A;
 			remoteInfo = DaDa;
 		};
-		652BABA3199D3CCA009F5F5A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 652BAB75199D3CCA009F5F5A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 652BAB7C199D3CCA009F5F5A;
-			remoteInfo = CIU;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0889482BCAD40C6C82BBCAC4 /* libPods-DaDa Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DaDa Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B03B4761A8272CD00526A37 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		0B03B4771A8272CD00526A37 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		0B03B4791A82764700526A37 /* UIViewController+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utilities.h"; sourceTree = "<group>"; };
@@ -139,6 +129,7 @@
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
+		0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.release.xcconfig"; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableVC.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableVC.m; sourceTree = "<group>"; };
 		501A5E5019A578A00050BFA6 /* bundle1.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = bundle1.o; path = usr/lib/bundle1.o; sourceTree = SDKROOT; };
@@ -242,6 +233,7 @@
 		50FBFFD21A7E31120090EE4B /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		54966BA00A1121B9C484BD38 /* Pods-DaDa Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa/Pods-DaDa.release.xcconfig"; sourceTree = "<group>"; };
 		652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DaDa哒哒.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB80199D3CCA009F5F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -255,7 +247,6 @@
 		652BAB90199D3CCA009F5F5A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		652BAB93199D3CCA009F5F5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		652BAB98199D3CCA009F5F5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		652BAB9E199D3CCA009F5F5A /* DaDaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DaDaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		652BAB9F199D3CCA009F5F5A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		652BABA7199D3CCA009F5F5A /* DaDaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DaDaTests-Info.plist"; sourceTree = "<group>"; };
 		652BABA9199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -312,6 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0423E26A82074772A69A37B4 /* libPods-DaDa Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,16 +335,6 @@
 				652BAB85199D3CCA009F5F5A /* UIKit.framework in Frameworks */,
 				652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */,
 				2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		652BAB9B199D3CCA009F5F5A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				652BABA0199D3CCA009F5F5A /* XCTest.framework in Frameworks */,
-				652BABA2199D3CCA009F5F5A /* UIKit.framework in Frameworks */,
-				652BABA1199D3CCA009F5F5A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,7 +546,6 @@
 			isa = PBXGroup;
 			children = (
 				652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */,
-				652BAB9E199D3CCA009F5F5A /* DaDaTests.xctest */,
 				50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */,
 			);
 			name = Products;
@@ -601,6 +582,7 @@
 				652BAB84199D3CCA009F5F5A /* UIKit.framework */,
 				652BAB9F199D3CCA009F5F5A /* XCTest.framework */,
 				9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */,
+				0889482BCAD40C6C82BBCAC4 /* libPods-DaDa Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -664,6 +646,8 @@
 			children = (
 				95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */,
 				5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */,
+				54966BA00A1121B9C484BD38 /* Pods-DaDa Tests.debug.xcconfig */,
+				0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -675,9 +659,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50E45BD11B3999B300EC12CC /* Build configuration list for PBXNativeTarget "DaDa Tests" */;
 			buildPhases = (
+				70DA28C74250F14326DB7D4E /* Check Pods Manifest.lock */,
 				50E45BC31B3999B300EC12CC /* Sources */,
 				50E45BC41B3999B300EC12CC /* Frameworks */,
 				50E45BC51B3999B300EC12CC /* Resources */,
+				5E2EE546FB07F66D2C50DA61 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -709,24 +695,6 @@
 			productReference = 652BAB7D199D3CCA009F5F5A /* DaDa哒哒.app */;
 			productType = "com.apple.product-type.application";
 		};
-		652BAB9D199D3CCA009F5F5A /* DaDaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDaTests" */;
-			buildPhases = (
-				652BAB9A199D3CCA009F5F5A /* Sources */,
-				652BAB9B199D3CCA009F5F5A /* Frameworks */,
-				652BAB9C199D3CCA009F5F5A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				652BABA4199D3CCA009F5F5A /* PBXTargetDependency */,
-			);
-			name = DaDaTests;
-			productName = CIUTests;
-			productReference = 652BAB9E199D3CCA009F5F5A /* DaDaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -748,10 +716,6 @@
 							};
 						};
 					};
-					652BAB9D199D3CCA009F5F5A = {
-						DevelopmentTeam = CL6A6X43DN;
-						TestTargetID = 652BAB7C199D3CCA009F5F5A;
-					};
 				};
 			};
 			buildConfigurationList = 652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "DaDa" */;
@@ -768,7 +732,6 @@
 			projectRoot = "";
 			targets = (
 				652BAB7C199D3CCA009F5F5A /* DaDa */,
-				652BAB9D199D3CCA009F5F5A /* DaDaTests */,
 				50E45BC61B3999B300EC12CC /* DaDa Tests */,
 			);
 		};
@@ -798,14 +761,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		652BAB9C199D3CCA009F5F5A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				652BABAA199D3CCA009F5F5A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -824,6 +779,36 @@
 			showEnvVarsInLog = 0;
 		};
 		5C6C9FA21FFD20596D334E8F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5E2EE546FB07F66D2C50DA61 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70DA28C74250F14326DB7D4E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -935,14 +920,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		652BAB9A199D3CCA009F5F5A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				652BABAC199D3CCA009F5F5A /* CIUTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -950,11 +927,6 @@
 			isa = PBXTargetDependency;
 			target = 652BAB7C199D3CCA009F5F5A /* DaDa */;
 			targetProxy = 50E45BCD1B3999B300EC12CC /* PBXContainerItemProxy */;
-		};
-		652BABA4199D3CCA009F5F5A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 652BAB7C199D3CCA009F5F5A /* DaDa */;
-			targetProxy = 652BABA3199D3CCA009F5F5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -988,6 +960,7 @@
 /* Begin XCBuildConfiguration section */
 		50E45BCF1B3999B300EC12CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54966BA00A1121B9C484BD38 /* Pods-DaDa Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1014,6 +987,7 @@
 		};
 		50E45BD01B3999B300EC12CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1151,48 +1125,6 @@
 			};
 			name = Release;
 		};
-		652BABB3199D3CCA009F5F5A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CIU/DaDa-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CIUTests/DaDaTests-Info.plist";
-				PRODUCT_NAME = DaDaTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		652BABB4199D3CCA009F5F5A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5BF053E4B3E504980B45A4DB /* Pods-DaDa.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CIU/DaDa-Prefix.pch";
-				INFOPLIST_FILE = "CIUTests/DaDaTests-Info.plist";
-				PRODUCT_NAME = DaDaTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1203,6 +1135,7 @@
 				50E45BD01B3999B300EC12CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		652BAB78199D3CCA009F5F5A /* Build configuration list for PBXProject "DaDa" */ = {
 			isa = XCConfigurationList;
@@ -1218,15 +1151,6 @@
 			buildConfigurations = (
 				652BABB0199D3CCA009F5F5A /* Debug */,
 				652BABB1199D3CCA009F5F5A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		652BABB2199D3CCA009F5F5A /* Build configuration list for PBXNativeTarget "DaDaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				652BABB3199D3CCA009F5F5A /* Debug */,
-				652BABB4199D3CCA009F5F5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
