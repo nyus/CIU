@@ -42,5 +42,6 @@ class SignUpTest: KIFTestCase {
     }
     
     func test2CompleteForm() {
-        }
+    
+    }
 }

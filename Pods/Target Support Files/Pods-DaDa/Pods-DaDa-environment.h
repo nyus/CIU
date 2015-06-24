@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK_Core 12
 #define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK_Core 0
 
+// HexColors
+#define COCOAPODS_POD_AVAILABLE_HexColors
+#define COCOAPODS_VERSION_MAJOR_HexColors 2
+#define COCOAPODS_VERSION_MINOR_HexColors 2
+#define COCOAPODS_VERSION_PATCH_HexColors 1
+
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
@@ -76,17 +82,23 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 7
-#define COCOAPODS_VERSION_PATCH_Parse 4
+#define COCOAPODS_VERSION_PATCH_Parse 5
 
 // ParseFacebookUtils
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtils
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtils 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtils 7
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtils 4
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtils 5
 
 // SVPullToRefresh
 #define COCOAPODS_POD_AVAILABLE_SVPullToRefresh
 #define COCOAPODS_VERSION_MAJOR_SVPullToRefresh 0
 #define COCOAPODS_VERSION_MINOR_SVPullToRefresh 4
 #define COCOAPODS_VERSION_PATCH_SVPullToRefresh 1
+
+// TSMessages
+#define COCOAPODS_POD_AVAILABLE_TSMessages
+#define COCOAPODS_VERSION_MAJOR_TSMessages 0
+#define COCOAPODS_VERSION_MINOR_TSMessages 9
+#define COCOAPODS_VERSION_PATCH_TSMessages 12
 

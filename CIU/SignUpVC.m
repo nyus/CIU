@@ -164,7 +164,28 @@ static CGFloat const kViewPositionHigh = -20;
 }
 
 - (IBAction)signUpButtonTapped:(id)sender {
-    [self showEULA];
+    
+    if (self.imageviewTopSpaceToTopLayoutConstraint.constant!=20) {
+        self.imageviewTopSpaceToTopLayoutConstraint.constant = 20;
+        [UIView animateWithDuration:.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+    
+    NSString *userNameString =[self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *emailString =[self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *passWordString = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *firstNameString = [self.firstNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastNameString = [self.lastNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (![emailString isEqualToString:@""] && ![userNameString isEqualToString:@""] && ![passWordString isEqualToString:@""] && ![lastNameString isEqualToString:@""] && ![firstNameString isEqualToString:@""]) {
+        [self showEULA];
+    } else {
+        [TSMessage showNotificationInViewController:self
+                                              title:@"Empty field not allowed"
+                                           subtitle:@"Please fill out all the fields"
+                                               type:TSMessageNotificationTypeError];
+    }
 }
 
 #pragma mark - EULA Delegate

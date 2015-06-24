@@ -45,4 +45,5 @@
     #import "AnalyticsManager.h"
     #import "UIColor+CIUColors.h"
     #import "UIFont+Utilities.h"
+    #import "TSMessage.h"
 #endif
