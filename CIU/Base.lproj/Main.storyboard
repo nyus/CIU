@@ -1959,6 +1959,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" clearsOnBeginEditing="YES" minimumFontSize="17" background="input_psw" translatesAutoresizingMaskIntoConstraints="NO" id="Pnw-q4-MRY" customClass="LoginTextField">
                                 <rect key="frame" x="40" y="221" width="240" height="40"/>
+                                <accessibility key="accessibilityConfiguration" label="password"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LXE-Be-AnX"/>
                                     <constraint firstAttribute="width" constant="240" id="s1l-rB-oZI"/>
@@ -1972,6 +1973,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" background="input_username" translatesAutoresizingMaskIntoConstraints="NO" id="yjy-Z9-Wae" customClass="LoginTextField">
                                 <rect key="frame" x="40" y="161" width="240" height="40"/>
+                                <accessibility key="accessibilityConfiguration" label="username"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="EOv-8h-9aa"/>
                                     <constraint firstAttribute="height" constant="40" id="tej-1s-Po3"/>
@@ -1986,6 +1988,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQT-fB-mtH">
                                 <rect key="frame" x="40" y="291" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="signIn"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cUo-6c-AvQ"/>
                                     <constraint firstAttribute="width" constant="240" id="fFC-MA-e7p"/>
@@ -2008,6 +2011,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-aj-aGp">
                                 <rect key="frame" x="133" y="518" width="55" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="signUp"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2018,6 +2022,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fG4-WT-exN">
                                 <rect key="frame" x="160" y="351" width="120" height="25"/>
+                                <accessibility key="accessibilityConfiguration" label="forgotPassword"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="IEL-Bu-oHW"/>
                                     <constraint firstAttribute="height" constant="25" id="IcZ-hH-xhB"/>
@@ -2033,6 +2038,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-ns-1F6" userLabel="Remember me">
                                 <rect key="frame" x="39" y="351" width="114" height="25"/>
+                                <accessibility key="accessibilityConfiguration" label="rememberMe"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="WT6-dS-aNH"/>
                                     <constraint firstAttribute="height" constant="25" id="hcP-jc-VRj"/>
@@ -2052,6 +2058,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radionButton_selected" translatesAutoresizingMaskIntoConstraints="NO" id="CLo-k3-6uH">
                                 <rect key="frame" x="40" y="358" width="13" height="13"/>
+                                <accessibility key="accessibilityConfiguration" label="rememberMe">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="13" id="SxD-Kg-Kq6"/>
                                     <constraint firstAttribute="height" constant="13" id="pdl-tg-aOn"/>
@@ -2082,6 +2091,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
                                         <rect key="frame" x="2" y="0.0" width="199" height="44"/>
+                                        <accessibility key="accessibilityConfiguration" label="logInWithFacebook"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="199" id="s3Z-IF-eWg"/>
                                             <constraint firstAttribute="height" constant="44" id="xcm-zf-ir3"/>
@@ -2106,6 +2116,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.58823529411764708" green="0.80000000000000004" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" label="logInView">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="Pnw-q4-MRY" secondAttribute="centerX" id="34R-mh-Vbz"/>
                             <constraint firstAttribute="centerX" secondItem="FQT-fB-mtH" secondAttribute="centerX" id="FTu-Xz-dtw"/>
@@ -2285,7 +2298,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAf-vZ-RC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-301" y="-1239"/>
+            <point key="canvasLocation" x="-289" y="-1391"/>
         </scene>
         <!--DaDa哒哒 EULA-->
         <scene sceneID="AuL-Th-pfi">
@@ -3318,11 +3331,17 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                     <navigationItem key="navigationItem" title="DaDa哒哒 EULA" id="PO5-RT-RaP">
                         <barButtonItem key="leftBarButtonItem" title="Decline" id="axJ-yO-ouk">
                             <color key="tintColor" red="1" green="0.0" blue="0.020984086786254075" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="declineEULA"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="declineButtonTapped:" destination="cwp-YR-Gmz" id="ME1-4I-vYx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Accept" id="yNs-rS-pdI">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="acceptEULA"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="acceptButtonTapped:" destination="cwp-YR-Gmz" id="6a1-QX-dCP"/>
                             </connections>
@@ -3331,7 +3350,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HLc-75-ADA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="106" y="-1252"/>
+            <point key="canvasLocation" x="118" y="-1404"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ux3-cP-aaO">

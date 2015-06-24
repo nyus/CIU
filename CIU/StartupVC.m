@@ -215,6 +215,7 @@ static CGFloat leadingSpace;
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.textLabel.text = self.dataSource[indexPath.row];
+        cell.accessibilityLabel = self.dataSource[indexPath.row];
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
         cell.textLabel.textColor = [UIColor themeTextGrey];
         cell.textLabel.textAlignment = NSTextAlignmentRight;

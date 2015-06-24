@@ -13,6 +13,7 @@
 #import "StatusObject.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
+static const NSString *kMenuButtonAccessibilityLabel = @"menu";
 
 @interface GenericTableVC()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -34,8 +35,10 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 }
 
 - (void)addMenuButton{
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"3menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"3menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
+    menuButton.accessibilityLabel = kMenuButtonAccessibilityLabel;
+    self.navigationItem.leftBarButtonItem = menuButton;
+    
 }
 
 - (void)addTapToScrollUpGesture{

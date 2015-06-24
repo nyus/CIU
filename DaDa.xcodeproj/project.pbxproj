@@ -46,6 +46,8 @@
 		5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5048A4891B28FD750096F346 /* DDCopiableLabel.m */; };
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
+		505286DB1B3A4B050094F533 /* LogInTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DA1B3A4B050094F533 /* LogInTest.m */; };
+		505286DD1B3A4B2B0094F533 /* LifestyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DC1B3A4B2B0094F533 /* LifestyleTest.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
@@ -69,7 +71,6 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
-		50E45BCC1B3999B300EC12CC /* DaDa_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
@@ -183,6 +184,12 @@
 		504AE5891A2241C7000C62D9 /* LifestyleObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleObject.m; sourceTree = "<group>"; };
 		504AE58B1A225397000C62D9 /* JobTradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobTradeTableViewCell.h; sourceTree = "<group>"; };
 		504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobTradeTableViewCell.m; sourceTree = "<group>"; };
+		505286D11B3A4AB90094F533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		505286D21B3A4AB90094F533 /* LogInTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInTest.m; sourceTree = "<group>"; };
+		505286D91B3A4B050094F533 /* DaDa Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DaDa Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		505286DA1B3A4B050094F533 /* LogInTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTest.m; sourceTree = "<group>"; };
+		505286DC1B3A4B2B0094F533 /* LifestyleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTest.m; sourceTree = "<group>"; };
+		505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAccessibilityLabelConstants.h; sourceTree = "<group>"; };
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
 		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
@@ -220,7 +227,6 @@
 		50CFC9751AFE261A005EBAE4 /* StarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingView.m; sourceTree = "<group>"; };
 		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaDa_Tests.swift; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+Utilities.h"; sourceTree = "<group>"; };
@@ -248,9 +254,6 @@
 		652BAB93199D3CCA009F5F5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		652BAB98199D3CCA009F5F5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		652BAB9F199D3CCA009F5F5A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		652BABA7199D3CCA009F5F5A /* DaDaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DaDaTests-Info.plist"; sourceTree = "<group>"; };
-		652BABA9199D3CCA009F5F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		652BABAB199D3CCA009F5F5A /* CIUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIUTests.m; sourceTree = "<group>"; };
 		6564F1F4199D422A00629B48 /* StartupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartupVC.h; sourceTree = "<group>"; };
 		6564F1F5199D422A00629B48 /* StartupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartupVC.m; sourceTree = "<group>"; };
 		6564F1F7199D4CAF00629B48 /* TabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarController.h; sourceTree = "<group>"; };
@@ -417,6 +420,23 @@
 			name = Surprise;
 			sourceTree = "<group>";
 		};
+		505286CF1B3A4AB90094F533 /* LogInTest */ = {
+			isa = PBXGroup;
+			children = (
+				505286D21B3A4AB90094F533 /* LogInTest.m */,
+				505286D01B3A4AB90094F533 /* Supporting Files */,
+			);
+			path = LogInTest;
+			sourceTree = "<group>";
+		};
+		505286D01B3A4AB90094F533 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				505286D11B3A4AB90094F533 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		5092160F19AA479B00304EDD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -511,8 +531,11 @@
 		50E45BC81B3999B300EC12CC /* DaDa Tests */ = {
 			isa = PBXGroup;
 			children = (
-				50E45BCB1B3999B300EC12CC /* DaDa_Tests.swift */,
+				505286DC1B3A4B2B0094F533 /* LifestyleTest.m */,
+				505286DA1B3A4B050094F533 /* LogInTest.m */,
 				50E45BC91B3999B300EC12CC /* Supporting Files */,
+				505286D91B3A4B050094F533 /* DaDa Tests-Bridging-Header.h */,
+				505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */,
 			);
 			path = "DaDa Tests";
 			sourceTree = "<group>";
@@ -534,8 +557,8 @@
 				0B525D981A1265AC00F2AE72 /* companyLogo.png */,
 				65C4F0BB19AFB240004452C3 /* default-user-icon-profile.png */,
 				652BAB86199D3CCA009F5F5A /* DaDa */,
-				652BABA5199D3CCA009F5F5A /* CIUTests */,
 				50E45BC81B3999B300EC12CC /* DaDa Tests */,
+				505286CF1B3A4AB90094F533 /* LogInTest */,
 				652BAB7F199D3CCA009F5F5A /* Frameworks */,
 				652BAB7E199D3CCA009F5F5A /* Products */,
 				FB91E6EE33DD99C139E9BA98 /* Pods */,
@@ -619,24 +642,6 @@
 				652BAB89199D3CCA009F5F5A /* InfoPlist.strings */,
 				652BAB8C199D3CCA009F5F5A /* main.m */,
 				652BAB8E199D3CCA009F5F5A /* DaDa-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		652BABA5199D3CCA009F5F5A /* CIUTests */ = {
-			isa = PBXGroup;
-			children = (
-				652BABAB199D3CCA009F5F5A /* CIUTests.m */,
-				652BABA6199D3CCA009F5F5A /* Supporting Files */,
-			);
-			path = CIUTests;
-			sourceTree = "<group>";
-		};
-		652BABA6199D3CCA009F5F5A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				652BABA7199D3CCA009F5F5A /* DaDaTests-Info.plist */,
-				652BABA8199D3CCA009F5F5A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -775,7 +780,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APP_ID=\"54ccf13951de5e9f042ed3f9\"\nAPI_KEY=\"VeAeUuuxqvBxGoASov5OmldSkOTdWVTQ\"\nsource \"${SRCROOT}\"/dsym_upload.sh";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    APP_ID=\"54ccf13951de5e9f042ed3f9\"\n    API_KEY=\"VeAeUuuxqvBxGoASov5OmldSkOTdWVTQ\"\n    source \"${SRCROOT}\"/dsym_upload.sh\nfi";
 			showEnvVarsInLog = 0;
 		};
 		5C6C9FA21FFD20596D334E8F /* Check Pods Manifest.lock */ = {
@@ -845,7 +850,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50E45BCC1B3999B300EC12CC /* DaDa_Tests.swift in Sources */,
+				505286DD1B3A4B2B0094F533 /* LifestyleTest.m in Sources */,
+				505286DB1B3A4B050094F533 /* LogInTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,14 +953,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		652BABA8199D3CCA009F5F5A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				652BABA9199D3CCA009F5F5A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -963,6 +961,7 @@
 			baseConfigurationReference = 54966BA00A1121B9C484BD38 /* Pods-DaDa Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -980,6 +979,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DaDa Tests/DaDa Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
 			};
@@ -990,6 +990,7 @@
 			baseConfigurationReference = 0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1004,6 +1005,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DaDa Tests/DaDa Tests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaDa哒哒.app/DaDa哒哒";
 			};
 			name = Release;
