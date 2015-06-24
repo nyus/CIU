@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1959,7 +1959,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" clearsOnBeginEditing="YES" minimumFontSize="17" background="input_psw" translatesAutoresizingMaskIntoConstraints="NO" id="Pnw-q4-MRY" customClass="LoginTextField">
                                 <rect key="frame" x="40" y="221" width="240" height="40"/>
-                                <accessibility key="accessibilityConfiguration" label="password"/>
+                                <accessibility key="accessibilityConfiguration" label="Password"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LXE-Be-AnX"/>
                                     <constraint firstAttribute="width" constant="240" id="s1l-rB-oZI"/>
@@ -1973,7 +1973,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" background="input_username" translatesAutoresizingMaskIntoConstraints="NO" id="yjy-Z9-Wae" customClass="LoginTextField">
                                 <rect key="frame" x="40" y="161" width="240" height="40"/>
-                                <accessibility key="accessibilityConfiguration" label="username"/>
+                                <accessibility key="accessibilityConfiguration" label="Username"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="EOv-8h-9aa"/>
                                     <constraint firstAttribute="height" constant="40" id="tej-1s-Po3"/>
@@ -1988,7 +1988,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQT-fB-mtH">
                                 <rect key="frame" x="40" y="291" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" label="signIn"/>
+                                <accessibility key="accessibilityConfiguration" label="Sign In"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cUo-6c-AvQ"/>
                                     <constraint firstAttribute="width" constant="240" id="fFC-MA-e7p"/>
@@ -2011,7 +2011,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-aj-aGp">
                                 <rect key="frame" x="133" y="518" width="55" height="30"/>
-                                <accessibility key="accessibilityConfiguration" label="signUp"/>
+                                <accessibility key="accessibilityConfiguration" label="Sign Up"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2022,7 +2022,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fG4-WT-exN">
                                 <rect key="frame" x="160" y="351" width="120" height="25"/>
-                                <accessibility key="accessibilityConfiguration" label="forgotPassword"/>
+                                <accessibility key="accessibilityConfiguration" label="Forgot Password"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="IEL-Bu-oHW"/>
                                     <constraint firstAttribute="height" constant="25" id="IcZ-hH-xhB"/>
@@ -2038,7 +2038,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-ns-1F6" userLabel="Remember me">
                                 <rect key="frame" x="39" y="351" width="114" height="25"/>
-                                <accessibility key="accessibilityConfiguration" label="rememberMe"/>
+                                <accessibility key="accessibilityConfiguration" label="Remember Me"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="WT6-dS-aNH"/>
                                     <constraint firstAttribute="height" constant="25" id="hcP-jc-VRj"/>
@@ -2091,7 +2091,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daT-oh-yvo" userLabel="login fb">
                                         <rect key="frame" x="2" y="0.0" width="199" height="44"/>
-                                        <accessibility key="accessibilityConfiguration" label="logInWithFacebook"/>
+                                        <accessibility key="accessibilityConfiguration" label="Log In With Facebook"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="199" id="s3Z-IF-eWg"/>
                                             <constraint firstAttribute="height" constant="44" id="xcm-zf-ir3"/>
@@ -2176,6 +2176,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBG-uA-QSX">
                                 <rect key="frame" x="73" y="319" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Sign Up"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="0.1019607931" green="0.81176477670000002" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2186,6 +2187,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lLg-QU-IH2">
                                 <rect key="frame" x="73" y="234" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Username"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <connections>
@@ -2194,6 +2196,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oXd-va-r2g">
                                 <rect key="frame" x="73" y="276" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Password"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <connections>
@@ -2202,6 +2205,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8V5-7B-g10">
                                 <rect key="frame" x="73" y="107" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Email"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <connections>
@@ -2210,6 +2214,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-user-icon-profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="6vD-PB-A6S">
                                 <rect key="frame" x="120" y="20" width="80" height="80"/>
+                                <accessibility key="accessibilityConfiguration" hint="" label="Profile Picture">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="SDO-lh-aMt"/>
@@ -2221,6 +2228,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vSX-KQ-ehP">
                                 <rect key="frame" x="73" y="149" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="First Name"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <connections>
@@ -2229,6 +2237,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XXm-sr-Nq9">
                                 <rect key="frame" x="73" y="192" width="175" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Last Name"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <connections>

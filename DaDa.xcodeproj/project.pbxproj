@@ -13,6 +13,8 @@
 		0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
+		0BD730461B3B090B002F56C0 /* SignUpTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD730451B3B090B002F56C0 /* SignUpTest.swift */; };
+		0BD7304A1B3B4744002F56C0 /* TesterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD730491B3B4744002F56C0 /* TesterExtension.swift */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
@@ -47,7 +49,6 @@
 		504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE5891A2241C7000C62D9 /* LifestyleObject.m */; };
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505286DB1B3A4B050094F533 /* LogInTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DA1B3A4B050094F533 /* LogInTest.m */; };
-		505286DD1B3A4B2B0094F533 /* LifestyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DC1B3A4B2B0094F533 /* LifestyleTest.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
@@ -130,6 +131,8 @@
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
+		0BD730451B3B090B002F56C0 /* SignUpTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTest.swift; sourceTree = "<group>"; };
+		0BD730491B3B4744002F56C0 /* TesterExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TesterExtension.swift; sourceTree = "<group>"; };
 		0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.release.xcconfig"; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableVC.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableVC.m; sourceTree = "<group>"; };
@@ -188,7 +191,6 @@
 		505286D21B3A4AB90094F533 /* LogInTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInTest.m; sourceTree = "<group>"; };
 		505286D91B3A4B050094F533 /* DaDa Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DaDa Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		505286DA1B3A4B050094F533 /* LogInTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTest.m; sourceTree = "<group>"; };
-		505286DC1B3A4B2B0094F533 /* LifestyleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTest.m; sourceTree = "<group>"; };
 		505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAccessibilityLabelConstants.h; sourceTree = "<group>"; };
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
@@ -358,6 +360,22 @@
 			children = (
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		0BD730471B3B3BC9002F56C0 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				505286DA1B3A4B050094F533 /* LogInTest.m */,
+			);
+			name = LogIn;
+			sourceTree = "<group>";
+		};
+		0BD730481B3B3BD3002F56C0 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				0BD730451B3B090B002F56C0 /* SignUpTest.swift */,
+			);
+			name = Signup;
 			sourceTree = "<group>";
 		};
 		501A5E4C19A5755E0050BFA6 /* Lifestyle */ = {
@@ -531,10 +549,11 @@
 		50E45BC81B3999B300EC12CC /* DaDa Tests */ = {
 			isa = PBXGroup;
 			children = (
-				505286DC1B3A4B2B0094F533 /* LifestyleTest.m */,
-				505286DA1B3A4B050094F533 /* LogInTest.m */,
-				50E45BC91B3999B300EC12CC /* Supporting Files */,
 				505286D91B3A4B050094F533 /* DaDa Tests-Bridging-Header.h */,
+				0BD730491B3B4744002F56C0 /* TesterExtension.swift */,
+				0BD730481B3B3BD3002F56C0 /* Signup */,
+				0BD730471B3B3BC9002F56C0 /* LogIn */,
+				50E45BC91B3999B300EC12CC /* Supporting Files */,
 				505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */,
 			);
 			path = "DaDa Tests";
@@ -850,8 +869,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				505286DD1B3A4B2B0094F533 /* LifestyleTest.m in Sources */,
 				505286DB1B3A4B050094F533 /* LogInTest.m in Sources */,
+				0BD730461B3B090B002F56C0 /* SignUpTest.swift in Sources */,
+				0BD7304A1B3B4744002F56C0 /* TesterExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -978,6 +998,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "DaDa Tests/DaDa Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1043,7 +1064,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
