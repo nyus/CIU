@@ -13,7 +13,6 @@
 #import "StatusObject.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
-static const NSString *kMenuButtonAccessibilityLabel = @"menu";
 
 @interface GenericTableVC()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;

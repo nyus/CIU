@@ -184,7 +184,8 @@ static CGFloat const kViewPositionHigh = -20;
         [TSMessage showNotificationInViewController:self
                                               title:@"Empty field not allowed"
                                            subtitle:@"Please fill out all the fields"
-                                               type:TSMessageNotificationTypeError];
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:@"Empty field not allowed"];
     }
 }
 

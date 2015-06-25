@@ -1,7 +1,7 @@
 PODS:
   - Bolts (1.2.0):
-    - Bolts/AppLinks
-    - Bolts/Tasks
+    - Bolts/AppLinks (= 1.2.0)
+    - Bolts/Tasks (= 1.2.0)
   - Bolts/AppLinks (1.2.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.2.0)
@@ -10,14 +10,14 @@ PODS:
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - FlurrySDK (6.5.0):
-    - FlurrySDK/FlurrySDK
+    - FlurrySDK/FlurrySDK (= 6.5.0)
   - FlurrySDK/FlurrySDK (6.5.0)
   - GoogleAnalytics-iOS-SDK (3.12):
-    - GoogleAnalytics-iOS-SDK/Core
+    - GoogleAnalytics-iOS-SDK/Core (= 3.12)
   - GoogleAnalytics-iOS-SDK/Core (3.12)
   - HexColors (2.2.1)
   - KIF (3.2.3):
-    - KIF/XCTest
+    - KIF/XCTest (= 3.2.3)
   - KIF/XCTest (3.2.3)
   - Masonry (0.6.1)
   - Parse (1.7.5):
@@ -40,7 +40,17 @@ DEPENDENCIES:
   - Masonry (~> 0.6)
   - ParseFacebookUtils (~> 1.7)
   - SVPullToRefresh (~> 0.4)
-  - TSMessages (~> 0.9)
+  - TSMessages (from `https://github.com/nyus2014/TSMessages.git`, branch `huang`)
+
+EXTERNAL SOURCES:
+  TSMessages:
+    :branch: huang
+    :git: https://github.com/nyus2014/TSMessages.git
+
+CHECKOUT OPTIONS:
+  TSMessages:
+    :commit: 23bf8732ee4cc08247d6eb09239d3b6268d25ad1
+    :git: https://github.com/nyus2014/TSMessages.git
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
@@ -57,4 +67,4 @@ SPEC CHECKSUMS:
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.37.2

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -3341,7 +3341,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                         <barButtonItem key="leftBarButtonItem" title="Decline" id="axJ-yO-ouk">
                             <color key="tintColor" red="1" green="0.0" blue="0.020984086786254075" alpha="1" colorSpace="calibratedRGB"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="declineEULA"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Decline EULA"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="declineButtonTapped:" destination="cwp-YR-Gmz" id="ME1-4I-vYx"/>
@@ -3349,7 +3349,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Accept" id="yNs-rS-pdI">
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="acceptEULA"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Accept EULA"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="acceptButtonTapped:" destination="cwp-YR-Gmz" id="6a1-QX-dCP"/>

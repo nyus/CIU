@@ -12,7 +12,7 @@ target 'DaDa' do
   pod 'FlurrySDK', '~> 6.5'
   pod 'SVPullToRefresh', '~> 0.4'
   pod 'ELCImagePickerController', '~> 0.2'
-  pod 'TSMessages', '~> 0.9'
+  pod 'TSMessages', :git => 'https://github.com/nyus2014/TSMessages.git', :branch => 'huang'
 end
 
 target 'DaDa Tests', :exclusive => true do

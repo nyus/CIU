@@ -23,12 +23,10 @@
 @end
 
 @implementation TSMessage
-
 static TSMessage *sharedMessage;
 static BOOL notificationActive;
 
 static BOOL _useiOS7Style;
-
 
 __weak static UIViewController *_defaultViewController;
 
@@ -46,20 +44,24 @@ __weak static UIViewController *_defaultViewController;
 
 + (void)showNotificationWithTitle:(NSString *)title
                              type:(TSMessageNotificationType)type
+               accessibilityLabel:(NSString *)label
 {
     [self showNotificationWithTitle:title
                            subtitle:nil
-                               type:type];
+                               type:type
+                 accessibilityLabel:label];
 }
 
 + (void)showNotificationWithTitle:(NSString *)title
                          subtitle:(NSString *)subtitle
                              type:(TSMessageNotificationType)type
+               accessibilityLabel:(NSString *)label
 {
     [self showNotificationInViewController:[self defaultViewController]
                                      title:title
                                   subtitle:subtitle
-                                      type:type];
+                                      type:type
+                        accessibilityLabel:label];
 }
 
 + (void)showNotificationInViewController:(UIViewController *)viewController
@@ -67,6 +69,7 @@ __weak static UIViewController *_defaultViewController;
                                 subtitle:(NSString *)subtitle
                                     type:(TSMessageNotificationType)type
                                 duration:(NSTimeInterval)duration
+                      accessibilityLabel:(NSString *)label
 {
     [self showNotificationInViewController:viewController
                                      title:title
@@ -78,7 +81,8 @@ __weak static UIViewController *_defaultViewController;
                                buttonTitle:nil
                             buttonCallback:nil
                                 atPosition:TSMessageNotificationPositionTop
-                       canBeDismissedByUser:YES];
+                       canBeDismissedByUser:YES
+                        accessibilityLabel:label];
 }
 
 + (void)showNotificationInViewController:(UIViewController *)viewController
@@ -87,6 +91,7 @@ __weak static UIViewController *_defaultViewController;
                                     type:(TSMessageNotificationType)type
                                 duration:(NSTimeInterval)duration
                      canBeDismissedByUser:(BOOL)dismissingEnabled
+                      accessibilityLabel:(NSString *)label
 {
     [self showNotificationInViewController:viewController
                                      title:title
@@ -98,13 +103,15 @@ __weak static UIViewController *_defaultViewController;
                                buttonTitle:nil
                             buttonCallback:nil
                                 atPosition:TSMessageNotificationPositionTop
-                       canBeDismissedByUser:dismissingEnabled];
+                       canBeDismissedByUser:dismissingEnabled
+                        accessibilityLabel:(NSString *)label];
 }
 
 + (void)showNotificationInViewController:(UIViewController *)viewController
                                    title:(NSString *)title
                                 subtitle:(NSString *)subtitle
                                     type:(TSMessageNotificationType)type
+                      accessibilityLabel:(NSString *)label
 {
     [self showNotificationInViewController:viewController
                                      title:title
@@ -116,7 +123,8 @@ __weak static UIViewController *_defaultViewController;
                                buttonTitle:nil
                             buttonCallback:nil
                                 atPosition:TSMessageNotificationPositionTop
-                      canBeDismissedByUser:YES];
+                      canBeDismissedByUser:YES
+                        accessibilityLabel:label];
 }
 
 
@@ -131,6 +139,7 @@ __weak static UIViewController *_defaultViewController;
                           buttonCallback:(void (^)())buttonCallback
                               atPosition:(TSMessageNotificationPosition)messagePosition
                     canBeDismissedByUser:(BOOL)dismissingEnabled
+                      accessibilityLabel:(NSString *)label
 {
     // Create the TSMessageView
     TSMessageView *v = [[TSMessageView alloc] initWithTitle:title
@@ -144,6 +153,10 @@ __weak static UIViewController *_defaultViewController;
                                              buttonCallback:buttonCallback
                                                  atPosition:messagePosition
                                        canBeDismissedByUser:dismissingEnabled];
+    if (label) {
+        v.accessibilityLabel = label;
+    }
+    
     [self prepareNotificationToBeShown:v];
 }
 

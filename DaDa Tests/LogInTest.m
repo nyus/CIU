@@ -68,7 +68,7 @@
     [tester tapViewWithAccessibilityLabel:kSignInButtonAccessibilityLabel];
     
     // UIAlertView dismiss
-    [tester tapViewWithAccessibilityLabel:@"Dismiss"];
+    [tester tapViewWithAccessibilityLabel:kIncorrectCredentialsAccessibilityLabel];
 }
 
 - (void)testCWrongPassword
@@ -85,7 +85,7 @@
     
     [tester tapViewWithAccessibilityLabel:kSignInButtonAccessibilityLabel];
     
-    [tester tapViewWithAccessibilityLabel:@"Dismiss"];
+    [tester tapViewWithAccessibilityLabel:kIncorrectCredentialsAccessibilityLabel];
 }
 
 - (void)testDSignup
