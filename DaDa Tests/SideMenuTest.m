@@ -50,7 +50,7 @@
 - (void)test2TapEachRowInMenu
 {
     //[NSArray arrayWithObjects:@"User Profile",@"About",@"Rate",@"Feedback",@"Share",@"Terms & Privacy",@"Log out", nil];
-    [tester tapViewWithAccessibilityLabel:@"About"];
+    [tester tapViewWithAccessibilityLabel:@"About"];  
     [tester swipeViewWithAccessibilityLabel:@"Scroll View" inDirection:KIFSwipeDirectionUp];
     [tester tapViewWithAccessibilityLabel:@"Done"];
     
