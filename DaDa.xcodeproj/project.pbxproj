@@ -48,6 +48,8 @@
 		504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 504AE58C1A225397000C62D9 /* JobTradeTableViewCell.m */; };
 		505286DB1B3A4B050094F533 /* LogInTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DA1B3A4B050094F533 /* LogInTest.m */; };
 		505286E01B3B97D60094F533 /* SignUpVCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286DF1B3B97D60094F533 /* SignUpVCTest.m */; };
+		505286E21B3C3A890094F533 /* LifestyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286E11B3C3A890094F533 /* LifestyleTest.m */; };
+		505286E41B3C3E490094F533 /* SideMenuTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286E31B3C3E490094F533 /* SideMenuTest.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
@@ -189,6 +191,8 @@
 		505286DA1B3A4B050094F533 /* LogInTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTest.m; sourceTree = "<group>"; };
 		505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAccessibilityLabelConstants.h; sourceTree = "<group>"; };
 		505286DF1B3B97D60094F533 /* SignUpVCTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpVCTest.m; sourceTree = "<group>"; };
+		505286E11B3C3A890094F533 /* LifestyleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTest.m; sourceTree = "<group>"; };
+		505286E31B3C3E490094F533 /* SideMenuTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuTest.m; sourceTree = "<group>"; };
 		505B504A1A1916A9000300ED /* UIColor+CIUColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CIUColors.h"; sourceTree = "<group>"; };
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
 		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
@@ -357,22 +361,6 @@
 			children = (
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		0BD730471B3B3BC9002F56C0 /* LogIn */ = {
-			isa = PBXGroup;
-			children = (
-				505286DA1B3A4B050094F533 /* LogInTest.m */,
-			);
-			name = LogIn;
-			sourceTree = "<group>";
-		};
-		0BD730481B3B3BD3002F56C0 /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				505286DF1B3B97D60094F533 /* SignUpVCTest.m */,
-			);
-			name = Signup;
 			sourceTree = "<group>";
 		};
 		501A5E4C19A5755E0050BFA6 /* Lifestyle */ = {
@@ -546,10 +534,12 @@
 		50E45BC81B3999B300EC12CC /* DaDa Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0BD730481B3B3BD3002F56C0 /* Signup */,
-				0BD730471B3B3BC9002F56C0 /* LogIn */,
-				50E45BC91B3999B300EC12CC /* Supporting Files */,
 				505286DE1B3A55310094F533 /* DDAccessibilityLabelConstants.h */,
+				505286DA1B3A4B050094F533 /* LogInTest.m */,
+				505286DF1B3B97D60094F533 /* SignUpVCTest.m */,
+				505286E11B3C3A890094F533 /* LifestyleTest.m */,
+				505286E31B3C3E490094F533 /* SideMenuTest.m */,
+				50E45BC91B3999B300EC12CC /* Supporting Files */,
 			);
 			path = "DaDa Tests";
 			sourceTree = "<group>";
@@ -864,8 +854,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505286E21B3C3A890094F533 /* LifestyleTest.m in Sources */,
 				505286E01B3B97D60094F533 /* SignUpVCTest.m in Sources */,
 				505286DB1B3A4B050094F533 /* LogInTest.m in Sources */,
+				505286E41B3C3E490094F533 /* SideMenuTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

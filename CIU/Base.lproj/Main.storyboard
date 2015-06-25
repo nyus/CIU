@@ -594,6 +594,9 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                                     <constraint firstAttribute="trailing" secondItem="utY-MJ-PRu" secondAttribute="trailing" id="Twb-fH-cZa"/>
                                     <constraint firstItem="utY-MJ-PRu" firstAttribute="centerX" secondItem="N7J-qZ-UaZ" secondAttribute="centerX" id="lT2-Tv-hSv"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Scroll View"/>
+                                </userDefinedRuntimeAttributes>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -633,6 +636,7 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-Pj-Hzv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" label="Text View"/>
                                 <string key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
 LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access DaDa in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from DaDa, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
 USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with DaDa, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
@@ -660,7 +664,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ul9-i0-RxH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="240" y="1406"/>
+            <point key="canvasLocation" x="244" y="1406"/>
         </scene>
         <!--Privacy Policy-->
         <scene sceneID="GxZ-pg-YOq">
@@ -677,6 +681,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qs-1q-qbg">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" label="Text View"/>
                                 <string key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
 1. Protecting your privacy
 - We take precautions to prevent unauthorized access to or misuse of data about you.
@@ -725,7 +730,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
             </objects>
             <point key="canvasLocation" x="598" y="1406"/>
         </scene>
-        <!--免责声明-->
+        <!--Licenses and Disclosures-->
         <scene sceneID="H8F-mf-VyD">
             <objects>
                 <viewController id="eiR-iz-sdm" customClass="AboutUsVC" sceneMemberID="viewController">
@@ -740,6 +745,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWx-tf-pFF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" label="Text View"/>
                                 <string key="text">DADA 哒哒的内容主要来自注册用户所发表的各类信息。用户以任何形式上传、发布于DADA 哒哒的信息内容，为用户个人行为，如果第三方对该内容提出包括版权在内的异议，我们应核实第三方的权利请求，将该内容删除。
 • 用户上传至DADA 哒哒的原创信息内容视为许可本站以合理的方式使用。
 • 用户在DADA 哒哒平台上传的信息内容仅代表用户或作者个人观点，与本公司立场无关。用户自行承担其上传的信息内容产生的一切法律责任。
@@ -762,7 +768,7 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                             <constraint firstAttribute="centerX" secondItem="YWx-tf-pFF" secondAttribute="centerX" id="qGa-cO-4cb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="免责声明" id="K63-Dr-oBc"/>
+                    <navigationItem key="navigationItem" title="Licenses and Disclosures" id="K63-Dr-oBc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLJ-73-cd1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3563,8 +3569,8 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LfB-v7-h8h" id="PJp-lc-34O">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="免责声明" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nG-Ln-SJY">
-                                                    <rect key="frame" x="23" y="11" width="68" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Licenses and Disclosures" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nG-Ln-SJY">
+                                                    <rect key="frame" x="23" y="11" width="195" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>

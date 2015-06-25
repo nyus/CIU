@@ -189,16 +189,14 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *categoryCell = @"categoryCell";
     LifestyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryCell forIndexPath:indexPath];
-    
     LifestyleCategory *category = self.dataSource[indexPath.row];
-    
     NSString *imageName = [self imageNameOfCategory:category];
     cell.cellImageView.image = [UIImage imageNamed:imageName];
-    
     cell.label.text = category.name;
+    cell.accessibilityLabel = category.name;
+    
     return cell;
 }
 

@@ -201,6 +201,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 -(void)viewDidLoad{
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
+    
     [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
     [self.tableView registerClass:[JobTradeTableViewCell class] forCellReuseIdentifier:kJobAndTradeCellReuseID];
     

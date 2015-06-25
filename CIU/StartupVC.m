@@ -73,7 +73,7 @@ static CGFloat leadingSpace;
 }
 
 -(void)reloadTableView{
-    self.dataSource = [NSArray arrayWithObjects:@"userProfile",@"About",@"Rate",@"Feedback",@"Share",@"Terms of Use",@"Log out", nil];
+    self.dataSource = [NSArray arrayWithObjects:@"Profile Picture",@"About",@"Rate",@"Feedback",@"Share",@"Terms & Privacy",@"Log out", nil];
     [self.tableView reloadData];
 }
 
@@ -210,6 +210,7 @@ static CGFloat leadingSpace;
         c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
         c.usernameLabel.textColor = [UIColor themeTextGrey];
         c.backgroundColor = [UIColor themeGreen];
+        c.accessibilityLabel = self.dataSource[indexPath.row];
         
     }else{
         
@@ -219,7 +220,6 @@ static CGFloat leadingSpace;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
         cell.textLabel.textColor = [UIColor themeTextGrey];
         cell.textLabel.textAlignment = NSTextAlignmentRight;
-        
         cell.backgroundColor = [UIColor themeGreen];
         
         //seperator
@@ -261,6 +261,7 @@ static CGFloat leadingSpace;
             MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
             [vc setToRecipients:@[@"8miletech@gmail.com"]];
             vc.mailComposeDelegate = self;
+            vc.view.accessibilityLabel = @"Compose Email";
             [self presentViewController:vc animated:YES completion:nil];
         } else {
             [[[UIAlertView alloc] initWithTitle:nil message:@"Your device is not configured to send emails. Please check settings of your Mail app." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];

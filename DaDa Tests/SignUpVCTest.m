@@ -33,7 +33,7 @@
     // Take a photo
     [tester tapViewWithAccessibilityLabel:kProfileImageViewAccessibilityLabel];
     [tester tapViewWithAccessibilityLabel:@"Take A Photo"];
-    [tester tapViewWithAccessibilityLabel:@"Dismiss"];
+    [tester tapViewWithAccessibilityLabel:kCameraNotSupportedAccessibilityLabel];
     
     // Choose from gallery
     [tester tapViewWithAccessibilityLabel:kProfileImageViewAccessibilityLabel];
