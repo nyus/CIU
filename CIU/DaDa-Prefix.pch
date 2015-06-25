@@ -31,8 +31,6 @@
 
 #define FSTRING(format, ...) ([NSString stringWithFormat:format, ##__VA_ARGS__])
 
-#define kLocationServiceDisabledAlertMessage @"To display information around you, please turn on location services at Settings > Privacy > Location Services"
-#define kLocationServiceDisabledAlertTitle @"Location Access Denied"
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>

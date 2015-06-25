@@ -603,8 +603,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                 // can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
             case kCLErrorDenied:{
                 NSLog(@"fail to locate user: permission denied");
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-//                [alert show];
 
                 break;
             }

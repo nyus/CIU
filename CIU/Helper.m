@@ -261,11 +261,19 @@ static UIImagePickerController *_imagePicker;
 
         //UIApplicationOpenSettingsURLString is ios 8
         if (IS_IOS_8 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied" message:@"DaDa would like to access your location information in order to display userful information around you. Please go to Settins and set location access to 'Always'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Open Settings", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied"
+                                                            message:@"DaDa would like to access your location information in order to display userful information around you. Please go to Settins and set location access to 'Always'"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Open Settings", nil];
             alert.tag = 1;
             [alert show];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kLocationServiceDisabledAlertTitle message:kLocationServiceDisabledAlertMessage delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Access Denied"
+                                                            message:@"To display information around you, please turn on location services at Settings > Privacy > Location Services"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Dismiss"
+                                                  otherButtonTitles:nil, nil];
             alert.tag = 2;
             [alert show];
         }
@@ -317,8 +325,11 @@ static UIImagePickerController *_imagePicker;
         _imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         [controller presentViewController:_imagePicker animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Camera is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:controller
+                                              title:NSLocalizedString(@"Camera Not Supported On This Device", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:kCameraNotSupportedAccessibilityLabel];
     }
 }
 
@@ -333,8 +344,11 @@ static UIImagePickerController *_imagePicker;
         _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [controller presentViewController:_imagePicker animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Photo library is not supported on this device" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:controller
+                                              title:NSLocalizedString(@"Photo Gallery Not Supported On This Device", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:kPhotoGalleryNotSupportedAccessibilityLabel];
     }
 }
 

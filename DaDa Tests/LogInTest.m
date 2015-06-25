@@ -103,4 +103,33 @@
     [tester tapViewWithAccessibilityLabel:kAcceptEULAButtonAccessibilityLabel];
 }
 
+- (void)testDResetPassword
+{
+    // No user with specified email
+    
+    [tester tapViewWithAccessibilityLabel:kForgotPasswordButtonAccessibilityLabel];
+    [tester enterTextIntoCurrentFirstResponder:@"asdfa@asdfa.com"];
+    [tester tapViewWithAccessibilityLabel:@"Reset"];
+    [tester waitForViewWithAccessibilityLabel:kResetPasswordErrorAccessibilityLabel];
+
+    // Wrong email format
+    
+    [tester tapViewWithAccessibilityLabel:kForgotPasswordButtonAccessibilityLabel];
+    [tester enterTextIntoCurrentFirstResponder:@"asdfaasdfa.com"];
+    [tester tapViewWithAccessibilityLabel:@"Reset"];
+    [tester waitForViewWithAccessibilityLabel:kInvalidEmailAddressAccessibilityLabel];
+    
+    // Valid email
+    
+    [tester tapViewWithAccessibilityLabel:kForgotPasswordButtonAccessibilityLabel];
+    [tester enterTextIntoCurrentFirstResponder:@"huang.838@osu.edu"];
+    [tester tapViewWithAccessibilityLabel:@"Reset"];
+    [tester waitForViewWithAccessibilityLabel:kCheckEmailToRestPasswordAccessibilityLabel];
+    
+    // Cancel reset
+    [tester tapViewWithAccessibilityLabel:kForgotPasswordButtonAccessibilityLabel];
+    [tester enterTextIntoCurrentFirstResponder:@"huang.838@osu.edu"];
+    [tester tapViewWithAccessibilityLabel:@"Cancel"];
+}
+
 @end

@@ -94,12 +94,11 @@ static NSString *const kUsernameKey = @"username";
                                                       otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                                message:@"Something went wrong, please try again"
-                                                               delegate:nil
-                                                      cancelButtonTitle:nil
-                                                      otherButtonTitles:@"Dismiss", nil];
-                [alert show];
+                [TSMessage showNotificationInViewController:self
+                                                      title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                   subtitle:nil
+                                                       type:TSMessageNotificationTypeError
+                                         accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
             }
             
         } else {
@@ -108,12 +107,11 @@ static NSString *const kUsernameKey = @"username";
             [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 
                 if (error) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                                    message:@"Something went wrong, please try again"
-                                                                   delegate:nil
-                                                          cancelButtonTitle:nil
-                                                          otherButtonTitles:@"Dismiss", nil];
-                    [alert show];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeError
+                                             accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
                 } else {
                     NSDictionary *userData = (NSDictionary *)result;
                     NSString *facebookID = userData[@"id"];
@@ -276,17 +274,30 @@ static NSString *const kUsernameKey = @"username";
         BOOL regexPassed = [[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @".+@.+\\..+"] evaluateWithObject:[alertView textFieldAtIndex:0].text];
         
         if (!regexPassed){
+            [TSMessage showNotificationInViewController:self
+                                                  title:NSLocalizedString(@"Invalid Email Address\nPlease Try Again", nil) 
+                                               subtitle:nil
+                                                   type:TSMessageNotificationTypeError 
+                                     accessibilityLabel:kInvalidEmailAddressAccessibilityLabel];
             return;
         }
         
         [PFUser requestPasswordResetForEmailInBackground:[alertView textFieldAtIndex:0].text block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please check your email to rest your password." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                    [alert show];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Please Check Email to Resst Password", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeMessage
+                                             accessibilityLabel:kCheckEmailToRestPasswordAccessibilityLabel];
+
                 });
             }else{
-                NSLog(@"password reset failed");
+                [TSMessage showNotificationInViewController:self
+                                                      title:NSLocalizedString(error.localizedDescription.capitalizedString, nil)
+                                                   subtitle:nil
+                                                       type:TSMessageNotificationTypeError
+                                         accessibilityLabel:kResetPasswordErrorAccessibilityLabel];
             }
         }];
     }

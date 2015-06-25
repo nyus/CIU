@@ -192,56 +192,61 @@ const float kOptionsTBViewHeight = 280.0;
 - (IBAction)publishButtonTapped:(id)sender {
     
     if (![Reachability canReachInternet]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Looks like you do not have internet access. Please try again later.", nil) delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:self
+                                              title:NSLocalizedString(@"There is no internet connection. Please try again" , nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:nil];
         return;
     }
     
     if (!_eventName){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify an event name!", nil)
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:self
+                                              title:NSLocalizedString(@"Please Specify Event Name", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:kSpecifyEventNameAccessibilityLabel];
+
         return;
     }
     
     if(!_eventDate){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify an event date.", nil)
-                                                       delegate:self 
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:self
+                                              title:NSLocalizedString(@"Please Specify Event Date", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:kSpecifyEventDateAccessibilityLabel];
+
         return;
     }
     
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     
     if(!_eventContent || (!isAdmin && ([_eventContent containsURL] || [_eventName containsURL]))) {
-        NSString *msg = nil;
+
         if (!_eventContent) {
-            msg = NSLocalizedString(@"Please tell us a bit more about the event.", nil);
+            [TSMessage showNotificationInViewController:self
+                                                  title:NSLocalizedString(@"Please Describe The Event", nil)
+                                               subtitle:nil
+                                                   type:TSMessageNotificationTypeWarning
+                                     accessibilityLabel:kTellMoreAboutEventAccessibilityLabel];
         } else {
-            msg = NSLocalizedString(@"External links are not allowed", nil);
+            [TSMessage showNotificationInViewController:self
+                                                  title:NSLocalizedString(@"Enternal Links Are Not Allowed", nil)
+                                               subtitle:nil
+                                                   type:TSMessageNotificationTypeWarning
+                                     accessibilityLabel:kExternalLinksNotAllowedAccessibilityLabel];
         }
-        
-        [[[UIAlertView alloc] initWithTitle:nil
-                                    message:msg
-                                   delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"Got it", nil)
-                          otherButtonTitles:nil, nil] show];
         
         return;
     }
     
     if (!_eventLocation) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please specify the location of the event.", nil)
-                                                       delegate:self 
-                                              cancelButtonTitle:NSLocalizedString(@"Dismiss", nil)
-                                              otherButtonTitles:nil, nil];
-        [alert show];
+        [TSMessage showNotificationInViewController:self
+                                              title:NSLocalizedString(@"Please Specify Event Location", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeError
+                                 accessibilityLabel:kSpecifyEventLocationAccessibilityLabel];
         
         return;
     } else{
@@ -287,8 +292,11 @@ const float kOptionsTBViewHeight = 280.0;
                     
                 }else{
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Looks like the event location is invalid. Please check again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                        [alert show];
+                        [TSMessage showNotificationInViewController:self
+                                                              title:NSLocalizedString(@"Looks like the event location is invalid. Please check again.", nil)
+                                                           subtitle:nil
+                                                               type:TSMessageNotificationTypeError
+                                                 accessibilityLabel:kInvalidEventLocationAccessibilityLabel];
                     });
                 }
             }];
@@ -316,9 +324,17 @@ const float kOptionsTBViewHeight = 280.0;
             
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    [self showAlert:NSLocalizedString(@"Event successfully published!", nil) needDismissSelf:YES];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Event Successfully Published", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeSuccess
+                                             accessibilityLabel:kSuccessfulPublishEventAccessibilityLabel];
                 }else{
-                    [self showAlert:NSLocalizedString(@"Something went wrong, please try again.", nil) needDismissSelf:NO];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeError
+                                             accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
                 }
                 
                 NSNumber *latitude = isAdmin ? @(self.adminEventLocation.coordinate.latitude) : [Helper userLocation][DDLatitudeKey];
@@ -327,18 +343,6 @@ const float kOptionsTBViewHeight = 280.0;
             }];
         }
     }
-}
-
-- (void)showAlert:(NSString *)message needDismissSelf:(BOOL)needDismissSelf
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        [alert show];
-        
-        if (needDismissSelf) {
-            [self performSelector:@selector(dismissSelf:) withObject:alert afterDelay:.2];
-        }
-    });
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

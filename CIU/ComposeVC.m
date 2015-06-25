@@ -38,11 +38,11 @@
     
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     if (!isAdmin && [self.textView.text containsURL]) {
-        [[[UIAlertView alloc] initWithTitle:nil
-                                    message:NSLocalizedString(@"External links are not allowed", nil)
-                                   delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"Got it", nil)
-                          otherButtonTitles:nil, nil] show];
+        [TSMessage showNotificationInViewController:self
+                                              title:NSLocalizedString(@"Enternal Links Are Not Allowed", nil)
+                                           subtitle:nil
+                                               type:TSMessageNotificationTypeWarning
+                                 accessibilityLabel:kExternalLinksNotAllowedAccessibilityLabel];
         
         return;
     }
@@ -77,13 +77,19 @@
         }else{
             if (![Reachability canReachInternet]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"There is no internet connection. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [alert show];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"There is no internet connection. Please try again" , nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeError
+                                             accessibilityLabel:nil];
                 });
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Something went wrong. Please try again." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil];
-                    [alert show];
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeError
+                                             accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
                 });
             }
         }

@@ -23,4 +23,17 @@ static NSString *kFirstNameAccessibilityLabel = @"First Name";
 static NSString *kLastNameAccessibilityLabel = @"Last Name";
 static NSString *kPasswordAccessibilityLabel = @"Password";
 static NSString *kIncorrectCredentialsAccessibilityLabel = @"Incorrect credentials";
+static NSString *kExternalLinksNotAllowedAccessibilityLabel = @"Enternal Links Are Not Allowed";
+static NSString *kTellMoreAboutEventAccessibilityLabel = @"Please tell us a bit more about the event";
+static NSString *kSomethingWentWrongAccessibilityLabel = @"Something Went Wrong";
+static NSString *kSpecifyEventNameAccessibilityLabel = @"Specify Event Name";
+static NSString *kSpecifyEventDateAccessibilityLabel = @"Specify Event Date";
+static NSString *kSpecifyEventLocationAccessibilityLabel = @"Specify Event Location";
+static NSString *kInvalidEventLocationAccessibilityLabel = @"Invalid Event Location";
+static NSString *kSuccessfulPublishEventAccessibilityLabel = @"Event Successfully Published";
+static NSString *kCameraNotSupportedAccessibilityLabel = @"Camera Not Supported On This Device";
+static NSString *kPhotoGalleryNotSupportedAccessibilityLabel = @"Photo Gallery Not Supported On This Device";
+static NSString *kCheckEmailToRestPasswordAccessibilityLabel = @"Check Email To Reset Password";
+static NSString *kInvalidEmailAddressAccessibilityLabel = @"Invalid Email Address";
+static NSString *kResetPasswordErrorAccessibilityLabel = @"Reset Password Error";
 //AccessibilityLabel
