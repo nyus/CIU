@@ -941,6 +941,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dyu-G3-vyr">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Map"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="eIB-DE-riQ" id="I6R-LP-DnC"/>
                                 </connections>
@@ -971,6 +974,9 @@ MISC. Users complying with prior written licenses may access DaDa thereby until 
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Table View"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="eIB-DE-riQ" id="Fax-zT-7fY"/>
                                     <outlet property="delegate" destination="eIB-DE-riQ" id="cyX-i0-jH2"/>

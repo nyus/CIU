@@ -216,6 +216,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                              action:@selector(segmentedControlTapped:)
                    forControlEvents:UIControlEventValueChanged];
         self.segmentedControl.selectedSegmentIndex = 0;
+        self.segmentedControl.accessibilityLabel = kListMapSegmentedControlAccessibilityLabel;
+        
         self.navigationItem.titleView = self.segmentedControl;
         
         [[GAnalyticsManager shareManager] trackScreen:IS_RESTAURANT ? @"Restaurant" : @"SuperMarket"];

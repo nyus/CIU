@@ -18,7 +18,8 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    [tester tapViewWithAccessibilityLabel:kLifestyleTabBarItemAccessibilityLabel];
 }
 
 - (void)tearDown {
@@ -26,7 +27,7 @@
     [super tearDown];
 }
 
-- (void)test
+- (void)test1
 {
     [tester tapViewWithAccessibilityLabel:kMenuButtonAccessibilityLabel];
     [tester tapViewWithAccessibilityLabel:kMenuButtonAccessibilityLabel];

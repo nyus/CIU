@@ -70,6 +70,7 @@ static CGFloat const kLabelHeight = 200.0;
         self.stepper.stepValue = stepValue ? stepValue.floatValue : 5.0;
         self.stepper.value = currentValue ? currentValue.floatValue : 0.0;
         self.stepper.tintColor = [UIColor themeTextGrey];
+        self.stepper.accessibilityLabel = kRadiusStepperAccessibilityLabel;
         [self.stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:self.stepper];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_stepper]-28.0-|"

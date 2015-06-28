@@ -52,6 +52,9 @@
 		505286E41B3C3E490094F533 /* SideMenuTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286E31B3C3E490094F533 /* SideMenuTest.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
+		506BF27B1B3F489100585564 /* LifestyleLevel2Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF27A1B3F489100585564 /* LifestyleLevel2Test.m */; };
+		506BF2811B3F4BEA00585564 /* KIFUITestActor+Stepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF2801B3F4BEA00585564 /* KIFUITestActor+Stepper.m */; };
+		506BF2841B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
 		5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */; };
@@ -197,6 +200,11 @@
 		505B504B1A1916A9000300ED /* UIColor+CIUColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CIUColors.m"; sourceTree = "<group>"; };
 		5063E9DB1A64C1C800275F2B /* GAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAnalyticsManager.h; sourceTree = "<group>"; };
 		5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAnalyticsManager.m; sourceTree = "<group>"; };
+		506BF27A1B3F489100585564 /* LifestyleLevel2Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleLevel2Test.m; sourceTree = "<group>"; };
+		506BF27F1B3F4BEA00585564 /* KIFUITestActor+Stepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+Stepper.h"; sourceTree = "<group>"; };
+		506BF2801B3F4BEA00585564 /* KIFUITestActor+Stepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+Stepper.m"; sourceTree = "<group>"; };
+		506BF2821B3F51AE00585564 /* KIFUITestActor+SegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SegmentedControl.h"; sourceTree = "<group>"; };
+		506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SegmentedControl.m"; sourceTree = "<group>"; };
 		506D69501AB5CC65006EDDCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
 		5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
@@ -538,7 +546,12 @@
 				505286DA1B3A4B050094F533 /* LogInTest.m */,
 				505286DF1B3B97D60094F533 /* SignUpVCTest.m */,
 				505286E11B3C3A890094F533 /* LifestyleTest.m */,
+				506BF27A1B3F489100585564 /* LifestyleLevel2Test.m */,
 				505286E31B3C3E490094F533 /* SideMenuTest.m */,
+				506BF27F1B3F4BEA00585564 /* KIFUITestActor+Stepper.h */,
+				506BF2801B3F4BEA00585564 /* KIFUITestActor+Stepper.m */,
+				506BF2821B3F51AE00585564 /* KIFUITestActor+SegmentedControl.h */,
+				506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */,
 				50E45BC91B3999B300EC12CC /* Supporting Files */,
 			);
 			path = "DaDa Tests";
@@ -856,8 +869,11 @@
 			files = (
 				505286E21B3C3A890094F533 /* LifestyleTest.m in Sources */,
 				505286E01B3B97D60094F533 /* SignUpVCTest.m in Sources */,
+				506BF2811B3F4BEA00585564 /* KIFUITestActor+Stepper.m in Sources */,
+				506BF27B1B3F489100585564 /* LifestyleLevel2Test.m in Sources */,
 				505286DB1B3A4B050094F533 /* LogInTest.m in Sources */,
 				505286E41B3C3E490094F533 /* SideMenuTest.m in Sources */,
+				506BF2841B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

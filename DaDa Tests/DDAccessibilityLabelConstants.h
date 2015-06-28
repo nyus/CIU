@@ -36,4 +36,11 @@ static NSString *kPhotoGalleryNotSupportedAccessibilityLabel = @"Photo Gallery N
 static NSString *kCheckEmailToRestPasswordAccessibilityLabel = @"Check Email To Reset Password";
 static NSString *kInvalidEmailAddressAccessibilityLabel = @"Invalid Email Address";
 static NSString *kResetPasswordErrorAccessibilityLabel = @"Reset Password Error";
+static NSString *kLifestyleTabBarItemAccessibilityLabel = @"Lifestyle Tab";
+static NSString *kEventsTabBarItemAccessibilityLabel = @"Events Tab";
+static NSString *kSurpriseTabBarItemAccessibilityLabel = @"Surprise Tab";
+static NSString *kTableViewAccessibilityLabel = @"Table View";
+static NSString *kRadiusStepperAccessibilityLabel = @"Result Radius Stepper";
+static NSString *kListMapSegmentedControlAccessibilityLabel = @"List or Map";
+static NSString *kMapViewAccessibilityLabel = @"Map";
 //AccessibilityLabel

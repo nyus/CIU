@@ -29,8 +29,11 @@
                                              forState:UIControlStateSelected];
     
     UITabBarItem *item1 = [tabBar.items objectAtIndex:0];
+    item1.accessibilityLabel = kLifestyleTabBarItemAccessibilityLabel;
     UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
+    item2.accessibilityLabel = kEventsTabBarItemAccessibilityLabel;
     UITabBarItem *item3 = [tabBar.items objectAtIndex:2];
+    item3.accessibilityLabel = kSurpriseTabBarItemAccessibilityLabel;
     
     item1.selectedImage = [[UIImage imageNamed:@"lifestyleIcon_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     item1.image = [[UIImage imageNamed:@"lifestyleIcon_unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
