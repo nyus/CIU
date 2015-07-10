@@ -510,8 +510,10 @@ static NSString *const kEntityName = @"StatusObject";
     [self flagObjectForId:statusObject.objectId parseClassName:DDStatusParseClassName completion:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             statusObject.isBadContent = @YES;
+            [self.dataSource removeObject:statusObject];
             [[SharedDataManager sharedInstance] saveContext];
             cell.flagButton.enabled = NO;
+            [self.tableView reloadData];
         }
     }];
 }
