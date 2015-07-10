@@ -10,7 +10,7 @@
 		0423E26A82074772A69A37B4 /* libPods-DaDa Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889482BCAD40C6C82BBCAC4 /* libPods-DaDa Tests.a */; };
 		0B03B4781A8272CD00526A37 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B4771A8272CD00526A37 /* UIAlertView+Blocks.m */; };
 		0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */; };
-		0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */; };
+		0B0D53FD19ED617B00B0C24C /* SurpriseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
@@ -130,8 +130,8 @@
 		0B03B4771A8272CD00526A37 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		0B03B4791A82764700526A37 /* UIViewController+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utilities.h"; sourceTree = "<group>"; };
 		0B03B47A1A82764700526A37 /* UIViewController+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utilities.m"; sourceTree = "<group>"; };
-		0B0D53FB19ED617B00B0C24C /* SurpriseTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseTableVC.h; sourceTree = "<group>"; };
-		0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseTableVC.m; sourceTree = "<group>"; };
+		0B0D53FB19ED617B00B0C24C /* SurpriseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurpriseVC.h; sourceTree = "<group>"; };
+		0B0D53FC19ED617B00B0C24C /* SurpriseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurpriseVC.m; sourceTree = "<group>"; };
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
@@ -423,8 +423,8 @@
 				65C4F0C319AFB6AE004452C3 /* camera.png */,
 				65C4F0C019AFB67C004452C3 /* ComposeSurpriseVC.h */,
 				65C4F0C119AFB67C004452C3 /* ComposeSurpriseVC.m */,
-				0B0D53FB19ED617B00B0C24C /* SurpriseTableVC.h */,
-				0B0D53FC19ED617B00B0C24C /* SurpriseTableVC.m */,
+				0B0D53FB19ED617B00B0C24C /* SurpriseVC.h */,
+				0B0D53FC19ED617B00B0C24C /* SurpriseVC.m */,
 				B22C70C51A1183E90035D3C5 /* LoginTextField.h */,
 				B22C70C61A1183E90035D3C5 /* LoginTextField.m */,
 			);
@@ -923,7 +923,7 @@
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,
 				50B83F9719A96A42007BE9F7 /* LifestyleObject+Utilities.m in Sources */,
 				503AF35119BB7F970023EC02 /* EventTableViewCell.m in Sources */,
-				0B0D53FD19ED617B00B0C24C /* SurpriseTableVC.m in Sources */,
+				0B0D53FD19ED617B00B0C24C /* SurpriseVC.m in Sources */,
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
 				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
 				50FBFFCD1A7E30860090EE4B /* Event.m in Sources */,

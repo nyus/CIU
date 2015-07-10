@@ -1,12 +1,12 @@
 //
-//  SurpriseTableViewController.m
+//  SurpriseVC.m
 //  CIU
 //
 //  Created by Sihang Huang on 10/14/14.
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "SurpriseTableVC.h"
+#import "SurpriseVC.h"
 #import "SurpriseTableViewCell.h"
 #import <Parse/Parse.h>
 #import "ComposeSurpriseVC.h"
@@ -39,7 +39,7 @@ static UIImage *defaultAvatar;
 
 static NSString *const kEntityName = @"StatusObject";
 
-@interface SurpriseTableVC () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
+@interface SurpriseVC () <UIAlertViewDelegate, StatusTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
     SurpriseTableViewCell *cellToRevive;
     UITapGestureRecognizer *tapGesture;
     CommentVC *commentVC;
@@ -52,7 +52,7 @@ static NSString *const kEntityName = @"StatusObject";
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
 @end
 
-@implementation SurpriseTableVC
+@implementation SurpriseVC
 
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
 {
@@ -76,7 +76,7 @@ static NSString *const kEntityName = @"StatusObject";
         [self fetchNewStatusWithCount:kServerFetchCount];
     }
     
-    __weak SurpriseTableVC *weakSelf = self;
+    __weak SurpriseVC *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [weakSelf pullDataFromLocal];
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
@@ -580,7 +580,7 @@ static NSString *const kEntityName = @"StatusObject";
         CommentVC *vc = (CommentVC *)segue.destinationViewController;
         __block StatusObject *status = self.dataSource[selectedPath.row];
         vc.statusObjectId = status.objectId;
-        __weak SurpriseTableVC *weakSelf= self;
+        __weak SurpriseVC *weakSelf= self;
         [vc updateCommentCountWithBlock:^{
             status.commentCount = [NSNumber numberWithInt:status.commentCount.intValue+1];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[selectedPath] withRowAnimation:UITableViewRowAnimationNone];

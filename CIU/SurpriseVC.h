@@ -1,5 +1,5 @@
 //
-//  SurpriseTableViewController.h
+//  SurpriseVC.h
 //  CIU
 //
 //  Created by Sihang Huang on 10/14/14.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GenericTableVC.h"
 
-@interface SurpriseTableVC : GenericTableVC
+@interface SurpriseVC : GenericTableVC
 
 @end
