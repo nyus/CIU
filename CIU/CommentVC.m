@@ -190,6 +190,8 @@ static UIImage *defaultAvatar;
         
         //increament comment count on the status tb cell
         self.statusTBCell.commentCountLabel.text = [NSString stringWithFormat:@"%d",self.statusTBCell.commentCountLabel.text.intValue+1];
+        
+        [self.textView endEditing:YES];
     }];
 }
 
