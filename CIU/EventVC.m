@@ -180,7 +180,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
-    [self.fetchQuery orderByAscending:DDCreatedAtKey];
+    [self.fetchQuery orderByDescending:DDEventDateKey];
     [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
     // Only want to fetch kServerFetchCount items each time
@@ -215,7 +215,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                     [event populateFromParseojbect:parseObject];
                 }
 
-                [self.dataSource insertObject:event atIndex:0];
+//                [self.dataSource insertObject:event atIndex:0];
+                [self.dataSource addObject:event];
             }
             
             [[SharedDataManager sharedInstance] saveContext];
