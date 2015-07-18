@@ -20,8 +20,6 @@ static CGFloat const kNoCommentCellHeight = 250.0;
 static CGFloat const kCellImageViewMaxY = 45;
 static CGFloat const kCommentLabelOriginY = 19.0;
 
-static UIImage *defaultAvatar;
-
 @interface CommentVC () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
     NSMutableDictionary *cellHeightMap;
@@ -47,7 +45,6 @@ static UIImage *defaultAvatar;
     if (self) {
         // Custom initialization
         cellHeightMap = [NSMutableDictionary dictionary];
-        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     return self;
 }
@@ -72,7 +69,6 @@ static UIImage *defaultAvatar;
     [Flurry endTimedEvent:@"View comment suprise" withParameters:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    defaultAvatar = nil;
 }
 
 - (void)updateCommentCountWithBlock:(void (^)())completion{
@@ -263,13 +259,14 @@ static UIImage *defaultAvatar;
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[DDContentStringKey];
         
-        cell.avatarImageView.image = defaultAvatar;
+//        cell.avatarImageView.image = defaultAvatar;
 
         if ([comment[DDAnonymousKey] boolValue]) {
             cell.usernameLabel.text = @"Anonymous";
+            cell.avatarImageView.image = [Helper getAnonymousAvatarImage];
         } else {
             cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
-            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
+//            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
         }
 
         return cell;

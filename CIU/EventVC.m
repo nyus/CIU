@@ -215,7 +215,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                     [event populateFromParseojbect:parseObject];
                 }
 
-//                [self.dataSource insertObject:event atIndex:0];
                 [self.dataSource addObject:event];
             }
             

@@ -12,9 +12,12 @@
 
 static Helper *_helper;
 static UIImagePickerController *_imagePicker;
-@interface Helper () <UIAlertViewDelegate>{
+static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
+static NSInteger kTotalAnonymousAvatarCount = 20;
+static UIImage *anonymousAvatarImage = nil;
 
-}
+@interface Helper () <UIAlertViewDelegate>
+
 @end
 
 @implementation Helper
@@ -368,6 +371,25 @@ static UIImagePickerController *_imagePicker;
     imageView.image = scaled;
     
     [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+}
+
++ (UIImage *)getAnonymousAvatarImage
+{
+    if (!anonymousAvatarImage) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *imageName = [defaults objectForKey:kAnonymousAvatarKey];
+        
+        if (!imageName) {
+            int random = rand() % kTotalAnonymousAvatarCount;
+            imageName = [NSString stringWithFormat:@"anonymous-%d", random];
+            [defaults setObject:imageName forKey:kAnonymousAvatarKey];
+            [defaults synchronize];
+        }
+        
+        anonymousAvatarImage = [UIImage imageNamed:imageName];
+    }
+    
+    return anonymousAvatarImage;
 }
 
 @end
