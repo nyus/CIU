@@ -13,7 +13,7 @@
 static Helper *_helper;
 static UIImagePickerController *_imagePicker;
 static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
-static NSInteger kTotalAnonymousAvatarCount = 20;
+static int kTotalAnonymousAvatarCount = 30;
 static UIImage *anonymousAvatarImage = nil;
 
 @interface Helper () <UIAlertViewDelegate>
@@ -375,13 +375,14 @@ static UIImage *anonymousAvatarImage = nil;
 
 + (UIImage *)getAnonymousAvatarImage
 {
+    int random = rand() % kTotalAnonymousAvatarCount;
     if (!anonymousAvatarImage) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *imageName = [defaults objectForKey:kAnonymousAvatarKey];
         
         if (!imageName) {
-            int random = rand() % kTotalAnonymousAvatarCount;
-            imageName = [NSString stringWithFormat:@"anonymous-%d", random];
+            
+            imageName = [NSString stringWithFormat:@"aAvatar%d", random];
             [defaults setObject:imageName forKey:kAnonymousAvatarKey];
             [defaults synchronize];
         }
@@ -390,6 +391,36 @@ static UIImage *anonymousAvatarImage = nil;
     }
     
     return anonymousAvatarImage;
+}
+
++ (NSString *)getAnonymousAvatarImageNameForUsername:(NSString *)username statusId:(NSString *)statusId
+{
+    if (!username || !statusId) {
+        return nil;
+    }
+    
+    NSString *key = [username stringByAppendingString:statusId];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *imageName = [defaults objectForKey:key];
+    if (!imageName) {
+        int random = rand() % kTotalAnonymousAvatarCount;
+        imageName = [NSString stringWithFormat:@"aAvatar%d", random];
+        [defaults setObject:imageName forKey:key];
+        [defaults synchronize];
+    }
+    
+    return imageName;
+}
+
++ (UIImage *)randomAnonymousImage
+{
+    int random = rand() % kTotalAnonymousAvatarCount;
+    for (int i = 0; i < 100; i++) {
+        NSLog(@"%d", rand() % kTotalAnonymousAvatarCount);
+    }
+    NSString *imageName = [NSString stringWithFormat:@"aAvatar%d", random];
+    
+    return [UIImage imageNamed:imageName];
 }
 
 @end

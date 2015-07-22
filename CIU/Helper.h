@@ -23,7 +23,8 @@ static const NSInteger EULA_TAG = 50;
 +(void)saveAvatar:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 +(void)saveAvatarToLocal:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 +(void)removeAvatarWithAvatar;
-+(UIImage *)getAnonymousAvatarImage;
++ (NSString *)getAnonymousAvatarImageNameForUsername:(NSString *)username statusId:(NSString *)statusId;
++ (UIImage *)randomAnonymousImage;
 
 //local image
 +(UIImage *)getLocalImageWithName:(NSString *)imageName isHighRes:(BOOL)isHighRes;

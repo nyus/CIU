@@ -159,6 +159,11 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         object[DDContentStringKey] = self.textView.text;
         object[DDStatusIdKey] = self.statusObjectId;
         object[DDAnonymousKey] = @(self.anonymousSwitch.on);
+        
+        NSString *name = [Helper getAnonymousAvatarImageNameForUsername:[PFUser currentUser].username statusId:self.statusObjectId];
+        if (name) {
+            object[DDAnonymousAvatarName] = name;
+        }
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 [object saveEventually];
@@ -258,15 +263,18 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[DDContentStringKey];
-        
-//        cell.avatarImageView.image = defaultAvatar;
 
         if ([comment[DDAnonymousKey] boolValue]) {
             cell.usernameLabel.text = @"Anonymous";
-            cell.avatarImageView.image = [Helper getAnonymousAvatarImage];
+            // Backward compatibility: For previous version, pick a random image if the commenter remains anonymous
+            if (comment[DDAnonymousAvatarName]) {
+                cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
+            } else {
+                cell.avatarImageView.image = [Helper randomAnonymousImage];
+            }
         } else {
             cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
-//            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
+            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
         }
 
         return cell;
