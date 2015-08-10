@@ -324,11 +324,12 @@ const float kOptionsTBViewHeight = 280.0;
             
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    [TSMessage showNotificationInViewController:self
+                    [TSMessage showNotificationInViewController:self.parentViewController
                                                           title:NSLocalizedString(@"Event Successfully Published", nil)
                                                        subtitle:nil
                                                            type:TSMessageNotificationTypeSuccess
                                              accessibilityLabel:kSuccessfulPublishEventAccessibilityLabel];
+                    [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:0.8];
                 }else{
                     [TSMessage showNotificationInViewController:self
                                                           title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
@@ -343,6 +344,11 @@ const float kOptionsTBViewHeight = 280.0;
             }];
         }
     }
+}
+
+- (void)dismissSelf
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

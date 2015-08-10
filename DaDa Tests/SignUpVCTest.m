@@ -38,7 +38,7 @@
     // Choose from gallery
     [tester tapViewWithAccessibilityLabel:kProfileImageViewAccessibilityLabel];
     [tester tapViewWithAccessibilityLabel:@"Add From Gallery"];
-    [tester acknowledgeSystemAlert];
+//    [tester acknowledgeSystemAlert];
     [tester choosePhotoInAlbum:@"Saved Photos" atRow:0 column:0];
     [tester tapViewWithAccessibilityLabel:@"Choose"];
     
