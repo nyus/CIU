@@ -175,7 +175,7 @@ static NSString *const kBookmarkAssetName = @"bookmark";
     
     if (self) {
         _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14.0];
+        _nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
         [self.contentView addSubview:_nameLabel];
         
         _addressLabel = [UILabel new];
