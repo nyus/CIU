@@ -119,10 +119,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-    }];
+    [[PFUser currentUser] fetchInBackground];
     [Flurry logEvent:@"View event" timed:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -130,6 +129,12 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [Flurry endTimedEvent:@"View event" withParameters:nil];
     [self.fetchQuery cancel];
     [self.refreshControl endRefreshing];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
+}
+
+- (void)handleSidePanelNotification:(NSNotification *)notification
+{
+    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
 }
 
 -(void)pullDataFromServerWithMemorizedLocation

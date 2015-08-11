@@ -49,3 +49,8 @@ static NSString *const DDStatusIdKey = @"statusId";
 static NSString *const DDContentStringKey = @"contentString";
 
 static NSString *const DDAnonymousAvatarName = @"anonymousAvatarName";
+
+
+// NON-API
+
+static NSString *const DDSidePanelNotification = @"sidePanelNotification";

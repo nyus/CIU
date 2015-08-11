@@ -82,17 +82,23 @@ static NSString *const kEntityName = @"StatusObject";
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
-    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-    }];
+    [[PFUser currentUser] fetchInBackground];
     [Flurry logEvent:@"View surprise" timed:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View surprise" withParameters:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
 }
+
+- (void)handleSidePanelNotification:(NSNotification *)notification
+{
+    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
+}
+
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];

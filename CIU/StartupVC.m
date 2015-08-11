@@ -53,7 +53,7 @@ static CGFloat leadingSpace;
     self.view.backgroundColor = [UIColor themeGreen];
     
     //this is just a hot fix. need to think about the flow.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSideBarSlideOpen) name:@"sideBarSlideOpen" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animateSideBarWhenMenuTapped) name:@"sideBarSlideOpen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDismissLogin) name:@"dismissLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDownloadFacebookProfilePicComplete) name:@"downloadFacebookProfilePicComplete" object:nil];
 }
@@ -113,19 +113,13 @@ static CGFloat leadingSpace;
     [self recordInitialAutoLayout];
     
     if (self.containerViewLeadingSpaceConstraint.constant > (leadingSpace + SIDE_BAR_OPEN_DISTANCE)/2) {
-        
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
-        
-        //remove blur effect
         [self setBlurEffect:NO];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
-        
+        [self broadcastSidePanelClose];
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
-        
-        //add blur effect
         [self setBlurEffect:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
+        [self broadcastSidePanelOpen];
     }
     
     [UIView animateWithDuration:.3 animations:^{
@@ -135,8 +129,16 @@ static CGFloat leadingSpace;
     }];
 }
 
--(void)handleSideBarSlideOpen{
-    [self animateSideBarWhenMenuTapped];
+- (void)broadcastSidePanelOpen
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDSidePanelNotification object:nil userInfo:@{@"open":@YES}];
+    self.tabBarController.tabBar.userInteractionEnabled = NO;
+}
+
+- (void)broadcastSidePanelClose
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDSidePanelNotification object:nil userInfo:@{@"open":@NO}];
+    self.tabBarController.tabBar.userInteractionEnabled = YES;
 }
 
 -(void)animateSideBarWhenMenuTapped{
@@ -147,16 +149,12 @@ static CGFloat leadingSpace;
     
     if (self.containerViewLeadingSpaceConstraint.constant == leadingSpace) {
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace + SIDE_BAR_OPEN_DISTANCE;
-
-        //add blur effect
         [self setBlurEffect:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@YES}];
+        [self broadcastSidePanelOpen];
     }else{
         self.containerViewLeadingSpaceConstraint.constant = leadingSpace;
-
-        //remove blur effect
         [self setBlurEffect:NO];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sideBarOpen" object:nil userInfo:@{@"open":@NO}];
+        [self broadcastSidePanelClose];
     }
     
     [UIView animateWithDuration:.3 animations:^{
