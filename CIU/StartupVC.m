@@ -36,6 +36,8 @@ static CGFloat leadingSpace;
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIImageView *blurView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewLeadingSpaceConstraint;
+@property (nonatomic, strong) UITabBarController *tabBarController;
+
 
 @end
 
@@ -267,6 +269,7 @@ static CGFloat leadingSpace;
             [[[UIAlertView alloc] initWithTitle:nil message:@"Your device is not configured to send emails. Please check settings of your Mail app." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil, nil] show];
         }
     }
+    
     //share this app
     else if(indexPath.row == 4){
         [self shareToFacebook];
@@ -283,6 +286,8 @@ static CGFloat leadingSpace;
         [self presentViewController:vc animated:YES completion:^{
             [self animateSideBarWhenMenuTapped];
         }];
+        
+        self.tabBarController.selectedIndex = 0;
     }
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -441,4 +446,12 @@ static CGFloat leadingSpace;
     AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [Helper saveChosenPhoto:photo andSetOnImageView:cell.avatarImageView];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[UITabBarController class]]) {
+        self.tabBarController = segue.destinationViewController;
+    }
+}
+
 @end
