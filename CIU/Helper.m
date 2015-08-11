@@ -413,6 +413,8 @@ static UIImage *anonymousAvatarImage = nil;
 
 + (NSString *)randomAnonymousImageName
 {
+    /* initialize random seed: */
+    srand((int)time(NULL));
     int random = rand() % kTotalAnonymousAvatarCount;
     while (random == 0) {
         random = rand() % kTotalAnonymousAvatarCount;
