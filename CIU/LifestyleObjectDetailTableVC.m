@@ -194,7 +194,7 @@ NSString *const kIntroductionKey = @"Introduction";
     NSDictionary *dict = self.dataSource[indexPath.row];
     if (dict[kAddressKey]) {
         NSString *kOpenInMapsKey = @"Open in Maps";
-        [UIAlertView showWithTitle:nil message:@"The location will be displayed in Maps app." cancelButtonTitle:@"Cancel" otherButtonTitles:@[kOpenInMapsKey] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:nil message:@"Display location in\nApple Maps?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[kOpenInMapsKey] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:kOpenInMapsKey]) {
                 NSString *addressString = @"http://maps.apple.com/?q=";
                 addressString = [addressString stringByAppendingString:[dict[kAddressKey] stringByReplacingOccurrencesOfString:@" " withString:@"+"]];

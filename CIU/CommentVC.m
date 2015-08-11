@@ -163,6 +163,8 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         NSString *name = [Helper getAnonymousAvatarImageNameForUsername:[PFUser currentUser].username statusId:self.statusObjectId];
         if (name) {
             object[DDAnonymousAvatarName] = name;
+        } else {
+            object[DDAnonymousAvatarName] = [Helper randomAnonymousImageName];
         }
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
@@ -266,15 +268,13 @@ static CGFloat const kCommentLabelOriginY = 19.0;
 
         if ([comment[DDAnonymousKey] boolValue]) {
             cell.usernameLabel.text = @"Anonymous";
-            // Backward compatibility: For previous version, pick a random image if the commenter remains anonymous
+
             if (comment[DDAnonymousAvatarName]) {
                 cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
-            } else {
-                cell.avatarImageView.image = [Helper randomAnonymousImage];
             }
         } else {
             cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
-            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
+            [self getAvatarForCell:cell atIndexPath:indexPath withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
         }
 
         return cell;
@@ -291,7 +291,7 @@ static CGFloat const kCommentLabelOriginY = 19.0;
     }
 }
 
-- (void)getAvatarForCell:(AvatarAndUsernameTableViewCell *)cell withUsername:(NSString *)username loadIfStill:(BOOL)loadIfStill
+- (void)getAvatarForCell:(AvatarAndUsernameTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUsername:(NSString *)username loadIfStill:(BOOL)loadIfStill
 {
     UIImage *image = [Helper getLocalAvatarForUser:username isHighRes:NO];
     if (image) {
@@ -304,7 +304,10 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         [Helper getServerAvatarForUser:username
                              isHighRes:NO
                             completion:^(NSError *error, UIImage *image) {
-                                cell.avatarImageView.image = image;
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    cell.avatarImageView.image = image;
+                                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                });
                             }];
     }
 }
@@ -315,7 +318,12 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         if ([cell isKindOfClass:[AvatarAndUsernameTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             PFObject *comment = self.dataSource[indexPath.row];
-            [self getAvatarForCell:cell withUsername:comment[DDSenderUserNameKey] loadIfStill:NO];
+            
+            if ([comment[DDAnonymousKey] boolValue] && comment[DDAnonymousAvatarName]) {
+                cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
+            } else {
+                [self getAvatarForCell:cell atIndexPath:indexPath withUsername:comment[DDSenderUserNameKey] loadIfStill:NO];
+            }
         }
     }
 }

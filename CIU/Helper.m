@@ -403,8 +403,7 @@ static UIImage *anonymousAvatarImage = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *imageName = [defaults objectForKey:key];
     if (!imageName) {
-        int random = rand() % kTotalAnonymousAvatarCount;
-        imageName = [NSString stringWithFormat:@"aAvatar%d", random];
+        imageName = [Helper randomAnonymousImageName];
         [defaults setObject:imageName forKey:key];
         [defaults synchronize];
     }
@@ -412,15 +411,14 @@ static UIImage *anonymousAvatarImage = nil;
     return imageName;
 }
 
-+ (UIImage *)randomAnonymousImage
++ (NSString *)randomAnonymousImageName
 {
     int random = rand() % kTotalAnonymousAvatarCount;
-    for (int i = 0; i < 100; i++) {
-        NSLog(@"%d", rand() % kTotalAnonymousAvatarCount);
+    while (random == 0) {
+        random = rand() % kTotalAnonymousAvatarCount;
     }
-    NSString *imageName = [NSString stringWithFormat:@"aAvatar%d", random];
-    
-    return [UIImage imageNamed:imageName];
+
+    return [NSString stringWithFormat:@"aAvatar%d", random];
 }
 
 @end
