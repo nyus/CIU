@@ -13,7 +13,7 @@
 static Helper *_helper;
 static UIImagePickerController *_imagePicker;
 static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
-static int kTotalAnonymousAvatarCount = 30;
+static int kTotalAnonymousAvatarCount = 149;
 static UIImage *anonymousAvatarImage = nil;
 
 @interface Helper () <UIAlertViewDelegate>
