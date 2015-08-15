@@ -27,8 +27,8 @@
 // CrittercismSDK
 #define COCOAPODS_POD_AVAILABLE_CrittercismSDK
 #define COCOAPODS_VERSION_MAJOR_CrittercismSDK 5
-#define COCOAPODS_VERSION_MINOR_CrittercismSDK 2
-#define COCOAPODS_VERSION_PATCH_CrittercismSDK 0
+#define COCOAPODS_VERSION_MINOR_CrittercismSDK 3
+#define COCOAPODS_VERSION_PATCH_CrittercismSDK 3
 
 // ELCImagePickerController
 #define COCOAPODS_POD_AVAILABLE_ELCImagePickerController
@@ -45,13 +45,13 @@
 // FlurrySDK
 #define COCOAPODS_POD_AVAILABLE_FlurrySDK
 #define COCOAPODS_VERSION_MAJOR_FlurrySDK 6
-#define COCOAPODS_VERSION_MINOR_FlurrySDK 5
+#define COCOAPODS_VERSION_MINOR_FlurrySDK 6
 #define COCOAPODS_VERSION_PATCH_FlurrySDK 0
 
 // FlurrySDK/FlurrySDK
 #define COCOAPODS_POD_AVAILABLE_FlurrySDK_FlurrySDK
 #define COCOAPODS_VERSION_MAJOR_FlurrySDK_FlurrySDK 6
-#define COCOAPODS_VERSION_MINOR_FlurrySDK_FlurrySDK 5
+#define COCOAPODS_VERSION_MINOR_FlurrySDK_FlurrySDK 6
 #define COCOAPODS_VERSION_PATCH_FlurrySDK_FlurrySDK 0
 
 // GoogleAnalytics-iOS-SDK
@@ -69,26 +69,27 @@
 // HexColors
 #define COCOAPODS_POD_AVAILABLE_HexColors
 #define COCOAPODS_VERSION_MAJOR_HexColors 2
-#define COCOAPODS_VERSION_MINOR_HexColors 2
-#define COCOAPODS_VERSION_PATCH_HexColors 1
+#define COCOAPODS_VERSION_MINOR_HexColors 3
+#define COCOAPODS_VERSION_PATCH_HexColors 0
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
 #define COCOAPODS_VERSION_MINOR_Masonry 6
-#define COCOAPODS_VERSION_PATCH_Masonry 1
+#define COCOAPODS_VERSION_PATCH_Masonry 2
 
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
-#define COCOAPODS_VERSION_MINOR_Parse 7
-#define COCOAPODS_VERSION_PATCH_Parse 5
+#define COCOAPODS_VERSION_MINOR_Parse 8
+#define COCOAPODS_VERSION_PATCH_Parse 0
 
 // ParseFacebookUtils
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtils
-#define COCOAPODS_VERSION_MAJOR_ParseFacebookUtils 1
-#define COCOAPODS_VERSION_MINOR_ParseFacebookUtils 7
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtils 5
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 1.8.0.1.
 
 // SVPullToRefresh
 #define COCOAPODS_POD_AVAILABLE_SVPullToRefresh
@@ -100,5 +101,5 @@
 #define COCOAPODS_POD_AVAILABLE_TSMessages
 #define COCOAPODS_VERSION_MAJOR_TSMessages 0
 #define COCOAPODS_VERSION_MINOR_TSMessages 9
-#define COCOAPODS_VERSION_PATCH_TSMessages 12
+#define COCOAPODS_VERSION_PATCH_TSMessages 13
 

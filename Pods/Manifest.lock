@@ -5,30 +5,30 @@ PODS:
   - Bolts/AppLinks (1.2.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.2.0)
-  - CrittercismSDK (5.2.0)
+  - CrittercismSDK (5.3.3)
   - ELCImagePickerController (0.2.0)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
-  - FlurrySDK (6.5.0):
-    - FlurrySDK/FlurrySDK (= 6.5.0)
-  - FlurrySDK/FlurrySDK (6.5.0)
+  - FlurrySDK (6.6.0):
+    - FlurrySDK/FlurrySDK (= 6.6.0)
+  - FlurrySDK/FlurrySDK (6.6.0)
   - GoogleAnalytics-iOS-SDK (3.12):
     - GoogleAnalytics-iOS-SDK/Core (= 3.12)
   - GoogleAnalytics-iOS-SDK/Core (3.12)
-  - HexColors (2.2.1)
+  - HexColors (2.3.0)
   - KIF (3.2.3):
     - KIF/XCTest (= 3.2.3)
   - KIF/XCTest (3.2.3)
-  - Masonry (0.6.1)
-  - Parse (1.7.5):
+  - Masonry (0.6.2)
+  - Parse (1.8.0):
     - Bolts/Tasks (>= 1.2.0)
-  - ParseFacebookUtils (1.7.5):
+  - ParseFacebookUtils (1.8.0.1):
     - Bolts/Tasks (>= 1.2.0)
     - Facebook-iOS-SDK (~> 3.23)
-    - Parse (~> 1.7.5)
+    - Parse (~> 1.8.0)
   - SVPullToRefresh (0.4.1)
-  - TSMessages (0.9.12):
-    - HexColors
+  - TSMessages (0.9.13):
+    - HexColors (~> 2.3.0)
 
 DEPENDENCIES:
   - CrittercismSDK (~> 5.2)
@@ -39,7 +39,7 @@ DEPENDENCIES:
   - KIF (~> 3.0)
   - Masonry (~> 0.6)
   - ParseFacebookUtils (~> 1.7)
-  - SVPullToRefresh (~> 0.4)
+  - SVPullToRefresh
   - TSMessages (from `https://github.com/nyus2014/TSMessages.git`, branch `huang`)
 
 EXTERNAL SOURCES:
@@ -49,22 +49,22 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TSMessages:
-    :commit: 23bf8732ee4cc08247d6eb09239d3b6268d25ad1
+    :commit: 50d5931976c4b52b488a019348e9d64e9fd75d63
     :git: https://github.com/nyus2014/TSMessages.git
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
-  CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
+  CrittercismSDK: 6eb2b2a0b6d396110ecc664a457b87eb6bb70d9a
   ELCImagePickerController: b1b7084434a7d49f2cfc916bde1f3ba353d38de9
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  FlurrySDK: 7e749c1bd22f4fb0a863663e38c58bc841980b25
+  FlurrySDK: 8478625434c06b323338f776758162756d92c3ed
   GoogleAnalytics-iOS-SDK: 13241762fa4aea845eb75bef6c0da3427a26e7b3
-  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
-  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
-  Parse: 7c0f115eff3e0cea3fac08d50bda47154edb8832
-  ParseFacebookUtils: ebd2bc2b4134f25aa8a7ed3c33fa0575b8ce921c
+  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  Parse: 6ea05adb378fbfd6f8726ab67ef74330d96fc903
+  ParseFacebookUtils: 5a4b02d12aa75a69ff02d7386c982b9dfef8279e
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
-  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  TSMessages: 8f04ffae3ce56a324731dedd3b8fab3766878db2
 
 COCOAPODS: 0.37.2

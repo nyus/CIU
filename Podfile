@@ -10,7 +10,7 @@ target 'DaDa' do
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'CrittercismSDK', '~> 5.2'
   pod 'FlurrySDK', '~> 6.5'
-  pod 'SVPullToRefresh', '~> 0.4'
+  pod 'SVPullToRefresh'
   pod 'ELCImagePickerController', '~> 0.2'
   pod 'TSMessages', :git => 'https://github.com/nyus2014/TSMessages.git', :branch => 'huang'
 end
