@@ -30,7 +30,7 @@
 
 static float const kStatusRadius = 30;
 static float const kServerFetchCount = 50;
-static float const kLocalFetchCount = 20;
+static float const kLocalFetchCount = 50;
 static UIImage *defaultAvatar;
 static NSString *const kEntityName = @"StatusObject";
 
@@ -76,17 +76,12 @@ static NSString *const kEntityName = @"StatusObject";
     self.isInternetPresentOnLaunch = [Reachability canReachInternet];
     
     if (!self.isInternetPresentOnLaunch) {
-        
-        // Fetch from local
-        
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:kLocalFetchCount
                                fetchRadius:kStatusRadius 
                           greaterOrEqualTo:nil
                            lesserOrEqualTo:nil];
     } else {
-        // Fetch from server
-        
         [self fetchServerDataWithParseClassName:DDStatusParseClassName
                                      fetchLimit:kServerFetchCount
                                     fetchRadius:kStatusRadius 
@@ -95,6 +90,7 @@ static NSString *const kEntityName = @"StatusObject";
     }
     
     // Pull down to refresh
+    
     __weak typeof(self) weakSelf = self;
     [self.tableView addPullToRefreshWithActionHandler:^{
         
@@ -138,6 +134,7 @@ static NSString *const kEntityName = @"StatusObject";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.tabBarController.tabBar.hidden = NO;
     [[PFUser currentUser] fetchInBackground];
     [Flurry logEvent:@"View surprise" timed:YES];
@@ -256,86 +253,6 @@ static NSString *const kEntityName = @"StatusObject";
     
     [self.tableView.infiniteScrollingView stopAnimating];
 }
-
--(void)fetchNewStatusWithCount:(int)count{
-    
-    [self setupServerQueryWithClassName:@"Status"
-                             fetchLimit:kServerFetchCount 
-                            fetchRadius:kStatusRadius
-                       dateConditionKey:@"lastFetchStatusDate"];
-    
-    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        if (!error && objects.count > 0) {
-            
-            //construct array of indexPath and store parse data to local
-            NSMutableArray *indexpathArray = [NSMutableArray array];
-            
-            for (int i =0; i<objects.count; i++) {
-                
-                PFObject *pfObject = objects[i];
-                StatusObject *status = [NSEntityDescription insertNewObjectForEntityForName:kEntityName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                [status populateFromParseojbect:pfObject];
-                
-                [self.dataSource insertObject:status atIndex:0];
-                
-                [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                
-                if (i == objects.count - 1) {
-                    [[NSUserDefaults standardUserDefaults] setObject:pfObject.createdAt forKey:@"lastFetchStatusDate"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }
-            }
-            
-            [[SharedDataManager sharedInstance] saveContext];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
-            });
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
-        });
-    }];
-}
-
-- (void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey
-{
-    if (self.fetchQuery) {
-        [self.fetchQuery cancel];
-        self.fetchQuery = nil;
-    }
-    
-    NSDictionary *dictionary = [Helper userLocation];
-    if (!dictionary) {
-        // Without user location, don't fetch any data
-        self.fetchQuery = nil;
-        return;
-    }
-    
-    // Subquries: fetch geo-bounded objects and "on top" objects
-    PFQuery *geoQuery = [[PFQuery alloc] initWithClassName:className];
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-    [geoQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
-    
-    PFQuery *stickyPostQuery = [[PFQuery alloc] initWithClassName:className];
-    [stickyPostQuery whereKey:DDIsStickyPostKey equalTo:@YES];
-    
-    self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
-    [self.fetchQuery orderByAscending:DDCreatedAtKey];
-    [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
-    
-    //lastFetchStatusDate is the latest createdAt date among the statuses  last fetched
-    NSDate *lastFetchDate = [[NSUserDefaults standardUserDefaults] objectForKey:dateConditionKey];
-    if (lastFetchDate) {
-        [self.fetchQuery whereKey:DDCreatedAtKey greaterThan:lastFetchDate];
-    }
-    
-    // Only want to fetch kServerFetchCount items each time
-    self.fetchQuery.limit = fetchLimit;
-}
-
 
 -(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
                               fetchLimit:(NSUInteger)fetchLimit
@@ -806,28 +723,6 @@ static NSString *const kEntityName = @"StatusObject";
     } else {
         return CGSizeZero;
     }
-}
-
-#pragma mark - Location Manager Delegate Override
-
-//override
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
-    [super locationManager:manager didUpdateLocation:location];
-    //on viewDidLoad, fetch surprise for user once, if user wishes to see new surprises, user needs to pull down and refresh
-    //on viewDidLoad, location manager may have not located the user yet, so in this method, is self.dataSource is nil or count ==0, that means we need to manually trigger fetchNewStatus
-    //pull to refresh would always use the location in NSUserDefaults
-
-//    if (self.dataSource == nil || self.dataSource.count == 0){
-//        [self fetchNewStatusWithCount:20];
-//    }
-    
-    // for surprise, we want to reload all data when:
-    // this tab is first shown or there is a significant location change
-    // because of the work we have done in super, this method is only going to be triggered when: first time user uses the app or there is a significant location change
-    // so whenever this method is called, clear up datasource and pull from server
-    [self.dataSource removeAllObjects];
-    [self fetchNewStatusWithCount:20];
 }
 
 #pragma mark - UISegue
