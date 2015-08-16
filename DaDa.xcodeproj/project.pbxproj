@@ -34,6 +34,7 @@
 		503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AF35319BB80B40023EC02 /* CreateEventVC.m */; };
 		503B67371B32784500E4DEB5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67361B32784500E4DEB5 /* Social.framework */; };
 		503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67381B32784C00E4DEB5 /* Accounts.framework */; };
+		503F62411B81299F008EC323 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = 503F62401B81299F008EC323 /* ReadMe */; };
 		5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547719A6CF610050853A /* SystemConfiguration.framework */; };
 		5040547A19A6CF690050853A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547919A6CF690050853A /* Security.framework */; };
 		5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547B19A6CF900050853A /* AudioToolbox.framework */; };
@@ -173,6 +174,7 @@
 		503AF35319BB80B40023EC02 /* CreateEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateEventVC.m; sourceTree = "<group>"; };
 		503B67361B32784500E4DEB5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		503B67381B32784C00E4DEB5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		503F62401B81299F008EC323 /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ReadMe; path = ../ReadMe; sourceTree = "<group>"; };
 		5040547719A6CF610050853A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5040547919A6CF690050853A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5040547B19A6CF900050853A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -655,6 +657,7 @@
 		652BAB87199D3CCA009F5F5A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				503F62401B81299F008EC323 /* ReadMe */,
 				652BAB88199D3CCA009F5F5A /* DaDa-Info.plist */,
 				652BAB89199D3CCA009F5F5A /* InfoPlist.strings */,
 				652BAB8C199D3CCA009F5F5A /* main.m */,
@@ -771,6 +774,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				503F62411B81299F008EC323 /* ReadMe in Resources */,
 				5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */,
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,

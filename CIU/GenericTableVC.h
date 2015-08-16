@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) PFQuery *fetchQuery;
+
 -(void)pullDataFromServer;
 -(void)pullDataFromLocal;
 -(NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius;
@@ -28,4 +29,5 @@
 -(void)refreshControlTriggered:(UIRefreshControl *)sender;
 -(void)addRefreshControll;
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location;
+
 @end

@@ -1,0 +1,6 @@
+Pull down to refresh: fetch 20 statuses whose createDate > biggest date in the tableview
+Pull up to refresh: fetch 20 statusese whose createDate < smallest date in the tableview
+
+
+offline - > online: fetch latest 20 and clear local data
+online -> offline: do nothing, only wait for internet to come back

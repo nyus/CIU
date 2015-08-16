@@ -15,13 +15,20 @@
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
 @interface GenericTableVC()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate>
+
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *previousLocation;
+
 @end
+
 @implementation GenericTableVC
+
+#pragma mark - Getter
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    self.dataSource = [NSMutableArray array];
     self.clearsSelectionOnViewWillAppear = YES;
     [self addMenuButton];
     if (!self.locationManager) {

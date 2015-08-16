@@ -205,13 +205,14 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"SELF.objectId == %@", parseObject.objectId];
                 NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
                 Event *event;
+                
                 if (fetchedObjects.count > 0) {
                     event = fetchedObjects[0];
                 } else {
                     event = [NSEntityDescription insertNewObjectForEntityForName:managedObjectName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                    [event populateFromParseojbect:parseObject];
                 }
-
+                
+                [event populateFromParseojbect:parseObject];
                 [self.dataSource addObject:event];
             }
             
