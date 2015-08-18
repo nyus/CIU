@@ -259,7 +259,7 @@ static CGFloat leadingSpace;
     else if(indexPath.row == 3){
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
-            [vc setToRecipients:@[@"8miletech@gmail.com"]];
+            [vc setToRecipients:@[@"Feedbacks@DaDaApp.net"]];
             vc.mailComposeDelegate = self;
             vc.view.accessibilityLabel = @"Compose Email";
             [self presentViewController:vc animated:YES completion:nil];
