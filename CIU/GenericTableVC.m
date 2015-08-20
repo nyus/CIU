@@ -10,7 +10,6 @@
 #import "Helper.h"
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
-#import "StatusObject.h"
 #import "SVPullToRefresh.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
@@ -245,19 +244,19 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         NSMutableArray *indexPaths = [NSMutableArray array];
         
         for (int i = 0; i < fetchedObjects.count; i++) {
-            StatusObject *status = fetchedObjects[i];
+            id managedObject = fetchedObjects[i];
             [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-            [self.dataSource addObject:status];
+            [self.dataSource addObject:managedObject];
             
             
             if (i == 0 &&
-                ([self.greatestStatusDate compare:status.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
-                self.greatestStatusDate = status.createdAt;
+                ([self.greatestStatusDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestStatusDate)) {
+                self.greatestStatusDate = [managedObject createdAt];
             }
             
             if (i == fetchedObjects.count - 1 &&
-                ([self.leastStatusDate compare:status.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
-                self.leastStatusDate = status.createdAt;
+                ([self.leastStatusDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastStatusDate)) {
+                self.leastStatusDate = [managedObject createdAt];
             }
         }
         
