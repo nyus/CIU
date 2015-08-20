@@ -78,7 +78,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
-    if (INTERNET_AVAILABLE) {
+    if ([Reachability canReachInternet]) {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
@@ -91,6 +91,19 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                           greaterOrEqualTo:nil 
                            lesserOrEqualTo:nil];
     }
+}
+
+#pragma mark - Getter
+
+- (NSDateFormatter *)dateFormatter
+{
+    if(!_dateFormatter){
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+        _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    }
+    
+    return _dateFormatter;
 }
 
 - (NSString *)serverDataParseClassName
@@ -138,19 +151,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [Flurry endTimedEvent:@"View event" withParameters:nil];
     [self.fetchQuery cancel];
     [self.refreshControl endRefreshing];
-}
-
-#pragma mark - Getter
-
-- (NSDateFormatter *)dateFormatter
-{
-    if(!_dateFormatter){
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterShortStyle;
-        _dateFormatter.timeStyle = NSDateFormatterShortStyle;
-    }
-    
-    return _dateFormatter;
 }
 
 #pragma mark - Override

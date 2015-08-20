@@ -27,8 +27,6 @@
 #define IS_4_7_INCH_SCREEN (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_5_5_INCH_SCREEN (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
-#define INTERNET_AVAILABLE [Reachability canReachInternet]
-
 #define FSTRING(format, ...) ([NSString stringWithFormat:format, ##__VA_ARGS__])
 
 #ifdef __OBJC__
