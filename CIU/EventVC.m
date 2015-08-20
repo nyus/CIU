@@ -13,7 +13,6 @@
 #import "PFQuery+Utilities.h"
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
-#import "SVPullToRefresh.h"
 #import "DisplayPeripheralHeaderView.h"
 
 static float const kServerFetchCount = 50;

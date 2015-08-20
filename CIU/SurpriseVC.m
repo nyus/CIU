@@ -24,7 +24,6 @@
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
 #import "TabbarController.h"
-#import "SVPullToRefresh.h"
 #import "StatusObject+Utilities.h"
 #import "ImageCollectionViewCell.h"
 
