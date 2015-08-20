@@ -423,7 +423,6 @@ static NSString *const kEntityName = @"StatusObject";
                                               isHighRes:NO
                                              completion:^(NSError *error, UIImage *image) {
                                                  cell.statusCellAvatarImageView.image = image;
-                                                 NSLog(@"*************************Loading avatar");
                                              }];
         
         if (query) {
