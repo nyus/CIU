@@ -21,23 +21,24 @@ static UIImage *anonymousAvatarImage = nil;
 @end
 
 @implementation Helper
-//Avatar
-//get avatar
-+(BOOL)isLocalAvatarExistForUser:(NSString *)username isHighRes:(BOOL)isHighRes{
-    //if user avatar is saved, pull locally; otherwise pull from server and save it locally
+
++ (NSString *)filePathForUser:(NSString *)username isHighRes:(BOOL)isHighRes
+{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = paths[0];
     NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",username,isHighRes?@"1":@"0"];
     
-    return [[NSFileManager defaultManager] fileExistsAtPath:path];
+    return path;
+}
+
++(BOOL)isLocalAvatarExistForUser:(NSString *)username isHighRes:(BOOL)isHighRes{
+    
+    return [[NSFileManager defaultManager] fileExistsAtPath:[Helper filePathForUser:username isHighRes:isHighRes]];
 }
 
 +(UIImage *)getLocalAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes{
-    
-    //if user avatar is saved, pull locally; otherwise pull from server and save it locally
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = paths[0];
-    NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",username,isHighRes?@"1":@"0"];
+
+    NSString *path = [Helper filePathForUser:username isHighRes:isHighRes];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         
@@ -52,25 +53,32 @@ static UIImage *anonymousAvatarImage = nil;
 
 +(PFQuery *)getServerAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void (^)(NSError *, UIImage *))completionBlock{
     
+    __block NSError *error;
+    __block NSDictionary *attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:[Helper filePathForUser:username
+                                                                                                   isHighRes:isHighRes]
+                                                                               error:&error];
+    
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
     [query whereKey:@"username" equalTo:username];
     [query whereKey:@"isHighRes" equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error && object) {
             
-            PFFile *avatar = (PFFile *)object[@"image"];
-            [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                if (data && !error) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    completionBlock(error, image);
-                    //save image to local
-                    [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
-                    
-                }else{
-                    [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
-                    NSLog(@"error (%@) getting avatar of user %@",error.localizedDescription,username);
-                }
-            }];
+            if ([object.updatedAt compare:attribute[DDUpdatedAtKey]] == NSOrderedDescending) {
+                PFFile *avatar = (PFFile *)object[@"image"];
+                [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (data && !error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        completionBlock(error, image);
+                        //save image to local
+                        [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
+                        
+                    }else{
+                        [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
+                        NSLog(@"error (%@) getting avatar of user %@",error.localizedDescription,username);
+                    }
+                }];
+            }
             
         }else{
             
@@ -100,16 +108,19 @@ static UIImage *anonymousAvatarImage = nil;
     
     dispatch_queue_t queue = dispatch_queue_create("save avatar", NULL);
     dispatch_async(queue, ^{
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentDirectory = paths[0];
-        NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",username,isHighRes?@"1":@"0"];
         
-        NSError *writeError = nil;
-        [data writeToFile:path options:NSDataWritingAtomic error:&writeError];
-        if (writeError) {
-            [FPLogger record:[NSString stringWithFormat:@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription]];
-            NSLog(@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription);
-        }
+        NSString *path = [Helper filePathForUser:username isHighRes:isHighRes];
+        
+        [[NSFileManager defaultManager] createFileAtPath:path
+                                                contents:data
+                                              attributes:@{DDUpdatedAtKey: [NSDate date]}];
+//        NSError *writeError = nil;
+//        [data writeToFile:path options:NSDataWritingAtomic error:&writeError];
+//        
+//        if (writeError) {
+//            [FPLogger record:[NSString stringWithFormat:@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription]];
+//            NSLog(@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription);
+//        }
     });
     
 }
@@ -118,69 +129,20 @@ static UIImage *anonymousAvatarImage = nil;
     
     [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
     
-    PFFile *file = [PFFile fileWithData:data];
-    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            
-            PFObject *object = [PFObject objectWithClassName:@"Photo"];
-            [object setObject:username forKey:@"username"];
-            [object setObject:file forKey:@"image"];
-            [object setObject:[NSNumber numberWithBool:isHighRes] forKey:@"isHighRes"];
-            [object saveEventually];
-        }
-    }];
-}
-
-//only the currentUser can delete avatar
-+(void)removeAvatarWithAvatar{
-    
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count!=0) {
-            for (PFObject *object in objects) {
-                [object deleteInBackground];
-            }
+    [query whereKey:@"username" equalTo:username];
+    [query whereKey:@"isHighRes" equalTo:[NSNumber numberWithBool:isHighRes]];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error && object) {
+            PFFile *file = [PFFile fileWithData:data];
+            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [object setObject:file forKey:@"image"];
+                    [object saveEventually];
+                }
+            }];
         }
     }];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = paths[0];
-    NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",[PFUser currentUser].username,@"1"];
-    NSError *error;
-    //remove high res
-    [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-    //remove low res
-    path = [documentDirectory stringByAppendingFormat:@"/%@%@",[PFUser currentUser].username,@"0"];
-    [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-}
-
-//Local image
-+(UIImage *)getLocalImageWithName:(NSString *)imageName isHighRes:(BOOL)isHighRes{
-    
-    //if user avatar is saved, pull locally; otherwise pull from server and save it locally
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = paths[0];
-    NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",imageName,isHighRes?@"1":@"0"];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        
-        //use local saved avatar right away, then see if the avatar has been updated on the server
-        NSData *imageData = [[NSFileManager defaultManager] contentsAtPath:path];
-        UIImage *image = [UIImage imageWithData:imageData];
-        return image;
-    }
-    
-    return nil;
-}
-
-+(BOOL)isLocalImageExist:(NSString *)imageName isHighRes:(BOOL)isHighRes{
-    //if user avatar is saved, pull locally; otherwise pull from server and save it locally
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = paths[0];
-    NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%@",imageName,isHighRes?@"1":@"0"];
-    
-    return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
 +(void)saveImageToLocal:(NSData *)data forImageName:(NSString *)imageName isHighRes:(BOOL)isHighRes{
@@ -204,6 +166,7 @@ static UIImage *anonymousAvatarImage = nil;
     NSMutableArray *array = [NSMutableArray array];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = paths[0];
+    
     for (int i=totalCount-1; i>=0; i--) {
         NSString *path = [documentDirectory stringByAppendingFormat:@"/%@%d%@",photoId,i,isHighRes?@"1":@"0"];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {

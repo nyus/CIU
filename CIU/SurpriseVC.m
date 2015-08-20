@@ -29,7 +29,7 @@
 #import "ImageCollectionViewCell.h"
 
 static float const kStatusRadius = 30;
-static float const kServerFetchCount = 50;
+static float const kServerFetchCount = 100;
 static float const kLocalFetchCount = 50;
 static UIImage *defaultAvatar;
 static NSString *const kEntityName = @"StatusObject";
@@ -58,6 +58,22 @@ static NSString *const kEntityName = @"StatusObject";
 
 @implementation SurpriseVC
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.internetReachability = [Reachability reachabilityForInternetConnection];
+        self.wifiReachability = [Reachability reachabilityForLocalWiFi];
+        self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
+        self.avatarQueries = [NSMutableDictionary dictionary];
+        self.postImageQueries = [NSMutableDictionary dictionary];
+        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
+    }
+    
+    return self;
+}
+
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
 {
     return [NSString stringWithFormat:@"%d:%d",(int)indexPath.row, (int)indexPath.section];
@@ -67,12 +83,8 @@ static NSString *const kEntityName = @"StatusObject";
     [super viewDidLoad];
     [[GAnalyticsManager shareManager] trackScreen:@"View Surprise"];
     
-    self.internetReachability = [Reachability reachabilityForInternetConnection];
     [self.internetReachability startNotifier];
-    
-    self.wifiReachability = [Reachability reachabilityForLocalWiFi];
     [self.wifiReachability startNotifier];
-    
     self.isInternetPresentOnLaunch = [Reachability canReachInternet];
     
     if (!self.isInternetPresentOnLaunch) {
@@ -127,8 +139,6 @@ static NSString *const kEntityName = @"StatusObject";
                                         lesserOrEqualTo:weakSelf.leastStatusDate];
         }
     }];
-    
-    self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -398,6 +408,31 @@ static NSString *const kEntityName = @"StatusObject";
     self.fetchQuery.limit = fetchLimit;
 }
 
+- (void)setAvatarOnCell:(SurpriseTableViewCell *)cell
+            atIndexPath:(NSIndexPath *)indexPath
+             withStatus:(StatusObject *)status
+{
+    cell.statusCellAvatarImageView.image = defaultAvatar;
+    
+    if (!status.anonymous.boolValue) {
+        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername
+                                              isHighRes:NO];
+        if (avatar) {
+            cell.statusCellAvatarImageView.image = avatar;
+        }else{
+            if (self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+                PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername
+                                                      isHighRes:NO
+                                                     completion:^(NSError *error, UIImage *image) {
+                                                         cell.statusCellAvatarImageView.image = image;
+                                                         NSLog(@"*************************Loading avatar");
+                                                     }];
+                [self.avatarQueries setObject:query forKey:indexPath];
+            }
+        }
+    }
+}
+
 #pragma mark - Table view data source
 
 #pragma mark - UITableViewDelete
@@ -441,27 +476,7 @@ static NSString *const kEntityName = @"StatusObject";
     cell.flagButton.enabled = !status.isBadContent.boolValue;
     
     // Avatar
-    if (!defaultAvatar) {
-        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
-    }
-    cell.statusCellAvatarImageView.image = defaultAvatar;
-    if (!status.anonymous.boolValue) {
-        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
-        if (avatar) {
-            cell.statusCellAvatarImageView.image = avatar;
-        }else{
-            if (tableView.isDecelerating == NO && tableView.isDragging == NO) {
-                PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                    cell.statusCellAvatarImageView.image = image;
-                }];
-                
-                if(!self.avatarQueries){
-                    self.avatarQueries = [NSMutableDictionary dictionary];
-                }
-                [self.avatarQueries setObject:query forKey:indexPath];
-            }
-        }
-    }
+    [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
     
     // Collection view
     if (status.photoCount.intValue>0){
@@ -475,17 +490,14 @@ static NSString *const kEntityName = @"StatusObject";
         [cell.collectionView reloadData];
         
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
+        
         if (postImages.count == status.photoCount.intValue) {
             self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = postImages;
             [cell.collectionView reloadData];
-            
         }else{
             
             if (tableView.isDecelerating == NO && tableView.isDragging == NO){
                 PFQuery *query = [self getServerPostImageForCellAtIndexpath:indexPath];
-                if (!self.postImageQueries) {
-                    self.postImageQueries = [NSMutableDictionary dictionary];
-                }
                 [self.postImageQueries setObject:query forKey:indexPath];
             }
         }
@@ -566,27 +578,7 @@ static NSString *const kEntityName = @"StatusObject";
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         StatusObject *status = self.dataSource[indexPath.row];
         
-        if (!status.anonymous.boolValue) {
-            //get avatar
-            UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername isHighRes:NO];
-            if (avatar) {
-                
-                cell.statusCellAvatarImageView.image = avatar;
-                
-            }else{
-                
-                PFQuery *query1 = [Helper getServerAvatarForUser:status.posterUsername isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                    cell.statusCellAvatarImageView.image = image;
-                }];
-                
-                if(!self.avatarQueries){
-                    self.avatarQueries = [NSMutableDictionary dictionary];
-                }
-                [self.avatarQueries setObject:query1 forKey:indexPath];
-            }
-        } else {
-            cell.statusCellAvatarImageView.image = defaultAvatar;
-        }
+        [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
         
         //get post image
         if(status.photoCount.intValue>0){
@@ -598,9 +590,6 @@ static NSString *const kEntityName = @"StatusObject";
             }else{
                 //get post images
                 PFQuery *query2 = [self getServerPostImageForCellAtIndexpath:indexPath];
-                if (!self.postImageQueries) {
-                    self.postImageQueries = [NSMutableDictionary dictionary];
-                }
                 [self.postImageQueries setObject:query2 forKey:indexPath];
             }
         }

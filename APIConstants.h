@@ -22,6 +22,7 @@ static NSString *const DDEmailKey = @"email";
 static NSString *const DDIsStickyPostKey = @"isStickyPost";
 static NSString *const DDIsBadContentKey = @"isBadContent";
 static NSString *const DDCreatedAtKey = @"createdAt";
+static NSString *const DDUpdatedAtKey = @"updatedAt";
 static NSString *const DDMessageKey = @"message";
 static NSString *const DDPictureKey = @"picture";
 static NSString *const DDLatitudeKey = @"latitude";

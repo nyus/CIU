@@ -22,15 +22,11 @@ static const NSInteger EULA_TAG = 50;
 +(BOOL)isLocalAvatarExistForUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 +(void)saveAvatar:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 +(void)saveAvatarToLocal:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
-+(void)removeAvatarWithAvatar;
 + (NSString *)getAnonymousAvatarImageNameForUsername:(NSString *)username statusId:(NSString *)statusId;
-#warning remove
 + (NSString *)randomAnonymousImageName;
 
 //local image
-+(UIImage *)getLocalImageWithName:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(void)saveImageToLocal:(NSData *)data forImageName:(NSString *)imageName isHighRes:(BOOL)isHighRes;
-+(BOOL)isLocalImageExist:(NSString *)imageName isHighRes:(BOOL)isHighRes;
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius;
 +(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId totalCount:(int)totalCount isHighRes:(BOOL)isHighRes;
 
