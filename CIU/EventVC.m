@@ -18,7 +18,7 @@
 
 static float const kServerFetchCount = 50;
 static float const kLocalFetchCount = 20;
-static NSString *managedObjectName = @"Event";
+static NSString *kEntityName = @"Event";
 static NSString *const kEventDataRadiusKey = @"kEventDataRadiusKey";
 static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
@@ -76,72 +76,68 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 -(void)handleDataDisplayPeripheral{
     
-    // Reset
-    _localDataCount = 0;
-    _serverDataCount = 0;
-    
-    self.dataSource = nil;
+    [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     if (INTERNET_AVAILABLE) {
-        [self pullDataFromServerWithMemorizedLocation];
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil];
     } else {
-        [self pullDataFromLocal];
+        [self fetchLocalDataWithEntityName:kEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:[[self eventRadius] floatValue]
+                          greaterOrEqualTo:nil 
+                           lesserOrEqualTo:nil];
     }
 }
 
--(void)viewDidLoad{
+- (NSString *)serverDataParseClassName
+{
+    return DDEventParseClassName;
+}
+
+- (NSString *)localDataEntityName
+{
+    return kEntityName;
+}
+
+- (float)dataFetchRadius
+{
+    return [self eventRadius].floatValue;
+}
+
+- (float)serverFetchCount
+{
+    return kServerFetchCount;
+}
+
+- (float)localFetchCount
+{
+    return kLocalFetchCount;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    [[GAnalyticsManager shareManager] trackScreen:@"Event"];
-    
-    [self addRefreshControll];
-    
-    if (INTERNET_AVAILABLE) {
-        [self pullDataFromServerWithMemorizedLocation];
-    } else {
-        [self pullDataFromLocal];
-    }
-    
-    __weak EventVC *weakSelf = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        if (!INTERNET_AVAILABLE) {
-            [weakSelf pullDataFromLocal];
-        }
-        [weakSelf.tableView.infiniteScrollingView stopAnimating];
-    }];
-    
-}
-
--(void)addRefreshControll{
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
+    [self addRefreshControle];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [[PFUser currentUser] fetchInBackground];
     [Flurry logEvent:@"View event" timed:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [Flurry endTimedEvent:@"View event" withParameters:nil];
     [self.fetchQuery cancel];
     [self.refreshControl endRefreshing];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
-}
-
-- (void)handleSidePanelNotification:(NSNotification *)notification
-{
-    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
-}
-
--(void)pullDataFromServerWithMemorizedLocation
-{
-    NSDictionary *dictionary = [Helper userLocation];
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-    [self pullDataFromServerAroundCenter:center];
 }
 
 #pragma mark - Getter
@@ -159,7 +155,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 #pragma mark - Override
 
-- (void)setupServerQueryWithClassName:(NSString *)className fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius dateConditionKey:(NSString *)dateConditionKey
+- (void)setupServerQueryWithClassName:(NSString *)className
+                           fetchLimit:(NSUInteger)fetchLimit
+                          fetchRadius:(CGFloat)fetchRadius
+                     greaterOrEqualTo:(NSDate *)greaterDate
+                      lesserOrEqualTo:(NSDate *)lesserDate
 {
     if (self.fetchQuery) {
         [self.fetchQuery cancel];
@@ -168,121 +168,35 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     NSDictionary *dictionary = [Helper userLocation];
     if (!dictionary) {
-        // Without user location, don't fetch any data
-        self.fetchQuery = nil;
+        
         return;
     }
     
-    // Subquries: fetch geo-bounded objects and "on top" objects
-    
     self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
+                                                               [dictionary[DDLongitudeKey] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
     [self.fetchQuery orderByDescending:DDEventDateKey];
     [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
-    // Only want to fetch kServerFetchCount items each time
+    if (greaterDate) {
+        [self.fetchQuery whereKey:DDCreatedAtKey
+                      greaterThan:greaterDate];
+    }
+    
+    if (lesserDate) {
+        [self.fetchQuery whereKey:DDCreatedAtKey
+                         lessThan:lesserDate];
+    }
     
     self.fetchQuery.limit = fetchLimit;
-}
-
--(void)pullDataFromServerAroundCenter:(CLLocationCoordinate2D)center{
     
-    [self setupServerQueryWithClassName:managedObjectName fetchLimit:kServerFetchCount fetchRadius:[[self eventRadius] floatValue] dateConditionKey:kLastFetchDateKey];
-    
-    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count>0) {
-            
-            _serverDataCount += objects.count;
-            
-            self.dataSource = [NSMutableArray array];
-            
-            for (int i = 0; i < objects.count; i++) {
-                
-                // Insert into local db
-                PFObject *parseObject = objects[i];
-                
-                // Skip duplicates
-                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:managedObjectName];
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"SELF.objectId == %@", parseObject.objectId];
-                NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
-                Event *event;
-                
-                if (fetchedObjects.count > 0) {
-                    event = fetchedObjects[0];
-                } else {
-                    event = [NSEntityDescription insertNewObjectForEntityForName:managedObjectName inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                }
-                
-                [event populateFromParseojbect:parseObject];
-                [self.dataSource addObject:event];
-            }
-            
-            [[SharedDataManager sharedInstance] saveContext];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
-        });
-    }];
 }
 
--(void)pullDataFromLocal{
-    [self pullDataFromLocalWithEntityName:managedObjectName fetchLimit:kLocalFetchCount + _localDataCount fetchRadius:[[self eventRadius] floatValue]];
-}
-
-- (NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
+- (void)populateManagedObject:(NSManagedObject *)managedObject
+              fromParseObject:(PFObject *)object
 {
-    NSDictionary *dictionary = [Helper userLocation];
-    if (!dictionary) {
-        return nil;
-    }
-    
-    if (!self.dataSource) {
-        self.dataSource = [NSMutableArray array];
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    fetchRequest.includesPendingChanges = NO;
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    if (dictionary) {
-        CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-        MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(fetchRadius)];
-        NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
-        
-        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
-        [fetchRequest setPredicate:compoundPredicate];
-    } else {
-        [fetchRequest setPredicate:excludeBadContent];
-    }
-    
-    // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                   ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
-    fetchRequest.fetchOffset = _localDataCount;
-    fetchRequest.fetchLimit = fetchLimit + _localDataCount;
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects.count>0) {
-        
-        _localDataCount = _localDataCount + fetchedObjects.count;
-        [self.dataSource addObjectsFromArray:fetchedObjects];
-        
-        [self.tableView reloadData];
-    }
-    
-    return fetchedObjects;
-}
-
--(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    [self pullDataFromServerWithMemorizedLocation];
+    [((Event *)managedObject) populateFromParseObject:object];
 }
 
 #pragma mark - Table view
@@ -379,26 +293,13 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     return 40.0f;
 }
 
-#pragma mark - Location
-
-//override
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location{
-    [super locationManager:manager didUpdateLocation:location];
-    //on viewDidLoad, fetch data for user once, if user wishes to see new data, user needs to pull down and refresh
-    //on viewDidLoad, location manager may have not located the user yet, so in this method, is self.dataSource is nil or count ==0, that means we need to manually trigger fetch
-    //pull to refresh would always use the location in NSUserDefaults
-    if(self.dataSource == nil || self.dataSource.count == 0){
-        [self pullDataFromServerAroundCenter:location.coordinate];
-    }
-}
-
 #pragma mark - EventTableViewCellDelegate
 
 - (void)flagBadContentButtonTappedOnCell:(EventTableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block Event *event = self.dataSource[indexPath.row];
-    [self flagObjectForId:event.objectId parseClassName:managedObjectName completion:^(BOOL succeeded, NSError *error) {
+    [self flagObjectForId:event.objectId parseClassName:kEntityName completion:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             event.isBadContent = @YES;
             [[SharedDataManager sharedInstance] saveContext];

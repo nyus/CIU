@@ -10,7 +10,7 @@
 @class PFObject;
 @implementation StatusObject (Utilities)
 
--(void)populateFromParseojbect:(PFObject *)object{
+-(void)populateFromParseObject:(PFObject *)object{
     self.createdAt = object.createdAt;
 //    self.updatedAt = object.updatedAt;
     self.objectId = object.objectId;

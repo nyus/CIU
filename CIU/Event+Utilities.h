@@ -9,5 +9,5 @@
 #import "Event.h"
 @class PFObject;
 @interface Event (Utilities)
--(void)populateFromParseojbect:(PFObject *)object;
+-(void)populateFromParseObject:(PFObject *)object;
 @end

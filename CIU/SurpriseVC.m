@@ -48,11 +48,6 @@ static NSString *const kEntityName = @"StatusObject";
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
-@property (nonatomic, assign) BOOL isInternetPresentOnLaunch;
-@property (nonatomic) Reachability *internetReachability;
-@property (nonatomic) Reachability *wifiReachability;
-@property (nonatomic, strong) NSDate *greatestStatusDate;
-@property (nonatomic, strong) NSDate *leastStatusDate;
 
 @end
 
@@ -63,8 +58,6 @@ static NSString *const kEntityName = @"StatusObject";
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        self.internetReachability = [Reachability reachabilityForInternetConnection];
-        self.wifiReachability = [Reachability reachabilityForLocalWiFi];
         self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
         self.avatarQueries = [NSMutableDictionary dictionary];
         self.postImageQueries = [NSMutableDictionary dictionary];
@@ -74,71 +67,41 @@ static NSString *const kEntityName = @"StatusObject";
     return self;
 }
 
+- (NSString *)serverDataParseClassName
+{
+    return DDStatusParseClassName;
+}
+
+- (NSString *)localDataEntityName
+{
+    return kEntityName;
+}
+
+- (float)dataFetchRadius
+{
+    return kStatusRadius;
+}
+
+- (float)serverFetchCount
+{
+    return kServerFetchCount;
+}
+
+- (float)localFetchCount
+{
+    return kLocalFetchCount;
+}
+
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
 {
     return [NSString stringWithFormat:@"%d:%d",(int)indexPath.row, (int)indexPath.section];
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [[GAnalyticsManager shareManager] trackScreen:@"View Surprise"];
     
-    [self.internetReachability startNotifier];
-    [self.wifiReachability startNotifier];
-    self.isInternetPresentOnLaunch = [Reachability canReachInternet];
-    
-    if (!self.isInternetPresentOnLaunch) {
-        [self fetchLocalDataWithEntityName:kEntityName
-                                fetchLimit:kLocalFetchCount
-                               fetchRadius:kStatusRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil];
-    } else {
-        [self fetchServerDataWithParseClassName:DDStatusParseClassName
-                                     fetchLimit:kServerFetchCount
-                                    fetchRadius:kStatusRadius
-                               greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
-    }
-    
-    // Pull down to refresh
-    
-    __weak typeof(self) weakSelf = self;
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        
-        if (!weakSelf.isInternetPresentOnLaunch) {
-            [weakSelf fetchLocalDataWithEntityName:kEntityName
-                                        fetchLimit:kLocalFetchCount
-                                       fetchRadius:kStatusRadius
-                                  greaterOrEqualTo:weakSelf.greatestStatusDate
-                                   lesserOrEqualTo:nil];
-        } else {
-            [weakSelf fetchServerDataWithParseClassName:DDStatusParseClassName
-                                             fetchLimit:kServerFetchCount
-                                            fetchRadius:kStatusRadius
-                                       greaterOrEqualTo:weakSelf.greatestStatusDate
-                                        lesserOrEqualTo:nil];
-        }
-    }];
-    
-    // Reach tbview bottom to refresh
-    
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        
-        if (!weakSelf.isInternetPresentOnLaunch) {
-            [weakSelf fetchLocalDataWithEntityName:kEntityName
-                                        fetchLimit:kLocalFetchCount
-                                       fetchRadius:kStatusRadius
-                                  greaterOrEqualTo:nil
-                                   lesserOrEqualTo:weakSelf.leastStatusDate];
-        } else {
-            [weakSelf fetchServerDataWithParseClassName:DDStatusParseClassName
-                                             fetchLimit:kServerFetchCount
-                                            fetchRadius:kStatusRadius
-                                       greaterOrEqualTo:nil
-                                        lesserOrEqualTo:weakSelf.leastStatusDate];
-        }
-    }];
+    [self addRefreshControle];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -148,217 +111,18 @@ static NSString *const kEntityName = @"StatusObject";
     self.tabBarController.tabBar.hidden = NO;
     [[PFUser currentUser] fetchInBackground];
     [Flurry logEvent:@"View surprise" timed:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View surprise" withParameters:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)handleReachabilityChanged:(NSNotification *)notification
+- (void)populateManagedObject:(NSManagedObject *)managedObject
+              fromParseObject:(PFObject *)object
 {
-    Reachability* reachability = [notification object];
-    NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
-    
-    // App goes from offline to online
-    
-    if (!self.isInternetPresentOnLaunch && (reachability == self.internetReachability || reachability == self.wifiReachability)) {
-        self.isInternetPresentOnLaunch = YES;
-    }
-}
-
-- (void)handleSidePanelNotification:(NSNotification *)notification
-{
-    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
-}
-
-- (void)fetchLocalDataWithEntityName:(NSString *)entityName
-                          fetchLimit:(NSUInteger)fetchLimit
-                         fetchRadius:(CGFloat)fetchRadius
-                    greaterOrEqualTo:(NSDate *)greaterDate
-                     lesserOrEqualTo:(NSDate *)lesserDate
-{
-    if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
-        
-        return;
-    }
-    
-    NSDictionary *dictionary = [Helper userLocation];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    fetchRequest.includesPendingChanges = NO;
-    
-    // Filter to exclude bad content
-    
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    
-    // Filter by geolocation
-    
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
-                                                               [dictionary[DDLongitudeKey] doubleValue]);
-    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
-                                                           radius:@(fetchRadius)];
-    NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
-    
-    // Filter to get data between dates
-    
-    NSPredicate *datePredicate = nil;
-    if (greaterDate && !lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterDate];
-    } else if (!greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserDate];
-    } else if (greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterDate, lesserDate];
-    }
-    
-    // Predicate
-    
-    NSCompoundPredicate *compoundPredicate = datePredicate ?
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, datePredicate]] :
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
-    
-    // Sort descriptor
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:DDCreatedAtKey
-                                                                   ascending:NO];
-    
-    [fetchRequest setPredicate:compoundPredicate];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    fetchRequest.fetchLimit = fetchLimit;
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
-                                                                                                     error:&error];
-    
-    if (fetchedObjects.count > 0) {
-        
-        // This has to be called before adding new objects to the data source
-        
-        NSUInteger currentCount = self.dataSource.count;
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        
-        for (int i = 0; i < fetchedObjects.count; i++) {
-            StatusObject *status = fetchedObjects[i];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-            [self.dataSource addObject:status];
-            
-            
-            if (i == 0 &&
-                ([self.greatestStatusDate compare:status.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
-                self.greatestStatusDate = status.createdAt;
-            }
-            
-            if (i == fetchedObjects.count - 1 &&
-                ([self.leastStatusDate compare:status.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
-                self.leastStatusDate = status.createdAt;
-            }
-        }
-        
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
-    
-    [self.tableView.infiniteScrollingView stopAnimating];
-}
-
--(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
-                              fetchLimit:(NSUInteger)fetchLimit
-                             fetchRadius:(CGFloat)fetchRadius
-                        greaterOrEqualTo:(NSDate *)greaterDate
-                         lesserOrEqualTo:(NSDate *)lesserDate{
-    
-    [self setupServerQueryWithClassName:parseClassName
-                             fetchLimit:fetchLimit
-                            fetchRadius:fetchRadius
-                       greaterOrEqualTo:greaterDate
-                        lesserOrEqualTo:lesserDate];
-    
-    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [TSMessage showNotificationWithTitle:nil
-                                            subtitle:NSLocalizedString(@"Oops, something went wrong, please try again", nil)
-                                                type:TSMessageNotificationTypeError
-                                  accessibilityLabel:@"fetchServerErrorMsg"];
-                [self.tableView.infiniteScrollingView stopAnimating];
-            });
-        } else {
-            
-            //construct array of indexPath and store parse data to local
-            NSMutableArray *indexpathArray = [NSMutableArray array];
-            
-            if (objects.count > 0) {
-                
-                NSMutableArray *array = nil;
-                NSInteger originalCount = self.dataSource.count;
-                
-                for (int i = 0; i < objects.count; i++) {
-                    
-                    PFObject *pfObject = objects[i];
-                    
-                    // Skip duplicates
-                    
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kEntityName];
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"SELF.objectId == %@", pfObject.objectId];
-                    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
-                    StatusObject *status = nil;
-                    
-                    if (fetchedObjects.count > 0) {
-                        status = fetchedObjects[0];
-                    } else {
-                        status = [NSEntityDescription insertNewObjectForEntityForName:kEntityName
-                                                               inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                    }
-                    
-                    [status populateFromParseojbect:pfObject];
-                    
-                    // Pull down to refresh
-                    if (!greaterDate && !lesserDate) {
-                        [self.dataSource addObject:status];
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                    } else if (greaterDate && !lesserDate) {
-                        
-                        if (!array) {
-                            array = [NSMutableArray arrayWithCapacity:objects.count + self.dataSource.count];
-                        }
-                        [array addObject:status];
-                        
-                        if (i == objects.count - 1) {
-                            [array addObjectsFromArray:self.dataSource];
-                            self.dataSource = array;
-                        }
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                    } else if (!greaterDate && lesserDate) {
-                        // pull up to refresh
-                        
-                        [self.dataSource addObject:status];
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i + originalCount inSection:0]];
-                    }
-                    
-                    if (i == 0 &&
-                        ([self.greatestStatusDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
-                        self.greatestStatusDate = pfObject.createdAt;
-                    }
-                    
-                    if (i == objects.count - 1 &&
-                        ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
-                        self.leastStatusDate = pfObject.createdAt;
-                    }
-                }
-                
-                [[SharedDataManager sharedInstance] saveContext];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
-                [self.tableView.infiniteScrollingView stopAnimating];
-            });
-        }
-    }];
+    [((StatusObject *)managedObject) populateFromParseObject:object];
 }
 
 - (void)setupServerQueryWithClassName:(NSString *)className
@@ -430,8 +194,6 @@ static NSString *const kEntityName = @"StatusObject";
         }
     }
 }
-
-#pragma mark - Table view data source
 
 #pragma mark - UITableViewDelete
 
@@ -554,20 +316,6 @@ static NSString *const kEntityName = @"StatusObject";
             status.statusCellHeight = [NSNumber numberWithFloat:cellHeight];
             return cellHeight;
         }
-    }
-}
-
--(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self cancelNetworkRequestForCell:cell atIndexPath:indexPath];
-}
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [self loadRemoteDataForVisibleCells];
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (!decelerate) {
-        [self loadRemoteDataForVisibleCells];
     }
 }
 

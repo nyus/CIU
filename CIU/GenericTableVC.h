@@ -19,15 +19,48 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) PFQuery *fetchQuery;
+@property (nonatomic, assign) BOOL isInternetPresentOnLaunch;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
+@property (nonatomic, strong) NSDate *greatestStatusDate;
+@property (nonatomic, strong) NSDate *leastStatusDate;
+@property (nonatomic, copy) NSString *localDataEntityName;
+@property (nonatomic, copy) NSString *serverDataParseClassName;
+@property (nonatomic, assign) float dataFetchRadius;
+@property (nonatomic, assign) float serverFetchCount;
+@property (nonatomic, assign) float localFetchCount;
 
--(void)pullDataFromServer;
--(void)pullDataFromLocal;
--(NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius;
 -(void)loadRemoteDataForVisibleCells;
+
 -(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath;
--(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
--(void)refreshControlTriggered:(UIRefreshControl *)sender;
--(void)addRefreshControll;
--(void)locationManager:(CLLocationManager *)manager didUpdateLocation:(CLLocation *)location;
+
+-(void)cancelNetworkRequestForCell:(UITableViewCell *)cell
+                       atIndexPath:(NSIndexPath *)indexPath;
+
+-(void)addRefreshControle;
+
+-(void)locationManager:(CLLocationManager *)manager
+     didUpdateLocation:(CLLocation *)location;
+
+- (void)fetchLocalDataWithEntityName:(NSString *)entityName
+                          fetchLimit:(NSUInteger)fetchLimit
+                         fetchRadius:(CGFloat)fetchRadius
+                    greaterOrEqualTo:(NSDate *)greaterDate
+                     lesserOrEqualTo:(NSDate *)lesserDate;
+
+-(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
+                              fetchLimit:(NSUInteger)fetchLimit
+                             fetchRadius:(CGFloat)fetchRadius
+                        greaterOrEqualTo:(NSDate *)greaterDate
+                         lesserOrEqualTo:(NSDate *)lesserDate;
+
+- (void)setupServerQueryWithClassName:(NSString *)className
+                           fetchLimit:(NSUInteger)fetchLimit
+                          fetchRadius:(CGFloat)fetchRadius
+                     greaterOrEqualTo:(NSDate *)greaterDate
+                      lesserOrEqualTo:(NSDate *)lesserDate;
+
+-(void)populateManagedObject:(NSManagedObject *)managedObject
+             fromParseObject:(PFObject *)object;
 
 @end

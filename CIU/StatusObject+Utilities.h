@@ -10,5 +10,7 @@
 #import <Parse/Parse.h>
 
 @interface StatusObject (Utilities)
--(void)populateFromParseojbect:(PFObject *)object;
+
+-(void)populateFromParseObject:(PFObject *)object;
+
 @end

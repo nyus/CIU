@@ -11,6 +11,7 @@
 #import "NSPredicate+Utilities.h"
 #import "PFQuery+Utilities.h"
 #import "StatusObject.h"
+#import "SVPullToRefresh.h"
 
 static const CGFloat kLocationNotifyThreshold = 1.0;
 
@@ -25,37 +26,139 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 #pragma mark - Getter
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.internetReachability = [Reachability reachabilityForInternetConnection];
+        self.wifiReachability = [Reachability reachabilityForLocalWiFi];
+        self.locationManager = [Helper initLocationManagerWithDelegate:self];
+        self.dataSource = [NSMutableArray array];
+        [self addMenuButton];
+    }
+    
+    return self;
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    self.dataSource = [NSMutableArray array];
     self.clearsSelectionOnViewWillAppear = YES;
-    [self addMenuButton];
-    if (!self.locationManager) {
-        self.locationManager = [Helper initLocationManagerWithDelegate:self];
+    
+    [self addInternetObserver];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSidePanelNotification:) name:DDSidePanelNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleReachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Handler
+
+- (void)handleSidePanelNotification:(NSNotification *)notification
+{
+    self.tableView.userInteractionEnabled = ![notification.userInfo[@"open"] boolValue];
+}
+
+- (void)handleReachabilityChanged:(NSNotification *)notification
+{
+    Reachability* reachability = [notification object];
+    NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
+    
+    // App goes from offline to online
+    
+    if (!self.isInternetPresentOnLaunch &&
+        (reachability == self.internetReachability ||
+         reachability == self.wifiReachability)) {
+        self.isInternetPresentOnLaunch = YES;
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+#pragma mark - Setup
+
+- (void)addInternetObserver
+{
+    [self.internetReachability startNotifier];
+    [self.wifiReachability startNotifier];
+    self.isInternetPresentOnLaunch = [Reachability canReachInternet];
+}
+
+- (void)addRefreshControle
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:nil];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil];
+    }
+    
+    // Pull down to refresh
+    
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        
+        if (!weakSelf.isInternetPresentOnLaunch) {
+            [weakSelf fetchLocalDataWithEntityName:weakSelf.localDataEntityName
+                                        fetchLimit:weakSelf.localFetchCount
+                                       fetchRadius:weakSelf.dataFetchRadius
+                                  greaterOrEqualTo:weakSelf.greatestStatusDate
+                                   lesserOrEqualTo:nil];
+        } else {
+            [weakSelf fetchServerDataWithParseClassName:weakSelf.serverDataParseClassName
+                                             fetchLimit:weakSelf.serverFetchCount
+                                            fetchRadius:weakSelf.dataFetchRadius
+                                       greaterOrEqualTo:weakSelf.greatestStatusDate
+                                        lesserOrEqualTo:nil];
+        }
+    }];
+    
+    // Reach tbview bottom to refresh
+    
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        
+        if (!weakSelf.isInternetPresentOnLaunch) {
+            [weakSelf fetchLocalDataWithEntityName:weakSelf.localDataEntityName
+                                        fetchLimit:weakSelf.localFetchCount
+                                       fetchRadius:weakSelf.dataFetchRadius
+                                  greaterOrEqualTo:nil
+                                   lesserOrEqualTo:weakSelf.leastStatusDate];
+        } else {
+            [weakSelf fetchServerDataWithParseClassName:weakSelf.serverDataParseClassName
+                                             fetchLimit:weakSelf.serverFetchCount
+                                            fetchRadius:weakSelf.dataFetchRadius
+                                       greaterOrEqualTo:nil
+                                        lesserOrEqualTo:weakSelf.leastStatusDate];
+        }
+    }];
 }
 
 - (void)addMenuButton{
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"3menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
     menuButton.accessibilityLabel = kMenuButtonAccessibilityLabel;
     self.navigationItem.leftBarButtonItem = menuButton;
-    
 }
 
 - (void)addTapToScrollUpGesture{
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navBarTapped:)];
     [self.navigationController.navigationBar addGestureRecognizer:tap];
-}
-
--(void)addRefreshControll{
-
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshControlTriggered:) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)menuButtonTapped:(id)sender{
@@ -66,79 +169,214 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     [self.tableView scrollsToTop];
 }
 
--(void)refreshControlTriggered:(UIRefreshControl *)sender{
-    //override by subclass
-}
-
--(void)pullDataFromLocal{
-    //override by subclass
-}
-
-// Used by SurpriseVC
-- (NSArray *)pullDataFromLocalWithEntityName:(NSString *)entityName fetchLimit:(NSUInteger)fetchLimit fetchRadius:(CGFloat)fetchRadius
-{
-    NSDictionary *dictionary = [Helper userLocation];
-    if (!dictionary) {
-        return nil;
-    }
-    
-    if (!self.dataSource) {
-        self.dataSource = [NSMutableArray array];
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    fetchRequest.includesPendingChanges = NO;
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    // Specify criteria for filtering which objects to fetch. Add geo bounding constraint
-    if (dictionary) {
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
-    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center radius:@(fetchRadius)];
-    NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
-    
-    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
-    [fetchRequest setPredicate:compoundPredicate];
-    } else {
-        [fetchRequest setPredicate:excludeBadContent];
-    }
-    
-    // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"createdAt"
-                                                                   ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
-    fetchRequest.fetchOffset = _localDataCount;
-    fetchRequest.fetchLimit = fetchLimit + _localDataCount;
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects.count>0) {
-        
-        // This has to be called before adding new objects to the data source
-        NSUInteger currentCount = self.dataSource.count;
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        for (int i = 0; i < fetchedObjects.count; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-        }
-        
-        _localDataCount = _localDataCount + fetchedObjects.count;
-        [self.dataSource addObjectsFromArray:fetchedObjects];
-        
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
-    
-    return fetchedObjects;
-}
-
--(void)pullDataFromServer{
-    //override by subclass
-}
-
 -(void)loadRemoteDataForVisibleCells{
     //override by subclass
 }
 
 -(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
     //override by subclass
+}
+
+#pragma mark - Data
+
+- (void)fetchLocalDataWithEntityName:(NSString *)entityName
+                          fetchLimit:(NSUInteger)fetchLimit
+                         fetchRadius:(CGFloat)fetchRadius
+                    greaterOrEqualTo:(NSDate *)greaterDate
+                     lesserOrEqualTo:(NSDate *)lesserDate
+{
+    if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
+        
+        return;
+    }
+    
+    NSDictionary *dictionary = [Helper userLocation];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    fetchRequest.includesPendingChanges = NO;
+    
+    // Filter to exclude bad content
+    
+    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
+    
+    // Filter by geolocation
+    
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
+                                                               [dictionary[DDLongitudeKey] doubleValue]);
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
+                                                           radius:@(fetchRadius)];
+    NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
+    
+    // Filter to get data between dates
+    
+    NSPredicate *datePredicate = nil;
+    if (greaterDate && !lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterDate];
+    } else if (!greaterDate && lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserDate];
+    } else if (greaterDate && lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterDate, lesserDate];
+    }
+    
+    // Predicate
+    
+    NSCompoundPredicate *compoundPredicate = datePredicate ?
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, datePredicate]] :
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
+    
+    // Sort descriptor
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:DDCreatedAtKey
+                                                                   ascending:NO];
+    
+    [fetchRequest setPredicate:compoundPredicate];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    fetchRequest.fetchLimit = fetchLimit;
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
+                                                                                                     error:&error];
+    
+    if (fetchedObjects.count > 0) {
+        
+        // This has to be called before adding new objects to the data source
+        
+        NSUInteger currentCount = self.dataSource.count;
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        
+        for (int i = 0; i < fetchedObjects.count; i++) {
+            StatusObject *status = fetchedObjects[i];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
+            [self.dataSource addObject:status];
+            
+            
+            if (i == 0 &&
+                ([self.greatestStatusDate compare:status.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
+                self.greatestStatusDate = status.createdAt;
+            }
+            
+            if (i == fetchedObjects.count - 1 &&
+                ([self.leastStatusDate compare:status.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
+                self.leastStatusDate = status.createdAt;
+            }
+        }
+        
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    [self.tableView.infiniteScrollingView stopAnimating];
+}
+
+- (void)setupServerQueryWithClassName:(NSString *)className
+                           fetchLimit:(NSUInteger)fetchLimit
+                          fetchRadius:(CGFloat)fetchRadius
+                     greaterOrEqualTo:(NSDate *)greaterDate
+                      lesserOrEqualTo:(NSDate *)lesserDate
+{
+    // Override by subclass
+}
+
+-(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
+                              fetchLimit:(NSUInteger)fetchLimit
+                             fetchRadius:(CGFloat)fetchRadius
+                        greaterOrEqualTo:(NSDate *)greaterDate
+                         lesserOrEqualTo:(NSDate *)lesserDate{
+    
+    [self setupServerQueryWithClassName:parseClassName
+                             fetchLimit:fetchLimit
+                            fetchRadius:fetchRadius
+                       greaterOrEqualTo:greaterDate
+                        lesserOrEqualTo:lesserDate];
+    
+    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [TSMessage showNotificationWithTitle:nil
+                                            subtitle:NSLocalizedString(@"Oops, something went wrong, please try again", nil)
+                                                type:TSMessageNotificationTypeError
+                                  accessibilityLabel:@"fetchServerErrorMsg"];
+                [self.tableView.infiniteScrollingView stopAnimating];
+            });
+        } else {
+            
+            //construct array of indexPath and store parse data to local
+            NSMutableArray *indexpathArray = [NSMutableArray array];
+            
+            if (objects.count > 0) {
+                
+                NSMutableArray *array = nil;
+                NSInteger originalCount = self.dataSource.count;
+                
+                for (int i = 0; i < objects.count; i++) {
+                    
+                    PFObject *pfObject = objects[i];
+                    
+                    // Skip duplicates
+                    
+                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:self.localDataEntityName];
+                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"SELF.objectId == %@", pfObject.objectId];
+                    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                    id managedObject = nil;
+                    
+                    if (fetchedObjects.count > 0) {
+                        managedObject = fetchedObjects[0];
+                    } else {
+                        managedObject = [NSEntityDescription insertNewObjectForEntityForName:self.localDataEntityName
+                                                               inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    }
+                    
+                    [self populateManagedObject:managedObject fromParseObject:pfObject];
+                    
+                    // Pull down to refresh
+                    if (!greaterDate && !lesserDate) {
+                        [self.dataSource addObject:managedObject];
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                    } else if (greaterDate && !lesserDate) {
+                        
+                        if (!array) {
+                            array = [NSMutableArray arrayWithCapacity:objects.count + self.dataSource.count];
+                        }
+                        [array addObject:managedObject];
+                        
+                        if (i == objects.count - 1) {
+                            [array addObjectsFromArray:self.dataSource];
+                            self.dataSource = array;
+                        }
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                    } else if (!greaterDate && lesserDate) {
+                        // pull up to refresh
+                        
+                        [self.dataSource addObject:managedObject];
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i + originalCount inSection:0]];
+                    }
+                    
+                    if (i == 0 &&
+                        ([self.greatestStatusDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
+                        self.greatestStatusDate = pfObject.createdAt;
+                    }
+                    
+                    if (i == objects.count - 1 &&
+                        ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
+                        self.leastStatusDate = pfObject.createdAt;
+                    }
+                }
+                
+                [[SharedDataManager sharedInstance] saveContext];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView.infiniteScrollingView stopAnimating];
+            });
+        }
+    }];
+}
+
+-(void)populateManagedObject:(NSManagedObject *)managedObject
+             fromParseObject:(PFObject *)object
+{
+    // Override by subclass
 }
 
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
