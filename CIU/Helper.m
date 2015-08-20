@@ -34,7 +34,8 @@ static NSTimeInterval kThirtyMins = 1800.0;
 
 +(BOOL)isLocalAvatarExistForUser:(NSString *)username isHighRes:(BOOL)isHighRes{
     
-    return [[NSFileManager defaultManager] fileExistsAtPath:[Helper filePathForUser:username isHighRes:isHighRes]];
+    return [[NSFileManager defaultManager] fileExistsAtPath:[Helper filePathForUser:username
+                                                                          isHighRes:isHighRes]];
 }
 
 +(UIImage *)getLocalAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes{
@@ -52,7 +53,9 @@ static NSTimeInterval kThirtyMins = 1800.0;
     return nil;
 }
 
-+(PFQuery *)getServerAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void (^)(NSError *, UIImage *))completionBlock{
++(PFQuery *)getServerAvatarForUser:(NSString *)username
+                         isHighRes:(BOOL)isHighRes
+                        completion:(void (^)(NSError *, UIImage *))completionBlock{
     
     NSError *error;
     NSDictionary *attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:[Helper filePathForUser:username
@@ -66,18 +69,23 @@ static NSTimeInterval kThirtyMins = 1800.0;
         return nil;
     }
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"username" equalTo:username];
-    [query whereKey:@"isHighRes" equalTo:[NSNumber numberWithBool:isHighRes]];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
+    [query whereKey:DDUserNameKey
+            equalTo:username];
+    [query whereKey:DDIsHighResKey
+            equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
         if (!error && object) {
-            PFFile *avatar = (PFFile *)object[@"image"];
+            PFFile *avatar = (PFFile *)object[DDImageKey];
             [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (data && !error) {
                     UIImage *image = [UIImage imageWithData:data];
                     completionBlock(error, image);
                     //save image to local
-                    [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
+                    [Helper saveAvatarToLocal:data
+                                      forUser:username
+                                    isHighRes:isHighRes];
                     
                 }else{
                     [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
@@ -95,54 +103,59 @@ static NSTimeInterval kThirtyMins = 1800.0;
     return query;
 }
 
-+(void)getAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void (^)(NSError *, UIImage *))completionBlock{
++(void)getAvatarForUser:(NSString *)username
+              isHighRes:(BOOL)isHighRes
+             completion:(void (^)(NSError *, UIImage *))completionBlock
+{
     
     //first fetch local, if not found, fetch from server
-    UIImage *image = [Helper getLocalAvatarForUser:username isHighRes:isHighRes];
+    UIImage *image = [Helper getLocalAvatarForUser:username
+                                         isHighRes:isHighRes];
     if (image) {
         completionBlock(nil,image);
     }else{
-        [Helper getServerAvatarForUser:username isHighRes:isHighRes completion:^(NSError *error, UIImage *image) {
-            completionBlock(error, image);
-        }];
+        [Helper getServerAvatarForUser:username
+                             isHighRes:isHighRes
+                            completion:^(NSError *error, UIImage *image) {
+                                completionBlock(error, image);
+                            }];
     }
 }
 
 //save avatar
-+(void)saveAvatarToLocal:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes{
++(void)saveAvatarToLocal:(NSData *)data
+                 forUser:(NSString *)username
+               isHighRes:(BOOL)isHighRes{
     
     dispatch_queue_t queue = dispatch_queue_create("save avatar", NULL);
     dispatch_async(queue, ^{
-        
-        NSString *path = [Helper filePathForUser:username isHighRes:isHighRes];
-        
+        NSString *path = [Helper filePathForUser:username
+                                       isHighRes:isHighRes];
         [[NSFileManager defaultManager] createFileAtPath:path
                                                 contents:data
                                               attributes:@{NSFileModificationDate: [NSDate date]}];
-//        NSError *writeError = nil;
-//        [data writeToFile:path options:NSDataWritingAtomic error:&writeError];
-//        
-//        if (writeError) {
-//            [FPLogger record:[NSString stringWithFormat:@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription]];
-//            NSLog(@"-saveAvatar write self avatar to file error %@",writeError.localizedDescription);
-//        }
     });
-    
 }
 
-+(void)saveAvatar:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes{
++(void)saveAvatar:(NSData *)data
+          forUser:(NSString *)username 
+        isHighRes:(BOOL)isHighRes{
     
-    [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
+    [Helper saveAvatarToLocal:data
+                      forUser:username
+                    isHighRes:isHighRes];
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"username" equalTo:username];
-    [query whereKey:@"isHighRes" equalTo:[NSNumber numberWithBool:isHighRes]];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
+    [query whereKey:DDUserNameKey
+            equalTo:username];
+    [query whereKey:DDIsHighResKey
+            equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error && object) {
             PFFile *file = [PFFile fileWithData:data];
             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    [object setObject:file forKey:@"image"];
+                    [object setObject:file forKey:DDImageKey];
                     [object saveEventually];
                 }
             }];

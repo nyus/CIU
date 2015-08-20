@@ -1,6 +1,14 @@
+1. Fetch server data(suprise, event)
+
 Pull down to refresh: fetch 20 statuses whose createDate > biggest date in the tableview
 Pull up to refresh: fetch 20 statusese whose createDate < smallest date in the tableview
 
 
 offline - > online: fetch latest 20 and clear local data
 online -> offline: do nothing, only wait for internet to come back
+
+2. Avatar
+1) First set default avatar
+2) Fetch local cache:
+- If local avatar doesn't exist, fetch sever avatar, store avatar to local with attribute NSFileModificationDate equals to [NSDate date]
+- If local avatar exists, set it, and see if this local cache is fetched more than 30 mins ago, if so, fetch sever avatar, store avatar to local with attribute NSFileModificationDate equals to [NSDate date]

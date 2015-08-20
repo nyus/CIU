@@ -174,6 +174,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     }
     
     // Subquries: fetch geo-bounded objects and "on top" objects
+    
     self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[@"latitude"] doubleValue], [dictionary[@"longitude"] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
@@ -181,6 +182,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
     
     // Only want to fetch kServerFetchCount items each time
+    
     self.fetchQuery.limit = fetchLimit;
 }
 
