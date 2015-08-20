@@ -195,7 +195,8 @@ static CGFloat leadingSpace;
         
         PFUser *user = [PFUser currentUser];
         if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-            [Helper getAvatarForUser:[PFUser currentUser].username isHighRes:NO completion:^(NSError *error, UIImage *image) {
+            [Helper getAvatarForUser:[PFUser currentUser].username
+                           isHighRes:NO completion:^(NSError *error, UIImage *image) {
                 if (!error) {
                     c.avatarImageView.image = image;
                     c.backgroundColor = [UIColor clearColor];

@@ -15,6 +15,7 @@ static UIImagePickerController *_imagePicker;
 static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
 static int kTotalAnonymousAvatarCount = 149;
 static UIImage *anonymousAvatarImage = nil;
+static NSTimeInterval kThirtyMins = 1800.0;
 
 @interface Helper () <UIAlertViewDelegate>
 
@@ -53,32 +54,36 @@ static UIImage *anonymousAvatarImage = nil;
 
 +(PFQuery *)getServerAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void (^)(NSError *, UIImage *))completionBlock{
     
-    __block NSError *error;
-    __block NSDictionary *attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:[Helper filePathForUser:username
+    NSError *error;
+    NSDictionary *attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:[Helper filePathForUser:username
                                                                                                    isHighRes:isHighRes]
                                                                                error:&error];
+    
+    // Sync with server every 30 minutes
+    
+    if (attribute && [attribute[NSFileModificationDate] timeIntervalSinceNow] < kThirtyMins) {
+        
+        return nil;
+    }
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
     [query whereKey:@"username" equalTo:username];
     [query whereKey:@"isHighRes" equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error && object) {
-            
-            if ([object.updatedAt compare:attribute[DDUpdatedAtKey]] == NSOrderedDescending) {
-                PFFile *avatar = (PFFile *)object[@"image"];
-                [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (data && !error) {
-                        UIImage *image = [UIImage imageWithData:data];
-                        completionBlock(error, image);
-                        //save image to local
-                        [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
-                        
-                    }else{
-                        [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
-                        NSLog(@"error (%@) getting avatar of user %@",error.localizedDescription,username);
-                    }
-                }];
-            }
+            PFFile *avatar = (PFFile *)object[@"image"];
+            [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (data && !error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    completionBlock(error, image);
+                    //save image to local
+                    [Helper saveAvatarToLocal:data forUser:username isHighRes:isHighRes];
+                    
+                }else{
+                    [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
+                    NSLog(@"error (%@) getting avatar of user %@",error.localizedDescription,username);
+                }
+            }];
             
         }else{
             
@@ -113,7 +118,7 @@ static UIImage *anonymousAvatarImage = nil;
         
         [[NSFileManager defaultManager] createFileAtPath:path
                                                 contents:data
-                                              attributes:@{DDUpdatedAtKey: [NSDate date]}];
+                                              attributes:@{NSFileModificationDate: [NSDate date]}];
 //        NSError *writeError = nil;
 //        [data writeToFile:path options:NSDataWritingAtomic error:&writeError];
 //        

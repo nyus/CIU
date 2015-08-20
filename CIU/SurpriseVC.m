@@ -90,13 +90,13 @@ static NSString *const kEntityName = @"StatusObject";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:kLocalFetchCount
-                               fetchRadius:kStatusRadius 
+                               fetchRadius:kStatusRadius
                           greaterOrEqualTo:nil
                            lesserOrEqualTo:nil];
     } else {
         [self fetchServerDataWithParseClassName:DDStatusParseClassName
                                      fetchLimit:kServerFetchCount
-                                    fetchRadius:kStatusRadius 
+                                    fetchRadius:kStatusRadius
                                greaterOrEqualTo:nil
                                 lesserOrEqualTo:nil];
     }
@@ -108,8 +108,8 @@ static NSString *const kEntityName = @"StatusObject";
         
         if (!weakSelf.isInternetPresentOnLaunch) {
             [weakSelf fetchLocalDataWithEntityName:kEntityName
-                                        fetchLimit:kLocalFetchCount 
-                                       fetchRadius:kStatusRadius 
+                                        fetchLimit:kLocalFetchCount
+                                       fetchRadius:kStatusRadius
                                   greaterOrEqualTo:weakSelf.greatestStatusDate
                                    lesserOrEqualTo:nil];
         } else {
@@ -177,10 +177,10 @@ static NSString *const kEntityName = @"StatusObject";
 }
 
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
-                               fetchLimit:(NSUInteger)fetchLimit
-                              fetchRadius:(CGFloat)fetchRadius
-                         greaterOrEqualTo:(NSDate *)greaterDate
-                          lesserOrEqualTo:(NSDate *)lesserDate
+                          fetchLimit:(NSUInteger)fetchLimit
+                         fetchRadius:(CGFloat)fetchRadius
+                    greaterOrEqualTo:(NSDate *)greaterDate
+                     lesserOrEqualTo:(NSDate *)lesserDate
 {
     if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
         
@@ -271,8 +271,8 @@ static NSString *const kEntityName = @"StatusObject";
                          lesserOrEqualTo:(NSDate *)lesserDate{
     
     [self setupServerQueryWithClassName:parseClassName
-                             fetchLimit:fetchLimit 
-                            fetchRadius:fetchRadius 
+                             fetchLimit:fetchLimit
+                            fetchRadius:fetchRadius
                        greaterOrEqualTo:greaterDate
                         lesserOrEqualTo:lesserDate];
     
@@ -362,7 +362,7 @@ static NSString *const kEntityName = @"StatusObject";
 }
 
 - (void)setupServerQueryWithClassName:(NSString *)className
-                           fetchLimit:(NSUInteger)fetchLimit 
+                           fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
                      greaterOrEqualTo:(NSDate *)greaterDate
                       lesserOrEqualTo:(NSDate *)lesserDate
@@ -374,7 +374,7 @@ static NSString *const kEntityName = @"StatusObject";
     
     NSDictionary *dictionary = [Helper userLocation];
     if (!dictionary) {
-
+        
         return;
     }
     
@@ -412,23 +412,22 @@ static NSString *const kEntityName = @"StatusObject";
             atIndexPath:(NSIndexPath *)indexPath
              withStatus:(StatusObject *)status
 {
-    cell.statusCellAvatarImageView.image = defaultAvatar;
+    cell.statusCellAvatarImageView.image =
+    status.anonymous.boolValue ? 
+    defaultAvatar :
+    [Helper getLocalAvatarForUser:status.posterUsername
+                        isHighRes:NO];
     
-    if (!status.anonymous.boolValue) {
-        UIImage *avatar = [Helper getLocalAvatarForUser:status.posterUsername
-                                              isHighRes:NO];
-        if (avatar) {
-            cell.statusCellAvatarImageView.image = avatar;
-        }else{
-            if (self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
-                PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername
-                                                      isHighRes:NO
-                                                     completion:^(NSError *error, UIImage *image) {
-                                                         cell.statusCellAvatarImageView.image = image;
-                                                         NSLog(@"*************************Loading avatar");
-                                                     }];
-                [self.avatarQueries setObject:query forKey:indexPath];
-            }
+    if (!status.anonymous.boolValue && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+        PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername
+                                              isHighRes:NO
+                                             completion:^(NSError *error, UIImage *image) {
+                                                 cell.statusCellAvatarImageView.image = image;
+                                                 NSLog(@"*************************Loading avatar");
+                                             }];
+        
+        if (query) {
+            [self.avatarQueries setObject:query forKey:indexPath];
         }
     }
 }
