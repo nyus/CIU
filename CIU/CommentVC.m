@@ -19,6 +19,7 @@ static CGFloat const kCommentLabelWidth = 245.0;
 static CGFloat const kNoCommentCellHeight = 250.0;
 static CGFloat const kCellImageViewMaxY = 45;
 static CGFloat const kCommentLabelOriginY = 19.0;
+static UIImage *defaultAvatar;
 
 @interface CommentVC () <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>{
     //cache cell height
@@ -45,6 +46,7 @@ static CGFloat const kCommentLabelOriginY = 19.0;
     if (self) {
         // Custom initialization
         cellHeightMap = [NSMutableDictionary dictionary];
+        defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     return self;
 }
@@ -249,6 +251,27 @@ static CGFloat const kCommentLabelOriginY = 19.0;
     }
 }
 
+- (void)setAvatarOnCell:(AvatarAndUsernameTableViewCell *)cell
+            atIndexPath:(NSIndexPath *)indexPath
+             withObject:(PFObject *)comment
+{
+    BOOL anonymous = [comment[DDAnonymousKey] boolValue];
+    
+    if (anonymous && comment[DDAnonymousAvatarName]) {
+        cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
+    } else {
+        cell.avatarImageView.image = anonymous ? defaultAvatar : [Helper getLocalAvatarForUser:comment[DDSenderUserNameKey]
+                                                                                     isHighRes:NO];
+        
+        if (!anonymous && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+            [Helper getServerAvatarForUser:comment[DDSenderUserNameKey]
+                                 isHighRes:NO
+                                completion:^(NSError *error, UIImage *image) {
+                                    cell.avatarImageView.image = image;
+                                }];
+        }
+    }
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.dataSource == nil || self.dataSource.count == 0) {
@@ -265,17 +288,14 @@ static CGFloat const kCommentLabelOriginY = 19.0;
         AvatarAndUsernameTableViewCell *cell = (AvatarAndUsernameTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         PFObject *comment = self.dataSource[indexPath.row];
         cell.commentStringLabel.text = comment[DDContentStringKey];
-
-        if ([comment[DDAnonymousKey] boolValue]) {
-            cell.usernameLabel.text = @"Anonymous";
-
-            if (comment[DDAnonymousAvatarName]) {
-                cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
-            }
-        } else {
-            cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
-            [self getAvatarForCell:cell atIndexPath:indexPath withUsername:comment[DDSenderUserNameKey] loadIfStill:YES];
-        }
+        cell.usernameLabel.text =
+        [comment[DDAnonymousKey] boolValue] ?
+        @"Anonymous" :
+        [NSString stringWithFormat:@"%@ %@",comment[DDFirstNameKey],comment[DDLastNameKey]];
+        
+        [self setAvatarOnCell:cell 
+                  atIndexPath:indexPath
+                   withObject:comment];
 
         return cell;
     }
@@ -297,6 +317,7 @@ static CGFloat const kCommentLabelOriginY = 19.0;
     if (image) {
         cell.avatarImageView.image = image;
     }else{
+        
         if (loadIfStill && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
             return;
         }
@@ -317,13 +338,10 @@ static CGFloat const kCommentLabelOriginY = 19.0;
     for (AvatarAndUsernameTableViewCell *cell in self.tableView.visibleCells) {
         if ([cell isKindOfClass:[AvatarAndUsernameTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-            PFObject *comment = self.dataSource[indexPath.row];
+            [self setAvatarOnCell:cell
+                      atIndexPath:indexPath
+                       withObject:self.dataSource[indexPath.row]];
             
-            if ([comment[DDAnonymousKey] boolValue] && comment[DDAnonymousAvatarName]) {
-                cell.avatarImageView.image = [UIImage imageNamed:comment[DDAnonymousAvatarName]];
-            } else {
-                [self getAvatarForCell:cell atIndexPath:indexPath withUsername:comment[DDSenderUserNameKey] loadIfStill:NO];
-            }
         }
     }
 }
