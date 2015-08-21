@@ -12,6 +12,7 @@
 @class Status;
 @class SpinnerImageView;
 @class ImageCollectionViewCell;
+@class PFFile;
 
 @protocol StatusTableViewCellDelegate <NSObject>
 
@@ -41,12 +42,14 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
-@property (nonatomic, strong) NSArray *statusImagesArray;
+@property (nonatomic, copy) NSArray *collectionViewDataSource;
+
++ (CGFloat)imageViewWidth;
++ (CGFloat)imageViewHeight;
 
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
 
-+ (CGFloat)imageViewWidth;
-+ (CGFloat)imageViewHeight;
+- (void)loadImages;
 
 @end

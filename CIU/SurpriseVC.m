@@ -355,32 +355,44 @@ static NSString *const kEntityName = @"StatusObject";
                 cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
             }
             
-            __block int index = status.photoCount.intValue-1;
+//            __block int index = status.photoCount.intValue-1;
+            
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:objects.count];
+            for (int i = 0; i < objects; i++) {
+                PFObject *photoObject = objects[i];
+                PFFile *file = photoObject[DDImageKey];
+                
+                if (file) {
+                    [array addObject:file];
+                }
+            }
+            cell.collectionViewDataSource = array;
             
             for (PFObject *photoObject in objects) {
-                PFFile *image = photoObject[@"image"];
-                [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-                        
-                        UIImage *image = [UIImage imageWithData:data];
-                        NSString *name = [NSString stringWithFormat:@"%@%d",status.photoID,index];
-                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
-                        index--;
-                        
-                        if (!self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
-                            NSMutableArray *imagesArray = [NSMutableArray array];
-                            self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = imagesArray;
-                        }
-                        
-                        NSMutableArray *imagesArray = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]];
-                        [imagesArray addObject:image];
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [cell.collectionView reloadData];
-                        });
-                        
-                    }
-                }];
+                PFFile *file = photoObject[DDImageKey];
+                
+//                [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//                    if (!error) {
+//                        
+//                        UIImage *image = [UIImage imageWithData:data];
+//                        NSString *name = [NSString stringWithFormat:@"%@%d",status.photoID,index];
+//                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
+//                        index--;
+//                        
+//                        if (!self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
+//                            NSMutableArray *imagesArray = [NSMutableArray array];
+//                            self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = imagesArray;
+//                        }
+//                        
+//                        NSMutableArray *imagesArray = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]];
+//                        [imagesArray addObject:image];
+//                        
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            [cell.collectionView reloadData];
+//                        });
+//                        
+//                    }
+//                }];
             }
         }
     }];
@@ -425,6 +437,8 @@ static NSString *const kEntityName = @"StatusObject";
         }
     }];
 }
+
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)surpriseCell:(SurpriseTableViewCell *)cell collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

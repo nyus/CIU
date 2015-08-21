@@ -6,8 +6,12 @@
 //  Copyright (c) 2013 Huang, Sihang. All rights reserved.
 //
 
-#import "SurpriseTableViewCell.h"
 #import <Parse/Parse.h>
+#import "SurpriseTableViewCell.h"
+#import "ImageCollectionViewCell.h"
+#import "Helper.h"
+#import "PFFile+Utilities.h"
+
 #define REVIVE_PROGRESS_VIEW_INIT_ALPHA .7f
 #define PROGRESSION_RATE 1
 #define TRESHOLD 60.0f
@@ -16,12 +20,9 @@ static CGFloat const kCollectionCellWidth = 84.0f;
 static CGFloat const kCollectionCellHeight = 84.0f;
 
 @interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
-    UISwipeGestureRecognizer *leftSwipteGesture;
-    UISwipeGestureRecognizer *rightSwipteGesture;
-    UITapGestureRecognizer *tap;
-    UIPanGestureRecognizer *pan;
-    float x;
 }
+
+@property (nonatomic, strong) NSMutableDictionary *dataSource;
 
 @end
 
@@ -53,21 +54,55 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     [self.delegate commentButtonTappedOnCell:self];
 }
 
+- (void)loadImages
+{
+    int i = 0;
+    for (PFFile *file in self.collectionViewDataSource) {
+        [file fetchImageWithCompletionBlock:^(BOOL completed) {
+            if (completed) {
+                
+            }
+        }];
+        i++;
+    }
+}
+
 #pragma mark - uicollectionview delegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self.delegate surpriseCell:self collectionView:collectionView numberOfItemsInSection:section];
+    
+    return self.collectionViewDataSource.count;
 }
 
 -(ImageCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return [self.delegate surpriseCell:self collectionView:collectionView cellForItemAtIndexPath:indexPath];
+//    return [self.delegate surpriseCell:self collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    ImageCollectionViewCell *collectionViewCell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    // Clear out old image first
+    
+    collectionViewCell.imageView.image = nil;
+    
+    PFFile *file = self.dataSource[@(indexPath.row)];
+    
+    if (file) {
+        
+//        collectionViewCell.imageView.image = image;
+    }
+    
+    return collectionViewCell;
 }
 
 #pragma mark - uicollectionview flow layout delegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.delegate surpriseCell:self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+//    return [self.delegate surpriseCell:self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+    
+    UIImage *image = self.dataSource[@(indexPath.row)];
+    CGFloat width = image.size.width < image.size.height ? [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width : [ImageCollectionViewCell imageViewWidth];
+    
+    return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
 }
+
 @end

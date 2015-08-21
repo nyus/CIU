@@ -35,6 +35,7 @@
 		503B67371B32784500E4DEB5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67361B32784500E4DEB5 /* Social.framework */; };
 		503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B67381B32784C00E4DEB5 /* Accounts.framework */; };
 		503F62411B81299F008EC323 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = 503F62401B81299F008EC323 /* ReadMe */; };
+		503F627F1B8783C8008EC323 /* PFFile+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 503F627E1B8783C8008EC323 /* PFFile+Utilities.m */; };
 		5040547819A6CF610050853A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547719A6CF610050853A /* SystemConfiguration.framework */; };
 		5040547A19A6CF690050853A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547919A6CF690050853A /* Security.framework */; };
 		5040547C19A6CF900050853A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5040547B19A6CF900050853A /* AudioToolbox.framework */; };
@@ -175,6 +176,8 @@
 		503B67361B32784500E4DEB5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		503B67381B32784C00E4DEB5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		503F62401B81299F008EC323 /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ReadMe; path = ../ReadMe; sourceTree = "<group>"; };
+		503F627D1B8783C8008EC323 /* PFFile+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFFile+Utilities.h"; sourceTree = "<group>"; };
+		503F627E1B8783C8008EC323 /* PFFile+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFFile+Utilities.m"; sourceTree = "<group>"; };
 		5040547719A6CF610050853A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5040547919A6CF690050853A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5040547B19A6CF900050853A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -537,6 +540,8 @@
 				50203CD81ACECFF600945D04 /* UIViewController+EULA.m */,
 				5091FAF01B10C74E00523183 /* UIFont+Utilities.h */,
 				5091FAF11B10C74E00523183 /* UIFont+Utilities.m */,
+				503F627D1B8783C8008EC323 /* PFFile+Utilities.h */,
+				503F627E1B8783C8008EC323 /* PFFile+Utilities.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -939,6 +944,7 @@
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
+				503F627F1B8783C8008EC323 /* PFFile+Utilities.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */,
 				0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */,
