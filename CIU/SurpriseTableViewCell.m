@@ -54,13 +54,48 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     [self.delegate commentButtonTappedOnCell:self];
 }
 
+- (void)setFilesArray:(NSArray *)collectionViewDataSource
+{
+    if (_filesArray != collectionViewDataSource) {
+        _imagesArray = nil;
+        _filesArray = collectionViewDataSource;
+        [self loadImages];
+    }
+}
+
+- (void)setImagesArray:(NSArray *)imagesArray
+{
+    if (_imagesArray != imagesArray) {
+        _filesArray = nil;
+        _imagesArray = imagesArray;
+        [self.collectionView reloadData];
+    }
+}
+
 - (void)loadImages
 {
     int i = 0;
-    for (PFFile *file in self.collectionViewDataSource) {
-        [file fetchImageWithCompletionBlock:^(BOOL completed) {
+    NSMutableDictionary *dictionary;
+    for (PFFile *file in self.filesArray) {
+        
+        if (file.isDataAvailable) {
+            continue;
+        }
+        
+        if (!dictionary) {
+            dictionary = [NSMutableDictionary dictionaryWithCapacity:self.filesArray.count];
+        }
+        
+        dictionary[file.name] = @(i);
+        [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
+            
             if (completed) {
-                
+                NSNumber *count = dictionary[file.name];
+                [Helper saveImageToLocal:data
+                            forImageName:FSTRING(@"%@%d", self.statusPhotoId, [dictionary[file.name] intValue])
+                               isHighRes:NO];
+                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:count.integerValue
+                                                                                  inSection:0]]];
             }
         }];
         i++;
@@ -71,7 +106,7 @@ static CGFloat const kCollectionCellHeight = 84.0f;
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return self.collectionViewDataSource.count;
+    return self.filesArray ? self.filesArray.count : self.imagesArray.count;
 }
 
 -(ImageCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -85,9 +120,8 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     
     PFFile *file = self.dataSource[@(indexPath.row)];
     
-    if (file) {
-        
-//        collectionViewCell.imageView.image = image;
+    if (file.isDataAvailable) {
+        collectionViewCell.imageView.image = [UIImage imageWithData:file.getData];
     }
     
     return collectionViewCell;

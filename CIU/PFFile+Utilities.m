@@ -11,15 +11,15 @@
 
 @implementation PFFile (Utilities)
 
-- (void)fetchImageWithCompletionBlock:(void (^)(BOOL))completion
+- (void)fetchImageWithCompletionBlock:(void (^)(BOOL, NSData *))completion
 {
     [self getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (error) {
             NSLog(@"Failed to down load file: %@", self);
-            completion(NO);
+            completion(NO, nil);
         } else {
             [Helper saveImageToLocal:data forImageName:self.name isHighRes:NO];
-            completion(YES);
+            completion(YES, data);
         }
     }];
 }

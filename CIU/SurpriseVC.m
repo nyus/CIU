@@ -47,6 +47,7 @@ static NSString *const kEntityName = @"StatusObject";
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
+@property (nonatomic, strong) NSMutableDictionary *filesByIndexPath;
 
 @end
 
@@ -60,6 +61,7 @@ static NSString *const kEntityName = @"StatusObject";
         self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
         self.avatarQueries = [NSMutableDictionary dictionary];
         self.postImageQueries = [NSMutableDictionary dictionary];
+        self.filesByIndexPath = [NSMutableDictionary dictionary];
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     
@@ -248,7 +250,9 @@ static NSString *const kEntityName = @"StatusObject";
         }
         [cell.collectionView reloadData];
         
-        NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID totalCount:status.photoCount.intValue isHighRes:NO];
+        NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
+                                                                         totalCount:status.photoCount.intValue
+                                                                          isHighRes:NO];
         
         if (postImages.count == status.photoCount.intValue) {
             self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = postImages;
@@ -256,7 +260,7 @@ static NSString *const kEntityName = @"StatusObject";
         }else{
             
             if (tableView.isDecelerating == NO && tableView.isDragging == NO){
-                PFQuery *query = [self getServerPostImageForCellAtIndexpath:indexPath];
+                PFQuery *query = [self getServerPostImageForCell:cell atIndexpath:indexPath];
                 [self.postImageQueries setObject:query forKey:indexPath];
             }
         }
@@ -265,6 +269,39 @@ static NSString *const kEntityName = @"StatusObject";
     }
     
     return cell;
+}
+
+- (void)setPostImagesOnCell:(SurpriseTableViewCell *)cell
+                atIndexPath:(NSIndexPath *)indexPath
+                 withStatus:(StatusObject *)status
+{
+    cell.collectionView.hidden = status.photoCount.intValue == 0;
+
+    if (status.photoCount.intValue > 0) {
+        
+        // Clear out old photos
+        
+        if (self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
+            [self.surpriseImagesArrayByIndexPath removeObjectForKey:[self keyForIndexPath:indexPath]];
+        }
+        [cell.collectionView reloadData];
+        
+        NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
+                                                                         totalCount:status.photoCount.intValue
+                                                                          isHighRes:NO];
+        cell.imagesArray = postImages;
+        [cell.collectionView reloadData];
+        
+        if (postImages.count != status.photoCount.intValue &&
+            self.tableView.isDecelerating == NO &&
+            self.tableView.isDragging == NO) {
+            
+            PFQuery *query = [self getServerPostImageForCell:cell
+                                                 atIndexpath:indexPath];
+            [self.postImageQueries setObject:query
+                                      forKey:indexPath];
+        }
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -334,31 +371,28 @@ static NSString *const kEntityName = @"StatusObject";
                 [cell.collectionView reloadData];
             }else{
                 //get post images
-                PFQuery *query2 = [self getServerPostImageForCellAtIndexpath:indexPath];
+                PFQuery *query2 = [self getServerPostImageForCell:cell atIndexpath:indexPath];
                 [self.postImageQueries setObject:query2 forKey:indexPath];
             }
         }
     }
 }
 
--(PFQuery *)getServerPostImageForCellAtIndexpath:(NSIndexPath *)indexPath{
+-(PFQuery *)getServerPostImageForCell:(SurpriseTableViewCell *)cell atIndexpath:(NSIndexPath *)indexPath{
     
-    __block SurpriseTableViewCell *cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     __block StatusObject *status = self.dataSource[indexPath.row];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
     [query whereKey:DDPhotoIdKey equalTo:status.photoID];
     [query whereKey:DDIsHighResKey equalTo:@NO];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects.count!=0) {
-            if (cell==nil) {
-                cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-            }
-            
-//            __block int index = status.photoCount.intValue-1;
-            
+        
+        if (error) {
+            NSLog(@"failed to find post images with error: %@", error);
+        } else {
             NSMutableArray *array = [NSMutableArray arrayWithCapacity:objects.count];
-            for (int i = 0; i < objects; i++) {
+
+            for (int i = 0; i < objects.count; i++) {
                 PFObject *photoObject = objects[i];
                 PFFile *file = photoObject[DDImageKey];
                 
@@ -366,34 +400,10 @@ static NSString *const kEntityName = @"StatusObject";
                     [array addObject:file];
                 }
             }
-            cell.collectionViewDataSource = array;
             
-            for (PFObject *photoObject in objects) {
-                PFFile *file = photoObject[DDImageKey];
-                
-//                [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//                    if (!error) {
-//                        
-//                        UIImage *image = [UIImage imageWithData:data];
-//                        NSString *name = [NSString stringWithFormat:@"%@%d",status.photoID,index];
-//                        [Helper saveImageToLocal:UIImagePNGRepresentation(image) forImageName:name isHighRes:NO];
-//                        index--;
-//                        
-//                        if (!self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]]) {
-//                            NSMutableArray *imagesArray = [NSMutableArray array];
-//                            self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]] = imagesArray;
-//                        }
-//                        
-//                        NSMutableArray *imagesArray = self.surpriseImagesArrayByIndexPath[[self keyForIndexPath:indexPath]];
-//                        [imagesArray addObject:image];
-//                        
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            [cell.collectionView reloadData];
-//                        });
-//                        
-//                    }
-//                }];
-            }
+            self.filesByIndexPath[indexPath] = array;
+            cell.statusPhotoId = status.photoID;
+            cell.filesArray = array;
         }
     }];
     

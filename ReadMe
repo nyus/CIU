@@ -28,3 +28,8 @@ for (PFObject *photoObject in objects) {
     }];
     i++;
 }
+
+
+
+change local post image fetch name
+post images dont have a high res version?

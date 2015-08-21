@@ -10,6 +10,6 @@
 
 @interface PFFile (Utilities)
 
-- (void)fetchImageWithCompletionBlock:(void(^)(BOOL completed))completion;
+- (void)fetchImageWithCompletionBlock:(void(^)(BOOL completed, NSData *data))completion;
 
 @end

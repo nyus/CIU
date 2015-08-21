@@ -42,7 +42,10 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
-@property (nonatomic, copy) NSArray *collectionViewDataSource;
+
+@property (nonatomic, copy) NSArray *imagesArray;
+@property (nonatomic, copy) NSArray *filesArray;
+@property (nonatomic, copy) NSString *statusPhotoId;
 
 + (CGFloat)imageViewWidth;
 + (CGFloat)imageViewHeight;
@@ -50,6 +53,6 @@
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
 
-- (void)loadImages;
+- (void)cancelDownloadImages;
 
 @end
