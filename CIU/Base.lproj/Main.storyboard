@@ -126,7 +126,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="835"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
                                                 <rect key="frame" x="30" y="196" width="260" height="1"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -158,13 +158,13 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
                                                 <rect key="frame" x="30" y="211" width="260" height="115"/>
                                                 <string key="text">DaDa 哒哒 is the best Chinese lifestyle application for your mobile device – all in the palm of your hand. Whether you are looking for an authentic Chinese restaurant or a Spring Festival event in your neighborhood, Dada 哒哒 is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
                                                 <rect key="frame" x="28" y="348" width="260" height="248"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -637,7 +637,7 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Text View"/>
-                                <mutableString key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
+                                <string key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
 LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access DaDa in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from DaDa, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
 USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with DaDa, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
 MODERATION. You agree we may moderate DaDa access and use in our sole discretion, e.g. by blocking (e.g. IP addresses), filtering, deletion, delay, omission, verification, and/or access/account/license termination. You agree (1) not to bypass said moderation, (2) we are not liable for moderating, not moderating, or representations as to moderating, and (3) nothing we say or do waives our right to moderate, or not. All site rules, e.g. DaDa/about/prohibited, are incorporated herein.
@@ -648,7 +648,7 @@ To the extent permitted by law, (1) we make no promise as to DaDa, its completen
 
 CLAIMS. You agree (1) any claim, cause of action or dispute ("Claim") arising out of or related to the TOU or your DaDa use is governed by Michigan ("MI") law regardless of your location or any conflict or choice of law principle; (2) Claims must be resolved exclusively by state or federal court in Michigan (except we may seek injunctive remedy anywhere); (3) to submit to personal jurisdiction of said courts; (4) any Claim must be filed by 1 year after it arose or be forever barred; (5) not to bring or take part in a class action against DaDa Entities; (6) (except government agencies) to indemnify DaDa Entities for any damage, loss, and expense (e.g. legal fees) arising from claims related to your DaDa use; (7) you are liable for TOU breaches by affiliates (e.g. marketers) paid by you, directly or indirectly (e.g. through an affiliate network); and (8) to pay us for breaching or inducing others to breach the "USE" section, not as a penalty, but as a reasonable estimate of our damages (actual damages are often hard to calculate): $0.10 per server request, $1 per post, email, flag, or account created, $1 per item of PI collected, and $1000 per software distribution, capped at $25,000 per day.
 MISC. Users complying with prior written licenses may access DaDa thereby until authorization is terminated. Otherwise, this is the exclusive and entire agreement between us. If a TOU term is unenforceable, other terms are unaffected. If TOU translations conflict with the English version, English controls. See Privacy Policy for how we collect, use and share data Acknowledgements
-DaDa哒哒 application icons and the anonymous profile icons are designed by Freepik and Ying Liu.</mutableString>
+DaDa哒哒 application icons and the anonymous profile icons are designed by Freepik and Ying Liu.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1139,7 +1139,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="What what what" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="What what what" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
                                             <rect key="frame" x="40" y="106" width="273" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="Wj0-vI-AKU"/>

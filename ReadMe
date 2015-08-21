@@ -12,3 +12,19 @@ online -> offline: do nothing, only wait for internet to come back
 2) Fetch local cache:
 - If local avatar doesn't exist, fetch sever avatar, store avatar to local with attribute NSFileModificationDate equals to [NSDate date]
 - If local avatar exists, set it, and see if this local cache is fetched more than 30 mins ago, if so, fetch sever avatar, store avatar to local with attribute NSFileModificationDate equals to [NSDate date]
+
+
+3. Surprise post images
+1) Based on number of images, load the same amout of placeholder images
+2) As we obtain image asynchronously, reload item at indexPath in the collection view: to do this, fetch image based on "createdAt" key, assign a tag to the PFFile object, then it's known which indexPath should the image go to.
+
+int i = 0;
+for (PFObject *photoObject in objects) {
+    PFFile *file = photoObject[@"image"];
+    file.tag = i;
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
+        // This image should go to indexPath.row = i
+    }];
+    i++;
+}

@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
+@property (nonatomic, strong) NSArray *statusImagesArray;
 
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;

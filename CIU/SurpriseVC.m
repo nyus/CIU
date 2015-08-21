@@ -346,9 +346,9 @@ static NSString *const kEntityName = @"StatusObject";
     __block SurpriseTableViewCell *cell = (SurpriseTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     __block StatusObject *status = self.dataSource[indexPath.row];
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Photo"];
-    [query whereKey:@"photoID" equalTo:status.photoID];
-    [query whereKey:@"isHighRes" equalTo:@NO];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
+    [query whereKey:DDPhotoIdKey equalTo:status.photoID];
+    [query whereKey:DDIsHighResKey equalTo:@NO];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects.count!=0) {
             if (cell==nil) {
