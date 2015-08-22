@@ -47,7 +47,7 @@ static NSString *const kEntityName = @"StatusObject";
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
-@property (nonatomic, strong) NSMutableDictionary *filesByIndexPath;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -61,7 +61,6 @@ static NSString *const kEntityName = @"StatusObject";
         self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
         self.avatarQueries = [NSMutableDictionary dictionary];
         self.postImageQueries = [NSMutableDictionary dictionary];
-        self.filesByIndexPath = [NSMutableDictionary dictionary];
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     
@@ -96,6 +95,16 @@ static NSString *const kEntityName = @"StatusObject";
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath
 {
     return [NSString stringWithFormat:@"%d:%d",(int)indexPath.row, (int)indexPath.section];
+}
+
+- (NSDateFormatter *)dateFormatter
+{
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"HH:mm MM/dd/yy"];
+    }
+    
+    return _dateFormatter;
 }
 
 - (void)viewDidLoad
@@ -201,30 +210,31 @@ static NSString *const kEntityName = @"StatusObject";
                  withStatus:(StatusObject *)status
 {
     cell.collectionView.hidden = status.photoCount.intValue == 0;
-    
+    cell.dummyDataCount = status.photoCount.integerValue;
     if (status.photoCount.intValue > 0) {
         
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
                                                                          totalCount:status.photoCount.intValue
                                                                           isHighRes:NO];
-        cell.imagesArray = postImages;
+        [cell setDataSourceWithImages:[postImages copy]];
         
         if (postImages.count != status.photoCount.intValue &&
             self.tableView.isDecelerating == NO &&
             self.tableView.isDragging == NO) {
             
             PFQuery *query = [self getServerPostImageForCell:cell
-                                                 atIndexpath:indexPath];
+                                                 atIndexpath:indexPath
+                                                  withStatus:status];
             [self.postImageQueries setObject:query
                                       forKey:indexPath];
         }
     }
 }
 
--(PFQuery *)getServerPostImageForCell:(SurpriseTableViewCell *)cell atIndexpath:(NSIndexPath *)indexPath{
-    
-    __block StatusObject *status = self.dataSource[indexPath.row];
-    
+-(PFQuery *)getServerPostImageForCell:(SurpriseTableViewCell *)cell
+                          atIndexpath:(NSIndexPath *)indexPath 
+                           withStatus:(StatusObject *)status
+{    
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
     [query whereKey:DDPhotoIdKey equalTo:status.photoID];
     [query whereKey:DDIsHighResKey equalTo:@NO];
@@ -243,11 +253,8 @@ static NSString *const kEntityName = @"StatusObject";
                     [array addObject:file];
                 }
             }
-            
-            self.filesByIndexPath[indexPath] = array;
             cell.statusPhotoId = status.photoID;
-            cell.filesArray = array;
-//            cell.dataSource = array;
+            [cell setDataSourceWithFiles:[array copy]];
         }
     }];
     
@@ -276,16 +283,13 @@ static NSString *const kEntityName = @"StatusObject";
     cell.statusCellMessageLabel.text = status.message;
     
     //username
-    if (status.anonymous.boolValue) {
-        cell.statusCellUsernameLabel.text = @"Anonymous";
-    }else{
-        cell.statusCellUsernameLabel.text = [NSString stringWithFormat:@"%@ %@",status.posterFirstName,status.posterLastName];
-    }
+    cell.statusCellUsernameLabel.text =
+    status.anonymous.boolValue ?
+    @"Anonymous" :
+    [NSString stringWithFormat:@"%@ %@",status.posterFirstName,status.posterLastName];
     
     // Cell date
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm MM/dd/yy"];
-    NSString *str = [formatter stringFromDate:status.createdAt];
+    NSString *str = [self.dateFormatter stringFromDate:status.createdAt];
     cell.statusCellDateLabel.text = str;
     
     // Comment count
@@ -298,9 +302,15 @@ static NSString *const kEntityName = @"StatusObject";
     [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
     
     // Collection view
-    [self setPostImagesOnCell:cell atIndexPath:indexPath withStatus:status];
+//    [self setPostImagesOnCell:cell atIndexPath:indexPath withStatus:status];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    StatusObject *status = self.dataSource[indexPath.row];
+    [self setPostImagesOnCell:(SurpriseTableViewCell *)cell atIndexPath:indexPath withStatus:status];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -358,9 +368,7 @@ static NSString *const kEntityName = @"StatusObject";
     for (SurpriseTableViewCell *cell in self.tableView.visibleCells) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         StatusObject *status = self.dataSource[indexPath.row];
-        
         [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
-        
         [self setPostImagesOnCell:cell atIndexPath:indexPath withStatus:status];
     }
 }
@@ -368,10 +376,12 @@ static NSString *const kEntityName = @"StatusObject";
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     PFQuery *avatarQ = [self.avatarQueries objectForKey:indexPath];
     PFQuery *postimageQ = [self.postImageQueries objectForKey:indexPath];
+    
     if (avatarQ) {
         [avatarQ cancel];
         [self.avatarQueries removeObjectForKey:indexPath];
     }
+    
     if (postimageQ) {
         [postimageQ cancel];
         [self.postImageQueries removeObjectForKey:indexPath];

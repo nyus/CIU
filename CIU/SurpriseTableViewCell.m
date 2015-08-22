@@ -19,9 +19,17 @@
 static CGFloat const kCollectionCellWidth = 84.0f;
 static CGFloat const kCollectionCellHeight = 84.0f;
 
+typedef NS_ENUM(NSInteger, DataSourceType) {
+    DataSourceTypeFile,
+    DataSourceTypeImage
+};
+
 @interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
+
 }
 
+@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, assign) DataSourceType dataSourceType;
 
 @end
 
@@ -43,6 +51,12 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     self.collectionView.delegate = self;
     self.statusCellAvatarImageView.layer.masksToBounds = YES;
     self.statusCellAvatarImageView.layer.cornerRadius = 30;
+    
+    if (self.dataSource && self.dataSource.count > 0) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionNone
+                                            animated:NO];
+    }
 }
 
 - (IBAction)flagBadContentButtonTapped:(id)sender {
@@ -53,87 +67,78 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     [self.delegate commentButtonTappedOnCell:self];
 }
 
-- (void)setFilesArray:(NSArray *)collectionViewDataSource
+
+- (void)setDataSourceWithFiles:(NSArray *)filesArray
 {
-    if (_filesArray != collectionViewDataSource) {
-        _imagesArray = nil;
-        _filesArray = collectionViewDataSource;
-        [self.collectionView reloadData];
-        [self loadImages];
+    if (_dataSource != filesArray) {
+        _dataSource = filesArray;
+        _dataSourceType = DataSourceTypeFile;
+        [_collectionView reloadData];
     }
 }
 
-- (void)setImagesArray:(NSArray *)imagesArray
+- (void)setDataSourceWithImages:(NSArray *)imagesArray
 {
-    if (_imagesArray != imagesArray) {
-        _filesArray = nil;
-        _imagesArray = imagesArray;
-        [self.collectionView reloadData];
-    }
-}
-
-- (void)loadImages
-{
-    int i = 0;
-    NSMutableDictionary *dictionary;
-    for (PFFile *file in self.filesArray) {
-        
-        if (file.isDataAvailable) {
-            continue;
-        }
-        
-        if (!dictionary) {
-            dictionary = [NSMutableDictionary dictionaryWithCapacity:self.filesArray.count];
-        }
-        
-        dictionary[file.name] = @(i);
-        [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
-            
-            if (completed) {
-                NSNumber *count = dictionary[file.name];
-                [Helper saveImageToLocal:data
-                            forImageName:FSTRING(@"%@%d", self.statusPhotoId, [dictionary[file.name] intValue])
-                               isHighRes:NO];
-                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:count.integerValue
-                                                                                  inSection:0]]];
-            }
-        }];
-        i++;
+    if (_dataSource != imagesArray) {
+        _dataSource = imagesArray;
+        _dataSourceType = DataSourceTypeImage;
+        [_collectionView reloadData];
     }
 }
 
 - (UIImage *)imageForCellAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIImage *image;
-    
-    if (self.filesArray) {
-        PFFile *file = self.filesArray[indexPath.row];
+    if (_dataSourceType == DataSourceTypeFile) {
+        PFFile *file = _dataSource[indexPath.row];
         
         if (file.isDataAvailable) {
-            image = [UIImage imageWithData:file.getData];
+            NSData *data = file.getData;
+            [Helper saveImageToLocal:data
+                        forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
+                           isHighRes:NO];
+            return [UIImage imageWithData:file.getData];
+        } else {
+            
+            [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
+                if (completed) {
+                    [Helper saveImageToLocal:data
+                                forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
+                                   isHighRes:NO];
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+            }];
+            
+            return nil;
         }
-    } else if (self.imagesArray) {
-        image = self.imagesArray[indexPath.row];
+    } else if (_dataSourceType == DataSourceTypeImage) {
+        
+        return _dataSource[indexPath.row];
     }
     
-    return image;
+    return nil;
 }
+
 
 #pragma mark - uicollectionview delegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return self.filesArray ? self.filesArray.count : self.imagesArray.count;
+    if (!self.dataSource || self.dataSource.count == 0) {
+        return self.dummyDataCount;
+    }
+    
+    return self.dataSource.count;
 }
 
--(ImageCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-//    return [self.delegate surpriseCell:self collectionView:collectionView cellForItemAtIndexPath:indexPath];
+-(ImageCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     ImageCollectionViewCell *collectionViewCell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     // Clear out old image first
     
-    collectionViewCell.imageView.image = [self imageForCellAtIndexPath:indexPath];
+    if (self.dataSource && self.dataSource.count > 0) {
+        collectionViewCell.imageView.image = [self imageForCellAtIndexPath:indexPath];
+    }
     
     return collectionViewCell;
 }
@@ -144,15 +149,15 @@ static CGFloat const kCollectionCellHeight = 84.0f;
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return [self.delegate surpriseCell:self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
-    
-    if (!self.filesArray && !self.imagesArray) {
+    if (!self.dataSource || self.dataSource.count == 0) {
         
         return CGSizeMake([ImageCollectionViewCell imageViewWidth], [ImageCollectionViewCell imageViewHeight]);
     }
     
     UIImage *image = [self imageForCellAtIndexPath:indexPath];
-    CGFloat width = image.size.width < image.size.height ? [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width : [ImageCollectionViewCell imageViewWidth];
+    CGFloat width = image.size.width < image.size.height ?
+    [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width :
+    [ImageCollectionViewCell imageViewWidth];
     
     return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
 }

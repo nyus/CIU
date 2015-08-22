@@ -43,17 +43,19 @@
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
 
-@property (nonatomic, copy) NSArray *dataSource;
+
 @property (nonatomic, copy) NSArray *imagesArray;
 @property (nonatomic, copy) NSArray *filesArray;
 @property (nonatomic, copy) NSString *statusPhotoId;
+@property (nonatomic) NSInteger dummyDataCount;
 
 + (CGFloat)imageViewWidth;
 + (CGFloat)imageViewHeight;
 
 - (IBAction)flagBadContentButtonTapped:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
-
 - (void)cancelDownloadImages;
+- (void)setDataSourceWithFiles:(NSArray *)filesArray;
+- (void)setDataSourceWithImages:(NSArray *)imagesArray;
 
 @end
