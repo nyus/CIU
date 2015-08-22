@@ -31,7 +31,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
     self.tableView.tableFooterView = [[UIView alloc] init];
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
+    UIEdgeInsets inset = IS_4_INCH_SCREEN ?
+    UIEdgeInsetsMake(20, 0, 0, 0) :
+    (IS_4_7_INCH_SCREEN ? UIEdgeInsetsMake(50, 0, 0, 0) : UIEdgeInsetsMake(70, 0, 0, 0));
     self.tableView.contentInset = inset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
