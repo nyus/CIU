@@ -9,6 +9,7 @@ static NSString *const DDEventParseClassName = @"Event";
 static NSString *const DDStatusParseClassName = @"Status";
 static NSString *const DDAuditParseClassName = @"Audit";
 static NSString *const DDPhotoParseClassName = @"Photo";
+static NSString *const DDAvatarParseClassName = @"Avatar";
 static NSString *const DDCommentParseClassName = @"Comment";
 
 static NSString *const DDIsHighResKey = @"isHighRes";

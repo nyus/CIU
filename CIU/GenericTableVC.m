@@ -111,26 +111,14 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     
     // Pull down to refresh
     
-    __weak typeof(self) weakSelf = self;
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        
-        if (!weakSelf.isInternetPresentOnLaunch) {
-            [weakSelf fetchLocalDataWithEntityName:weakSelf.localDataEntityName
-                                        fetchLimit:weakSelf.localFetchCount
-                                       fetchRadius:weakSelf.dataFetchRadius
-                                  greaterOrEqualTo:weakSelf.greatestStatusDate
-                                   lesserOrEqualTo:nil];
-        } else {
-            [weakSelf fetchServerDataWithParseClassName:weakSelf.serverDataParseClassName
-                                             fetchLimit:weakSelf.serverFetchCount
-                                            fetchRadius:weakSelf.dataFetchRadius
-                                       greaterOrEqualTo:weakSelf.greatestStatusDate
-                                        lesserOrEqualTo:nil];
-        }
-    }];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(handlePullDownToRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    self.refreshControl = refreshControl;
     
     // Reach tbview bottom to refresh
     
+    __weak typeof(self) weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         
         if (!weakSelf.isInternetPresentOnLaunch) {
@@ -147,6 +135,23 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                                         lesserOrEqualTo:weakSelf.leastStatusDate];
         }
     }];
+}
+
+- (void)handlePullDownToRefresh
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:self.greatestStatusDate
+                           lesserOrEqualTo:nil];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greatestStatusDate
+                                lesserOrEqualTo:nil];
+    }
 }
 
 - (void)addMenuButton{
@@ -264,6 +269,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     }
     
     [self.tableView.infiniteScrollingView stopAnimating];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)setupServerQueryWithClassName:(NSString *)className
@@ -296,6 +302,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                                                 type:TSMessageNotificationTypeError
                                   accessibilityLabel:@"fetchServerErrorMsg"];
                 [self.tableView.infiniteScrollingView stopAnimating];
+                [self.refreshControl endRefreshing];
             });
         } else {
             
@@ -367,6 +374,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView.infiniteScrollingView stopAnimating];
+                [self.refreshControl endRefreshing];
             });
         }
     }];

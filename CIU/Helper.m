@@ -69,19 +69,21 @@ static NSTimeInterval kThirtyMins = 1800.0;
         return nil;
     }
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDAvatarParseClassName];
     [query whereKey:DDUserNameKey
             equalTo:username];
     [query whereKey:DDIsHighResKey
             equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        
-        if (!error && object) {
+        if (error) {
+            NSLog(@"Get server avatar failed with error %@", error);
+            completionBlock(error, nil);
+        } else {
             PFFile *avatar = (PFFile *)object[DDImageKey];
             [avatar getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (data && !error) {
                     UIImage *image = [UIImage imageWithData:data];
-                    completionBlock(error, image);
+                    completionBlock(nil, image);
                     //save image to local
                     [Helper saveAvatarToLocal:data
                                       forUser:username
@@ -91,12 +93,7 @@ static NSTimeInterval kThirtyMins = 1800.0;
                     [FPLogger record:[NSString stringWithFormat:@"error (%@) getting avatar of user %@",error.localizedDescription,username]];
                     NSLog(@"error (%@) getting avatar of user %@",error.localizedDescription,username);
                 }
-            }];
-            
-        }else{
-            
-            [FPLogger record:[NSString stringWithFormat:@"no avater for user %@", username]];
-            NSLog(@"no avater for user %@",username);
+            }];   
         }
     }];
     
@@ -145,17 +142,29 @@ static NSTimeInterval kThirtyMins = 1800.0;
                       forUser:username
                     isHighRes:isHighRes];
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:DDAvatarParseClassName];
     [query whereKey:DDUserNameKey
             equalTo:username];
     [query whereKey:DDIsHighResKey
             equalTo:[NSNumber numberWithBool:isHighRes]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error && object) {
+        
+        if (error && error.code != 101) {
+            NSLog(@"Failed to get avatar with error: %@", error);
+        } else {
+            
+            // User first signs up
+            
+            if (error.code == 101) {
+                object = [PFObject objectWithClassName:DDAvatarParseClassName];
+                object[DDUserNameKey] = username;
+                object[DDIsHighResKey] = @(isHighRes);
+            }
+            
             PFFile *file = [PFFile fileWithData:data];
             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    [object setObject:file forKey:DDImageKey];
+                    object[DDImageKey] = file;
                     [object saveEventually];
                 }
             }];
@@ -164,7 +173,7 @@ static NSTimeInterval kThirtyMins = 1800.0;
 }
 
 +(void)saveImageToLocal:(NSData *)data forImageName:(NSString *)imageName isHighRes:(BOOL)isHighRes{
-    
+    NSLog(@"post image name: %@", imageName);
     dispatch_queue_t queue = dispatch_queue_create("save image", NULL);
     dispatch_async(queue, ^{
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

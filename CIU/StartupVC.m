@@ -165,6 +165,7 @@ static CGFloat leadingSpace;
 }
 
 #pragma mark - Blur effect
+
 - (void)setBlurEffect:(BOOL)setBlurEffect
 {
     if(!self.blurView){
@@ -181,6 +182,7 @@ static CGFloat leadingSpace;
 }
 
 #pragma mark - UITableView
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
@@ -197,7 +199,9 @@ static CGFloat leadingSpace;
         if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
             [Helper getAvatarForUser:[PFUser currentUser].username
                            isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                if (!error) {
+                if (error) {
+                    NSLog(@"Get avartar for %@ failed with error %@", [PFUser currentUser].username, error);
+                } else {
                     c.avatarImageView.image = image;
                     c.backgroundColor = [UIColor clearColor];
                 }

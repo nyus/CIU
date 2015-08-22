@@ -18,7 +18,6 @@
             NSLog(@"Failed to down load file: %@", self);
             completion(NO, nil);
         } else {
-            [Helper saveImageToLocal:data forImageName:self.name isHighRes:NO];
             completion(YES, data);
         }
     }];

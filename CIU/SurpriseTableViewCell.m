@@ -22,7 +22,6 @@ static CGFloat const kCollectionCellHeight = 84.0f;
 @interface SurpriseTableViewCell() <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
 }
 
-@property (nonatomic, strong) NSMutableDictionary *dataSource;
 
 @end
 
@@ -59,6 +58,7 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     if (_filesArray != collectionViewDataSource) {
         _imagesArray = nil;
         _filesArray = collectionViewDataSource;
+        [self.collectionView reloadData];
         [self loadImages];
     }
 }
@@ -102,6 +102,23 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     }
 }
 
+- (UIImage *)imageForCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIImage *image;
+    
+    if (self.filesArray) {
+        PFFile *file = self.filesArray[indexPath.row];
+        
+        if (file.isDataAvailable) {
+            image = [UIImage imageWithData:file.getData];
+        }
+    } else if (self.imagesArray) {
+        image = self.imagesArray[indexPath.row];
+    }
+    
+    return image;
+}
+
 #pragma mark - uicollectionview delegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -116,24 +133,25 @@ static CGFloat const kCollectionCellHeight = 84.0f;
     
     // Clear out old image first
     
-    collectionViewCell.imageView.image = nil;
-    
-    PFFile *file = self.dataSource[@(indexPath.row)];
-    
-    if (file.isDataAvailable) {
-        collectionViewCell.imageView.image = [UIImage imageWithData:file.getData];
-    }
+    collectionViewCell.imageView.image = [self imageForCellAtIndexPath:indexPath];
     
     return collectionViewCell;
 }
 
 #pragma mark - uicollectionview flow layout delegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return [self.delegate surpriseCell:self collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
     
-    UIImage *image = self.dataSource[@(indexPath.row)];
+    if (!self.filesArray && !self.imagesArray) {
+        
+        return CGSizeMake([ImageCollectionViewCell imageViewWidth], [ImageCollectionViewCell imageViewHeight]);
+    }
+    
+    UIImage *image = [self imageForCellAtIndexPath:indexPath];
     CGFloat width = image.size.width < image.size.height ? [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width : [ImageCollectionViewCell imageViewWidth];
     
     return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
