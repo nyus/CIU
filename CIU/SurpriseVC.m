@@ -192,7 +192,7 @@ static NSString *const kEntityName = @"StatusObject";
     [Helper getLocalAvatarForUser:status.posterUsername
                         isHighRes:NO];
     
-    if (!status.anonymous.boolValue && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+    if (!status.anonymous.boolValue) {
         PFQuery *query = [Helper getServerAvatarForUser:status.posterUsername
                                               isHighRes:NO
                                              completion:^(NSError *error, UIImage *image) {
@@ -218,9 +218,7 @@ static NSString *const kEntityName = @"StatusObject";
                                                                           isHighRes:NO];
         [cell setDataSourceWithImages:[postImages copy]];
         
-        if (postImages.count != status.photoCount.intValue &&
-            self.tableView.isDecelerating == NO &&
-            self.tableView.isDragging == NO) {
+        if (postImages.count != status.photoCount.intValue) {
             
             PFQuery *query = [self getServerPostImageForCell:cell
                                                  atIndexpath:indexPath
@@ -301,9 +299,6 @@ static NSString *const kEntityName = @"StatusObject";
     // Avatar
     [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
     
-    // Collection view
-//    [self setPostImagesOnCell:cell atIndexPath:indexPath withStatus:status];
-    
     return cell;
 }
 
@@ -364,6 +359,11 @@ static NSString *const kEntityName = @"StatusObject";
     }
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self cancelNetworkRequestForCellAtIndexPath:indexPath];
+}
+
 -(void)loadRemoteDataForVisibleCells{
     for (SurpriseTableViewCell *cell in self.tableView.visibleCells) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -373,7 +373,7 @@ static NSString *const kEntityName = @"StatusObject";
     }
 }
 
--(void)cancelNetworkRequestForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+-(void)cancelNetworkRequestForCellAtIndexPath:(NSIndexPath *)indexPath{
     PFQuery *avatarQ = [self.avatarQueries objectForKey:indexPath];
     PFQuery *postimageQ = [self.postImageQueries objectForKey:indexPath];
     

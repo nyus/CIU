@@ -263,7 +263,7 @@ static UIImage *defaultAvatar;
         cell.avatarImageView.image = anonymous ? defaultAvatar : [Helper getLocalAvatarForUser:comment[DDSenderUserNameKey]
                                                                                      isHighRes:NO];
         
-        if (!anonymous && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
+        if (!anonymous) {
             [Helper getServerAvatarForUser:comment[DDSenderUserNameKey]
                                  isHighRes:NO
                                 completion:^(NSError *error, UIImage *image) {
@@ -308,28 +308,6 @@ static UIImage *defaultAvatar;
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (!decelerate) {
         [self loadRemoteDataForVisibleCells];
-    }
-}
-
-- (void)getAvatarForCell:(AvatarAndUsernameTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withUsername:(NSString *)username loadIfStill:(BOOL)loadIfStill
-{
-    UIImage *image = [Helper getLocalAvatarForUser:username isHighRes:NO];
-    if (image) {
-        cell.avatarImageView.image = image;
-    }else{
-        
-        if (loadIfStill && self.tableView.isDecelerating == NO && self.tableView.isDragging == NO) {
-            return;
-        }
-        
-        [Helper getServerAvatarForUser:username
-                             isHighRes:NO
-                            completion:^(NSError *error, UIImage *image) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    cell.avatarImageView.image = image;
-                                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                });
-                            }];
     }
 }
 

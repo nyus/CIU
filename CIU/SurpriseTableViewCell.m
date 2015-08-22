@@ -67,7 +67,6 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
     [self.delegate commentButtonTappedOnCell:self];
 }
 
-
 - (void)setDataSourceWithFiles:(NSArray *)filesArray
 {
     if (_dataSource != filesArray) {
