@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "LifestyleObjectDetailTableVC.h"
 #import "LifestyleObject.h"
 #import "GenericTableViewCell.h"
 #import "LifestyleObject+Utilities.h"
 #import "SharedDataManager.h"
-#import <Parse/Parse.h>
 #import "UIAlertView+Blocks.h"
+#import "RestarauntAndMarketTableViewCell.h"
 
 #define CONTENT_LABEL_WIDTH 280.0f
 
@@ -127,15 +128,15 @@ NSString *const kIntroductionKey = @"Introduction";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GenericTableViewCell *cell;
+    RestarauntAndMarketTableViewCell *cell;
     NSDictionary *dictionary = self.dataSource[indexPath.row];
     NSString *key = dictionary.allKeys[0];
     if ([key isEqualToString:@"Phone"] || [key isEqualToString:@"Address"]){
-        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberAddressCell" forIndexPath:indexPath];
+        cell = (RestarauntAndMarketTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"numberAddressCell" forIndexPath:indexPath];
         cell.phoneTextView.text = dictionary[key];
         cell.phoneTextView.textColor = [UIColor blueColor];
     }else{
-        cell = (GenericTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell = (RestarauntAndMarketTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         if ([key isEqualToString:@"Name"] || [key isEqualToString:@"Website"] || [key isEqualToString:@"Introduction"]) {
             cell.contentLabel.text = [dictionary objectForKey:key];
         }else if([key isEqualToString:@"Hours"]){
@@ -152,14 +153,8 @@ NSString *const kIntroductionKey = @"Introduction";
         }
     }
     
-    //Name and Introduction are not tappable
-//    if ([key isEqualToString:kNamekey] || [key isEqualToString:kIntroductionKey]) {
-//        cell.userInteractionEnabled = NO;
-//    } else {
-//        cell.userInteractionEnabled = YES;
-//    }
-    
     cell.titleLabel.text = key;
+    
     return cell;
 }
 
@@ -184,9 +179,12 @@ NSString *const kIntroductionKey = @"Introduction";
         contentString = string;
     }
     
-    CGRect rect = [contentString boundingRectWithSize:CGSizeMake(CONTENT_LABEL_WIDTH, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:NULL];
+    CGRect rect = [contentString boundingRectWithSize:CGSizeMake(CONTENT_LABEL_WIDTH, MAXFLOAT)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName:[RestarauntAndMarketTableViewCell fontForContent]}
+                                              context:NULL];
     
-    return 20+rect.size.height+5;
+    return 20 + rect.size.height + ([key isEqualToString:@"Name"] ? 5 : 10);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

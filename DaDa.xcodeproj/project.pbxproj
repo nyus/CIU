@@ -13,6 +13,7 @@
 		0B0D53FD19ED617B00B0C24C /* SurpriseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
+		0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */; };
 		501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */; };
@@ -137,6 +138,8 @@
 		0B3FA5FB1AFC0E2E00E11E1F /* NameAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameAddressTableViewCell.h; sourceTree = "<group>"; };
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
+		0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestarauntAndMarketTableViewCell.h; sourceTree = "<group>"; };
+		0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestarauntAndMarketTableViewCell.m; sourceTree = "<group>"; };
 		0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.release.xcconfig"; sourceTree = "<group>"; };
 		501A5E4D19A5756D0050BFA6 /* LifestyleTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableVC.h; sourceTree = "<group>"; };
 		501A5E4E19A5756D0050BFA6 /* LifestyleTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifestyleTableVC.m; sourceTree = "<group>"; };
@@ -389,6 +392,8 @@
 				65D93E6C19C73AD70044A48A /* ComposeVC.m */,
 				B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */,
 				B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */,
+				0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */,
+				0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */,
 			);
 			name = Lifestyle;
 			sourceTree = "<group>";
@@ -926,6 +931,7 @@
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
+				0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				0B03B4781A8272CD00526A37 /* UIAlertView+Blocks.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,

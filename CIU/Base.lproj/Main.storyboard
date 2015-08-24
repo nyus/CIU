@@ -126,7 +126,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utY-MJ-PRu">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="835"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-lN-Pm2">
                                                 <rect key="frame" x="30" y="196" width="260" height="1"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -158,13 +158,13 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="285" translatesAutoresizingMaskIntoConstraints="NO" id="leb-r2-Kxz">
                                                 <rect key="frame" x="30" y="211" width="260" height="115"/>
                                                 <string key="text">DaDa 哒哒 is the best Chinese lifestyle application for your mobile device – all in the palm of your hand. Whether you are looking for an authentic Chinese restaurant or a Spring Festival event in your neighborhood, Dada 哒哒 is your best daily friend who guides you to finding just the place to eat, shop, drink, relax and play.</string>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
+                                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="22" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="fPU-AX-waZ">
                                                 <rect key="frame" x="28" y="348" width="260" height="248"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1016,7 +1016,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="65" id="H7f-7G-X16" customClass="GenericTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="65" id="H7f-7G-X16" customClass="RestarauntAndMarketTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7f-7G-X16" id="V8k-3C-chC">
@@ -1051,7 +1051,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <outlet property="titleLabel" destination="t9M-GW-Lb4" id="50A-SE-qhx"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="numberAddressCell" rowHeight="65" id="acU-S3-it9" customClass="GenericTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="numberAddressCell" rowHeight="65" id="acU-S3-it9" customClass="RestarauntAndMarketTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="acU-S3-it9" id="Lqd-5p-uN4">
@@ -1059,13 +1059,13 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="(313) 333-3333, (313) 333-3333, (313) 333-3333" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POk-yV-zwR">
-                                            <rect key="frame" x="14" y="13" width="292" height="48"/>
+                                            <rect key="frame" x="8" y="15" width="304" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebn-5Y-ILh" userLabel="title">
-                                            <rect key="frame" x="20" y="5" width="48" height="15"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebn-5Y-ILh" userLabel="title">
+                                            <rect key="frame" x="13" y="5" width="48" height="15"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                                             <color key="textColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
@@ -1073,10 +1073,11 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="POk-yV-zwR" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" constant="6" id="5R9-lx-DO0"/>
-                                        <constraint firstItem="POk-yV-zwR" firstAttribute="top" secondItem="Lqd-5p-uN4" secondAttribute="topMargin" constant="5" id="V4h-s2-Vt6"/>
+                                        <constraint firstItem="POk-yV-zwR" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" id="5R9-lx-DO0"/>
+                                        <constraint firstItem="POk-yV-zwR" firstAttribute="top" secondItem="ebn-5Y-ILh" secondAttribute="bottom" constant="-5" id="Bca-dS-rLq"/>
                                         <constraint firstItem="POk-yV-zwR" firstAttribute="centerX" secondItem="Lqd-5p-uN4" secondAttribute="centerX" id="Z2x-8u-Zmc"/>
-                                        <constraint firstAttribute="centerY" secondItem="POk-yV-zwR" secondAttribute="centerY" constant="-5" id="eVs-94-T1g"/>
+                                        <constraint firstItem="ebn-5Y-ILh" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" constant="5" id="f1a-DN-kPG"/>
+                                        <constraint firstItem="ebn-5Y-ILh" firstAttribute="top" secondItem="Lqd-5p-uN4" secondAttribute="topMargin" constant="-3" id="qr8-XA-bwo"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1139,7 +1140,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="What what what" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="What what what" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-a5-jYq">
                                             <rect key="frame" x="40" y="106" width="273" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="273" id="Wj0-vI-AKU"/>
