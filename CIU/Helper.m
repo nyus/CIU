@@ -16,6 +16,7 @@ static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
 static int kTotalAnonymousAvatarCount = 149;
 static UIImage *anonymousAvatarImage = nil;
 static NSTimeInterval kThirtyMins = 1800.0;
+static CGFloat kHighestScreenScale = 3.0;
 
 @interface Helper () <UIAlertViewDelegate>
 
@@ -225,15 +226,21 @@ static NSTimeInterval kThirtyMins = 1800.0;
 
 #pragma mark - image processing
 
-+(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size{
-    
++(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size
+{
     CGRect imageRect;
     if(image.size.width<image.size.height){
         //handle portrait photos
-        float newWidth = image.size.width * size.height/image.size.height;
-        imageRect = CGRectMake(0.0, 0.0, newWidth, size.height);
+        float newWidth = image.size.width * size.height * kHighestScreenScale / image.size.height;
+        imageRect = CGRectMake(0.0,
+                               0.0,
+                               newWidth,
+                               size.height * kHighestScreenScale);
     }else{
-        imageRect = CGRectMake(0.0, 0.0, size.width, size.height);
+        imageRect = CGRectMake(0.0,
+                               0.0,
+                               size.width * kHighestScreenScale,
+                               size.height * kHighestScreenScale);
     }
     
     UIGraphicsBeginImageContextWithOptions(imageRect.size, NO, 0.0f);

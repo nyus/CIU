@@ -230,7 +230,8 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
                     //picture
                     for(UIImage *image in collectionViewDataSource){
                         
-                        UIImage *scaled = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
+                        UIImage *scaled = [Helper scaleImage:image
+                                                  downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
                         PFFile *photo = [PFFile fileWithData:UIImagePNGRepresentation(scaled)];
                         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (succeeded) {
