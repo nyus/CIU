@@ -129,6 +129,11 @@ static NSString *const kEntityName = @"StatusObject";
     [Flurry endTimedEvent:@"View surprise" withParameters:nil];
 }
 
+- (NSString *)keyForLocalDataSortDescriptor
+{
+    return DDCreatedAtKey;
+}
+
 - (void)populateManagedObject:(NSManagedObject *)managedObject
               fromParseObject:(PFObject *)object
 {

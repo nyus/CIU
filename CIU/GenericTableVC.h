@@ -42,6 +42,8 @@
 -(void)locationManager:(CLLocationManager *)manager
      didUpdateLocation:(CLLocation *)location;
 
+- (NSString *)keyForLocalDataSortDescriptor;
+
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
                          fetchRadius:(CGFloat)fetchRadius

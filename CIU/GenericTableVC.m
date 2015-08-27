@@ -181,6 +181,15 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
+#pragma mark - Helper
+
+- (NSString *)keyForLocalDataSortDescriptor
+{
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:@"Method -keyForLocalDataSortDescriptor should be overriden by subclass"
+                                 userInfo:nil];
+}
+
 #pragma mark - Data
 
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
@@ -230,7 +239,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     
     // Sort descriptor
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:DDCreatedAtKey
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[self keyForLocalDataSortDescriptor]
                                                                    ascending:NO];
     
     [fetchRequest setPredicate:compoundPredicate];

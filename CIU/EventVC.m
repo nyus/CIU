@@ -154,6 +154,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 #pragma mark - Override
 
+- (NSString *)keyForLocalDataSortDescriptor
+{
+    return DDEventDateKey;
+}
+
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
