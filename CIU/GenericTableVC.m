@@ -181,6 +181,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
+- (NSArray *)objectIdsToExclude
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Need to override -objectIdsToExclude"
+                                 userInfo:nil];
+}
+
 #pragma mark - Data
 
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
@@ -202,6 +209,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     // Filter to exclude bad content
     
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
+    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"self.isBadContentLocal.intValue == %d",0];
     
     // Filter by geolocation
     
@@ -225,8 +233,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     // Predicate
     
     NSCompoundPredicate *compoundPredicate = datePredicate ?
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, datePredicate]] :
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent]];
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, excludeLocalBadContent, datePredicate]] :
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, excludeLocalBadContent]];
     
     // Sort descriptor
     

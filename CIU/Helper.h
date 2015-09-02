@@ -53,4 +53,10 @@ static const NSInteger EULA_TAG = 50;
 +(void)flagStatus:(StatusObject *)status;
 +(void)flagLifeStyleObject:(LifestyleObject *)lifeStyleObject;
 +(void)createAuditWithObjectId:(NSString *)objectId;
+
+//
++(NSArray *)flaggedEventObjectIds;
++(NSArray *)flaggedStatusObjectIds;
++(NSArray *)flaggedLifeStyleObjectIds;
+
 @end

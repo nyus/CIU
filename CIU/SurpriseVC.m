@@ -166,8 +166,11 @@ static NSString *const kEntityName = @"StatusObject";
     
     self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
     [self.fetchQuery orderByDescending:DDCreatedAtKey];
+    
     [self.fetchQuery whereKey:DDIsBadContentKey
                    notEqualTo:@YES];
+    [self.fetchQuery whereKey:DDObjectIdKey
+               notContainedIn:[Helper flaggedStatusObjectIds]];
     
     if (greaterDate) {
         [self.fetchQuery whereKey:DDCreatedAtKey
@@ -405,6 +408,7 @@ static NSString *const kEntityName = @"StatusObject";
     [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
         if (yesButtonTapped) {
             [Helper createAuditWithObjectId:statusObject.objectId];
+            [Helper flagStatus:statusObject];
             
             statusObject.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];

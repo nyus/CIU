@@ -176,8 +176,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                                                [dictionary[DDLongitudeKey] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
     [self.fetchQuery orderByDescending:DDEventDateKey];
-    [self.fetchQuery whereKey:DDIsBadContentKey notEqualTo:@YES];
-    
+    [self.fetchQuery whereKey:DDIsBadContentKey
+                   notEqualTo:@YES];
+    [self.fetchQuery whereKey:DDObjectIdKey
+               notContainedIn:[Helper flaggedEventObjectIds]];
     if (greaterDate) {
         [self.fetchQuery whereKey:DDCreatedAtKey
                       greaterThan:greaterDate];
@@ -302,6 +304,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
         if (yesButtonTapped) {
             [Helper createAuditWithObjectId:event.objectId];
+            [Helper flagEvent:event];
             
             event.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];

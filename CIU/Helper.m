@@ -21,6 +21,9 @@ static int kTotalAnonymousAvatarCount = 149;
 static UIImage *anonymousAvatarImage = nil;
 static NSTimeInterval kThirtyMins = 1800.0;
 static CGFloat kHighestScreenScale = 3.0;
+static NSString *const kEventClassName = @"kEventClassName";
+static NSString *const kStatusClassName = @"kStatusClassName";
+static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 
 @interface Helper () <UIAlertViewDelegate>
 
@@ -434,19 +437,19 @@ static CGFloat kHighestScreenScale = 3.0;
 +(void)flagEvent:(Event *)event
 {
     [Helper flagObjectWithObjectId:event.objectId
-                     withClassName:NSStringFromClass(event.class)];
+                     withClassName:kEventClassName];
 }
 
 +(void)flagStatus:(StatusObject *)status
 {
     [Helper flagObjectWithObjectId:status.objectId
-                     withClassName:NSStringFromClass(status.class)];
+                     withClassName:kStatusClassName];
 }
 
 +(void)flagLifeStyleObject:(LifestyleObject *)lifeStyleObject
 {
     [Helper flagObjectWithObjectId:lifeStyleObject.objectId
-                     withClassName:NSStringFromClass(lifeStyleObject.class)];
+                     withClassName:kLifeStyleObjectClassName];
 }
 
 + (void)flagObjectWithObjectId:(NSString *)objectId withClassName:(NSString *)className
@@ -475,6 +478,42 @@ static CGFloat kHighestScreenScale = 3.0;
             [audit saveEventually];
         }
     }];
+}
+
++(NSArray *)flaggedEventObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kEventClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
+}
+
++(NSArray *)flaggedStatusObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kStatusClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
+}
+
++(NSArray *)flaggedLifeStyleObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kLifeStyleObjectClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
 }
 
 @end
