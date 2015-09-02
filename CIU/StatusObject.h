@@ -1,9 +1,9 @@
 //
 //  StatusObject.h
-//  DaDa
+//  
 //
-//  Created by Sihang on 2/1/15.
-//  Copyright (c) 2015 Huang, Sihang. All rights reserved.
+//  Created by Sihang Huang on 9/2/15.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * commentCount;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * isBadContent;
+@property (nonatomic, retain) NSNumber * isStickyPost;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * likeCount;
 @property (nonatomic, retain) NSNumber * longitude;
@@ -29,6 +30,6 @@
 @property (nonatomic, retain) NSString * posterLastName;
 @property (nonatomic, retain) NSString * posterUsername;
 @property (nonatomic, retain) NSNumber * statusCellHeight;
-@property (nonatomic, retain) NSNumber * isStickyPost;
+@property (nonatomic, retain) NSNumber * isBadContentLocal;
 
 @end

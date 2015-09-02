@@ -1,9 +1,9 @@
 //
 //  LifestyleObject.m
-//  CIU
+//  
 //
-//  Created by Sihang on 11/23/14.
-//  Copyright (c) 2014 Huang, Sihang. All rights reserved.
+//  Created by Sihang Huang on 9/2/15.
+//
 //
 
 #import "LifestyleObject.h"
@@ -17,6 +17,7 @@
 @dynamic createdAt;
 @dynamic hours;
 @dynamic introduction;
+@dynamic isBadContent;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic name;
@@ -24,6 +25,6 @@
 @dynamic phone;
 @dynamic updatedAt;
 @dynamic website;
-@dynamic isBadContent;
+@dynamic isBadContentLocal;
 
 @end

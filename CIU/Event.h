@@ -1,9 +1,9 @@
 //
 //  Event.h
-//  DaDa
+//  
 //
-//  Created by Sihang on 2/1/15.
-//  Copyright (c) 2015 Huang, Sihang. All rights reserved.
+//  Created by Sihang Huang on 9/2/15.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * eventLocation;
 @property (nonatomic, retain) NSString * eventName;
 @property (nonatomic, retain) NSNumber * isBadContent;
+@property (nonatomic, retain) NSNumber * isStickyPost;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSString * objectId;
@@ -26,6 +27,6 @@
 @property (nonatomic, retain) NSString * senderLastName;
 @property (nonatomic, retain) NSString * senderUsername;
 @property (nonatomic, retain) NSDate * updatedAt;
-@property (nonatomic, retain) NSNumber * isStickyPost;
+@property (nonatomic, retain) NSNumber * isBadContentLocal;
 
 @end

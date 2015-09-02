@@ -1,9 +1,9 @@
 //
 //  Event.m
-//  DaDa
+//  
 //
-//  Created by Sihang on 2/1/15.
-//  Copyright (c) 2015 Huang, Sihang. All rights reserved.
+//  Created by Sihang Huang on 9/2/15.
+//
 //
 
 #import "Event.h"
@@ -18,6 +18,7 @@
 @dynamic eventLocation;
 @dynamic eventName;
 @dynamic isBadContent;
+@dynamic isStickyPost;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic objectId;
@@ -25,6 +26,6 @@
 @dynamic senderLastName;
 @dynamic senderUsername;
 @dynamic updatedAt;
-@dynamic isStickyPost;
+@dynamic isBadContentLocal;
 
 @end

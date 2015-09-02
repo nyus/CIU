@@ -8,6 +8,10 @@
 
 #import "Helper.h"
 #import <Parse/Parse.h>
+#import "Event.h"
+#import "LifestyleObject.h"
+#import "StatusObject.h"
+
 #define Default_Radius 5
 
 static Helper *_helper;
@@ -423,6 +427,41 @@ static CGFloat kHighestScreenScale = 3.0;
     }
 
     return [NSString stringWithFormat:@"aAvatar%d", random];
+}
+
+#pragma mark -- Flag
+
++(void)flagEvent:(Event *)event
+{
+    [Helper flagObjectWithObjectId:event.objectId
+                     withClassName:NSStringFromClass(event.class)];
+}
+
++(void)flagStatus:(StatusObject *)status
+{
+    [Helper flagObjectWithObjectId:status.objectId
+                     withClassName:NSStringFromClass(status.class)];
+}
+
++(void)flagLifeStyleObject:(LifestyleObject *)lifeStyleObject
+{
+    [Helper flagObjectWithObjectId:lifeStyleObject.objectId
+                     withClassName:NSStringFromClass(lifeStyleObject.class)];
+}
+
++ (void)flagObjectWithObjectId:(NSString *)objectId withClassName:(NSString *)className
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:className];
+    
+    if (!flaggedObjectArray) {
+        flaggedObjectArray = [[NSMutableArray alloc] initWithObjects:objectId, nil];
+        [defaults setObject:flaggedObjectArray forKey:className];
+    } else {
+        [flaggedObjectArray addObject:objectId];
+    }
+    
+    [defaults synchronize];
 }
 
 @end
