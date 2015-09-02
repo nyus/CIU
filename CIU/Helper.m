@@ -464,4 +464,17 @@ static CGFloat kHighestScreenScale = 3.0;
     [defaults synchronize];
 }
 
++ (void)createAuditWithObjectId:(NSString *)objectId
+{
+    PFQuery *query = [PFQuery queryWithClassName:DDAuditParseClassName];
+    [query whereKey:DDAuditObjectId equalTo:objectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!object) {
+            PFObject *audit = [PFObject objectWithClassName:DDAuditParseClassName];
+            audit[DDAuditObjectId] = objectId;
+            [audit saveEventually];
+        }
+    }];
+}
+
 @end

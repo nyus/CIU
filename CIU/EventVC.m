@@ -298,11 +298,18 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block Event *event = self.dataSource[indexPath.row];
-    [self flagObjectForId:event.objectId parseClassName:kEntityName completion:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            event.isBadContent = @YES;
+    
+    [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
+        if (yesButtonTapped) {
+            [Helper createAuditWithObjectId:event.objectId];
+            
+            event.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];
+            
             cell.flagButton.enabled = NO;
+            
+            [self.dataSource removeObject:event];
+            [self.tableView reloadData];
         }
     }];
 }

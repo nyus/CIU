@@ -402,12 +402,16 @@ static NSString *const kEntityName = @"StatusObject";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block StatusObject *statusObject = self.dataSource[indexPath.row];
     
-    [self flagObjectForId:statusObject.objectId parseClassName:DDStatusParseClassName completion:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            statusObject.isBadContent = @YES;
-            [self.dataSource removeObject:statusObject];
+    [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
+        if (yesButtonTapped) {
+            [Helper createAuditWithObjectId:statusObject.objectId];
+            
+            statusObject.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];
+            
             cell.flagButton.enabled = NO;
+            
+            [self.dataSource removeObject:statusObject];
             [self.tableView reloadData];
         }
     }];

@@ -788,11 +788,15 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block LifestyleObject *lifeObject = self.tableViewDataSource[indexPath.row];
     
-    [self flagObjectForId:lifeObject.objectId parseClassName:[LifestyleCategory getParseClassNameForCategoryType:self.categoryType] completion:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            lifeObject.isBadContent = @YES;
+    [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
+        if (yesButtonTapped) {
+            [Helper createAuditWithObjectId:lifeObject.objectId];
+            
+            lifeObject.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];
-            cell.flagButton.enabled = NO;
+            
+            [self.tableViewDataSource removeObject:lifeObject];
+            [self.tableView reloadData];
         }
     }];
 }
