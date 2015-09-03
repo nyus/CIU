@@ -81,6 +81,8 @@ static NSString *const kIsBadContent = @"isBadContent";
     if (object[kIsBadContent]) {
         self.isBadContent = object[kIsBadContent];
     }
+    
+    self.isBadContentLocal = @NO;
 }
 
 @end

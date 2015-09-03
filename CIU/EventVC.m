@@ -308,7 +308,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
         if (yesButtonTapped) {
-            [Helper createAuditWithObjectId:event.objectId];
+            [Helper createAuditWithObjectId:event.objectId category:@"Event"];
             [Helper flagEvent:event];
             
             event.isBadContentLocal = @YES;

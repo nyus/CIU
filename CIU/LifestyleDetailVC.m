@@ -342,7 +342,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Predicate
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
-    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"self.isBadContentLocal.intValue == %d",0];
+    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"(self.isBadContentLocal.intValue == %d) OR (self.isBadContentLocal == nil)",0];
     NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[LifestyleCategory getParseClassNameForCategoryType:self.categoryType]];
     if (categoryType != DDCategoryTypeJob) {
         NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
@@ -793,7 +793,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     
     [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
         if (yesButtonTapped) {
-            [Helper createAuditWithObjectId:lifeObject.objectId];
+            [Helper createAuditWithObjectId:lifeObject.objectId category:lifeObject.category];
             [Helper flagLifeStyleObject:lifeObject];
             
             lifeObject.isBadContentLocal = @YES;

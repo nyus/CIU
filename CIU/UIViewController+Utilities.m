@@ -17,7 +17,7 @@ NSString *const kNoKey = @"No";
 
 - (void)showReportAlertWithBlock:(void (^)(BOOL))block
 {
-    [UIAlertView showWithTitle:nil message:@"是否确认举报此条不良信息？" cancelButtonTitle:kNoKey otherButtonTitles:@[kYesKey] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+    [UIAlertView showWithTitle:nil message:@"Report inappropriate information？" cancelButtonTitle:kNoKey otherButtonTitles:@[kYesKey] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:kYesKey]) {
             block(YES);
         } else {

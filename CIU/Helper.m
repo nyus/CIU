@@ -467,7 +467,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
     [defaults synchronize];
 }
 
-+ (void)createAuditWithObjectId:(NSString *)objectId
++ (void)createAuditWithObjectId:(NSString *)objectId category:(NSString *)category
 {
     PFQuery *query = [PFQuery queryWithClassName:DDAuditParseClassName];
     [query whereKey:DDAuditObjectId equalTo:objectId];
@@ -475,6 +475,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
         if (!object) {
             PFObject *audit = [PFObject objectWithClassName:DDAuditParseClassName];
             audit[DDAuditObjectId] = objectId;
+            audit[DDCategoryKey] = category;
             [audit saveEventually];
         }
     }];

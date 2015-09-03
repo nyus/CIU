@@ -36,7 +36,7 @@ static NSString *const DDCommentCountKey = @"commentCount";
 static NSString *const DDPhotoCountKey = @"photoCount";
 static NSString *const DDPhotoIdKey = @"photoID";
 static NSString *const DDAnonymousKey = @"anonymous";
-
+static NSString *const DDCategoryKey = @"category";
 static NSString *const DDEventNameKey = @"eventName";
 static NSString *const DDEventDateKey = @"eventDate";
 static NSString *const DDEventLocationKey = @"eventLocation";

@@ -218,7 +218,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     // Filter to exclude bad content
     
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"self.isBadContentLocal.intValue == %d",0];
+    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"(self.isBadContentLocal.intValue == %d) OR (self.isBadContentLocal == nil)",0];
     
     // Filter by geolocation
     

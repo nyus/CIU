@@ -412,7 +412,7 @@ static NSString *const kEntityName = @"StatusObject";
     
     [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
         if (yesButtonTapped) {
-            [Helper createAuditWithObjectId:statusObject.objectId];
+            [Helper createAuditWithObjectId:statusObject.objectId category:@"Status"];
             [Helper flagStatus:statusObject];
             
             statusObject.isBadContentLocal = @YES;

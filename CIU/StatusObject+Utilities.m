@@ -74,6 +74,8 @@
     if (object[DDIsStickyPostKey]) {
         self.isStickyPost = object[DDIsStickyPostKey];
     }
+    
+    self.isBadContentLocal = @NO;
 }
 
 
