@@ -43,7 +43,6 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-58518621-2"];
 #endif
     
-    
 #if DEBUG
     [Parse setApplicationId:@"5iuZZ1iDu1brQG79t8VXWbztxRWFprDUx22zEAxl"
                   clientKey:@"L2o6bd1AbEOBgmYJMaJJOH8xxb8VW4VcC0lNZJ2b"];
