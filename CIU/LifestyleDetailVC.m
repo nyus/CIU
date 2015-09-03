@@ -342,12 +342,13 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"LifestyleObject"];
     // Predicate
     NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent == %@", @NO];
+    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"self.isBadContentLocal.intValue == %d",0];
     NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@",[LifestyleCategory getParseClassNameForCategoryType:self.categoryType]];
     if (categoryType != DDCategoryTypeJob) {
         NSPredicate *geoLocation = [NSPredicate boudingCoordinatesPredicateForRegion:region];
-        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, geoLocation, categoryPredicate]];
+        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, excludeLocalBadContent, geoLocation, categoryPredicate]];
     } else {
-        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, categoryPredicate]];
+        fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[excludeBadContent, excludeLocalBadContent, categoryPredicate]];
     }
     // Sort descriptor
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
@@ -497,6 +498,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     if (categoryType == DDCategoryTypeJob || categoryType == DDCategoryTypeTradeAndSell) {
         [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
         [self.pfQuery orderByDescending:@"createdAt"];
+        [self.pfQuery whereKey:DDObjectIdKey
+                notContainedIn:[Helper flaggedLifeStyleObjectIds]];
     }
 
     [self.pfQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -788,11 +791,16 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     __block LifestyleObject *lifeObject = self.tableViewDataSource[indexPath.row];
     
-    [self flagObjectForId:lifeObject.objectId parseClassName:[LifestyleCategory getParseClassNameForCategoryType:self.categoryType] completion:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            lifeObject.isBadContent = @YES;
+    [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
+        if (yesButtonTapped) {
+            [Helper createAuditWithObjectId:lifeObject.objectId];
+            [Helper flagLifeStyleObject:lifeObject];
+            
+            lifeObject.isBadContentLocal = @YES;
             [[SharedDataManager sharedInstance] saveContext];
-            cell.flagButton.enabled = NO;
+            
+            [self.tableViewDataSource removeObject:lifeObject];
+            [self.tableView reloadData];
         }
     }];
 }

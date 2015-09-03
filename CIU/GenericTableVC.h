@@ -65,4 +65,6 @@
 -(void)populateManagedObject:(NSManagedObject *)managedObject
              fromParseObject:(PFObject *)object;
 
+- (NSArray *)objectIdsToExclude;
+
 @end

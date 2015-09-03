@@ -13,6 +13,10 @@
 static const NSInteger EULA_TAG = 50;
 
 @class PFQuery;
+@class Event;
+@class LifestyleObject;
+@class StatusObject;
+
 @interface Helper : NSObject
 
 //Avatar
@@ -43,5 +47,16 @@ static const NSInteger EULA_TAG = 50;
 +(void)launchCameraInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller;
 +(void)launchPhotoLibraryInController:(UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> *)controller;
 +(void)saveChosenPhoto:(UIImage *)photo andSetOnImageView:(UIImageView *)imageView;
+
+//Flag
++(void)flagEvent:(Event *)event;
++(void)flagStatus:(StatusObject *)status;
++(void)flagLifeStyleObject:(LifestyleObject *)lifeStyleObject;
++(void)createAuditWithObjectId:(NSString *)objectId;
+
+//
++(NSArray *)flaggedEventObjectIds;
++(NSArray *)flaggedStatusObjectIds;
++(NSArray *)flaggedLifeStyleObjectIds;
 
 @end

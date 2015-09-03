@@ -29,7 +29,17 @@ for (PFObject *photoObject in objects) {
     i++;
 }
 
-
-
 change local post image fetch name
 post images dont have a high res version?
+
+3. Report Surprise/Event/Trade & Sell/Job posting
+When user flags it locally,
+- establish objectId <-> isLocalFlagged
+- remove it locally:
+    offline: filter out managed object with isLocalFlagged = YES
+    online: exclude objects with array of objectIds
+- send an Audit object to the server(avoid duplicate).
+
+When admin confirms bad content, flag isBadContent to YES, and this point it applies to all users.
+
+When a PFObject is accessed from server, if isBadContent is YES, also stores it to local

@@ -49,7 +49,7 @@ static NSString *const DDUserKey = @"user";
 
 static NSString *const DDStatusIdKey = @"statusId";
 static NSString *const DDContentStringKey = @"contentString";
-
+static NSString *const DDAuditObjectId = @"auditObjectId";
 static NSString *const DDAnonymousAvatarName = @"anonymousAvatarName";
 
 

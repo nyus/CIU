@@ -8,6 +8,10 @@
 
 #import "Helper.h"
 #import <Parse/Parse.h>
+#import "Event.h"
+#import "LifestyleObject.h"
+#import "StatusObject.h"
+
 #define Default_Radius 5
 
 static Helper *_helper;
@@ -17,6 +21,9 @@ static int kTotalAnonymousAvatarCount = 149;
 static UIImage *anonymousAvatarImage = nil;
 static NSTimeInterval kThirtyMins = 1800.0;
 static CGFloat kHighestScreenScale = 3.0;
+static NSString *const kEventClassName = @"kEventClassName";
+static NSString *const kStatusClassName = @"kStatusClassName";
+static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 
 @interface Helper () <UIAlertViewDelegate>
 
@@ -423,6 +430,90 @@ static CGFloat kHighestScreenScale = 3.0;
     }
 
     return [NSString stringWithFormat:@"aAvatar%d", random];
+}
+
+#pragma mark -- Flag
+
++(void)flagEvent:(Event *)event
+{
+    [Helper flagObjectWithObjectId:event.objectId
+                     withClassName:kEventClassName];
+}
+
++(void)flagStatus:(StatusObject *)status
+{
+    [Helper flagObjectWithObjectId:status.objectId
+                     withClassName:kStatusClassName];
+}
+
++(void)flagLifeStyleObject:(LifestyleObject *)lifeStyleObject
+{
+    [Helper flagObjectWithObjectId:lifeStyleObject.objectId
+                     withClassName:kLifeStyleObjectClassName];
+}
+
++ (void)flagObjectWithObjectId:(NSString *)objectId withClassName:(NSString *)className
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:className];
+    
+    if (!flaggedObjectArray) {
+        flaggedObjectArray = [[NSMutableArray alloc] initWithObjects:objectId, nil];
+        [defaults setObject:flaggedObjectArray forKey:className];
+    } else {
+        [flaggedObjectArray addObject:objectId];
+    }
+    
+    [defaults synchronize];
+}
+
++ (void)createAuditWithObjectId:(NSString *)objectId
+{
+    PFQuery *query = [PFQuery queryWithClassName:DDAuditParseClassName];
+    [query whereKey:DDAuditObjectId equalTo:objectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!object) {
+            PFObject *audit = [PFObject objectWithClassName:DDAuditParseClassName];
+            audit[DDAuditObjectId] = objectId;
+            [audit saveEventually];
+        }
+    }];
+}
+
++(NSArray *)flaggedEventObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kEventClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
+}
+
++(NSArray *)flaggedStatusObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kStatusClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
+}
+
++(NSArray *)flaggedLifeStyleObjectIds
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *flaggedObjectArray = [defaults objectForKey:kLifeStyleObjectClassName];
+    
+    if (!flaggedObjectArray) {
+        return @[];
+    }
+    
+    return flaggedObjectArray;
 }
 
 @end

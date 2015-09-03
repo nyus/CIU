@@ -1,9 +1,9 @@
 //
 //  StatusObject.m
-//  DaDa
+//  
 //
-//  Created by Sihang on 2/1/15.
-//  Copyright (c) 2015 Huang, Sihang. All rights reserved.
+//  Created by Sihang Huang on 9/2/15.
+//
 //
 
 #import "StatusObject.h"
@@ -16,6 +16,7 @@
 @dynamic commentCount;
 @dynamic createdAt;
 @dynamic isBadContent;
+@dynamic isStickyPost;
 @dynamic latitude;
 @dynamic likeCount;
 @dynamic longitude;
@@ -28,6 +29,6 @@
 @dynamic posterLastName;
 @dynamic posterUsername;
 @dynamic statusCellHeight;
-@dynamic isStickyPost;
+@dynamic isBadContentLocal;
 
 @end

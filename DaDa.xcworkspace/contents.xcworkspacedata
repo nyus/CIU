@@ -5,9 +5,6 @@
       location = "group:Royal Oak (1).gpx">
    </FileRef>
    <FileRef
-      location = "group:Royal Oak.gpx">
-   </FileRef>
-   <FileRef
       location = "group:DaDa.xcodeproj">
    </FileRef>
    <FileRef
