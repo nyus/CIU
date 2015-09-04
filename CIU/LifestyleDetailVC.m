@@ -496,7 +496,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         [self.pfQuery orderByAscending:@"name"];
     }
     if (categoryType == DDCategoryTypeJob || categoryType == DDCategoryTypeTradeAndSell) {
-        [self.pfQuery whereKey:@"isBadContent" notEqualTo:@YES];
         [self.pfQuery orderByDescending:@"createdAt"];
         [self.pfQuery whereKey:DDObjectIdKey
                 notContainedIn:[Helper flaggedLifeStyleObjectIds]];
@@ -511,7 +510,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                 weakSelf.tableViewDataSource = nil;
             }
             weakSelf.tableViewDataSource = [NSMutableArray array];
-            
+
             //construct array of indexPath and store parse data to local
             for (PFObject *parseObject in objects) {
 
@@ -530,6 +529,12 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                     life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [life populateFromObject:parseObject];
                 }
+                
+                
+                if ([parseObject[DDIsBadContentKey] boolValue]) {
+                    continue;
+                }
+                
                 [[SharedDataManager sharedInstance] saveContext];
                 [weakSelf.tableViewDataSource addObject:life];
             }

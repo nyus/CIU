@@ -181,8 +181,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                                                [dictionary[DDLongitudeKey] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
     [self.fetchQuery orderByDescending:DDEventDateKey];
-    [self.fetchQuery whereKey:DDIsBadContentKey
-                   notEqualTo:@YES];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedEventObjectIds]];
     if (greaterDate) {

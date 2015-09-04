@@ -43,13 +43,13 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-58518621-2"];
 #endif
     
-#if DEBUG
-    [Parse setApplicationId:@"5iuZZ1iDu1brQG79t8VXWbztxRWFprDUx22zEAxl"
-                  clientKey:@"L2o6bd1AbEOBgmYJMaJJOH8xxb8VW4VcC0lNZJ2b"];
-#else
+//#if DEBUG
+//    [Parse setApplicationId:@"5iuZZ1iDu1brQG79t8VXWbztxRWFprDUx22zEAxl"
+//                  clientKey:@"L2o6bd1AbEOBgmYJMaJJOH8xxb8VW4VcC0lNZJ2b"];
+//#else
     [Parse setApplicationId:@"dREZy34PedC54NzkwKdzw9InfmkPFCZ3kNmj8TNB"
                   clientKey:@"urvgpguNb8wja2nX8wyHe5h8SfD0DCQB7WdTZSZg"];
-#endif
+//#endif
     [PFFacebookUtils initializeFacebook];
     
     [Crittercism enableWithAppID:@"54ccf13951de5e9f042ed3f9"];

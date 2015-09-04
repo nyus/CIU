@@ -331,6 +331,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                 NSMutableArray *array = nil;
                 NSInteger originalCount = self.dataSource.count;
                 
+                // numOfGoodObjects keeps track of number of objects that doesn't have bad content
+                int numOfGoodObjects = 0;
                 for (int i = 0; i < objects.count; i++) {
                     
                     PFObject *pfObject = objects[i];
@@ -351,10 +353,15 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     
                     [self populateManagedObject:managedObject fromParseObject:pfObject];
                     
+                    
+                    if ([pfObject[DDIsBadContentKey] boolValue]) {
+                        continue;
+                    }
+                    
                     // Pull down to refresh
                     if (!greaterDate && !lesserDate) {
                         [self.dataSource addObject:managedObject];
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects inSection:0]];
                     } else if (greaterDate && !lesserDate) {
                         
                         if (!array) {
@@ -366,12 +373,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                             [array addObjectsFromArray:self.dataSource];
                             self.dataSource = array;
                         }
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects inSection:0]];
                     } else if (!greaterDate && lesserDate) {
                         // pull up to refresh
                         
                         [self.dataSource addObject:managedObject];
-                        [indexpathArray addObject:[NSIndexPath indexPathForRow:i + originalCount inSection:0]];
+                        [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects + originalCount inSection:0]];
                     }
                     
                     if (i == 0 &&
@@ -383,6 +390,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                         ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
                         self.leastStatusDate = pfObject.createdAt;
                     }
+                    
+                    numOfGoodObjects++;
                 }
                 
                 [[SharedDataManager sharedInstance] saveContext];

@@ -171,9 +171,6 @@ static NSString *const kEntityName = @"StatusObject";
     
     self.fetchQuery = [PFQuery orQueryWithSubqueries:@[geoQuery, stickyPostQuery]];
     [self.fetchQuery orderByDescending:DDCreatedAtKey];
-    
-    [self.fetchQuery whereKey:DDIsBadContentKey
-                   notEqualTo:@YES];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedStatusObjectIds]];
     
