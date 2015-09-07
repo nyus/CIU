@@ -235,27 +235,29 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 
 +(UIImage *)scaleImage:(UIImage *)image downToSize:(CGSize) size
 {
-    CGRect imageRect;
-    if(image.size.width<image.size.height){
-        //handle portrait photos
-        float newWidth = image.size.width * size.height * kHighestScreenScale / image.size.height;
-        imageRect = CGRectMake(0.0,
-                               0.0,
-                               newWidth,
-                               size.height * kHighestScreenScale);
-    }else{
-        imageRect = CGRectMake(0.0,
-                               0.0,
-                               size.width * kHighestScreenScale,
-                               size.height * kHighestScreenScale);
-    }
+    CGSize newSize = CGSizeMake(size.width * kHighestScreenScale, size.height * kHighestScreenScale);
+    CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
+    CGImageRef imageRef = image.CGImage;
     
-    UIGraphicsBeginImageContextWithOptions(imageRect.size, NO, 0.0f);
-    [image drawInRect:imageRect];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // Set the quality level to use when rescaling
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height);
+    
+    CGContextConcatCTM(context, flipVertical);
+    // Draw into the context; this scales the image
+    CGContextDrawImage(context, newRect, imageRef);
+    
+    // Get the resized image from the context and a UIImage
+    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
+    UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
+    
+    CGImageRelease(newImageRef);
     UIGraphicsEndImageContext();
     
-    return scaledImage;
+    return newImage;
 }
 
 #pragma mark - user location
