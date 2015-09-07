@@ -644,6 +644,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         cell.contentTextView.text = nil;
         cell.contentTextView.text = object.content;
         cell.flagButton.enabled = !object.isBadContent.boolValue;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
     }
