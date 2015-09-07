@@ -46,6 +46,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     self.clearsSelectionOnViewWillAppear = YES;
     
     [self addInternetObserver];
+    self.tableView.scrollsToTop = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
