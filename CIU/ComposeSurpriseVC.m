@@ -276,7 +276,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     }else if(buttonIndex == 1){
 
         ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] init];
-        elcPicker.maximumImagesCount = 30;
+        elcPicker.maximumImagesCount = 4;
         elcPicker.imagePickerDelegate = self;
 
         [self presentViewController:elcPicker animated:YES completion:nil];
