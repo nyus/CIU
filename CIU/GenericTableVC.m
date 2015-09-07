@@ -337,6 +337,16 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     
                     PFObject *pfObject = objects[i];
                     
+                    if (i == 0 &&
+                        ([self.greatestStatusDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
+                        self.greatestStatusDate = pfObject.createdAt;
+                    }
+                    
+                    if (i == objects.count - 1 &&
+                        ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
+                        self.leastStatusDate = pfObject.createdAt;
+                    }
+                    
                     // Skip duplicates
                     
                     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:self.localDataEntityName];
@@ -379,16 +389,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                         
                         [self.dataSource addObject:managedObject];
                         [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects + originalCount inSection:0]];
-                    }
-                    
-                    if (i == 0 &&
-                        ([self.greatestStatusDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
-                        self.greatestStatusDate = pfObject.createdAt;
-                    }
-                    
-                    if (i == objects.count - 1 &&
-                        ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
-                        self.leastStatusDate = pfObject.createdAt;
                     }
                     
                     numOfGoodObjects++;

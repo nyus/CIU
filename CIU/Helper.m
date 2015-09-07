@@ -455,15 +455,14 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 + (void)flagObjectWithObjectId:(NSString *)objectId withClassName:(NSString *)className
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *flaggedObjectArray = [defaults objectForKey:className];
+    NSMutableArray *flaggedObjectArray = [[defaults objectForKey:className] mutableCopy];
     
     if (!flaggedObjectArray) {
-        flaggedObjectArray = [[NSMutableArray alloc] initWithObjects:objectId, nil];
-        [defaults setObject:flaggedObjectArray forKey:className];
-    } else {
-        [flaggedObjectArray addObject:objectId];
+        flaggedObjectArray = [NSMutableArray array];
     }
     
+    [flaggedObjectArray addObject:objectId];
+    [defaults setObject:flaggedObjectArray forKey:className];
     [defaults synchronize];
 }
 
