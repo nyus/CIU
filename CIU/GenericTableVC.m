@@ -25,6 +25,21 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 #pragma mark - Getter
 
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        self.internetReachability = [Reachability reachabilityForInternetConnection];
+        self.wifiReachability = [Reachability reachabilityForLocalWiFi];
+        self.locationManager = [Helper initLocationManagerWithDelegate:self];
+        self.dataSource = [NSMutableArray array];
+        [self addMenuButton];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -47,6 +62,21 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     
     [self addInternetObserver];
     self.tableView.scrollsToTop = YES;
+    
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:nil];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil];
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,65 +124,35 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     self.isInternetPresentOnLaunch = [Reachability canReachInternet];
 }
 
-- (void)addRefreshControle
+- (void)addPullDownRefreshControl
 {
-    if (!self.isInternetPresentOnLaunch) {
-        [self fetchLocalDataWithEntityName:self.localDataEntityName
-                                fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil];
-    } else {
-        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
-                                     fetchLimit:self.serverFetchCount
-                                    fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
-    }
-    
-    // Pull down to refresh
-    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(handlePullDownToRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
-    
-    // Reach tbview bottom to refresh
-    
+
+}
+
+- (void)addInfiniteRefreshControl
+{
     __weak typeof(self) weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
-        
-        if (!weakSelf.isInternetPresentOnLaunch) {
-            [weakSelf fetchLocalDataWithEntityName:weakSelf.localDataEntityName
-                                        fetchLimit:weakSelf.localFetchCount
-                                       fetchRadius:weakSelf.dataFetchRadius
-                                  greaterOrEqualTo:nil
-                                   lesserOrEqualTo:weakSelf.leastStatusDate];
-        } else {
-            [weakSelf fetchServerDataWithParseClassName:weakSelf.serverDataParseClassName
-                                             fetchLimit:weakSelf.serverFetchCount
-                                            fetchRadius:weakSelf.dataFetchRadius
-                                       greaterOrEqualTo:nil
-                                        lesserOrEqualTo:weakSelf.leastStatusDate];
-        }
+        [weakSelf handleInfiniteScroll];
     }];
+}
+
+- (void)handleInfiniteScroll
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -handleInfiniteScroll"
+                                 userInfo:nil];
 }
 
 - (void)handlePullDownToRefresh
 {
-    if (!self.isInternetPresentOnLaunch) {
-        [self fetchLocalDataWithEntityName:self.localDataEntityName
-                                fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:self.greatestStatusDate
-                           lesserOrEqualTo:nil];
-    } else {
-        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
-                                     fetchLimit:self.serverFetchCount
-                                    fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:self.greatestStatusDate
-                                lesserOrEqualTo:nil];
-    }
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -handlePullDownToRefresh"
+                                 userInfo:nil];
 }
 
 - (void)addMenuButton{
@@ -184,6 +184,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 #pragma mark - Helper
 
+- (BOOL)orderLocalDataInAscending
+{
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:@"Method -orderLocalDataInAscending should be overriden by subclass"
+                                 userInfo:nil];
+}
+
 - (NSString *)keyForLocalDataSortDescriptor
 {
     @throw [NSException exceptionWithName:NSInvalidArgumentException
@@ -200,6 +207,105 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 #pragma mark - Data
 
+- (NSPredicate *)badContentPredicate
+{
+    return [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
+}
+
+- (NSPredicate *)badLocalContentPredicate
+{
+    return [NSPredicate predicateWithFormat:@"(self.isBadContentLocal.intValue == %d) OR (self.isBadContentLocal == nil)",0];
+}
+
+- (NSPredicate *)geoBoundPredicateWithFetchRadius:(CGFloat)fetchRadius
+{
+    NSDictionary *dictionary = [Helper userLocation];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
+                                                              [dictionary[DDLongitudeKey] doubleValue]);
+    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
+                                                           radius:@(fetchRadius)];
+    return [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
+}
+
+- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(NSDate *)greaterDate
+                                        lesserOrEqualTo:(NSDate *)lesserDate
+{
+    NSPredicate *datePredicate = nil;
+    
+    if (greaterDate && !lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterDate];
+    } else if (!greaterDate && lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserDate];
+    } else if (greaterDate && lesserDate) {
+        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterDate, lesserDate];
+    }
+
+    return datePredicate;
+}
+
+- (void)fetchLocalDataWithEntityName:(NSString *)entityName
+                          fetchLimit:(NSUInteger)fetchLimit
+                         fetchRadius:(CGFloat)fetchRadius
+                    greaterOrEqualTo:(NSDate *)greaterDate
+                     lesserOrEqualTo:(NSDate *)lesserDate
+                          predicates:(NSArray *)predicates
+{
+    if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
+        
+        return;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+    fetchRequest.includesPendingChanges = NO;
+    
+    // Predicate
+    
+    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+    [fetchRequest setPredicate:compoundPredicate];
+    
+    // Sort descriptor
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[self keyForLocalDataSortDescriptor]
+                                                                   ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    fetchRequest.fetchLimit = fetchLimit;
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
+                                                                                                     error:&error];
+    
+    if (fetchedObjects.count > 0) {
+        
+        // This has to be called before adding new objects to the data source
+        
+        NSUInteger currentCount = self.dataSource.count;
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        
+        for (int i = 0; i < fetchedObjects.count; i++) {
+            id managedObject = fetchedObjects[i];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
+            [self.dataSource addObject:managedObject];
+            
+            
+            if (i == 0 &&
+                ([self.greatestObjectDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestObjectDate)) {
+                self.greatestObjectDate = [managedObject createdAt];
+            }
+            
+            if (i == fetchedObjects.count - 1 &&
+                ([self.leastObjectDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastObjectDate)) {
+                self.leastObjectDate = [managedObject createdAt];
+            }
+        }
+        
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    [self.tableView.infiniteScrollingView stopAnimating];
+    [self.refreshControl endRefreshing];
+}
+
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
                          fetchRadius:(CGFloat)fetchRadius
@@ -211,8 +317,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         return;
     }
     
-    NSDictionary *dictionary = [Helper userLocation];
-    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
     fetchRequest.includesPendingChanges = NO;
     
@@ -222,12 +326,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"(self.isBadContentLocal.intValue == %d) OR (self.isBadContentLocal == nil)",0];
     
     // Filter by geolocation
-    
+    NSDictionary *dictionary = [Helper userLocation];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
                                                                [dictionary[DDLongitudeKey] doubleValue]);
     MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
                                                            radius:@(fetchRadius)];
-    NSPredicate *predicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
+    NSPredicate *geoPredicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
     
     // Filter to get data between dates
     
@@ -243,13 +347,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     // Predicate
     
     NSCompoundPredicate *compoundPredicate = datePredicate ?
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, excludeLocalBadContent, datePredicate]] :
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, excludeBadContent, excludeLocalBadContent]];
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[geoPredicate, excludeBadContent, excludeLocalBadContent, datePredicate]] :
+    [NSCompoundPredicate andPredicateWithSubpredicates:@[geoPredicate, excludeBadContent, excludeLocalBadContent]];
     
     // Sort descriptor
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[self keyForLocalDataSortDescriptor]
-                                                                   ascending:NO];
+                                                                   ascending:[self orderLocalDataInAscending]];
     
     [fetchRequest setPredicate:compoundPredicate];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
@@ -273,13 +377,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             
             
             if (i == 0 &&
-                ([self.greatestStatusDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestStatusDate)) {
-                self.greatestStatusDate = [managedObject createdAt];
+                ([self.greatestObjectDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestObjectDate)) {
+                self.greatestObjectDate = [managedObject createdAt];
             }
             
             if (i == fetchedObjects.count - 1 &&
-                ([self.leastStatusDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastStatusDate)) {
-                self.leastStatusDate = [managedObject createdAt];
+                ([self.leastObjectDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastObjectDate)) {
+                self.leastObjectDate = [managedObject createdAt];
             }
         }
         
@@ -296,7 +400,9 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                      greaterOrEqualTo:(NSDate *)greaterDate
                       lesserOrEqualTo:(NSDate *)lesserDate
 {
-    // Override by subclass
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass must override -setupServerQueryWithClassName:fetchLimit:fetchRadius:greaterOrEqualTo:lesserOrEqualTo"
+                                 userInfo:nil];
 }
 
 -(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
@@ -339,13 +445,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     PFObject *pfObject = objects[i];
                     
                     if (i == 0 &&
-                        ([self.greatestStatusDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestStatusDate)) {
-                        self.greatestStatusDate = pfObject.createdAt;
+                        ([self.greatestObjectDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestObjectDate)) {
+                        self.greatestObjectDate = pfObject.createdAt;
                     }
                     
                     if (i == objects.count - 1 &&
-                        ([self.leastStatusDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastStatusDate)) {
-                        self.leastStatusDate = pfObject.createdAt;
+                        ([self.leastObjectDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastObjectDate)) {
+                        self.leastObjectDate = pfObject.createdAt;
                     }
                     
                     // Skip duplicates
@@ -399,6 +505,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+#warning crash here: need to disconnect storyboard push on tapping tableview cell
                 [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView.infiniteScrollingView stopAnimating];
                 [self.refreshControl endRefreshing];

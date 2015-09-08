@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GenericTableVC.h"
 
-@interface LifestyleTableVC : GenericTableVC
+@interface LifestyleVC : GenericTableVC
 
 @end

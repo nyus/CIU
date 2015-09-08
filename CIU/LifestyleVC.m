@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "LifestyleTableVC.h"
+#import "LifestyleVC.h"
 #import "LifestyleCategory.h"
 #import "LifestyleCategory+Utilities.h"
 #import "Helper.h"
@@ -14,16 +14,17 @@
 #import "LifestyleTableViewCell.h"
 #import "LifestyleCategory+Utilities.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "RestaurantVC.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
-@interface LifestyleTableVC ()
+@interface LifestyleVC ()
 
 @property (nonatomic, strong) NSMutableDictionary *queries;
 
 @end
 
-@implementation LifestyleTableVC
+@implementation LifestyleVC
 
 - (void)viewDidLoad
 {
@@ -90,6 +91,15 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 }
 
 #pragma mark - Override
+
+- (void)setupServerQueryWithClassName:(NSString *)className
+                           fetchLimit:(NSUInteger)fetchLimit
+                          fetchRadius:(CGFloat)fetchRadius
+                     greaterOrEqualTo:(NSDate *)greaterDate
+                      lesserOrEqualTo:(NSDate *)lesserDate
+{
+    // Required override
+}
 
 -(void)pullDataFromLocal{
     
@@ -189,20 +199,34 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        
+        RestaurantVC *vc = [[RestaurantVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.edgesForExtendedLayout=UIRectEdgeNone;
+        vc.extendedLayoutIncludesOpaqueBars=NO;
+        vc.automaticallyAdjustsScrollViewInsets=NO;
 
+        [self.navigationController pushViewController:vc
+                                             animated:YES];
+    }
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     self.tabBarController.tabBar.hidden = YES;
     
     if ([segue.identifier isEqualToString:@"toDetailA"]) {
-        UITableViewCell *cell = (UITableViewCell *)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        LifestyleCategory *category = self.dataSource[indexPath.row];
-        LifestyleDetailVC *vc = (LifestyleDetailVC *)segue.destinationViewController;
-        vc.categoryType = [LifestyleCategory typeForCategoryName:category.name];
-        [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
-        [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];
+//        UITableViewCell *cell = (UITableViewCell *)sender;
+//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//        LifestyleCategory *category = self.dataSource[indexPath.row];
+//        LifestyleDetailVC *vc = (LifestyleDetailVC *)segue.destinationViewController;
+//        vc.hidesBottomBarWhenPushed = YES;
+//        vc.categoryType = [LifestyleCategory typeForCategoryName:category.name];
+//        [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
+//        [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];
     }
 }
 

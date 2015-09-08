@@ -806,9 +806,9 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
         <!--Lifestyle-->
         <scene sceneID="3hz-4f-FE8">
             <objects>
-                <tableViewController id="w3S-5W-69p" customClass="LifestyleTableVC" sceneMemberID="viewController">
+                <tableViewController id="w3S-5W-69p" customClass="LifestyleVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="8EE-IP-PMj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -941,7 +941,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dyu-G3-vyr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Map"/>
                                 </userDefinedRuntimeAttributes>
@@ -950,7 +950,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                 </connections>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8ZR-dD-Gu2">
-                                <rect key="frame" x="0.0" y="45" width="320" height="474"/>
+                                <rect key="frame" x="0.0" y="45" width="320" height="523"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="Vj1-mI-WtE" customClass="LoadingTableViewCell">
@@ -987,9 +987,9 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="8ZR-dD-Gu2" secondAttribute="trailing" id="4wZ-u1-gmV"/>
+                            <constraint firstItem="exl-Rq-jlm" firstAttribute="top" secondItem="Dyu-G3-vyr" secondAttribute="bottom" id="Ddd-LT-6Er"/>
                             <constraint firstItem="8ZR-dD-Gu2" firstAttribute="top" secondItem="zpI-qw-K9r" secondAttribute="bottom" constant="1" id="IAK-ID-MYh"/>
                             <constraint firstItem="8ZR-dD-Gu2" firstAttribute="leading" secondItem="Lhj-gC-mWs" secondAttribute="leading" id="P3a-CB-59c"/>
-                            <constraint firstItem="exl-Rq-jlm" firstAttribute="top" secondItem="Dyu-G3-vyr" secondAttribute="bottom" id="VUR-qh-kDc"/>
                             <constraint firstItem="exl-Rq-jlm" firstAttribute="top" secondItem="8ZR-dD-Gu2" secondAttribute="bottom" id="XfS-Xe-rDd"/>
                             <constraint firstItem="Dyu-G3-vyr" firstAttribute="leading" secondItem="Lhj-gC-mWs" secondAttribute="leading" id="cYp-Fu-BEF"/>
                             <constraint firstAttribute="trailing" secondItem="Dyu-G3-vyr" secondAttribute="trailing" id="ibw-0L-C7s"/>
@@ -997,6 +997,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FVe-rv-FSj"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="Dyu-G3-vyr" id="apP-kC-kbB"/>
                         <outlet property="tableView" destination="8ZR-dD-Gu2" id="PEb-6B-YeN"/>

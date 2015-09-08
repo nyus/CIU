@@ -187,7 +187,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 - (void)reSearchButtonTapped:(UIButton *)reSearchButton
 {
-    
     [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:[NSString stringWithFormat:@"%@-Redo search in map", IS_RESTAURANT ? @"Restaurant" : @"Supermarket"] value:nil];
     [Flurry logEvent:[NSString stringWithFormat:@"%@-Redo search in map", IS_RESTAURANT ? @"Restaurant" : @"Supermarket"]];
     [self fetchLocalDataWithRegion:self.mapView.region];
@@ -308,6 +307,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     [self fetchData];
 }
 
+#warning job and trade
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
     UINavigationController *vc = (UINavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:@"compose"];
     ComposeVC *compose = (ComposeVC *)vc.topViewController;
@@ -421,12 +421,12 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                     //update value
                     LifestyleObject *life = self.mapViewDataSource[lifeIndex.intValue];
                     if ([life.updatedAt compare:object.updatedAt] == NSOrderedAscending) {
-                        [life populateFromObject:object];
+                        [life populateFromParseObject:object];
                     }
                 }else{
                     //insert new item
                     LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                    [life populateFromObject:object];
+                    [life populateFromParseObject:object];
                     [self.mapViewDataSource addObject:life];
                     
                     CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
@@ -522,12 +522,12 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                 if (array.count == 1) {
                     life = array[0];
                     if ([life.updatedAt compare:parseObject.updatedAt] == NSOrderedAscending) {
-                        [life populateFromObject:parseObject];
+                        [life populateFromParseObject:parseObject];
                     }
                     
                 }else{
                     life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
-                    [life populateFromObject:parseObject];
+                    [life populateFromParseObject:parseObject];
                 }
                 
                 

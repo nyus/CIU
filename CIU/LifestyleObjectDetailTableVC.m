@@ -58,7 +58,7 @@ NSString *const kIntroductionKey = @"Introduction";
     [query whereKey:@"updatedAt" greaterThan:self.lifestyleObject.updatedAt];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error && object) {
-            [self.lifestyleObject populateFromObject:object];
+            [self.lifestyleObject populateFromParseObject:object];
             [[SharedDataManager sharedInstance] saveContext];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self buildDataSource];

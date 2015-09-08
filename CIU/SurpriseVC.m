@@ -67,6 +67,8 @@ static NSString *const kEntityName = @"StatusObject";
     return self;
 }
 
+#pragma mark - Override
+
 - (NSString *)serverDataParseClassName
 {
     return DDStatusParseClassName;
@@ -107,11 +109,68 @@ static NSString *const kEntityName = @"StatusObject";
     return _dateFormatter;
 }
 
+- (NSString *)keyForLocalDataSortDescriptor
+{
+    return DDCreatedAtKey;
+}
+
+- (BOOL)orderLocalDataInAscending
+{
+    return NO;
+}
+
+- (void)handleInfiniteScroll
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:self.leastObjectDate
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:nil
+                                                                          lesserOrEqualTo:self.leastObjectDate]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:self.leastObjectDate];
+    }
+}
+
+- (void)handlePullDownToRefresh
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:self.greatestObjectDate
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                                                          lesserOrEqualTo:nil]]];
+} else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greatestObjectDate
+                                lesserOrEqualTo:nil];
+    }
+}
+
+#pragma mark - View life cycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self addRefreshControle];
+    [self addPullDownRefreshControl];
+    [self addInfiniteRefreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -127,11 +186,6 @@ static NSString *const kEntityName = @"StatusObject";
 {
     [super viewWillDisappear:animated];
     [Flurry endTimedEvent:@"View surprise" withParameters:nil];
-}
-
-- (NSString *)keyForLocalDataSortDescriptor
-{
-    return DDCreatedAtKey;
 }
 
 - (void)populateManagedObject:(NSManagedObject *)managedObject
@@ -268,7 +322,6 @@ static NSString *const kEntityName = @"StatusObject";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return self.dataSource.count;
 }
 

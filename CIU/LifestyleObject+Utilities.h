@@ -12,6 +12,6 @@
 
 @interface LifestyleObject (Utilities)
 
--(void)populateFromObject:(PFObject *)object;
+-(void)populateFromParseObject:(PFObject *)object;
 
 @end

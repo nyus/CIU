@@ -17,7 +17,7 @@
 static Helper *_helper;
 static UIImagePickerController *_imagePicker;
 static NSString *kAnonymousAvatarKey = @"kAnonymousAvatarKey";
-static int kTotalAnonymousAvatarCount = 149;
+static int kTotalAnonymousAvatarCount = 501;//149;
 static UIImage *anonymousAvatarImage = nil;
 static NSTimeInterval kThirtyMins = 1800.0;
 static CGFloat kHighestScreenScale = 3.0;
@@ -425,11 +425,18 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 + (NSString *)randomAnonymousImageName
 {
     /* initialize random seed: */
-    srand((int)time(NULL));
+//    srand((int)time(NULL));
     int random = rand() % kTotalAnonymousAvatarCount;
+    
+    for (int i = 0 ; i < 10; i++) {
+        random = rand() % kTotalAnonymousAvatarCount;
+    }
+    
     while (random == 0) {
         random = rand() % kTotalAnonymousAvatarCount;
     }
+    
+    NSLog(@"random number is %d", random);
 
     return [NSString stringWithFormat:@"aAvatar%d", random];
 }

@@ -11,7 +11,12 @@ static NSString *const DDAuditParseClassName = @"Audit";
 static NSString *const DDPhotoParseClassName = @"Photo";
 static NSString *const DDAvatarParseClassName = @"Avatar";
 static NSString *const DDCommentParseClassName = @"Comment";
+static NSString *const DDJobParseClassName = @"Jobs";
+static NSString *const DDRestaurantParseClassName = @"Restaurant";
+static NSString *const DDSupermarketParseClassName = @"Supermarket";
+static NSString *const DDTradeAndSellParseClassName = @"Trade";
 
+static NSString *const DDNameKey = @"name";
 static NSString *const DDIsHighResKey = @"isHighRes";
 static NSString *const DDImageKey = @"image";
 static NSString *const DDFirstNameKey = @"firstName";

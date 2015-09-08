@@ -22,8 +22,8 @@
 @property (nonatomic, assign) BOOL isInternetPresentOnLaunch;
 @property (nonatomic) Reachability *internetReachability;
 @property (nonatomic) Reachability *wifiReachability;
-@property (nonatomic, strong) NSDate *greatestStatusDate;
-@property (nonatomic, strong) NSDate *leastStatusDate;
+@property (nonatomic, strong) NSDate *greatestObjectDate;
+@property (nonatomic, strong) NSDate *leastObjectDate;
 @property (nonatomic, copy) NSString *localDataEntityName;
 @property (nonatomic, copy) NSString *serverDataParseClassName;
 @property (nonatomic, assign) float dataFetchRadius;
@@ -37,18 +37,33 @@
 -(void)cancelNetworkRequestForCell:(UITableViewCell *)cell
                        atIndexPath:(NSIndexPath *)indexPath;
 
--(void)addRefreshControle;
+-(void)addPullDownRefreshControl;
+
+-(void)addInfiniteRefreshControl;
+
+- (void)handlePullDownToRefresh;
+
+- (void)handleInfiniteScroll;
 
 -(void)locationManager:(CLLocationManager *)manager
      didUpdateLocation:(CLLocation *)location;
 
 - (NSString *)keyForLocalDataSortDescriptor;
 
+- (BOOL)orderLocalDataInAscending;
+
+//- (void)fetchLocalDataWithEntityName:(NSString *)entityName
+//                          fetchLimit:(NSUInteger)fetchLimit
+//                         fetchRadius:(CGFloat)fetchRadius
+//                    greaterOrEqualTo:(NSDate *)greaterDate
+//                     lesserOrEqualTo:(NSDate *)lesserDate;
+#warning
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
                          fetchRadius:(CGFloat)fetchRadius
                     greaterOrEqualTo:(NSDate *)greaterDate
-                     lesserOrEqualTo:(NSDate *)lesserDate;
+                     lesserOrEqualTo:(NSDate *)lesserDate
+                          predicates:(NSArray *)predicates;
 
 -(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
                               fetchLimit:(NSUInteger)fetchLimit
@@ -66,5 +81,14 @@
              fromParseObject:(PFObject *)object;
 
 - (NSArray *)objectIdsToExclude;
+
+- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(NSDate *)greaterDate
+                                        lesserOrEqualTo:(NSDate *)lesserDate;
+
+- (NSPredicate *)geoBoundPredicateWithFetchRadius:(CGFloat)fetchRadius;
+
+- (NSPredicate *)badLocalContentPredicate;
+
+- (NSPredicate *)badContentPredicate;
 
 @end

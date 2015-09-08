@@ -23,7 +23,7 @@ static NSString *const kLongitudeKey = @"longitude";
 static NSString *const kIsBadContent = @"isBadContent";
 
 @implementation LifestyleObject (Utilities)
--(void)populateFromObject:(PFObject *)object{
+-(void)populateFromParseObject:(PFObject *)object{
     self.objectId = object.objectId;
     self.createdAt = object.createdAt;
     self.updatedAt = object.updatedAt;

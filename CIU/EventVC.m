@@ -77,7 +77,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
-    if ([Reachability canReachInternet]) {
+    if (self.isInternetPresentOnLaunch) {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
@@ -88,7 +88,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                fetchRadius:[[self eventRadius] floatValue]
                           greaterOrEqualTo:nil 
-                           lesserOrEqualTo:nil];
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                            [self badLocalContentPredicate],
+                                            [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
 
@@ -104,6 +107,30 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     return _dateFormatter;
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self addPullDownRefreshControl];
+    [self addInfiniteRefreshControl];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[PFUser currentUser] fetchInBackground];
+    [Flurry logEvent:@"View event" timed:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [Flurry endTimedEvent:@"View event" withParameters:nil];
+    [self.fetchQuery cancel];
+}
+
+#pragma mark - Override
 
 - (NSString *)serverDataParseClassName
 {
@@ -130,33 +157,58 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     return kLocalFetchCount;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self addRefreshControle];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    [[PFUser currentUser] fetchInBackground];
-    [Flurry logEvent:@"View event" timed:YES];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    
-    [Flurry endTimedEvent:@"View event" withParameters:nil];
-    [self.fetchQuery cancel];
-    [self.refreshControl endRefreshing];
-}
-
-#pragma mark - Override
-
 - (NSString *)keyForLocalDataSortDescriptor
 {
     return DDEventDateKey;
+}
+
+- (BOOL)orderLocalDataInAscending
+{
+    return NO;
+}
+
+- (void)handleInfiniteScroll
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:self.leastObjectDate
+                            predicates:@[[self badContentPredicate],
+                                         [self badLocalContentPredicate],
+                                         [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                         [self dateRnagePredicateWithgreaterOrEqualTo:nil
+                                                                      lesserOrEqualTo:self.leastObjectDate]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                         fetchLimit:self.serverFetchCount
+                                        fetchRadius:self.dataFetchRadius
+                                   greaterOrEqualTo:nil
+                                    lesserOrEqualTo:self.leastObjectDate];
+    }
+}
+
+- (void)handlePullDownToRefresh
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:self.greatestObjectDate
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                                                          lesserOrEqualTo:nil]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greatestObjectDate
+                                lesserOrEqualTo:nil];
+    }
 }
 
 - (void)setupServerQueryWithClassName:(NSString *)className
