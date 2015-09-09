@@ -862,7 +862,6 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                 <connections>
                                     <outlet property="cellImageView" destination="Dbz-HJ-18b" id="dhG-kG-92Q"/>
                                     <outlet property="label" destination="LQB-wG-WeT" id="Nq5-ZJ-1FM"/>
-                                    <segue destination="eIB-DE-riQ" kind="push" identifier="toDetailA" id="A8E-uU-Det"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -877,7 +876,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1859" y="-937.5"/>
+            <point key="canvasLocation" x="1853" y="-942"/>
         </scene>
         <!--ComposeVC-->
         <scene sceneID="Fwn-zr-ePG">
@@ -926,7 +925,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pae-Pz-vT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2340" y="-1588"/>
+            <point key="canvasLocation" x="1859" y="-1605"/>
         </scene>
         <!--Lifestyle DetailVC-->
         <scene sceneID="0z8-OV-xjN">
@@ -3454,7 +3453,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qRE-Hh-28u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="-1588"/>
+            <point key="canvasLocation" x="1464" y="-1605"/>
         </scene>
         <!--Lifestyle-->
         <scene sceneID="cTK-Mn-MpP">

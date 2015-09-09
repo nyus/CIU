@@ -59,24 +59,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     [super viewDidLoad];
     
     self.clearsSelectionOnViewWillAppear = YES;
-    
-    [self addInternetObserver];
     self.tableView.scrollsToTop = YES;
-    
-    if (!self.isInternetPresentOnLaunch) {
-        [self fetchLocalDataWithEntityName:self.localDataEntityName
-                                fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil];
-    } else {
-        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
-                                     fetchLimit:self.serverFetchCount
-                                    fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
-    }
-
+    [self addInternetObserver];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -243,18 +227,13 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     return datePredicate;
 }
 
-- (void)fetchLocalDataWithEntityName:(NSString *)entityName
-                          fetchLimit:(NSUInteger)fetchLimit
-                         fetchRadius:(CGFloat)fetchRadius
-                    greaterOrEqualTo:(NSDate *)greaterDate
-                     lesserOrEqualTo:(NSDate *)lesserDate
-                          predicates:(NSArray *)predicates
+- (NSFetchRequest *)localDataFetchRequestWithEntityName:(NSString *)entityName
+                                             fetchLimit:(NSUInteger)fetchLimit
+                                            fetchRadius:(CGFloat)fetchRadius
+                                       greaterOrEqualTo:(NSDate *)greaterDate
+                                        lesserOrEqualTo:(NSDate *)lesserDate
+                                             predicates:(NSArray *)predicates
 {
-    if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
-        
-        return;
-    }
-    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
     fetchRequest.includesPendingChanges = NO;
     
@@ -271,39 +250,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     
     fetchRequest.fetchLimit = fetchLimit;
     
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
-                                                                                                     error:&error];
-    
-    if (fetchedObjects.count > 0) {
-        
-        // This has to be called before adding new objects to the data source
-        
-        NSUInteger currentCount = self.dataSource.count;
-        NSMutableArray *indexPaths = [NSMutableArray array];
-        
-        for (int i = 0; i < fetchedObjects.count; i++) {
-            id managedObject = fetchedObjects[i];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
-            [self.dataSource addObject:managedObject];
-            
-            
-            if (i == 0 &&
-                ([self.greatestObjectDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestObjectDate)) {
-                self.greatestObjectDate = [managedObject createdAt];
-            }
-            
-            if (i == fetchedObjects.count - 1 &&
-                ([self.leastObjectDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastObjectDate)) {
-                self.leastObjectDate = [managedObject createdAt];
-            }
-        }
-        
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
-    
-    [self.tableView.infiniteScrollingView stopAnimating];
-    [self.refreshControl endRefreshing];
+    return fetchRequest;
 }
 
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
@@ -311,54 +258,19 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                          fetchRadius:(CGFloat)fetchRadius
                     greaterOrEqualTo:(NSDate *)greaterDate
                      lesserOrEqualTo:(NSDate *)lesserDate
+                          predicates:(NSArray *)predicates
 {
     if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
         
         return;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    fetchRequest.includesPendingChanges = NO;
-    
-    // Filter to exclude bad content
-    
-    NSPredicate *excludeBadContent = [NSPredicate predicateWithFormat:@"self.isBadContent.intValue == %d",0];
-    NSPredicate *excludeLocalBadContent = [NSPredicate predicateWithFormat:@"(self.isBadContentLocal.intValue == %d) OR (self.isBadContentLocal == nil)",0];
-    
-    // Filter by geolocation
-    NSDictionary *dictionary = [Helper userLocation];
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
-                                                               [dictionary[DDLongitudeKey] doubleValue]);
-    MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
-                                                           radius:@(fetchRadius)];
-    NSPredicate *geoPredicate = [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
-    
-    // Filter to get data between dates
-    
-    NSPredicate *datePredicate = nil;
-    if (greaterDate && !lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterDate];
-    } else if (!greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserDate];
-    } else if (greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterDate, lesserDate];
-    }
-    
-    // Predicate
-    
-    NSCompoundPredicate *compoundPredicate = datePredicate ?
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[geoPredicate, excludeBadContent, excludeLocalBadContent, datePredicate]] :
-    [NSCompoundPredicate andPredicateWithSubpredicates:@[geoPredicate, excludeBadContent, excludeLocalBadContent]];
-    
-    // Sort descriptor
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[self keyForLocalDataSortDescriptor]
-                                                                   ascending:[self orderLocalDataInAscending]];
-    
-    [fetchRequest setPredicate:compoundPredicate];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    fetchRequest.fetchLimit = fetchLimit;
-    
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithEntityName:entityName
+                                                                  fetchLimit:fetchLimit
+                                                                 fetchRadius:fetchRadius
+                                                            greaterOrEqualTo:greaterDate
+                                                             lesserOrEqualTo:lesserDate
+                                                                  predicates:predicates];
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
                                                                                                      error:&error];

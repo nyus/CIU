@@ -428,7 +428,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 //    srand((int)time(NULL));
     int random = rand() % kTotalAnonymousAvatarCount;
     
-    for (int i = 0 ; i < 10; i++) {
+    for (int i = 0 ; i < (rand() % 21); i++) {
         random = rand() % kTotalAnonymousAvatarCount;
     }
     

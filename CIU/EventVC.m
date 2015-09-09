@@ -114,6 +114,25 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [self addPullDownRefreshControl];
     [self addInfiniteRefreshControl];
+    
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                                                          lesserOrEqualTo:nil]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -147,18 +147,18 @@ static NSString *const kEntityName = @"StatusObject";
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
                                fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:self.greatestObjectDate
+                          greaterOrEqualTo:nil
                            lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
                                                                           lesserOrEqualTo:nil]]];
-} else {
+    } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:self.greatestObjectDate
+                               greaterOrEqualTo:nil
                                 lesserOrEqualTo:nil];
     }
 }
@@ -171,6 +171,25 @@ static NSString *const kEntityName = @"StatusObject";
     
     [self addPullDownRefreshControl];
     [self addInfiniteRefreshControl];
+    
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:self.dataFetchRadius
+                          greaterOrEqualTo:self.greatestObjectDate
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                                                          lesserOrEqualTo:nil]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greatestObjectDate
+                                lesserOrEqualTo:nil];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -246,7 +265,7 @@ static NSString *const kEntityName = @"StatusObject";
              withStatus:(StatusObject *)status
 {
     cell.statusCellAvatarImageView.image =
-    status.anonymous.boolValue ? 
+    status.anonymous.boolValue ?
     defaultAvatar :
     [Helper getLocalAvatarForUser:status.posterUsername
                         isHighRes:NO];
@@ -289,9 +308,9 @@ static NSString *const kEntityName = @"StatusObject";
 }
 
 -(PFQuery *)getServerPostImageForCell:(SurpriseTableViewCell *)cell
-                          atIndexpath:(NSIndexPath *)indexPath 
+                          atIndexpath:(NSIndexPath *)indexPath
                            withStatus:(StatusObject *)status
-{    
+{
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
     [query whereKey:DDPhotoIdKey equalTo:status.photoID];
     [query whereKey:DDIsHighResKey equalTo:@NO];

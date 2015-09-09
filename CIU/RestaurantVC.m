@@ -28,7 +28,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 @interface RestaurantVC ()
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
-@property (nonatomic, strong) UIButton *reResearchButton;
+@property (nonatomic, strong) UIButton *redoResearchButton;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
 @end
@@ -84,7 +84,23 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     
     [self setUpSegmentedControl];
     [self addInfiniteRefreshControl];
-    [[GAnalyticsManager shareManager] trackScreen:@"Restaurant"];
+    
+    if (self.isInternetPresentOnLaunch) {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil];
+    } else {
+        [self fetchLocalDataWithEntityName:kEntityName
+                                fetchLimit:self.localFetchCount
+                               fetchRadius:[[self restaurantDataRadius] floatValue]
+                          greaterOrEqualTo:nil
+                           lesserOrEqualTo:nil
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -184,6 +200,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     }
 }
 
+#pragma mark - MapView data
+
 #pragma mark - Override
 
 - (NSString *)serverDataParseClassName
@@ -239,7 +257,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
-
 }
 
 - (void)setupServerQueryWithClassName:(NSString *)className

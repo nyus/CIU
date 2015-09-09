@@ -52,11 +52,12 @@
 
 - (BOOL)orderLocalDataInAscending;
 
-//- (void)fetchLocalDataWithEntityName:(NSString *)entityName
-//                          fetchLimit:(NSUInteger)fetchLimit
-//                         fetchRadius:(CGFloat)fetchRadius
-//                    greaterOrEqualTo:(NSDate *)greaterDate
-//                     lesserOrEqualTo:(NSDate *)lesserDate;
+- (NSFetchRequest *)localDataFetchRequestWithEntityName:(NSString *)entityName
+                                             fetchLimit:(NSUInteger)fetchLimit
+                                            fetchRadius:(CGFloat)fetchRadius
+                                       greaterOrEqualTo:(NSDate *)greaterDate
+                                        lesserOrEqualTo:(NSDate *)lesserDate
+                                             predicates:(NSArray *)predicates;
 #warning
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
