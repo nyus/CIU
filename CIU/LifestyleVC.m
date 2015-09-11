@@ -95,8 +95,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue
 {
     // Required override
 }

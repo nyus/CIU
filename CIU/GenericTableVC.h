@@ -22,8 +22,8 @@
 @property (nonatomic, assign) BOOL isInternetPresentOnLaunch;
 @property (nonatomic) Reachability *internetReachability;
 @property (nonatomic) Reachability *wifiReachability;
-@property (nonatomic, strong) NSDate *greatestObjectDate;
-@property (nonatomic, strong) NSDate *leastObjectDate;
+@property (nonatomic, strong) id greaterValue;
+@property (nonatomic, strong) id lesserValue;
 @property (nonatomic, copy) NSString *localDataEntityName;
 @property (nonatomic, copy) NSString *serverDataParseClassName;
 @property (nonatomic, assign) float dataFetchRadius;
@@ -54,37 +54,33 @@
 
 - (NSFetchRequest *)localDataFetchRequestWithEntityName:(NSString *)entityName
                                              fetchLimit:(NSUInteger)fetchLimit
-                                            fetchRadius:(CGFloat)fetchRadius
-                                       greaterOrEqualTo:(NSDate *)greaterDate
-                                        lesserOrEqualTo:(NSDate *)lesserDate
                                              predicates:(NSArray *)predicates;
-#warning
+
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
-                         fetchRadius:(CGFloat)fetchRadius
-                    greaterOrEqualTo:(NSDate *)greaterDate
-                     lesserOrEqualTo:(NSDate *)lesserDate
                           predicates:(NSArray *)predicates;
 
 -(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
                               fetchLimit:(NSUInteger)fetchLimit
                              fetchRadius:(CGFloat)fetchRadius
-                        greaterOrEqualTo:(NSDate *)greaterDate
-                         lesserOrEqualTo:(NSDate *)lesserDate;
+                        greaterOrEqualTo:(id)greaterValue
+                         lesserOrEqualTo:(id)lesserValue;
 
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate;
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue;
 
 -(void)populateManagedObject:(NSManagedObject *)managedObject
              fromParseObject:(PFObject *)object;
 
+- (id)valueToCompareAgainst:(id)object;
+
 - (NSArray *)objectIdsToExclude;
 
-- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(NSDate *)greaterDate
-                                        lesserOrEqualTo:(NSDate *)lesserDate;
+- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                        lesserOrEqualTo:(id)lesserValue;
 
 - (NSPredicate *)geoBoundPredicateWithFetchRadius:(CGFloat)fetchRadius;
 

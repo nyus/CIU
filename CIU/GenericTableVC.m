@@ -211,17 +211,23 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     return [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
 }
 
-- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(NSDate *)greaterDate
-                                        lesserOrEqualTo:(NSDate *)lesserDate
+- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                        lesserOrEqualTo:(id)lesserValue
 {
+    if ([greaterValue compare:lesserValue] == NSOrderedDescending) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"greaterValue cannot be smaller than lesserValue"
+                                     userInfo:nil];
+    }
+    
     NSPredicate *datePredicate = nil;
     
-    if (greaterDate && !lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterDate];
-    } else if (!greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserDate];
-    } else if (greaterDate && lesserDate) {
-        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterDate, lesserDate];
+    if (greaterValue && !lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt > %@", greaterValue];
+    } else if (!greaterValue && lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserValue];
+    } else if (greaterValue && lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterValue, lesserValue];
     }
 
     return datePredicate;
@@ -229,9 +235,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 - (NSFetchRequest *)localDataFetchRequestWithEntityName:(NSString *)entityName
                                              fetchLimit:(NSUInteger)fetchLimit
-                                            fetchRadius:(CGFloat)fetchRadius
-                                       greaterOrEqualTo:(NSDate *)greaterDate
-                                        lesserOrEqualTo:(NSDate *)lesserDate
                                              predicates:(NSArray *)predicates
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
@@ -253,23 +256,50 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     return fetchRequest;
 }
 
+- (id)valueToCompareAgainst:(id)object
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass must override -valueToCompareAgainst"
+                                 userInfo:nil];
+}
+
+- (void)updateUpperBoundValueWithObject:(id)object
+{
+    id valueToCompare = [self valueToCompareAgainst:object];
+    
+    if (!valueToCompare) {
+        return;
+    }
+    
+    if ([self.greaterValue compare:valueToCompare] == NSOrderedAscending || !self.greaterValue) {
+        self.greaterValue = valueToCompare;
+    }
+}
+
+- (void)updateLowerBoundValueWithObject:(id)object
+{
+    id valueToCompare = [self valueToCompareAgainst:object];
+    
+    if (!valueToCompare) {
+        return;
+    }
+    
+    if ([self.lesserValue compare:valueToCompare] == NSOrderedDescending || !self.lesserValue) {
+        self.lesserValue = valueToCompare;
+    }
+}
+
 - (void)fetchLocalDataWithEntityName:(NSString *)entityName
                           fetchLimit:(NSUInteger)fetchLimit
-                         fetchRadius:(CGFloat)fetchRadius
-                    greaterOrEqualTo:(NSDate *)greaterDate
-                     lesserOrEqualTo:(NSDate *)lesserDate
                           predicates:(NSArray *)predicates
 {
-    if (![Helper userLocation] || [greaterDate compare:lesserDate] == NSOrderedDescending) {
+    if (![Helper userLocation]) {
         
         return;
     }
     
     NSFetchRequest *fetchRequest = [self localDataFetchRequestWithEntityName:entityName
                                                                   fetchLimit:fetchLimit
-                                                                 fetchRadius:fetchRadius
-                                                            greaterOrEqualTo:greaterDate
-                                                             lesserOrEqualTo:lesserDate
                                                                   predicates:predicates];
     NSError *error = nil;
     NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest
@@ -287,15 +317,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
             [self.dataSource addObject:managedObject];
             
-            
-            if (i == 0 &&
-                ([self.greatestObjectDate compare:[managedObject createdAt]] == NSOrderedAscending || !self.greatestObjectDate)) {
-                self.greatestObjectDate = [managedObject createdAt];
+            if (i == 0 || i == fetchedObjects.count - 1) {
+                [self updateUpperBoundValueWithObject:managedObject];
             }
             
-            if (i == fetchedObjects.count - 1 &&
-                ([self.leastObjectDate compare:[managedObject createdAt]] == NSOrderedDescending || !self.leastObjectDate)) {
-                self.leastObjectDate = [managedObject createdAt];
+            if (i == fetchedObjects.count - 1) {
+                [self updateLowerBoundValueWithObject:managedObject];
             }
         }
         
@@ -309,8 +336,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:@"Subclass must override -setupServerQueryWithClassName:fetchLimit:fetchRadius:greaterOrEqualTo:lesserOrEqualTo"
@@ -320,14 +347,14 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 -(void)fetchServerDataWithParseClassName:(NSString *)parseClassName
                               fetchLimit:(NSUInteger)fetchLimit
                              fetchRadius:(CGFloat)fetchRadius
-                        greaterOrEqualTo:(NSDate *)greaterDate
-                         lesserOrEqualTo:(NSDate *)lesserDate{
+                        greaterOrEqualTo:(id)greaterValue
+                         lesserOrEqualTo:(id)lesserValue{
     
     [self setupServerQueryWithClassName:parseClassName
                              fetchLimit:fetchLimit
                             fetchRadius:fetchRadius
-                       greaterOrEqualTo:greaterDate
-                        lesserOrEqualTo:lesserDate];
+                       greaterOrEqualTo:greaterValue
+                        lesserOrEqualTo:lesserValue];
     
     [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -356,14 +383,12 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     
                     PFObject *pfObject = objects[i];
                     
-                    if (i == 0 &&
-                        ([self.greatestObjectDate compare:pfObject.createdAt] == NSOrderedAscending || !self.greatestObjectDate)) {
-                        self.greatestObjectDate = pfObject.createdAt;
+                    if (i == 0 || i == objects.count - 1) {
+                        [self updateUpperBoundValueWithObject:pfObject];
                     }
                     
-                    if (i == objects.count - 1 &&
-                        ([self.leastObjectDate compare:pfObject.createdAt] == NSOrderedDescending || !self.leastObjectDate)) {
-                        self.leastObjectDate = pfObject.createdAt;
+                    if (i == objects.count - 1) {
+                        [self updateLowerBoundValueWithObject:pfObject];
                     }
                     
                     // Skip duplicates
@@ -388,10 +413,10 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     }
                     
                     // Pull down to refresh
-                    if (!greaterDate && !lesserDate) {
+                    if (!greaterValue && !lesserValue) {
                         [self.dataSource addObject:managedObject];
                         [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects inSection:0]];
-                    } else if (greaterDate && !lesserDate) {
+                    } else if (greaterValue && !lesserValue) {
                         
                         if (!array) {
                             array = [NSMutableArray arrayWithCapacity:objects.count + self.dataSource.count];
@@ -403,7 +428,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                             self.dataSource = array;
                         }
                         [indexpathArray addObject:[NSIndexPath indexPathForRow:numOfGoodObjects inSection:0]];
-                    } else if (!greaterDate && lesserDate) {
+                    } else if (!greaterValue && lesserValue) {
                         // pull up to refresh
                         
                         [self.dataSource addObject:managedObject];

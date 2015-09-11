@@ -86,9 +86,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:[[self eventRadius] floatValue]
-                          greaterOrEqualTo:nil 
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                             [self badLocalContentPredicate],
                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
@@ -118,13 +115,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                           lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
@@ -186,25 +180,35 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     return NO;
 }
 
+- (id)valueToCompareAgainst:(id)object
+{
+    id valueToCompare;
+    
+    if ([object isKindOfClass:[PFObject class]]) {
+        valueToCompare = ((PFObject *)object).createdAt;
+    } else if ([object isKindOfClass:[NSManagedObject class]]) {
+        valueToCompare = [object createdAt];
+    }
+    
+    return valueToCompare;
+}
+
 - (void)handleInfiniteScroll
 {
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:self.leastObjectDate
                             predicates:@[[self badContentPredicate],
                                          [self badLocalContentPredicate],
                                          [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                          [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                      lesserOrEqualTo:self.leastObjectDate]]];
+                                                                      lesserOrEqualTo:self.lesserValue]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                          fetchLimit:self.serverFetchCount
                                         fetchRadius:self.dataFetchRadius
                                    greaterOrEqualTo:nil
-                                    lesserOrEqualTo:self.leastObjectDate];
+                                    lesserOrEqualTo:self.lesserValue];
     }
 }
 
@@ -213,19 +217,16 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:self.greatestObjectDate
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                           lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:self.greatestObjectDate
+                               greaterOrEqualTo:self.greaterValue
                                 lesserOrEqualTo:nil];
     }
 }
@@ -233,8 +234,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue
 {
     if (self.fetchQuery) {
         [self.fetchQuery cancel];
@@ -254,14 +255,15 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [self.fetchQuery orderByDescending:DDEventDateKey];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedEventObjectIds]];
-    if (greaterDate) {
+    
+    if (greaterValue) {
         [self.fetchQuery whereKey:DDCreatedAtKey
-                      greaterThan:greaterDate];
+                      greaterThan:greaterValue];
     }
     
-    if (lesserDate) {
+    if (lesserValue) {
         [self.fetchQuery whereKey:DDCreatedAtKey
-                         lessThan:lesserDate];
+                         lessThan:lesserValue];
     }
     
     self.fetchQuery.limit = fetchLimit;

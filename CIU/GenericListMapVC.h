@@ -7,13 +7,17 @@
 //
 
 #import "GenericTableVC.h"
+#import "CustomMKPointAnnotation.h"
 
 @class MKMapView;
 
-@interface GenericListMapVC : GenericTableVC
+@interface GenericListMapVC : GenericTableVC <MKMapViewDelegate>
 
 @property (strong, nonatomic) MKMapView *mapView;
+@property (nonatomic, strong) NSMutableArray *mapViewDataSource;
 
 - (void)handleRedoSearchButtonTapped;
+- (void)fetchLocalDataWithRegion:(MKCoordinateRegion)region;
+- (void)fetchServerDataWithRegion:(MKCoordinateRegion)region;
 
 @end

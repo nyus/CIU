@@ -124,20 +124,17 @@ static NSString *const kEntityName = @"StatusObject";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:self.leastObjectDate
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                          lesserOrEqualTo:self.leastObjectDate]]];
+                                                                          lesserOrEqualTo:self.lesserValue]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:self.leastObjectDate];
+                                lesserOrEqualTo:self.lesserValue];
     }
 }
 
@@ -146,13 +143,10 @@ static NSString *const kEntityName = @"StatusObject";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                           lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
@@ -163,48 +157,17 @@ static NSString *const kEntityName = @"StatusObject";
     }
 }
 
-#pragma mark - View life cycle
-
-- (void)viewDidLoad
+- (id)valueToCompareAgainst:(id)object
 {
-    [super viewDidLoad];
+    id valueToCompare;
     
-    [self addPullDownRefreshControl];
-    [self addInfiniteRefreshControl];
-    
-    if (!self.isInternetPresentOnLaunch) {
-        [self fetchLocalDataWithEntityName:self.localDataEntityName
-                                fetchLimit:self.localFetchCount
-                               fetchRadius:self.dataFetchRadius
-                          greaterOrEqualTo:self.greatestObjectDate
-                           lesserOrEqualTo:nil
-                                predicates:@[[self badContentPredicate],
-                                             [self badLocalContentPredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greatestObjectDate
-                                                                          lesserOrEqualTo:nil]]];
-    } else {
-        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
-                                     fetchLimit:self.serverFetchCount
-                                    fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:self.greatestObjectDate
-                                lesserOrEqualTo:nil];
+    if ([object isKindOfClass:[PFObject class]]) {
+        valueToCompare = ((PFObject *)object).createdAt;
+    } else if ([object isKindOfClass:[NSManagedObject class]]) {
+        valueToCompare = [object createdAt];
     }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.hidden = NO;
-    [[PFUser currentUser] fetchInBackground];
-    [Flurry logEvent:@"View surprise" timed:YES];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [Flurry endTimedEvent:@"View surprise" withParameters:nil];
+    return valueToCompare;
 }
 
 - (void)populateManagedObject:(NSManagedObject *)managedObject
@@ -216,8 +179,8 @@ static NSString *const kEntityName = @"StatusObject";
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue
 {
     if (self.fetchQuery) {
         [self.fetchQuery cancel];
@@ -247,17 +210,58 @@ static NSString *const kEntityName = @"StatusObject";
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedStatusObjectIds]];
     
-    if (greaterDate) {
+    if (greaterValue) {
         [self.fetchQuery whereKey:DDCreatedAtKey
-                      greaterThan:greaterDate];
+                      greaterThan:greaterValue];
     }
     
-    if (lesserDate) {
+    if (lesserValue) {
         [self.fetchQuery whereKey:DDCreatedAtKey
-                         lessThan:lesserDate];
+                         lessThan:lesserValue];
     }
     
     self.fetchQuery.limit = fetchLimit;
+}
+
+#pragma mark - View life cycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self addPullDownRefreshControl];
+    [self addInfiniteRefreshControl];
+    
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
+                                                                          lesserOrEqualTo:nil]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greaterValue
+                                lesserOrEqualTo:nil];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = NO;
+    [[PFUser currentUser] fetchInBackground];
+    [Flurry logEvent:@"View surprise" timed:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Flurry endTimedEvent:@"View surprise" withParameters:nil];
 }
 
 - (void)setAvatarOnCell:(SurpriseTableViewCell *)cell

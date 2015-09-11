@@ -16,20 +16,24 @@
 #import "LifestyleObject+Utilities.h"
 #import "LifestyleObjectDetailTableVC.h"
 #import "PFQuery+Utilities.h"
+#import "NSPredicate+Utilities.h"
 
 static float const kServerFetchCount = 10;
 static float const kLocalFetchCount = 50;
+
 static UIImage *defaultAvatar;
 static NSString *const kEntityName = @"LifestyleObject";
 static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
 static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
 static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
+static NSString *const kCategoryName = @"Restaurant";
 
 @interface RestaurantVC ()
 
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 @property (nonatomic, strong) UIButton *redoResearchButton;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) LifestyleObject *lifestyleToPass;
 
 @end
 
@@ -62,6 +66,10 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                                                                    maximunValue:@(30.0)
                                                                     contentMode:ContentModeLeft
                                                                     actionBlock:^(double newValue) {
+                                                                        
+                                                                        self.greaterValue = nil;
+                                                                        self.lesserValue = nil;
+                                                                        
                                                                         [self setRestaurantDataRadius:@(newValue)];
                                                                         [self handleDataDisplayPeripheral];
                                                                         
@@ -78,7 +86,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
     [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
     
@@ -94,9 +102,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:[[self restaurantDataRadius] floatValue]
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
@@ -138,11 +143,10 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"Restaurant-Redo search in map" value:nil];
     [Flurry logEvent:@"Restaurant-Redo search in map"];
     
-#warning
     if (self.isInternetPresentOnLaunch) {
-//        [self fetchServerDataWithRegion:self.mapView.region];
+        [self fetchServerDataWithRegion:self.mapView.region];
     } else {
-//        [self fetchLocalDataWithRegion:self.mapView.region];
+        [self fetchLocalDataWithRegion:self.mapView.region];
     }
 }
 
@@ -150,6 +154,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
+    
     if (self.isInternetPresentOnLaunch) {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -159,9 +164,6 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:[[self restaurantDataRadius] floatValue]
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:nil
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
@@ -201,6 +203,108 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 }
 
 #pragma mark - MapView data
+
+-(void)fetchLocalDataWithRegion:(MKCoordinateRegion)region
+{
+    
+    self.mapViewDataSource = nil;
+    self.mapViewDataSource = [NSMutableArray array];
+    
+    NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
+    NSPredicate *geoLocationPredicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithEntityName:kEntityName
+                                                                  fetchLimit:kLocalFetchCount
+                                                                  predicates:@[[self badContentPredicate],
+                                                                               [self badLocalContentPredicate],
+                                                                               categoryPredicate,
+                                                                               geoLocationPredicate]];
+    
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    if (fetchedObjects.count>0) {
+        
+        [self.mapViewDataSource addObjectsFromArray:fetchedObjects];
+        
+        //new annotaions to add
+        NSMutableArray *coors = [NSMutableArray array];
+        for (LifestyleObject * managedObject in fetchedObjects) {
+            
+            CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
+            pin.coordinate = CLLocationCoordinate2DMake(managedObject.latitude.doubleValue, managedObject.longitude.doubleValue);
+            pin.title = managedObject.name;
+            pin.subtitle = managedObject.category;
+            pin.lifetstyleObject = managedObject;
+            pin.needAnimation = NO;
+            [coors addObject:pin];
+            
+        }
+        [self.mapView addAnnotations:coors];
+    }
+}
+
+-(void)fetchServerDataWithRegion:(MKCoordinateRegion)region
+{
+    
+    if (self.fetchQuery) {
+        [self.fetchQuery cancel];
+        self.fetchQuery = nil;
+    }
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.fetchQuery = [[PFQuery alloc] initWithClassName:DDRestaurantParseClassName];
+    [self.fetchQuery addBoundingCoordinatesConstraintForRegion:region];
+    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (error) {
+            NSLog(@"Failed to fetch restaurants with error: %@", error);
+        } else {
+            NSMutableDictionary *map;
+            for (int i =0; i<self.mapViewDataSource.count; i++) {
+                if (!map) {
+                    map = [NSMutableDictionary dictionary];
+                }
+                LifestyleObject *life = self.mapViewDataSource[i];
+                [map setValue:[NSNumber numberWithInt:i] forKey:life.objectId];
+            }
+            
+            //new annotaions to add
+            NSMutableArray *coors = [NSMutableArray array];
+            
+            for (PFObject *object in objects) {
+                
+                NSNumber *lifeIndex = [map valueForKey:object.objectId];
+                if (lifeIndex) {
+                    //update value
+                    LifestyleObject *life = self.mapViewDataSource[lifeIndex.intValue];
+                    if ([life.updatedAt compare:object.updatedAt] == NSOrderedAscending) {
+                        [life populateFromParseObject:object];
+                    }
+                }else{
+                    //insert new item
+                    LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    [life populateFromParseObject:object];
+                    [self.mapViewDataSource addObject:life];
+                    
+                    CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
+                    CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
+                    pin.coordinate = coordinate;
+                    pin.title = object[@"name"];
+                    pin.subtitle = object[@"category"];
+                    pin.lifetstyleObject = life;
+                    pin.needAnimation = NO;
+                    [coors addObject:pin];
+                }
+            }
+            
+            //save
+            [[SharedDataManager sharedInstance] saveContext];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mapView addAnnotations:coors];
+            });
+        }
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
+}
 
 #pragma mark - Override
 
@@ -246,24 +350,39 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:self.leastObjectDate];
+                                lesserOrEqualTo:self.lesserValue];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
-                               fetchRadius:[[self restaurantDataRadius] floatValue]
-                          greaterOrEqualTo:nil
-                           lesserOrEqualTo:self.leastObjectDate
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
 
+- (id)valueToCompareAgainst:(id)object
+{
+    return nil;
+}
+
+- (NSFetchRequest *)localDataFetchRequestWithEntityName:(NSString *)entityName
+                                             fetchLimit:(NSUInteger)fetchLimit
+                                             predicates:(NSArray *)predicates
+{
+    NSFetchRequest *fetchRequest = [super localDataFetchRequestWithEntityName:entityName
+                                                                   fetchLimit:fetchLimit
+                                                                   predicates:predicates];
+    
+    fetchRequest.fetchOffset = self.dataSource.count;
+    
+    return fetchRequest;
+}
+
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit
                           fetchRadius:(CGFloat)fetchRadius
-                     greaterOrEqualTo:(NSDate *)greaterDate
-                      lesserOrEqualTo:(NSDate *)lesserDate
+                     greaterOrEqualTo:(id)greaterValue
+                      lesserOrEqualTo:(id)lesserValue
 {
     if (self.fetchQuery) {
         [self.fetchQuery cancel];
@@ -284,16 +403,9 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedLifeStyleObjectIds]];
     
-    if (greaterDate) {
-        [self.fetchQuery whereKey:DDCreatedAtKey
-                      greaterThan:greaterDate];
-    }
+    // Make sure all the results are consecutive. greaterValue and lesserValue cannot be name and the results are ordered by name
     
-    if (lesserDate) {
-        [self.fetchQuery whereKey:DDCreatedAtKey
-                         lessThan:lesserDate];
-    }
-    
+    self.fetchQuery.skip = self.dataSource.count;
     self.fetchQuery.limit = fetchLimit;
 }
 
@@ -336,7 +448,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.dataSource[indexPath.row];
-
+    
     return [NameAddressTableViewCell heightForCellWithName:object.name
                                                    address:object.address
                                                  cellWidth:tableView.frame.size.width];
@@ -352,6 +464,15 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
     }
 }
 
+#pragma mark - Mapview delegate
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
+    CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
+    _lifestyleToPass = annotation.lifetstyleObject;
+    //push to detail
+    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:self];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID]){
@@ -363,6 +484,8 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
         if ([sender isKindOfClass:[NameAddressTableViewCell class]]) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
             vc.lifestyleObject = self.dataSource[indexPath.row];
+        } else {
+            vc.lifestyleObject = self.lifestyleToPass;
         }
     }
 }

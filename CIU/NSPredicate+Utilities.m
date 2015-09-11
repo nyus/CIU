@@ -8,7 +8,9 @@
 
 #import "NSPredicate+Utilities.h"
 #import "Helper.h"
+
 @implementation NSPredicate (Utilities)
+
 +(NSPredicate *)boudingCoordinatesPredicateForRegion:(MKCoordinateRegion)region{
     CLLocationDegrees latMin = region.center.latitude - .5 * region.span.latitudeDelta;
     CLLocationDegrees latMax = region.center.latitude + .5 * region.span.latitudeDelta;
