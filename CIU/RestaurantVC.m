@@ -280,15 +280,17 @@ static NSString *const kCategoryName = @"Restaurant";
                     }
                 }else{
                     //insert new item
-                    LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:@"LifestyleObject" inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:kEntityName
+                                                                          inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     [life populateFromParseObject:object];
                     [self.mapViewDataSource addObject:life];
                     
-                    CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[@"latitude"] doubleValue], [object[@"longitude"] doubleValue]);
+                    CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[DDLatitudeKey] doubleValue],
+                                                                                  [object[DDLongitudeKey] doubleValue]);
                     CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
                     pin.coordinate = coordinate;
-                    pin.title = object[@"name"];
-                    pin.subtitle = object[@"category"];
+                    pin.title = object[DDNameKey];
+                    pin.subtitle = object[DDCategoryKey];
                     pin.lifetstyleObject = life;
                     pin.needAnimation = NO;
                     [coors addObject:pin];
