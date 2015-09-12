@@ -20,7 +20,7 @@
 #import "LifestyleObjectDetailTableVC.h"
 #import "PFQuery+Utilities.h"
 #import "Helper.h"
-#import "ComposeVC.h"
+#import "ComposeJobOrTradeVC.h"
 #import "LoadingTableViewCell.h"
 #import "JobTradeTableViewCell.h"
 #import "DisplayPeripheralHeaderView.h"
@@ -310,7 +310,7 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 #warning job and trade
 -(void)addButtonTapped:(UIBarButtonItem *)sender{
     UINavigationController *vc = (UINavigationController *)[self.storyboard instantiateViewControllerWithIdentifier:@"compose"];
-    ComposeVC *compose = (ComposeVC *)vc.topViewController;
+    ComposeJobOrTradeVC *compose = (ComposeJobOrTradeVC *)vc.topViewController;
     compose.categoryType = self.categoryType;
     [self presentViewController:vc animated:YES completion:nil];
 }

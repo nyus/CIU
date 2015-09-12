@@ -125,6 +125,53 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     }];
 }
 
+- (NSString *)serverDataParseClassName
+{
+    return DDRestaurantParseClassName;
+}
+
+- (NSString *)localDataEntityName
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -localDataEntityName"
+                                 userInfo:nil];
+}
+
+- (float)dataFetchRadius
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -dataFetchRadius"
+                                 userInfo:nil];
+}
+
+- (float)serverFetchCount
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -serverFetchCount"
+                                 userInfo:nil];
+}
+
+- (float)localFetchCount
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -localFetchCount"
+                                 userInfo:nil];
+}
+
+- (NSString *)keyForLocalDataSortDescriptor
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -keyForLocalDataSortDescriptor"
+                                 userInfo:nil];
+}
+
+- (BOOL)orderLocalDataInAscending
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -orderLocalDataInAscending"
+                                 userInfo:nil];
+}
+
 - (void)handleInfiniteScroll
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -166,22 +213,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     //override by subclass
 }
 
-#pragma mark - Helper
-
-- (BOOL)orderLocalDataInAscending
-{
-    @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                   reason:@"Method -orderLocalDataInAscending should be overriden by subclass"
-                                 userInfo:nil];
-}
-
-- (NSString *)keyForLocalDataSortDescriptor
-{
-    @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                   reason:@"Method -keyForLocalDataSortDescriptor should be overriden by subclass"
-                                 userInfo:nil];
-}
-
 - (NSArray *)objectIdsToExclude
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -208,7 +239,14 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                                                               [dictionary[DDLongitudeKey] doubleValue]);
     MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
                                                            radius:@(fetchRadius)];
-    return [NSPredicate geoBoundAndStickyPostPredicateForRegion:region];
+    return [NSPredicate boudingCoordinatesPredicateForRegion:region];
+}
+
+- (NSPredicate *)stickyPostPredicate
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(self.isStickyPost.intValue == %d)", 1];
+    
+    return predicate;
 }
 
 - (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
@@ -248,7 +286,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     // Sort descriptor
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[self keyForLocalDataSortDescriptor]
-                                                                   ascending:NO];
+                                                                   ascending:[self orderLocalDataInAscending]];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     fetchRequest.fetchLimit = fetchLimit;
@@ -317,7 +355,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             [indexPaths addObject:[NSIndexPath indexPathForRow:i + currentCount inSection:0]];
             [self.dataSource addObject:managedObject];
             
-            if (i == 0 || i == fetchedObjects.count - 1) {
+            if (i == 0) {
                 [self updateUpperBoundValueWithObject:managedObject];
             }
             
@@ -383,7 +421,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     
                     PFObject *pfObject = objects[i];
                     
-                    if (i == 0 || i == objects.count - 1) {
+                    if (i == 0) {
                         [self updateUpperBoundValueWithObject:pfObject];
                     }
                     
@@ -442,7 +480,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-#warning crash here: need to disconnect storyboard push on tapping tableview cell
                 [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView.infiniteScrollingView stopAnimating];
                 [self.refreshControl endRefreshing];

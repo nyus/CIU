@@ -10,14 +10,20 @@
 #import "CustomMKPointAnnotation.h"
 
 @class MKMapView;
+@class DisplayPeripheralHeaderView;
 
-@interface GenericListMapVC : GenericTableVC <MKMapViewDelegate>
+@interface GenericListMapVC : GenericTableVC <MKMapViewDelegate> {
+    DisplayPeripheralHeaderView *_headerView;
+}
 
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
+@property (nonatomic, strong) LifestyleObject *lifestyleToPass;
+@property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 
 - (void)handleRedoSearchButtonTapped;
 - (void)fetchLocalDataWithRegion:(MKCoordinateRegion)region;
 - (void)fetchServerDataWithRegion:(MKCoordinateRegion)region;
+- (NSString *)lifestyleObjectCategory;
 
 @end

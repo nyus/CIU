@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Huang, Sihang. All rights reserved.
 //
 
-#import "ComposeVC.h"
+#import "ComposeJobOrTradeVC.h"
 #import <Parse/Parse.h>
 #import "Helper.h"
 #import "NSString+Utilities.h"
 
-@implementation ComposeVC
+@implementation ComposeJobOrTradeVC
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -53,7 +53,7 @@
         return;
     }
     
-    __block ComposeVC *weakSelf = self;
+    __block ComposeJobOrTradeVC *weakSelf = self;
     PFObject *object = [[PFObject alloc] initWithClassName:parseClassName];
     [object setObject:self.textView.text forKey:@"content"];
     [object setObject:[PFUser currentUser].username forKey:DDPosterUserNameKey];

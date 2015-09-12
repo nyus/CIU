@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -878,10 +877,10 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
             </objects>
             <point key="canvasLocation" x="1853" y="-942"/>
         </scene>
-        <!--ComposeVC-->
+        <!--Compose Job Or TradeVC-->
         <scene sceneID="Fwn-zr-ePG">
             <objects>
-                <viewController id="4qE-VP-UVh" customClass="ComposeVC" sceneMemberID="viewController">
+                <viewController id="4qE-VP-UVh" customClass="ComposeJobOrTradeVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4AZ-mH-G54"/>
                         <viewControllerLayoutGuide type="bottom" id="Fz2-fV-687"/>
@@ -1010,7 +1009,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
         <!--Lifestyle Object Detail TableVC-->
         <scene sceneID="LHt-Op-Nxw">
             <objects>
-                <tableViewController id="am1-I8-ohK" customClass="LifestyleObjectDetailTableVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="restaurantMarketDetailVC" id="am1-I8-ohK" customClass="LifestyleObjectDetailTableVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZzW-Mn-HCf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

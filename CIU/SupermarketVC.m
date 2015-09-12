@@ -1,46 +1,41 @@
 //
-//  RestaurantVC.m
+//  SupermarketVC.m
 //  DaDa
 //
-//  Created by Sihang on 9/7/15.
+//  Created by Sihang on 9/12/15.
 //  Copyright (c) 2015 Huang, Sihang. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-#import <Masonry/Masonry.h>
-#import "RestaurantVC.h"
+#import "SupermarketVC.h"
 #import "DisplayPeripheralHeaderView.h"
-#import "Helper.h"
 #import "NameAddressTableViewCell.h"
+#import "PFQuery+Utilities.h"
 #import "LifestyleObject.h"
 #import "LifestyleObject+Utilities.h"
-#import "LifestyleObjectDetailTableVC.h"
-#import "PFQuery+Utilities.h"
 #import "NSPredicate+Utilities.h"
-#import "LifestyleObjectDetailTableVC.h"
+#import "Helper.h"
+static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
 
 static CGFloat const kServerFetchCount = 50.0;
 static CGFloat const kLocalFetchCount = 50.0;
+static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadiusKey";
 static NSString *const kEntityName = @"LifestyleObject";
-static NSString *const kRestaurantDataRadiusKey = @"kRestaurantDataRadiusKey";
-static NSString *const kCategoryName = @"Restaurant";
-static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
+static NSString *const kCategoryName = @"Supermarket";
 
-@interface RestaurantVC ()
+@interface SupermarketVC ()
 
-@property (nonatomic, strong) UIButton *redoResearchButton;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
 @end
 
-@implementation RestaurantVC
+@implementation SupermarketVC
 
-- (NSNumber *)restaurantDataRadius
+- (NSNumber *)supermarkerDataRadius
 {
-    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kRestaurantDataRadiusKey];
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kSupermarketDataRadiusKey];
     
     if (!radius) {
-        [self setRestaurantDataRadius:@5];
+        [self setSupermarkerDataRadius:@5];
         
         return @5;
     } else {
@@ -48,33 +43,33 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     }
 }
 
-- (void)setRestaurantDataRadius:(NSNumber *)newRadius
+- (void)setSupermarkerDataRadius:(NSNumber *)newRadius
 {
-    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kRestaurantDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kSupermarketDataRadiusKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (DisplayPeripheralHeaderView *)headerView
 {
     if (!_headerView) {
-        NSNumber *radius = [self restaurantDataRadius];
+        NSNumber *radius = [self supermarkerDataRadius];
         _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius
-                                                                          stepValue:@(5.0)
-                                                                       minimunValue:@(5.0)
-                                                                       maximunValue:@(30.0)
-                                                                        contentMode:ContentModeLeft
-                                                                        actionBlock:^(double newValue) {
-                                                                            
-                                                                            self.greaterValue = nil;
-                                                                            self.lesserValue = nil;
-                                                                            
-                                                                            [self setRestaurantDataRadius:@(newValue)];
-                                                                            [self handleDataDisplayPeripheral];
-                                                                            
-                                                                            NSString *label = @"Restaurant";
-                                                                            [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:label value:@(newValue)];
-                                                                            [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius", label] withParameters:@{@"radius":@(newValue)}];
-                                                                        }];
+                                                                      stepValue:@(5.0)
+                                                                   minimunValue:@(5.0)
+                                                                   maximunValue:@(30.0)
+                                                                    contentMode:ContentModeLeft
+                                                                    actionBlock:^(double newValue) {
+                                                                        
+                                                                        self.greaterValue = nil;
+                                                                        self.lesserValue = nil;
+                                                                        
+                                                                        [self setSupermarkerDataRadius:@(newValue)];
+                                                                        [self handleDataDisplayPeripheral];
+                                                                        
+                                                                        NSString *label = @"Supermarker";
+                                                                        [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:label value:@(newValue)];
+                                                                        [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius", label] withParameters:@{@"radius":@(newValue)}];
+                                                                    }];
     }
     
     return _headerView;
@@ -85,7 +80,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Restaurant";
+    self.title = @"Supermarker";
     self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
     
     [self setUpSegmentedControl];
@@ -102,7 +97,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self restaurantCategoryPredicate],
+                                             [self supermarkerCategoryPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -111,7 +106,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     [super viewWillAppear:animated];
     
     [[PFUser currentUser] fetchInBackground];
-    [Flurry logEvent:@"View restaurant" timed:YES];
+    [Flurry logEvent:@"View supermarker" timed:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -119,7 +114,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     
     self.mapView.showsUserLocation = NO;
     [self.fetchQuery cancel];
-    [Flurry endTimedEvent:@"View restaurant" withParameters:nil];
+    [Flurry endTimedEvent:@"View supermarker" withParameters:nil];
 }
 
 #pragma mark - View Setup
@@ -136,12 +131,20 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     self.navigationItem.titleView = self.segmentedControl;
 }
 
+#pragma mark - Helper
+
+- (NSPredicate *)supermarkerCategoryPredicate
+{
+    return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
+}
+
+
 #pragma mark - Action
 
 - (void)handleRedoSearchButtonTapped
 {
-    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"Restaurant-Redo search in map" value:nil];
-    [Flurry logEvent:@"Restaurant-Redo search in map"];
+    [[GAnalyticsManager shareManager] trackUIAction:@"buttonPress" label:@"Supermarker-Redo search in map" value:nil];
+    [Flurry logEvent:@"Supermarker-Redo search in map"];
     
     if (self.isInternetPresentOnLaunch) {
         [self fetchServerDataWithRegion:self.mapView.region];
@@ -166,7 +169,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self restaurantCategoryPredicate],
+                                             [self supermarkerCategoryPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -181,10 +184,10 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
         }];
         
         [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect"
-                                                  label:@"Restaurant-list"
+                                                  label:@"Supermarker-list"
                                                   value:nil];
         [Flurry logEvent:@"Switch to list view"
-          withParameters:@{@"screen":@"Restaurant"}];
+          withParameters:@{@"screen":@"Supermarker"}];
     }else{
         
         //map view
@@ -196,25 +199,18 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
         }];
         
         [[GAnalyticsManager shareManager] trackUIAction:@"segmentedControllSelect"
-                                                  label:@"Restaurant-map"
+                                                  label:@"Supermarker-map"
                                                   value:nil];
         [Flurry logEvent:@"Switch to map view"
-          withParameters:@{@"screen":@"Restaurant"}];
+          withParameters:@{@"screen":@"Supermarker"}];
     }
-}
-
-#pragma mark - Helper
-
-- (NSPredicate *)restaurantCategoryPredicate
-{
-    return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
 }
 
 #pragma mark - Override
 
 - (NSString *)serverDataParseClassName
 {
-    return DDRestaurantParseClassName;
+    return DDSupermarketParseClassName;
 }
 
 - (NSString *)localDataEntityName
@@ -224,7 +220,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
 
 - (float)dataFetchRadius
 {
-    return [self restaurantDataRadius].floatValue;;
+    return [self supermarkerDataRadius].floatValue;;
 }
 
 - (float)serverFetchCount
@@ -260,7 +256,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self restaurantCategoryPredicate],
+                                             [self supermarkerCategoryPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -328,29 +324,38 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     [((LifestyleObject *)managedObject) populateFromParseObject:object];
 }
 
-#pragma mark - table view
+#pragma mark - Mapview Delegate
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     LifestyleObject *object = self.dataSource[indexPath.row];
-
+    
     NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
     cell.nameLabel.text = object.name;
     cell.addressLabel.text = object.address;
     cell.isVerified = NO;
     cell.isAuthetic = NO;
-
+    
     return cell;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-
+    
     return self.headerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-
+    
     return 40.0f;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LifestyleObject *object = self.dataSource[indexPath.row];
+    
+    return [NameAddressTableViewCell heightForCellWithName:object.name
+                                                   address:object.address
+                                                 cellWidth:tableView.frame.size.width];
 }
 
 @end

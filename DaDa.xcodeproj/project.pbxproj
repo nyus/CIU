@@ -79,6 +79,9 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
+		50E8DAD01BA465A50065E543 /* SupermarketVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DACF1BA465A50065E543 /* SupermarketVC.m */; };
+		50E8DAD31BA465B50065E543 /* JobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD21BA465B50065E543 /* JobVC.m */; };
+		50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD51BA465C20065E543 /* TradeVC.m */; };
 		50EFC0031B9E3DFE00D5258F /* RestaurantVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */; };
 		50EFC0061B9E41C000D5258F /* GenericListMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EFC0051B9E41C000D5258F /* GenericListMapVC.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
@@ -114,7 +117,7 @@
 		65C4F11219AFBD53004452C3 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C4F11119AFBD53004452C3 /* SignUpVC.m */; };
 		65D93E5419C239170044A48A /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5319C239170044A48A /* AboutUsVC.m */; };
 		65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E5919C358DE0044A48A /* NSString+Utilities.m */; };
-		65D93E6D19C73AD70044A48A /* ComposeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E6C19C73AD70044A48A /* ComposeVC.m */; };
+		65D93E6D19C73AD70044A48A /* ComposeJobOrTradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D93E6C19C73AD70044A48A /* ComposeJobOrTradeVC.m */; };
 		B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */; };
 		B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B22C70C61A1183E90035D3C5 /* LoginTextField.m */; };
 /* End PBXBuildFile section */
@@ -249,6 +252,12 @@
 		50CFC9751AFE261A005EBAE4 /* StarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingView.m; sourceTree = "<group>"; };
 		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50E8DACE1BA465A50065E543 /* SupermarketVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketVC.h; sourceTree = "<group>"; };
+		50E8DACF1BA465A50065E543 /* SupermarketVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketVC.m; sourceTree = "<group>"; };
+		50E8DAD11BA465B50065E543 /* JobVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobVC.h; sourceTree = "<group>"; };
+		50E8DAD21BA465B50065E543 /* JobVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobVC.m; sourceTree = "<group>"; };
+		50E8DAD41BA465C20065E543 /* TradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeVC.h; sourceTree = "<group>"; };
+		50E8DAD51BA465C20065E543 /* TradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeVC.m; sourceTree = "<group>"; };
 		50EFC0011B9E3DFE00D5258F /* RestaurantVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantVC.h; sourceTree = "<group>"; };
 		50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantVC.m; sourceTree = "<group>"; };
 		50EFC0041B9E41C000D5258F /* GenericListMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericListMapVC.h; sourceTree = "<group>"; };
@@ -317,8 +326,8 @@
 		65D93E5319C239170044A48A /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		65D93E5819C358DE0044A48A /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
 		65D93E5919C358DE0044A48A /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
-		65D93E6B19C73AD70044A48A /* ComposeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeVC.h; sourceTree = "<group>"; };
-		65D93E6C19C73AD70044A48A /* ComposeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeVC.m; sourceTree = "<group>"; };
+		65D93E6B19C73AD70044A48A /* ComposeJobOrTradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeJobOrTradeVC.h; sourceTree = "<group>"; };
+		65D93E6C19C73AD70044A48A /* ComposeJobOrTradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeJobOrTradeVC.m; sourceTree = "<group>"; };
 		95F0BD469B4F1312909735D3 /* Pods-DaDa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa/Pods-DaDa.debug.xcconfig"; sourceTree = "<group>"; };
 		9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DaDa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifestyleTableViewCell.h; sourceTree = "<group>"; };
@@ -395,14 +404,20 @@
 				6564F24619A78D1100629B48 /* LifestyleDetailVC.m */,
 				5092160C19AA463700304EDD /* LifestyleObjectDetailTableVC.h */,
 				5092160D19AA463700304EDD /* LifestyleObjectDetailTableVC.m */,
-				65D93E6B19C73AD70044A48A /* ComposeVC.h */,
-				65D93E6C19C73AD70044A48A /* ComposeVC.m */,
+				65D93E6B19C73AD70044A48A /* ComposeJobOrTradeVC.h */,
+				65D93E6C19C73AD70044A48A /* ComposeJobOrTradeVC.m */,
 				B219F3411A1A5BB80078164F /* LifestyleTableViewCell.h */,
 				B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */,
 				0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */,
 				0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */,
 				50EFC0011B9E3DFE00D5258F /* RestaurantVC.h */,
 				50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */,
+				50E8DACE1BA465A50065E543 /* SupermarketVC.h */,
+				50E8DACF1BA465A50065E543 /* SupermarketVC.m */,
+				50E8DAD11BA465B50065E543 /* JobVC.h */,
+				50E8DAD21BA465B50065E543 /* JobVC.m */,
+				50E8DAD41BA465C20065E543 /* TradeVC.h */,
+				50E8DAD51BA465C20065E543 /* TradeVC.m */,
 				50EFC0041B9E41C000D5258F /* GenericListMapVC.h */,
 				50EFC0051B9E41C000D5258F /* GenericListMapVC.m */,
 			);
@@ -918,18 +933,21 @@
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableVC.m in Sources */,
+				50E8DAD31BA465B50065E543 /* JobVC.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
-				65D93E6D19C73AD70044A48A /* ComposeVC.m in Sources */,
+				65D93E6D19C73AD70044A48A /* ComposeJobOrTradeVC.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
+				50E8DAD01BA465A50065E543 /* SupermarketVC.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
 				50EFC0031B9E3DFE00D5258F /* RestaurantVC.m in Sources */,
 				50445DD61B06C82600379B03 /* AnalyticsManager.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeSurpriseVC.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
+				50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
 				5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */,
 				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,

@@ -88,6 +88,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                             [self badLocalContentPredicate],
+                                             [self stickyPostPredicate],
                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -117,9 +118,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self stickyPostPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -200,6 +200,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                             predicates:@[[self badContentPredicate],
                                          [self badLocalContentPredicate],
+                                         [self stickyPostPredicate],
                                          [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                          [self dateRnagePredicateWithgreaterOrEqualTo:nil
                                                                       lesserOrEqualTo:self.lesserValue]]];
@@ -219,6 +220,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
+                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                           lesserOrEqualTo:nil]]];

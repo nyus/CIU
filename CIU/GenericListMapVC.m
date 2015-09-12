@@ -9,11 +9,19 @@
 #import <Masonry.h>
 #import <MapKit/MapKit.h>
 #import "GenericListMapVC.h"
+#import "NameAddressTableViewCell.h"
+#import "NSPredicate+Utilities.h"
+#import "PFQuery+Utilities.h"
+#import "LifestyleObject.h"
+#import "LifestyleObject+Utilities.h"
+#import "LifestyleObjectDetailTableVC.h"
 
 static CGFloat const kMilePerDelta = 69.0;
 static NSString *const kEntityName = @"LifestyleObject";
 static CLLocationDegrees latitudeDelta = 1.5 / kMilePerDelta;
 static CLLocationDegrees longitudeDelta = 1 / kMilePerDelta;
+static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
+static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
 
 @interface GenericListMapVC ()
 
@@ -24,8 +32,23 @@ static CLLocationDegrees longitudeDelta = 1 / kMilePerDelta;
 
 @implementation GenericListMapVC
 
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        // So that there is navigation back button
+        
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
 }
 
 #pragma mark - Getter
@@ -70,6 +93,13 @@ static CLLocationDegrees longitudeDelta = 1 / kMilePerDelta;
     return _mapView;
 }
 
+- (NSString *)lifestyleObjectCategory
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass must override -lifestyleObjectCategory"
+                                 userInfo:nil];
+}
+
 #pragma mark - Action
 
 - (void)reSearchButtonTapped:(UIButton *)reSearchButton
@@ -84,20 +114,153 @@ static CLLocationDegrees longitudeDelta = 1 / kMilePerDelta;
                                  userInfo:nil];
 }
 
-#pragma mark - Fetch map data
+#pragma mark - MapView data
 
-- (void)fetchLocalDataWithRegion:(MKCoordinateRegion)region
+-(void)fetchLocalDataWithRegion:(MKCoordinateRegion)region
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"Subclass needs to override -fetchLocalDataWithRegion"
-                                 userInfo:nil];
+    
+    self.mapViewDataSource = nil;
+    self.mapViewDataSource = [NSMutableArray array];
+    
+    NSPredicate *categoryPredicate = [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", self.lifestyleObjectCategory];
+    NSPredicate *geoLocationPredicate = [NSPredicate boudingCoordinatesPredicateForRegion:region];
+    NSFetchRequest *fetchRequest = [self localDataFetchRequestWithEntityName:self.localDataEntityName
+                                                                  fetchLimit:self.localFetchCount
+                                                                  predicates:@[[self badContentPredicate],
+                                                                               [self badLocalContentPredicate],
+                                                                               categoryPredicate,
+                                                                               geoLocationPredicate]];
+    
+    NSArray *fetchedObjects = [[SharedDataManager sharedInstance].managedObjectContext
+                               executeFetchRequest:fetchRequest
+                               error:nil];
+    
+    if (fetchedObjects.count > 0) {
+        
+        [self.mapViewDataSource addObjectsFromArray:fetchedObjects];
+        
+        //new annotaions to add
+        NSMutableArray *coors = [NSMutableArray array];
+        for (LifestyleObject * managedObject in fetchedObjects) {
+            
+            CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
+            pin.coordinate = CLLocationCoordinate2DMake(managedObject.latitude.doubleValue, managedObject.longitude.doubleValue);
+            pin.title = managedObject.name;
+            pin.subtitle = managedObject.category;
+            pin.lifetstyleObject = managedObject;
+            pin.needAnimation = NO;
+            [coors addObject:pin];
+            
+        }
+        [self.mapView addAnnotations:coors];
+    }
 }
 
-- (void)fetchServerDataWithRegion:(MKCoordinateRegion)region
+-(void)fetchServerDataWithRegion:(MKCoordinateRegion)region
 {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"Subclass needs to override -fetchServerDataWithRegion"
-                                 userInfo:nil];
+    
+    if (self.fetchQuery) {
+        [self.fetchQuery cancel];
+        self.fetchQuery = nil;
+    }
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.fetchQuery = [[PFQuery alloc] initWithClassName:DDRestaurantParseClassName];
+    [self.fetchQuery addBoundingCoordinatesConstraintForRegion:region];
+    [self.fetchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (error) {
+            NSLog(@"Failed to fetch restaurants with error: %@", error);
+        } else {
+            NSMutableDictionary *map;
+            
+            for (int i =0; i<self.mapViewDataSource.count; i++) {
+                
+                if (!map) {
+                    map = [NSMutableDictionary dictionary];
+                }
+                
+                LifestyleObject *life = self.mapViewDataSource[i];
+                [map setValue:[NSNumber numberWithInt:i] forKey:life.objectId];
+            }
+            
+            //new annotaions to add
+            NSMutableArray *coors = [NSMutableArray array];
+            
+            for (PFObject *object in objects) {
+                
+                NSNumber *lifeIndex = [map valueForKey:object.objectId];
+                
+                if (lifeIndex) {
+                    //update value
+                    LifestyleObject *life = self.mapViewDataSource[lifeIndex.intValue];
+                    
+                    if ([life.updatedAt compare:object.updatedAt] == NSOrderedAscending) {
+                        [life populateFromParseObject:object];
+                    }
+                    
+                } else {
+                    //insert new item
+                    LifestyleObject *life = [NSEntityDescription insertNewObjectForEntityForName:self.localDataEntityName
+                                                                          inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                    [life populateFromParseObject:object];
+                    [self.mapViewDataSource addObject:life];
+                    
+                    CLLocationCoordinate2D coordinate =CLLocationCoordinate2DMake([object[DDLatitudeKey] doubleValue],
+                                                                                  [object[DDLongitudeKey] doubleValue]);
+                    CustomMKPointAnnotation *pin = [[CustomMKPointAnnotation alloc] init];
+                    pin.coordinate = coordinate;
+                    pin.title = object[DDNameKey];
+                    pin.subtitle = object[DDCategoryKey];
+                    pin.lifetstyleObject = life;
+                    pin.needAnimation = NO;
+                    [coors addObject:pin];
+                }
+            }
+            
+            //save
+            [[SharedDataManager sharedInstance] saveContext];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mapView addAnnotations:coors];
+            });
+        }
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
+}
+
+#pragma mark - table view
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.dataSource.count;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LifestyleObject *object = self.dataSource[indexPath.row];
+    
+    return [NameAddressTableViewCell heightForCellWithName:object.name
+                                                   address:object.address
+                                                 cellWidth:tableView.frame.size.width];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LifestyleObjectDetailTableVC *vc =[storyBoard instantiateViewControllerWithIdentifier:@"restaurantMarketDetailVC"];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[NameAddressTableViewCell class]]) {
+        vc.lifestyleObject = self.dataSource[indexPath.row];
+    } else {
+        vc.lifestyleObject = self.lifestyleToPass;
+    }
+    
+    [self.navigationController pushViewController:vc  animated:YES];
 }
 
 #pragma mark - MapView Delegate
@@ -175,6 +338,29 @@ static CLLocationDegrees longitudeDelta = 1 / kMilePerDelta;
             view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         }
         return view;
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
+    CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
+    self.lifestyleToPass = annotation.lifetstyleObject;
+    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:kToObjectDetailVCSegueID]){
+        
+        LifestyleObjectDetailTableVC *vc = (LifestyleObjectDetailTableVC *)segue.destinationViewController;
+        
+        // from tb view or from map
+        
+        if ([sender isKindOfClass:[NameAddressTableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            vc.lifestyleObject = self.dataSource[indexPath.row];
+        } else {
+            vc.lifestyleObject = self.lifestyleToPass;
+        }
     }
 }
 

@@ -84,6 +84,8 @@
 
 - (NSPredicate *)geoBoundPredicateWithFetchRadius:(CGFloat)fetchRadius;
 
+- (NSPredicate *)stickyPostPredicate;
+
 - (NSPredicate *)badLocalContentPredicate;
 
 - (NSPredicate *)badContentPredicate;

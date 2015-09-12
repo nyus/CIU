@@ -15,6 +15,9 @@
 #import "LifestyleCategory+Utilities.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "RestaurantVC.h"
+#import "SupermarketVC.h"
+#import "TradeVC.h"
+#import "JobVC.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
@@ -201,33 +204,24 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIViewController *vc;
     if (indexPath.row == 0) {
-        
-        RestaurantVC *vc = [[RestaurantVC alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        vc.edgesForExtendedLayout=UIRectEdgeNone;
-        vc.extendedLayoutIncludesOpaqueBars=NO;
-        vc.automaticallyAdjustsScrollViewInsets=NO;
-
-        [self.navigationController pushViewController:vc
-                                             animated:YES];
+        vc = [[RestaurantVC alloc] init];
+    } else if (indexPath.row == 1) {
+        vc = [[SupermarketVC alloc] init];
+    } else if (indexPath.row == 2) {
+        vc = [[JobVC alloc] init];
+    } else {
+        vc = [[TradeVC alloc] init];
     }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    self.tabBarController.tabBar.hidden = YES;
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.edgesForExtendedLayout=UIRectEdgeNone;
+    vc.extendedLayoutIncludesOpaqueBars=NO;
+    vc.automaticallyAdjustsScrollViewInsets=NO;
     
-    if ([segue.identifier isEqualToString:@"toDetailA"]) {
-//        UITableViewCell *cell = (UITableViewCell *)sender;
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//        LifestyleCategory *category = self.dataSource[indexPath.row];
-//        LifestyleDetailVC *vc = (LifestyleDetailVC *)segue.destinationViewController;
-//        vc.hidesBottomBarWhenPushed = YES;
-//        vc.categoryType = [LifestyleCategory typeForCategoryName:category.name];
-//        [[GAnalyticsManager shareManager] trackUIAction:@"cellPress" label:category.name value:nil];
-//        [Flurry logEvent:[NSString stringWithFormat:@"Go to %@ screen",category.name]];
-    }
+    [self.navigationController pushViewController:vc
+                                         animated:YES];
 }
 
 @end
