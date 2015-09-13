@@ -1,5 +1,5 @@
 //
-//  TradeVC.h
+//  SupermarketVC.h
 //  DaDa
 //
 //  Created by Sihang on 9/12/15.
@@ -8,6 +8,6 @@
 
 #import "GenericTableVC.h"
 
-@interface TradeVC : GenericTableVC
+@interface SupermarketTableVC : GenericTableVC
 
 @end

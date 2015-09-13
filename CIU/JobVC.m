@@ -28,6 +28,20 @@ static NSString *const kCategoryName = @"Jobs";
 
 #pragma mark - View life cycle
 
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        // So that there is navigation back button
+        
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -66,7 +80,6 @@ static NSString *const kCategoryName = @"Jobs";
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    self.mapView.showsUserLocation = NO;
     [self.fetchQuery cancel];
     [Flurry endTimedEvent:@"View jobs" withParameters:nil];
 }
@@ -205,6 +218,11 @@ static NSString *const kCategoryName = @"Jobs";
 }
 
 #pragma mark - UITableView Delegate
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.dataSource.count;
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     

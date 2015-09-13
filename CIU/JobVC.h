@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Huang, Sihang. All rights reserved.
 //
 
-#import "GenericListMapVC.h"
+#import "GenericTableVC.h"
 
-@interface JobVC : GenericListMapVC
+@interface JobVC : GenericTableVC
 
 @end

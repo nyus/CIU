@@ -79,11 +79,15 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
-		50E8DAD01BA465A50065E543 /* SupermarketVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DACF1BA465A50065E543 /* SupermarketVC.m */; };
+		50E8DAD01BA465A50065E543 /* SupermarketTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */; };
 		50E8DAD31BA465B50065E543 /* JobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD21BA465B50065E543 /* JobVC.m */; };
 		50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD51BA465C20065E543 /* TradeVC.m */; };
-		50EFC0031B9E3DFE00D5258F /* RestaurantVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */; };
-		50EFC0061B9E41C000D5258F /* GenericListMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EFC0051B9E41C000D5258F /* GenericListMapVC.m */; };
+		50E8DAD91BA4F2370065E543 /* RestaurantVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD81BA4F2370065E543 /* RestaurantVC.m */; };
+		50E8DADC1BA4F59B0065E543 /* GenericMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DADB1BA4F59B0065E543 /* GenericMapVC.m */; };
+		50E8DAE01BA4F8E00065E543 /* RestaurantMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DADF1BA4F8E00065E543 /* RestaurantMapVC.m */; };
+		50E8DAE31BA4FD330065E543 /* SupermarketMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAE21BA4FD330065E543 /* SupermarketMapVC.m */; };
+		50E8DAE61BA501FC0065E543 /* SupermarketVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAE51BA501FC0065E543 /* SupermarketVC.m */; };
+		50EFC0031B9E3DFE00D5258F /* RestaurantTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EFC0021B9E3DFE00D5258F /* RestaurantTableVC.m */; };
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
@@ -252,16 +256,24 @@
 		50CFC9751AFE261A005EBAE4 /* StarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingView.m; sourceTree = "<group>"; };
 		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50E8DACE1BA465A50065E543 /* SupermarketVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketVC.h; sourceTree = "<group>"; };
-		50E8DACF1BA465A50065E543 /* SupermarketVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketVC.m; sourceTree = "<group>"; };
+		50E8DACE1BA465A50065E543 /* SupermarketTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketTableVC.h; sourceTree = "<group>"; };
+		50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketTableVC.m; sourceTree = "<group>"; };
 		50E8DAD11BA465B50065E543 /* JobVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobVC.h; sourceTree = "<group>"; };
 		50E8DAD21BA465B50065E543 /* JobVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobVC.m; sourceTree = "<group>"; };
 		50E8DAD41BA465C20065E543 /* TradeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeVC.h; sourceTree = "<group>"; };
 		50E8DAD51BA465C20065E543 /* TradeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeVC.m; sourceTree = "<group>"; };
-		50EFC0011B9E3DFE00D5258F /* RestaurantVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantVC.h; sourceTree = "<group>"; };
-		50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantVC.m; sourceTree = "<group>"; };
-		50EFC0041B9E41C000D5258F /* GenericListMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericListMapVC.h; sourceTree = "<group>"; };
-		50EFC0051B9E41C000D5258F /* GenericListMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericListMapVC.m; sourceTree = "<group>"; };
+		50E8DAD71BA4F2370065E543 /* RestaurantVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantVC.h; sourceTree = "<group>"; };
+		50E8DAD81BA4F2370065E543 /* RestaurantVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantVC.m; sourceTree = "<group>"; };
+		50E8DADA1BA4F59B0065E543 /* GenericMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericMapVC.h; sourceTree = "<group>"; };
+		50E8DADB1BA4F59B0065E543 /* GenericMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericMapVC.m; sourceTree = "<group>"; };
+		50E8DADE1BA4F8E00065E543 /* RestaurantMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantMapVC.h; sourceTree = "<group>"; };
+		50E8DADF1BA4F8E00065E543 /* RestaurantMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantMapVC.m; sourceTree = "<group>"; };
+		50E8DAE11BA4FD330065E543 /* SupermarketMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketMapVC.h; sourceTree = "<group>"; };
+		50E8DAE21BA4FD330065E543 /* SupermarketMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketMapVC.m; sourceTree = "<group>"; };
+		50E8DAE41BA501FC0065E543 /* SupermarketVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketVC.h; sourceTree = "<group>"; };
+		50E8DAE51BA501FC0065E543 /* SupermarketVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketVC.m; sourceTree = "<group>"; };
+		50EFC0011B9E3DFE00D5258F /* RestaurantTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantTableVC.h; sourceTree = "<group>"; };
+		50EFC0021B9E3DFE00D5258F /* RestaurantTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantTableVC.m; sourceTree = "<group>"; };
 		50F5F6F919AEAA0000DC9735 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		50F5F6FA19AEAA0000DC9735 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		50F5F9B41A34F7300001CF42 /* StatusObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+Utilities.h"; sourceTree = "<group>"; };
@@ -398,6 +410,7 @@
 		501A5E4C19A5755E0050BFA6 /* Lifestyle */ = {
 			isa = PBXGroup;
 			children = (
+				50E8DADD1BA4F8C80065E543 /* Map */,
 				501A5E4D19A5756D0050BFA6 /* LifestyleVC.h */,
 				501A5E4E19A5756D0050BFA6 /* LifestyleVC.m */,
 				6564F24519A78D1100629B48 /* LifestyleDetailVC.h */,
@@ -410,16 +423,18 @@
 				B219F3421A1A5BB80078164F /* LifestyleTableViewCell.m */,
 				0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */,
 				0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */,
-				50EFC0011B9E3DFE00D5258F /* RestaurantVC.h */,
-				50EFC0021B9E3DFE00D5258F /* RestaurantVC.m */,
-				50E8DACE1BA465A50065E543 /* SupermarketVC.h */,
-				50E8DACF1BA465A50065E543 /* SupermarketVC.m */,
+				50EFC0011B9E3DFE00D5258F /* RestaurantTableVC.h */,
+				50EFC0021B9E3DFE00D5258F /* RestaurantTableVC.m */,
+				50E8DACE1BA465A50065E543 /* SupermarketTableVC.h */,
+				50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */,
 				50E8DAD11BA465B50065E543 /* JobVC.h */,
 				50E8DAD21BA465B50065E543 /* JobVC.m */,
 				50E8DAD41BA465C20065E543 /* TradeVC.h */,
 				50E8DAD51BA465C20065E543 /* TradeVC.m */,
-				50EFC0041B9E41C000D5258F /* GenericListMapVC.h */,
-				50EFC0051B9E41C000D5258F /* GenericListMapVC.m */,
+				50E8DAD71BA4F2370065E543 /* RestaurantVC.h */,
+				50E8DAD81BA4F2370065E543 /* RestaurantVC.m */,
+				50E8DAE41BA501FC0065E543 /* SupermarketVC.h */,
+				50E8DAE51BA501FC0065E543 /* SupermarketVC.m */,
 			);
 			name = Lifestyle;
 			sourceTree = "<group>";
@@ -601,6 +616,19 @@
 				50E45BCA1B3999B300EC12CC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		50E8DADD1BA4F8C80065E543 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				50E8DADA1BA4F59B0065E543 /* GenericMapVC.h */,
+				50E8DADB1BA4F59B0065E543 /* GenericMapVC.m */,
+				50E8DADE1BA4F8E00065E543 /* RestaurantMapVC.h */,
+				50E8DADF1BA4F8E00065E543 /* RestaurantMapVC.m */,
+				50E8DAE11BA4FD330065E543 /* SupermarketMapVC.h */,
+				50E8DAE21BA4FD330065E543 /* SupermarketMapVC.m */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		652BAB74199D3CCA009F5F5A = {
@@ -925,6 +953,7 @@
 				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
+				50E8DAE61BA501FC0065E543 /* SupermarketVC.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentVC.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
 				0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */,
@@ -940,9 +969,10 @@
 				65D93E6D19C73AD70044A48A /* ComposeJobOrTradeVC.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
-				50E8DAD01BA465A50065E543 /* SupermarketVC.m in Sources */,
+				50E8DAD01BA465A50065E543 /* SupermarketTableVC.m in Sources */,
 				50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */,
-				50EFC0031B9E3DFE00D5258F /* RestaurantVC.m in Sources */,
+				50E8DAD91BA4F2370065E543 /* RestaurantVC.m in Sources */,
+				50EFC0031B9E3DFE00D5258F /* RestaurantTableVC.m in Sources */,
 				50445DD61B06C82600379B03 /* AnalyticsManager.m in Sources */,
 				65C4F0C219AFB67C004452C3 /* ComposeSurpriseVC.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
@@ -955,14 +985,16 @@
 				65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
 				6564F24719A78D1100629B48 /* LifestyleDetailVC.m in Sources */,
+				50E8DADC1BA4F59B0065E543 /* GenericMapVC.m in Sources */,
 				65C4F0E019AFBBA8004452C3 /* LoadingTableViewCell.m in Sources */,
 				504AE58A1A2241C7000C62D9 /* LifestyleObject.m in Sources */,
 				B22C70C71A1183E90035D3C5 /* LoginTextField.m in Sources */,
+				50E8DAE31BA4FD330065E543 /* SupermarketMapVC.m in Sources */,
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
-				50EFC0061B9E41C000D5258F /* GenericListMapVC.m in Sources */,
 				0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */,
+				50E8DAE01BA4F8E00065E543 /* RestaurantMapVC.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
 				0B03B4781A8272CD00526A37 /* UIAlertView+Blocks.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,

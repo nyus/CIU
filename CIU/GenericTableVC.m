@@ -127,7 +127,9 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 - (NSString *)serverDataParseClassName
 {
-    return DDRestaurantParseClassName;
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Subclass needs to override -serverDataParseClassName"
+                                 userInfo:nil];
 }
 
 - (NSString *)localDataEntityName

@@ -1,33 +1,38 @@
 //
-//  TradeVC.m
+//  SupermarketVC.m
 //  DaDa
 //
 //  Created by Sihang on 9/12/15.
 //  Copyright (c) 2015 Huang, Sihang. All rights reserved.
 //
 
-#import "TradeVC.h"
+#import "SupermarketTableVC.h"
 #import "DisplayPeripheralHeaderView.h"
-#import "JobTradeTableViewCell.h"
-#import "Helper.h"
+#import "NameAddressTableViewCell.h"
+#import "PFQuery+Utilities.h"
+#import "LifestyleObject.h"
 #import "LifestyleObject+Utilities.h"
-#import "ComposeJobOrTradeVC.h"
+#import "NSPredicate+Utilities.h"
+#import "Helper.h"
+#import "LifestyleObjectDetailTableVC.h"
+
+static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID";
 
 static CGFloat const kServerFetchCount = 50.0;
 static CGFloat const kLocalFetchCount = 50.0;
-static NSString *const kTradeDataRadiusKey = @"kTradeDataRadiusKey";
+static NSString *const kSupermarketDataRadiusKey = @"kSupermarketDataRadiusKey";
 static NSString *const kEntityName = @"LifestyleObject";
-static NSString *const kJobAndTradeCellReuseID = @"kJobAndTradeCellReuseID";
-static NSString *const kCategoryName = @"Trade";
+static NSString *const kCategoryName = @"Supermarket";
 
-@interface TradeVC () <JobTradeTableViewCellDelegate>
+@interface SupermarketTableVC ()
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) LifestyleObject *lifestyleToPass;
 @property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 
 @end
 
-@implementation TradeVC
+@implementation SupermarketTableVC
 
 - (instancetype)init
 {
@@ -43,12 +48,12 @@ static NSString *const kCategoryName = @"Trade";
 }
 
 
-- (NSNumber *)tradeDataRadius
+- (NSNumber *)supermarkerDataRadius
 {
-    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kTradeDataRadiusKey];
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kSupermarketDataRadiusKey];
     
     if (!radius) {
-        [self setTradeDataRadius:@5];
+        [self setSupermarkerDataRadius:@5];
         
         return @5;
     } else {
@@ -56,16 +61,16 @@ static NSString *const kCategoryName = @"Trade";
     }
 }
 
-- (void)setTradeDataRadius:(NSNumber *)newRadius
+- (void)setSupermarkerDataRadius:(NSNumber *)newRadius
 {
-    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kTradeDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kSupermarketDataRadiusKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (DisplayPeripheralHeaderView *)headerView
 {
     if (!_headerView) {
-        NSNumber *radius = [self tradeDataRadius];
+        NSNumber *radius = [self supermarkerDataRadius];
         _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius
                                                                       stepValue:@(5.0)
                                                                    minimunValue:@(5.0)
@@ -76,10 +81,10 @@ static NSString *const kCategoryName = @"Trade";
                                                                         self.greaterValue = nil;
                                                                         self.lesserValue = nil;
                                                                         
-                                                                        [self setTradeDataRadius:@(newValue)];
+                                                                        [self setSupermarkerDataRadius:@(newValue)];
                                                                         [self handleDataDisplayPeripheral];
                                                                         
-                                                                        NSString *label = @"Trade and Sell";
+                                                                        NSString *label = @"Supermarker";
                                                                         [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:label value:@(newValue)];
                                                                         [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius", label] withParameters:@{@"radius":@(newValue)}];
                                                                     }];
@@ -93,11 +98,9 @@ static NSString *const kCategoryName = @"Trade";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Jobs";
+    self.title = @"Supermarker";
     self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    [self.tableView registerClass:[JobTradeTableViewCell class] forCellReuseIdentifier:kJobAndTradeCellReuseID];
+    [self.tableView registerClass:[NameAddressTableViewCell class] forCellReuseIdentifier:kNameAndAddressCellReuseID];
     
     [self addInfiniteRefreshControl];
     
@@ -112,7 +115,7 @@ static NSString *const kCategoryName = @"Trade";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self tradeCategoryTypePredicate],
+                                             [self supermarkerCategoryPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -121,26 +124,25 @@ static NSString *const kCategoryName = @"Trade";
     [super viewWillAppear:animated];
     
     [[PFUser currentUser] fetchInBackground];
-    [Flurry logEvent:@"View trade and sell" timed:YES];
+    [Flurry logEvent:@"View supermarker" timed:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
+
     [self.fetchQuery cancel];
-    [Flurry endTimedEvent:@"View trade and sell" withParameters:nil];
+    [Flurry endTimedEvent:@"View supermarker" withParameters:nil];
 }
+
+#pragma mark - Helper
+
+- (NSPredicate *)supermarkerCategoryPredicate
+{
+    return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
+}
+
 
 #pragma mark - Action
-
--(void)addButtonTapped:(UIBarButtonItem *)sender
-{
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *vc = (UINavigationController *)[storyBoard instantiateViewControllerWithIdentifier:@"compose"];
-    ComposeJobOrTradeVC *compose = (ComposeJobOrTradeVC *)vc.topViewController;
-    compose.categoryType = DDCategoryTypeTradeAndSell;
-    [self presentViewController:vc animated:YES completion:nil];
-}
 
 -(void)handleDataDisplayPeripheral{
     
@@ -158,23 +160,16 @@ static NSString *const kCategoryName = @"Trade";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self tradeCategoryTypePredicate],
+                                             [self supermarkerCategoryPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
-}
-
-#pragma mark - Helper
-
-- (NSPredicate *)tradeCategoryTypePredicate
-{
-    return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
 }
 
 #pragma mark - Override
 
 - (NSString *)serverDataParseClassName
 {
-    return DDTradeAndSellParseClassName;
+    return DDSupermarketParseClassName;
 }
 
 - (NSString *)localDataEntityName
@@ -184,7 +179,7 @@ static NSString *const kCategoryName = @"Trade";
 
 - (float)dataFetchRadius
 {
-    return [self tradeDataRadius].floatValue;;
+    return [self supermarkerDataRadius].floatValue;;
 }
 
 - (float)serverFetchCount
@@ -199,12 +194,12 @@ static NSString *const kCategoryName = @"Trade";
 
 - (NSString *)keyForLocalDataSortDescriptor
 {
-    return DDCreatedAtKey;
+    return DDNameKey;
 }
 
 - (BOOL)orderLocalDataInAscending
 {
-    return NO;
+    return YES;
 }
 
 - (void)handleInfiniteScroll
@@ -220,10 +215,8 @@ static NSString *const kCategoryName = @"Trade";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self tradeCategoryTypePredicate],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                          lesserOrEqualTo:self.lesserValue]]];
+                                             [self supermarkerCategoryPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
 
@@ -232,9 +225,9 @@ static NSString *const kCategoryName = @"Trade";
     id valueToCompare;
     
     if ([object isKindOfClass:[PFObject class]]) {
-        valueToCompare = ((PFObject *)object).createdAt;
+        valueToCompare = [((PFObject *)object) objectForKey:@"name"];
     } else if ([object isKindOfClass:[NSManagedObject class]]) {
-        valueToCompare = [object createdAt];
+        valueToCompare = [object name];
     }
     
     return valueToCompare;
@@ -247,6 +240,8 @@ static NSString *const kCategoryName = @"Trade";
     NSFetchRequest *fetchRequest = [super localDataFetchRequestWithEntityName:entityName
                                                                    fetchLimit:fetchLimit
                                                                    predicates:predicates];
+    
+    fetchRequest.fetchOffset = self.dataSource.count;
     
     return fetchRequest;
 }
@@ -262,21 +257,23 @@ static NSString *const kCategoryName = @"Trade";
         self.fetchQuery = nil;
     }
     
+    NSDictionary *dictionary = [Helper userLocation];
+    if (!dictionary) {
+        
+        return;
+    }
+    
     self.fetchQuery = [[PFQuery alloc] initWithClassName:className];
-    [self.fetchQuery orderByDescending:DDCreatedAtKey];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
+                                                               [dictionary[DDLongitudeKey] doubleValue]);
+    [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
+    [self.fetchQuery orderByAscending:DDNameKey];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedLifeStyleObjectIds]];
     
-    if (greaterValue) {
-        [self.fetchQuery whereKey:DDCreatedAtKey
-                      greaterThan:greaterValue];
-    }
+    // Make sure all the results are consecutive. greaterValue and lesserValue cannot be name and the results are ordered by name
     
-    if (lesserValue) {
-        [self.fetchQuery whereKey:DDCreatedAtKey
-                         lessThan:lesserValue];
-    }
-    
+    self.fetchQuery.skip = self.dataSource.count;
     self.fetchQuery.limit = fetchLimit;
 }
 
@@ -286,53 +283,61 @@ static NSString *const kCategoryName = @"Trade";
     [((LifestyleObject *)managedObject) populateFromParseObject:object];
 }
 
-#pragma mark - UITableView Delegate
+#pragma mark - Mapview Delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.dataSource.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    LifestyleObject *object = self.dataSource[indexPath.row];
-    
-    JobTradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kJobAndTradeCellReuseID forIndexPath:indexPath];
-    cell.delegate = self;
-    cell.contentTextView.text = nil;
-    cell.contentTextView.text = object.content;
-    cell.flagButton.enabled = !object.isBadContent.boolValue;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.dataSource[indexPath.row];
     
-    return [JobTradeTableViewCell heightForCellWithContentString:object.content
-                                                       cellWidth:CGRectGetWidth(tableView.frame)];
+    return [NameAddressTableViewCell heightForCellWithName:object.name
+                                                   address:object.address
+                                                 cellWidth:tableView.frame.size.width];
 }
 
-#pragma mark - JobTradeTableViewCellDelegate
-
-- (void)flagBadContentButtonTappedOnCell:(JobTradeTableViewCell *)cell{
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    __block LifestyleObject *lifeObject = self.dataSource[indexPath.row];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    [self showReportAlertWithBlock:^(BOOL yesButtonTapped) {
-        if (yesButtonTapped) {
-            [Helper createAuditWithObjectId:lifeObject.objectId category:lifeObject.category];
-            [Helper flagLifeStyleObject:lifeObject];
-            
-            lifeObject.isBadContentLocal = @YES;
-            [[SharedDataManager sharedInstance] saveContext];
-            
-            [self.dataSource removeObject:lifeObject];
-            [self.tableView reloadData];
-        }
-    }];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LifestyleObjectDetailTableVC *vc =[storyBoard instantiateViewControllerWithIdentifier:@"restaurantMarketDetailVC"];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[NameAddressTableViewCell class]]) {
+        vc.lifestyleObject = self.dataSource[indexPath.row];
+    } else {
+        vc.lifestyleObject = self.lifestyleToPass;
+    }
+    
+    [self.navigationController pushViewController:vc  animated:YES];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LifestyleObject *object = self.dataSource[indexPath.row];
+    
+    NameAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kNameAndAddressCellReuseID forIndexPath:indexPath];
+    cell.nameLabel.text = object.name;
+    cell.addressLabel.text = object.address;
+    cell.isVerified = NO;
+    cell.isAuthetic = NO;
+    
+    return cell;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return self.headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40.0f;
 }
 
 @end

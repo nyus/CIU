@@ -15,9 +15,11 @@
 #import "LifestyleCategory+Utilities.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "RestaurantVC.h"
-#import "SupermarketVC.h"
+#import "RestaurantTableVC.h"
+#import "SupermarketTableVC.h"
 #import "TradeVC.h"
 #import "JobVC.h"
+#import "SupermarketVC.h"
 
 static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
