@@ -100,6 +100,7 @@ static NSString *const kCategoryName = @"Trade";
     [self.tableView registerClass:[JobTradeTableViewCell class] forCellReuseIdentifier:kJobAndTradeCellReuseID];
     
     [self addInfiniteRefreshControl];
+    [self addPullDownRefreshControl];
     
     if (self.isInternetPresentOnLaunch) {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
@@ -205,6 +206,26 @@ static NSString *const kCategoryName = @"Trade";
 - (BOOL)orderLocalDataInAscending
 {
     return NO;
+}
+
+- (void)handlePullDownToRefresh
+{
+    if (!self.isInternetPresentOnLaunch) {
+        [self fetchLocalDataWithEntityName:self.localDataEntityName
+                                fetchLimit:self.localFetchCount
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self tradeCategoryTypePredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
+                                                                          lesserOrEqualTo:nil]]];
+    } else {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:self.greaterValue
+                                lesserOrEqualTo:nil];
+    }
 }
 
 - (void)handleInfiniteScroll
