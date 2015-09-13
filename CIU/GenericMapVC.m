@@ -392,8 +392,11 @@ static NSString *const kToObjectDetailVCSegueID = @"toObjectDetail";
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control{
     CustomMKPointAnnotation *annotation = (CustomMKPointAnnotation *)view.annotation;
-    self.lifestyleToPass = annotation.lifetstyleObject;
-    [self performSegueWithIdentifier:kToObjectDetailVCSegueID sender:self];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LifestyleObjectDetailTableVC *vc =[storyBoard instantiateViewControllerWithIdentifier:@"restaurantMarketDetailVC"];
+    vc.lifestyleObject = annotation.lifetstyleObject;
+    
+    [self.navigationController pushViewController:vc  animated:YES];
 }
 
 @end

@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) NSMutableArray *mapViewDataSource;
-@property (nonatomic, strong) LifestyleObject *lifestyleToPass;
 @property (nonatomic, strong) PFQuery *fetchQuery;
 @property (nonatomic, assign) BOOL isInternetPresentOnLaunch;
 

@@ -36,6 +36,7 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     [super viewDidLoad];
 
     self.tableView.tableFooterView = [[UIView alloc] init];
+    self.clearsSelectionOnViewWillAppear = YES;
     
     UIEdgeInsets inset = IS_4_INCH_SCREEN ?
     UIEdgeInsetsMake(20, 0, 0, 0) :
