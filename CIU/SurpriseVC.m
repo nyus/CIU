@@ -154,7 +154,7 @@ static NSString *const kEntityName = @"StatusObject";
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
-                               greaterOrEqualTo:nil
+                               greaterOrEqualTo:self.greaterValue
                                 lesserOrEqualTo:nil];
     }
 }

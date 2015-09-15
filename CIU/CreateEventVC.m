@@ -113,9 +113,9 @@ const float kOptionsTBViewHeight = 280.0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (tableView==self.optionsTBView) {
     
+    if (tableView==self.optionsTBView) {
+        
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         cell.translatesAutoresizingMaskIntoConstraints = NO;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -206,7 +206,7 @@ const float kOptionsTBViewHeight = 280.0;
                                            subtitle:nil
                                                type:TSMessageNotificationTypeError
                                  accessibilityLabel:kSpecifyEventNameAccessibilityLabel];
-
+        
         return;
     }
     
@@ -216,14 +216,14 @@ const float kOptionsTBViewHeight = 280.0;
                                            subtitle:nil
                                                type:TSMessageNotificationTypeError
                                  accessibilityLabel:kSpecifyEventDateAccessibilityLabel];
-
+        
         return;
     }
     
     BOOL isAdmin = [[PFUser currentUser][DDIsAdminKey] boolValue];
     
     if(!_eventContent || (!isAdmin && ([_eventContent containsURL] || [_eventName containsURL]))) {
-
+        
         if (!_eventContent) {
             [TSMessage showNotificationInViewController:self
                                                   title:NSLocalizedString(@"Please Describe The Event", nil)
@@ -255,49 +255,55 @@ const float kOptionsTBViewHeight = 280.0;
             //verify location
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder geocodeAddressString:_eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-                if (!error && placemarks.count>0) {
+                
+                if (error) {
+                    NSLog(@"geocoder failed to geocode address:%@", _eventLocation);
+                } else {
                     
-                    if (!self.optionsTBView) {
-                        [self createVerifyLocationTBView];
-                    }
-                    
-                    self.optionsTBViewDatasource = nil;
-                    self.placeMarksArray = placemarks;
-                    self.optionsTBViewDatasource = [NSMutableArray array];
-                    for (CLPlacemark *placeMark in placemarks) {
-                        NSDictionary *dict = placeMark.addressDictionary;
-                        NSMutableString *text = [[NSMutableString alloc] init];
-                        if (dict[@"Street"]) {
-                            [text appendFormat:@"%@, ",dict[@"Street"]];
-                        }
-                        if(dict[@"City"]){
-                            [text appendFormat:@"%@, ",dict[@"City"]];
-                        }
-                        if (dict[@"State"]) {
-                            [text appendFormat:@"%@",dict[@"State"]];
+                    if (placemarks.count == 0) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [TSMessage showNotificationInViewController:self
+                                                                  title:NSLocalizedString(@"Looks like the event location is invalid. Please check again.", nil)
+                                                               subtitle:nil
+                                                                   type:TSMessageNotificationTypeWarning
+                                                     accessibilityLabel:kSpecifyEventLocationAccessibilityLabel];
+                        });
+                    } else {
+                        
+                        if (!self.optionsTBView) {
+                            [self createVerifyLocationTBView];
                         }
                         
-                        [self.optionsTBViewDatasource addObject:text];
+                        self.optionsTBViewDatasource = nil;
+                        self.placeMarksArray = placemarks;
+                        self.optionsTBViewDatasource = [NSMutableArray array];
+                        for (CLPlacemark *placeMark in placemarks) {
+                            NSDictionary *dict = placeMark.addressDictionary;
+                            NSMutableString *text = [[NSMutableString alloc] init];
+                            if (dict[@"Street"]) {
+                                [text appendFormat:@"%@, ",dict[@"Street"]];
+                            }
+                            if(dict[@"City"]){
+                                [text appendFormat:@"%@, ",dict[@"City"]];
+                            }
+                            if (dict[@"State"]) {
+                                [text appendFormat:@"%@",dict[@"State"]];
+                            }
+                            
+                            [self.optionsTBViewDatasource addObject:text];
+                            
+                            self.adminEventLocation = placeMark.location;
+                        }
+                        [self.optionsTBView reloadData];
                         
-                        self.adminEventLocation = placeMark.location;
+                        //dismiss keyboard
+                        [self.view endEditing:YES];
+                        //bring up table view
+                        [UIView animateWithDuration:.3 animations:^{
+                            self.optionsTBViewShadow.alpha = 1.0f;
+                        }];
+                        
                     }
-                    [self.optionsTBView reloadData];
-                    
-                    //dismiss keyboard
-                    [self.view endEditing:YES];
-                    //bring up table view
-                    [UIView animateWithDuration:.3 animations:^{
-                        self.optionsTBViewShadow.alpha = 1.0f;
-                    }];
-                    
-                }else{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [TSMessage showNotificationInViewController:self
-                                                              title:NSLocalizedString(@"Looks like the event location is invalid. Please check again.", nil)
-                                                           subtitle:nil
-                                                               type:TSMessageNotificationTypeError
-                                                 accessibilityLabel:kInvalidEventLocationAccessibilityLabel];
-                    });
                 }
             }];
         } else {

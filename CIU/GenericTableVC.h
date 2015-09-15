@@ -24,11 +24,11 @@
 @property (nonatomic) Reachability *wifiReachability;
 @property (nonatomic, strong) id greaterValue;
 @property (nonatomic, strong) id lesserValue;
-@property (nonatomic, copy) NSString *localDataEntityName;
-@property (nonatomic, copy) NSString *serverDataParseClassName;
-@property (nonatomic, assign) float dataFetchRadius;
-@property (nonatomic, assign) float serverFetchCount;
-@property (nonatomic, assign) float localFetchCount;
+//@property (nonatomic, copy) NSString *localDataEntityName;
+//@property (nonatomic, copy) NSString *serverDataParseClassName;
+//@property (nonatomic, assign) float dataFetchRadius;
+//@property (nonatomic, assign) float serverFetchCount;
+//@property (nonatomic, assign) float localFetchCount;
 
 -(void)loadRemoteDataForVisibleCells;
 

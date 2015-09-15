@@ -77,6 +77,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
+    
     if (self.isInternetPresentOnLaunch) {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -177,7 +178,12 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 - (BOOL)orderLocalDataInAscending
 {
-    return NO;
+    return YES;
+}
+
+- (NSSortDescriptor *)sortedDescriptorForServerData
+{
+    return [[NSSortDescriptor alloc] initWithKey:DDEventDateKey ascending:YES];
 }
 
 - (id)valueToCompareAgainst:(id)object
@@ -215,6 +221,10 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 
 - (void)handlePullDownToRefresh
 {
+    // Becuase events are sorted by event date but not created date. Say currently there are two events in the tb view, one happens on 9.30 one on 9.20. Now create a new event on 9.25. Then 9.25 event should be listed in between 930 and 920. To make this order to happen easier, simply fetch all;
+    
+//    还是应该按照createdAt来fetch，然后sort data by eventDate
+    
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
@@ -223,7 +233,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                              [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]]];
+                                                                          lesserOrEqualTo:nil]
+                                             ]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -254,7 +265,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
                                                                [dictionary[DDLongitudeKey] doubleValue]);
     [self.fetchQuery addBoundingCoordinatesToCenter:center radius:@(fetchRadius)];
-    [self.fetchQuery orderByDescending:DDEventDateKey];
+    [self.fetchQuery orderByDescending:DDCreatedAtKey];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedEventObjectIds]];
     

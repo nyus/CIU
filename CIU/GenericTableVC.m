@@ -188,6 +188,18 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                                  userInfo:nil];
 }
 
+- (NSArray *)objectIdsToExclude
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"Need to override -objectIdsToExclude"
+                                 userInfo:nil];
+}
+
+- (NSSortDescriptor *)sortedDescriptorForServerData
+{
+    return nil;
+}
+
 - (void)addMenuButton{
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"3menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
     menuButton.accessibilityLabel = kMenuButtonAccessibilityLabel;
@@ -213,13 +225,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 
 -(void)cancelRequestsForIndexpath:(NSIndexPath *)indexPath{
     //override by subclass
-}
-
-- (NSArray *)objectIdsToExclude
-{
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   reason:@"Need to override -objectIdsToExclude"
-                                 userInfo:nil];
 }
 
 #pragma mark - Data
@@ -419,6 +424,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                 
                 // numOfGoodObjects keeps track of number of objects that doesn't have bad content
                 int numOfGoodObjects = 0;
+                
                 for (int i = 0; i < objects.count; i++) {
                     
                     PFObject *pfObject = objects[i];
@@ -478,11 +484,21 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                     numOfGoodObjects++;
                 }
                 
+                NSSortDescriptor *sortDescriptor = [self sortedDescriptorForServerData];
+                
+                if (sortDescriptor) {
+                    NSArray *sortedDataSource = [self.dataSource sortedArrayUsingDescriptors:@[sortDescriptor]];
+                    self.dataSource = [sortedDataSource mutableCopy];
+                }
+                
                 [[SharedDataManager sharedInstance] saveContext];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                });
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView.infiniteScrollingView stopAnimating];
                 [self.refreshControl endRefreshing];
             });
