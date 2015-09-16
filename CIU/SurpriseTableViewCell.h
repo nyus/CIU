@@ -57,5 +57,6 @@
 - (void)cancelDownloadImages;
 - (void)setDataSourceWithFiles:(NSArray *)filesArray;
 - (void)setDataSourceWithImages:(NSArray *)imagesArray;
+- (void)clearDataSource;
 
 @end

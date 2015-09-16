@@ -117,6 +117,11 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
     return nil;
 }
 
+- (void)clearDataSource
+{
+    self.dataSource = nil;
+    [self.collectionView reloadData];
+}
 
 #pragma mark - uicollectionview delegate
 
@@ -137,6 +142,8 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
     
     if (self.dataSource && self.dataSource.count > 0) {
         collectionViewCell.imageView.image = [self imageForCellAtIndexPath:indexPath];
+    } else {
+        collectionViewCell.imageView.image = nil;
     }
     
     return collectionViewCell;

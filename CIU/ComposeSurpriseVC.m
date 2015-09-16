@@ -19,13 +19,14 @@
 #import "NSString+Utilities.h"
 #import "SurpriseTableViewCell.h"
 #import "NSString+Utilities.h"
+#import "UIImage+Utilities.h"
 
 static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 @interface ComposeSurpriseVC ()<UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,ELCImagePickerControllerDelegate>{
     UIImagePickerController *imagePicker;
     UILabel *placeHolderLabel;
-    NSMutableArray *collectionViewDataSource;
+    NSMutableArray *_collectionViewDataSource;
     NSArray *pickerDataSource;
 }
 
@@ -196,7 +197,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
             newStatus[DDPosterFirstNameKey] = [[PFUser currentUser] objectForKey:DDFirstNameKey];
             newStatus[DDPosterLastNameKey] = [[PFUser currentUser] objectForKey:DDLastNameKey];
             newStatus[DDCommentCountKey] = @0;
-            newStatus[DDPhotoCountKey] = [NSNumber numberWithInt:(int)collectionViewDataSource.count];
+            newStatus[DDPhotoCountKey] = [NSNumber numberWithInt:(int)_collectionViewDataSource.count];
             newStatus[DDAnonymousKey] = [NSNumber numberWithBool:self.anonymousSwitch.on];
             newStatus[DDIsBadContentKey] = @NO;
             if ([[PFUser currentUser] objectForKey:DDIsAdminKey]) {
@@ -219,7 +220,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
             }
             
             NSString *photoID;
-            if (collectionViewDataSource.count!=0) {
+            if (_collectionViewDataSource.count!=0) {
                 photoID =[NSString generateUniqueId];
                 newStatus[DDPhotoIdKey] = photoID;
             }
@@ -228,7 +229,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
                 if (succeeded) {
                     
                     //picture
-                    for(UIImage *image in collectionViewDataSource){
+                    for(UIImage *image in _collectionViewDataSource){
                         
                         UIImage *scaled = [Helper scaleImage:image
                                                   downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
@@ -274,12 +275,12 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     if(buttonIndex == 0){
         [Helper launchCameraInController:self];
     }else if(buttonIndex == 1){
-
-        ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] init];
-        elcPicker.maximumImagesCount = 4;
-        elcPicker.imagePickerDelegate = self;
-
-        [self presentViewController:elcPicker animated:YES completion:nil];
+        [Helper launchPhotoLibraryInController:self];
+//        ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] init];
+//        elcPicker.maximumImagesCount = 4;
+//        elcPicker.imagePickerDelegate = self;
+//
+//        [self presentViewController:elcPicker animated:YES completion:nil];
     }else{
         [self.textView becomeFirstResponder];
     }
@@ -309,7 +310,7 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *image = [[info objectForKey:UIImagePickerControllerEditedImage] correctToPortraitOrientation];
     
     if (!image) {
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[info objectForKey:UIImagePickerControllerReferenceURL] absoluteString]]];
@@ -343,12 +344,13 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 - (void)displayAndStorePickedImages:(NSArray *)images
 {
-    if(!collectionViewDataSource){
-        collectionViewDataSource = [NSMutableArray array];
+    if(!_collectionViewDataSource){
+        _collectionViewDataSource = [NSMutableArray array];
     }
+    
     for (UIImage *image in images) {
         UIImage *scaledImage = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
-        [collectionViewDataSource addObject:scaledImage];
+        [_collectionViewDataSource addObject:scaledImage];
     }
     [self.collectionView reloadData];
 }
@@ -356,12 +358,12 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 #pragma mark - UICollectionViewDelegate
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return collectionViewDataSource.count;
+    return _collectionViewDataSource.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ComposeSurprisePhotoCollectionViewCell *cell = (ComposeSurprisePhotoCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.imageView.image = [collectionViewDataSource objectAtIndex:indexPath.row];
+    cell.imageView.image = [_collectionViewDataSource objectAtIndex:indexPath.row];
     return cell;
 }
 @end

@@ -79,6 +79,7 @@
 		50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C2FBE519A92701009395A0 /* NSPredicate+Utilities.m */; };
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
+		50D69F371BA8FB5200E3AC49 /* UIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D69F361BA8FB5200E3AC49 /* UIImage+Utilities.m */; };
 		50E8DAD01BA465A50065E543 /* SupermarketTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */; };
 		50E8DAD31BA465B50065E543 /* JobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD21BA465B50065E543 /* JobVC.m */; };
 		50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD51BA465C20065E543 /* TradeVC.m */; };
@@ -254,6 +255,8 @@
 		50C44A2219C28EAC00DF50D8 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
 		50CFC9741AFE261A005EBAE4 /* StarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarRatingView.h; sourceTree = "<group>"; };
 		50CFC9751AFE261A005EBAE4 /* StarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarRatingView.m; sourceTree = "<group>"; };
+		50D69F351BA8FB5200E3AC49 /* UIImage+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utilities.h"; sourceTree = "<group>"; };
+		50D69F361BA8FB5200E3AC49 /* UIImage+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utilities.m"; sourceTree = "<group>"; };
 		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50E8DACE1BA465A50065E543 /* SupermarketTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketTableVC.h; sourceTree = "<group>"; };
@@ -588,6 +591,8 @@
 				5091FAF11B10C74E00523183 /* UIFont+Utilities.m */,
 				503F627D1B8783C8008EC323 /* PFFile+Utilities.h */,
 				503F627E1B8783C8008EC323 /* PFFile+Utilities.m */,
+				50D69F351BA8FB5200E3AC49 /* UIImage+Utilities.h */,
+				50D69F361BA8FB5200E3AC49 /* UIImage+Utilities.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -993,6 +998,7 @@
 				50B28C5319A8FA3000398BA4 /* NSString+Map.m in Sources */,
 				B219F3431A1A5BB80078164F /* LifestyleTableViewCell.m in Sources */,
 				65D93E5A19C358DE0044A48A /* NSString+Utilities.m in Sources */,
+				50D69F371BA8FB5200E3AC49 /* UIImage+Utilities.m in Sources */,
 				0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */,
 				50E8DAE01BA4F8E00065E543 /* RestaurantMapVC.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,

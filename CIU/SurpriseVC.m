@@ -294,6 +294,8 @@ static NSString *const kEntityName = @"StatusObject";
 {
     cell.collectionView.hidden = status.photoCount.intValue == 0;
     cell.dummyDataCount = status.photoCount.integerValue;
+//    [cell clearDataSource];
+    
     if (status.photoCount.intValue > 0) {
         
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID

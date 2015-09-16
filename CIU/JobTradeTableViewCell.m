@@ -15,8 +15,8 @@ static CGFloat const kContentTextViewTrailingSpace = 15.0;
 
 static CGFloat const kContentTextViewFlagButtonInterSpace = 10.0;
 
-static CGFloat const kFlagButtonHeight = 37.0;//22.0;
-static CGFloat const kFlagButtonWidth = 44.0;//26.0;
+static CGFloat const kFlagButtonHeight = 37.0;
+static CGFloat const kFlagButtonWidth = 44.0;
 static CGFloat const kFlagButtonTrailingSpace = 5.0;
 static CGFloat const kFlagButtonBottomSpace = 0.0;
 
