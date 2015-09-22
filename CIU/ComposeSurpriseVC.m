@@ -37,12 +37,25 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 @implementation ComposeSurpriseVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithCoder:aDecoder];
+    
     if (self) {
-        // Custom initialization
+        _collectionViewDataSource = [NSMutableArray array];
     }
+    
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        _collectionViewDataSource = [NSMutableArray array];
+    }
+    
     return self;
 }
 
@@ -344,14 +357,17 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
 
 - (void)displayAndStorePickedImages:(NSArray *)images
 {
-    if(!_collectionViewDataSource){
-        _collectionViewDataSource = [NSMutableArray array];
+    if (images.count == 0) {
+        return;
     }
     
-    for (UIImage *image in images) {
-        UIImage *scaledImage = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
-        [_collectionViewDataSource addObject:scaledImage];
-    }
+    // Since there is only one photo
+    [_collectionViewDataSource removeLastObject];
+    
+    UIImage *image = (UIImage *)images.lastObject;
+    UIImage *scaledImage = [Helper scaleImage:image downToSize:CGSizeMake([SurpriseTableViewCell imageViewWidth], [SurpriseTableViewCell imageViewHeight])];
+    [_collectionViewDataSource addObject:scaledImage];
+    
     [self.collectionView reloadData];
 }
 
