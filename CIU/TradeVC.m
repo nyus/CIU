@@ -93,7 +93,7 @@ static NSString *const kCategoryName = @"Trade";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Jobs";
+    self.title = @"Trade & Sell";
     self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
     self.navigationItem.rightBarButtonItem = rightItem;

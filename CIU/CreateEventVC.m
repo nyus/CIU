@@ -138,7 +138,7 @@ const float kOptionsTBViewHeight = 280.0;
             cell.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         }else{
             
-            cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-15552000];//0];
             cell.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:15552000];//half a year from now
         }
         

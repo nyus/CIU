@@ -294,7 +294,6 @@ static NSString *const kEntityName = @"StatusObject";
 {
     cell.collectionView.hidden = status.photoCount.intValue == 0;
     cell.dummyDataCount = status.photoCount.integerValue;
-//    [cell clearDataSource];
     
     if (status.photoCount.intValue > 0) {
         
@@ -382,6 +381,10 @@ static NSString *const kEntityName = @"StatusObject";
     
     // Avatar
     [self setAvatarOnCell:cell atIndexPath:indexPath withStatus:status];
+    
+    //Post image
+    
+    [self setPostImagesOnCell:(SurpriseTableViewCell *)cell atIndexPath:indexPath withStatus:status];
     
     return cell;
 }

@@ -62,12 +62,12 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                                                    maximunValue:@50
                                                                     contentMode:ContentModeCenter
                                                                     actionBlock:^(double newValue) {
-            
-            [[GAnalyticsManager shareManager] trackUIAction:@"event - change display radius" label:@"event" value:@(newValue)];
-            [Flurry logEvent:@"event - change display radius" withParameters:@{@"radius":@(newValue)}];
-            [self setEventRadius:@(newValue)];
-            [self handleDataDisplayPeripheral];
-        }];
+                                                                        
+                                                                        [[GAnalyticsManager shareManager] trackUIAction:@"event - change display radius" label:@"event" value:@(newValue)];
+                                                                        [Flurry logEvent:@"event - change display radius" withParameters:@{@"radius":@(newValue)}];
+                                                                        [self setEventRadius:@(newValue)];
+                                                                        [self handleDataDisplayPeripheral];
+                                                                    }];
     }
     
     return _headerView;
@@ -88,9 +88,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
-                                            [self badLocalContentPredicate],
+                                             [self badLocalContentPredicate],
                                              [self stickyPostPredicate],
-                                            [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
 
@@ -120,7 +120,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self stickyPostPredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
+                                                                          lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -204,18 +206,18 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     if (!self.isInternetPresentOnLaunch) {
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
-                            predicates:@[[self badContentPredicate],
-                                         [self badLocalContentPredicate],
-                                         [self stickyPostPredicate],
-                                         [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                         [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                      lesserOrEqualTo:self.lesserValue]]];
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self stickyPostPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
+                                                                          lesserOrEqualTo:self.lesserValue]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
-                                         fetchLimit:self.serverFetchCount
-                                        fetchRadius:self.dataFetchRadius
-                                   greaterOrEqualTo:nil
-                                    lesserOrEqualTo:self.lesserValue];
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:self.lesserValue];
     }
 }
 
@@ -223,18 +225,18 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
 {
     // Becuase events are sorted by event date but not created date. Say currently there are two events in the tb view, one happens on 9.30 one on 9.20. Now create a new event on 9.25. Then 9.25 event should be listed in between 930 and 920. To make this order to happen easier, simply fetch all;
     
-//    还是应该按照createdAt来fetch，然后sort data by eventDate
+    //    还是应该按照createdAt来fetch，然后sort data by eventDate
     
     if (!self.isInternetPresentOnLaunch) {
+        NSDate *greaterDate = [self.greaterValue compare:[NSDate date]] == NSOrderedDescending ? self.greaterValue : [NSDate date];
         [self fetchLocalDataWithEntityName:self.localDataEntityName
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]
-                                             ]];
+                                             [self dateRnagePredicateWithgreaterOrEqualTo:greaterDate
+                                                                          lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -268,6 +270,8 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     [self.fetchQuery orderByDescending:DDCreatedAtKey];
     [self.fetchQuery whereKey:DDObjectIdKey
                notContainedIn:[Helper flaggedEventObjectIds]];
+    [self.fetchQuery whereKey:DDEventDateKey
+         greaterThanOrEqualTo:[NSDate date]];
     
     if (greaterValue) {
         [self.fetchQuery whereKey:DDCreatedAtKey
@@ -347,7 +351,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         return event.cellHeight.floatValue;
         
     }else{
-
+        
         CGSize size = CGSizeMake([EventTableViewCell eventLablesWidth], MAXFLOAT);
         CGRect nameRect = [event.eventName boundingRectWithSize:size
                                                         options:NSStringDrawingUsesLineFragmentOrigin
@@ -371,7 +375,7 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
         [[SharedDataManager sharedInstance] saveContext];
         return event.cellHeight.floatValue;
     }
-
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

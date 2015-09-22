@@ -494,7 +494,16 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                 [[SharedDataManager sharedInstance] saveContext];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    if (sortDescriptor) {
+                        
+                        // With sortDescriptor, order or data is changed significantly and cannot be reflected by just updating indexpaths in indexpathArray
+                        // Reload data with animation
+                        
+                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                    } else {
+                        [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                    }
                 });
             }
             

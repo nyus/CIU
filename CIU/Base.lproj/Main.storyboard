@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -134,7 +133,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="找房子, 买车子, 吃中餐? 还是交朋友，拼车郊游，参加派对? 陪你从吃喝玩乐到谈论人森理想 好男人就是我!我就是Dada哒哒!" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0j-65-YEm">
-                                                <rect key="frame" x="30" y="125" width="187" height="57.5"/>
+                                                <rect key="frame" x="30" y="125" width="187" height="58"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -147,13 +146,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DaDa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uga-CB-7lM">
-                                                <rect key="frame" x="30" y="8" width="105.5" height="48"/>
+                                                <rect key="frame" x="30" y="8" width="106" height="48"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哒哒" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quk-Jw-1rF">
-                                                <rect key="frame" x="30" y="51" width="110" height="64.5"/>
+                                                <rect key="frame" x="30" y="51" width="110" height="65"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="55"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -520,7 +519,7 @@ Cg
                                                 <rect key="frame" x="0.0" y="603" width="320" height="232"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-mw-yQY">
-                                                        <rect key="frame" x="33" y="15" width="180.5" height="60"/>
+                                                        <rect key="frame" x="33" y="15" width="181" height="60"/>
                                                         <string key="text">Part-time iOS Developer
 Regional Business Development
 College Ambassadors
@@ -531,7 +530,7 @@ Job Application: Jobs@8MileTech.com</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqn-pW-N1E">
-                                                        <rect key="frame" x="30" y="91" width="121" height="111.5"/>
+                                                        <rect key="frame" x="30" y="91" width="121" height="112"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <string key="text">General Contact:
 Info@8MileTech.com
@@ -921,11 +920,30 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                     </navigationItem>
                     <connections>
                         <outlet property="textView" destination="9xa-4e-mne" id="lx3-eE-eqD"/>
+                        <segue destination="Aij-K5-Fbq" kind="modal" id="DSd-AB-TzU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pae-Pz-vT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1859" y="-1605"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ijp-tg-j3i">
+            <objects>
+                <viewController id="Aij-K5-Fbq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J74-8G-Mu9"/>
+                        <viewControllerLayoutGuide type="bottom" id="X7V-1p-6Iq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qxO-4o-A3x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G0Y-OD-4ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2332" y="-1615"/>
         </scene>
         <!--Lifestyle DetailVC-->
         <scene sceneID="0z8-OV-xjN">

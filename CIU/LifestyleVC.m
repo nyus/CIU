@@ -207,6 +207,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     UIViewController *vc;
     if (indexPath.row == 0) {
         vc = [[RestaurantVC alloc] init];
