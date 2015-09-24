@@ -382,4 +382,5 @@ static CGFloat kOptionsViewOriginalBottomSpace = 0.0;
     cell.imageView.image = [_collectionViewDataSource objectAtIndex:indexPath.row];
     return cell;
 }
+
 @end
