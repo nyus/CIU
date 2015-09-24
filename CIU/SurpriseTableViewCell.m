@@ -49,6 +49,7 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
 {
     self.collectionView.dataSource  = self;
     self.collectionView.delegate = self;
+    self.collectionView.scrollsToTop = NO;
     self.statusCellAvatarImageView.layer.masksToBounds = YES;
     self.statusCellAvatarImageView.layer.cornerRadius = 30;
     

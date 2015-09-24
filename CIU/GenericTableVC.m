@@ -61,6 +61,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     self.clearsSelectionOnViewWillAppear = YES;
     self.tableView.scrollsToTop = YES;
     [self addInternetObserver];
+    [self addTapToScrollUpGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,8 +96,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     if (!self.isInternetPresentOnLaunch &&
         (reachability == self.internetReachability ||
          reachability == self.wifiReachability)) {
-        self.isInternetPresentOnLaunch = YES;
-    }
+            self.isInternetPresentOnLaunch = YES;
+        }
 }
 
 #pragma mark - Setup
@@ -114,7 +115,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     [refreshControl addTarget:self action:@selector(handlePullDownToRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
-
+    
 }
 
 - (void)addInfiniteRefreshControl
@@ -216,7 +217,11 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 }
 
 -(void)navBarTapped:(id)sender{
-    [self.tableView scrollsToTop];
+    NSInteger rowCount = [self.tableView numberOfRowsInSection:0];
+    
+    if (rowCount > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 -(void)loadRemoteDataForVisibleCells{
@@ -243,7 +248,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 {
     NSDictionary *dictionary = [Helper userLocation];
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake([dictionary[DDLatitudeKey] doubleValue],
-                                                              [dictionary[DDLongitudeKey] doubleValue]);
+                                                               [dictionary[DDLongitudeKey] doubleValue]);
     MKCoordinateRegion region = [Helper fetchDataRegionWithCenter:center
                                                            radius:@(fetchRadius)];
     return [NSPredicate boudingCoordinatesPredicateForRegion:region];
@@ -274,7 +279,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     } else if (greaterValue && lesserValue) {
         datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterValue, lesserValue];
     }
-
+    
     return datePredicate;
 }
 
@@ -448,7 +453,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                         managedObject = fetchedObjects[0];
                     } else {
                         managedObject = [NSEntityDescription insertNewObjectForEntityForName:self.localDataEntityName
-                                                               inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
+                                                                      inManagedObjectContext:[SharedDataManager sharedInstance].managedObjectContext];
                     }
                     
                     [self populateManagedObject:managedObject fromParseObject:pfObject];
@@ -563,7 +568,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     //the most recent location update is at the end of the array.
     CLLocation *location = (CLLocation *)[locations lastObject];
-
+    
     //-didUpdateLocations gets called very frequently. dont fetch server until there is significant location update
     if (self.previousLocation) {
         CLLocationDistance distance = [location distanceFromLocation:self.previousLocation];
