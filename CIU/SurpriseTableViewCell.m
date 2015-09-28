@@ -92,11 +92,19 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
         PFFile *file = _dataSource[indexPath.row];
         
         if (file.isDataAvailable) {
-            NSData *data = file.getData;
-            [Helper saveImageToLocal:data
-                        forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
-                           isHighRes:NO];
-            return [UIImage imageWithData:file.getData];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                //Background Thread
+                NSData *data = file.getData;
+                [Helper saveImageToLocal:data
+                            forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
+                               isHighRes:NO];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                });
+            });
+            
+            return nil;
         } else {
             
             [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
@@ -156,17 +164,17 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.dataSource || self.dataSource.count == 0) {
-        
+//    if (!self.dataSource || self.dataSource.count == 0) {
+    
         return CGSizeMake([ImageCollectionViewCell imageViewWidth], [ImageCollectionViewCell imageViewHeight]);
-    }
-    
-    UIImage *image = [self imageForCellAtIndexPath:indexPath];
-    CGFloat width = image.size.width < image.size.height ?
-    [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width :
-    [ImageCollectionViewCell imageViewWidth];
-    
-    return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
+//    }
+//    
+//    UIImage *image = [self imageForCellAtIndexPath:indexPath];
+//    CGFloat width = image.size.width < image.size.height ?
+//    [ImageCollectionViewCell imageViewHeight] / image.size.height * image.size.width :
+//    [ImageCollectionViewCell imageViewWidth];
+//    
+//    return CGSizeMake(width, [ImageCollectionViewCell imageViewHeight]);
 }
 
 @end
