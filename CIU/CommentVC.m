@@ -144,7 +144,7 @@ static UIImage *defaultAvatar;
                 
                 [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (error) {
-                        NSLog(@"Failed to send push notification with error:%@", error)
+                        NSLog(@"Failed to send push notification with error:%@", error);
                     }
                 }];
                 
