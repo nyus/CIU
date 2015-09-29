@@ -63,11 +63,13 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
         }
     }];
     
-    [self pullDataFromLocal];
-    
     if ([Reachability canReachInternet]) {
         [self pullDataFromServer];
+    } else {
+        
     }
+    
+    [self pullDataFromLocal];
 }
 
 -(void)showLoginViewController{
@@ -221,10 +223,10 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     }
     
     vc.hidesBottomBarWhenPushed = YES;
-    vc.edgesForExtendedLayout = UIRectEdgeNone;
-    vc.extendedLayoutIncludesOpaqueBars = NO;
-    vc.automaticallyAdjustsScrollViewInsets = NO;
-    
+//    vc.edgesForExtendedLayout = UIRectEdgeNone;
+//    vc.extendedLayoutIncludesOpaqueBars = NO;
+//    vc.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.leftBarButtonItem = nil;
     [self.navigationController pushViewController:vc
                                          animated:YES];
 }

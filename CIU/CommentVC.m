@@ -56,6 +56,14 @@ static UIImage *defaultAvatar;
     [super viewDidLoad];
     [[GAnalyticsManager shareManager] trackScreen:@"Comment Surprise View"];
     isLoading = YES;
+    self.title = @"Comment";
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(handleBackButton:)];
+    self.navigationItem.leftBarButtonItem = back;
+}
+
+- (void)handleBackButton:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

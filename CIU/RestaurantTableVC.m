@@ -44,7 +44,7 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
     if (self) {
         // So that there is navigation back button
         
-        self.navigationItem.leftBarButtonItem = nil;
+//        self.navigationItem.leftBarButtonItem = nil;
     }
     
     return self;

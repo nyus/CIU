@@ -51,6 +51,15 @@
     _restaurantMapVC = [[RestaurantMapVC alloc] init];
     _restaurantMapVC.view.backgroundColor = [UIColor redColor];
     [self addChildViewController:_restaurantMapVC];
+    
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(handleBackButton:)];
+    self.navigationItem.leftBarButtonItem = back;
+}
+
+- (void)handleBackButton:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)addRestaurantListVCViewAndSetUpConstraints

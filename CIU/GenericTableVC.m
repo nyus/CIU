@@ -34,7 +34,7 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         self.wifiReachability = [Reachability reachabilityForLocalWiFi];
         self.locationManager = [Helper initLocationManagerWithDelegate:self];
         self.dataSource = [NSMutableArray array];
-        [self addMenuButton];
+//        [self addMenuButton];
     }
     
     return self;

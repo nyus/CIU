@@ -870,9 +870,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                             <outlet property="delegate" destination="w3S-5W-69p" id="mGK-fd-EX7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lifestyle" id="rTy-Lu-AA9">
-                        <barButtonItem key="backBarButtonItem" title=" " id="55J-3p-31K"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Lifestyle" id="rTy-Lu-AA9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUL-ey-0Tw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -945,87 +943,6 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0Y-OD-4ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2332" y="-1615"/>
-        </scene>
-        <!--Lifestyle DetailVC-->
-        <scene sceneID="0z8-OV-xjN">
-            <objects>
-                <viewController id="eIB-DE-riQ" customClass="LifestyleDetailVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zpI-qw-K9r"/>
-                        <viewControllerLayoutGuide type="bottom" id="exl-Rq-jlm"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Lhj-gC-mWs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dyu-G3-vyr">
-                                <rect key="frame" x="0.0" y="-24" width="320" height="592"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Map"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="eIB-DE-riQ" id="I6R-LP-DnC"/>
-                                </connections>
-                            </mapView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8ZR-dD-Gu2">
-                                <rect key="frame" x="0.0" y="21" width="320" height="547"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="Vj1-mI-WtE" customClass="LoadingTableViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vj1-mI-WtE" id="cuR-vC-lov">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXX-r1-01L">
-                                                    <rect key="frame" x="112" y="6" width="96" height="30"/>
-                                                    <state key="normal" title="Browse More">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="browseMoreButtonTapped:" destination="Vj1-mI-WtE" eventType="touchUpInside" id="iUz-Rk-h13"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="browseMoreButton" destination="gXX-r1-01L" id="Gvb-g5-cKa"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Table View"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="eIB-DE-riQ" id="Fax-zT-7fY"/>
-                                    <outlet property="delegate" destination="eIB-DE-riQ" id="cyX-i0-jH2"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="8ZR-dD-Gu2" secondAttribute="trailing" id="4wZ-u1-gmV"/>
-                            <constraint firstItem="exl-Rq-jlm" firstAttribute="top" secondItem="Dyu-G3-vyr" secondAttribute="bottom" id="Ddd-LT-6Er"/>
-                            <constraint firstItem="8ZR-dD-Gu2" firstAttribute="top" secondItem="zpI-qw-K9r" secondAttribute="bottom" constant="1" id="IAK-ID-MYh"/>
-                            <constraint firstItem="8ZR-dD-Gu2" firstAttribute="leading" secondItem="Lhj-gC-mWs" secondAttribute="leading" id="P3a-CB-59c"/>
-                            <constraint firstItem="exl-Rq-jlm" firstAttribute="top" secondItem="8ZR-dD-Gu2" secondAttribute="bottom" id="XfS-Xe-rDd"/>
-                            <constraint firstItem="Dyu-G3-vyr" firstAttribute="leading" secondItem="Lhj-gC-mWs" secondAttribute="leading" id="cYp-Fu-BEF"/>
-                            <constraint firstAttribute="trailing" secondItem="Dyu-G3-vyr" secondAttribute="trailing" id="ibw-0L-C7s"/>
-                            <constraint firstItem="Dyu-G3-vyr" firstAttribute="top" secondItem="zpI-qw-K9r" secondAttribute="bottom" constant="-44" id="zbN-zl-CBy"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="FVe-rv-FSj"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="mapView" destination="Dyu-G3-vyr" id="apP-kC-kbB"/>
-                        <outlet property="tableView" destination="8ZR-dD-Gu2" id="PEb-6B-YeN"/>
-                        <segue destination="am1-I8-ohK" kind="push" identifier="toObjectDetail" id="U2u-m7-vss"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jca-Tg-eSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2256" y="-937"/>
         </scene>
         <!--Lifestyle Object Detail TableVC-->
         <scene sceneID="LHt-Op-Nxw">
@@ -3626,6 +3543,7 @@ You acknowledge that this EULA is between you and 8Mile Tech LLC. only, not with
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Terms &amp; Privacy" id="rF4-RC-ZAH">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Fvg-HU-DpW"/>
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="IXm-3s-J0l">
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="G9E-H2-4M2" id="ThB-9C-BQc"/>

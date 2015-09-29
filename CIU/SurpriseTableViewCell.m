@@ -92,9 +92,11 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
         PFFile *file = _dataSource[indexPath.row];
         
         if (file.isDataAvailable) {
+
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
                 //Background Thread
                 NSData *data = file.getData;
+                NSLog(@"save 1");
                 [Helper saveImageToLocal:data
                             forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
                                isHighRes:NO];
@@ -109,6 +111,7 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
             
             [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
                 if (completed) {
+                    NSLog(@"save 2");
                     [Helper saveImageToLocal:data
                                 forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
                                    isHighRes:NO];
