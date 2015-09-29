@@ -144,7 +144,8 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 
 +(void)saveAvatar:(NSData *)data
           forUser:(NSString *)username 
-        isHighRes:(BOOL)isHighRes{
+        isHighRes:(BOOL)isHighRes completion:(void (^)(BOOL, NSError *))completion
+{
     
     [Helper saveAvatarToLocal:data
                       forUser:username
@@ -158,6 +159,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         if (error && error.code != 101) {
+            completion (YES, error);
             NSLog(@"Failed to get avatar with error: %@", error);
         } else {
             
@@ -174,6 +176,9 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
                 if (succeeded) {
                     object[DDImageKey] = file;
                     [object saveEventually];
+                    completion (YES, nil);
+                } else {
+                    completion (YES, error);
                 }
             }];
         }
@@ -376,8 +381,9 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
     UIImage *scaled = [Helper scaleImage:photo downToSize:imageView.frame.size];
     NSData *lowResData = UIImagePNGRepresentation(scaled);
     //save to both local and server
-    [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES];
-    [Helper saveAvatar:lowResData forUser:[PFUser currentUser].username isHighRes:NO];
+    [Helper saveAvatar:highResData forUser:[PFUser currentUser].username isHighRes:YES completion:^(BOOL completed, NSError *error) {
+        [Helper saveAvatar:lowResData forUser:[PFUser currentUser].username isHighRes:NO completion:nil];
+    }];
     
     imageView.image = scaled;
     

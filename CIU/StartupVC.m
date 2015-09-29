@@ -284,13 +284,18 @@ static CGFloat leadingSpace;
     }
     //log out
     else {
-        [PFUser logOut];
-        UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
-        [self presentViewController:vc animated:YES completion:^{
-            [self animateSideBarWhenMenuTapped];
+        [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Log out with error: %@", error);
+            } else {
+                UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                [self presentViewController:vc animated:YES completion:^{
+                    [self animateSideBarWhenMenuTapped];
+                }];
+                
+                self.tabBarController.selectedIndex = 0;
+            }
         }];
-        
-        self.tabBarController.selectedIndex = 0;
     }
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];

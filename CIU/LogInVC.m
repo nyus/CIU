@@ -125,9 +125,24 @@ static NSString *const kUsernameKey = @"username";
                                                        queue:[NSOperationQueue mainQueue]
                                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                                if (!connectionError && data) {
-                                                   [Helper saveAvatar:data forUser:user.username isHighRes:YES];
-                                                   UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data] downToSize:CGSizeMake(70, 70)];
-                                                   [Helper saveAvatar:UIImagePNGRepresentation(scaledImage) forUser:user.username isHighRes:NO];
+                                                   [Helper saveAvatar:data
+                                                              forUser:user.username
+                                                            isHighRes:YES
+                                                           completion:^(BOOL completed, NSError *error)
+                                                   {
+                                                       if (error) {
+                                                           NSLog(@"Save high res avatar failed with error: %@", error);
+                                                       } else {
+                                                           UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data]
+                                                                                          downToSize:CGSizeMake(70, 70)];
+                                                           [Helper saveAvatar:UIImagePNGRepresentation(scaledImage)
+                                                                      forUser:user.username 
+                                                                    isHighRes:NO
+                                                                   completion:^(BOOL completed, NSError *error) {
+                                                               
+                                                           }];
+                                                       }
+                                                   }];
                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
                                                }
                                            }];

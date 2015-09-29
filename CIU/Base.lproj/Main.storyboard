@@ -2150,9 +2150,6 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <constraint firstAttribute="centerY" secondItem="daT-oh-yvo" secondAttribute="centerY" constant="0.5" id="tDD-xP-Pdc"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="Ipj-GL-nrb">
-                                <rect key="frame" x="190" y="457" width="30" height="30"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.58823529411764708" green="0.80000000000000004" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <accessibility key="accessibilityConfiguration" label="logInView">

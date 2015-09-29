@@ -24,7 +24,8 @@ static const NSInteger EULA_TAG = 50;
 +(UIImage *)getLocalAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 +(PFQuery *)getServerAvatarForUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void(^)(NSError *error, UIImage *image))completionBlock;
 +(BOOL)isLocalAvatarExistForUser:(NSString *)username isHighRes:(BOOL)isHighRes;
-+(void)saveAvatar:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
+
++(void)saveAvatar:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes completion:(void(^)(BOOL completed, NSError* error))completion;
 +(void)saveAvatarToLocal:(NSData *)data forUser:(NSString *)username isHighRes:(BOOL)isHighRes;
 + (NSString *)getAnonymousAvatarImageNameForUsername:(NSString *)username statusId:(NSString *)statusId;
 + (NSString *)randomAnonymousImageName;

@@ -130,8 +130,9 @@ static CGFloat const kViewPositionHigh = -20;
                         UIImage *scaled = [Helper scaleImage:weakSelf.avatarImageView.image downToSize:weakSelf.avatarImageView.frame.size];
                         NSData *lowResData = UIImagePNGRepresentation(scaled);
                         //save to both local and server
-                        [Helper saveAvatar:highResData forUser:userNameString isHighRes:YES];
-                        [Helper saveAvatar:lowResData forUser:userNameString isHighRes:NO];
+                        [Helper saveAvatar:highResData forUser:userNameString isHighRes:YES completion:^(BOOL completed, NSError *error) {
+                            [Helper saveAvatar:lowResData forUser:userNameString isHighRes:NO completion:nil];
+                        }];
                         
                         //UI work
                         dispatch_async(dispatch_get_main_queue(), ^{
