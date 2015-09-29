@@ -292,6 +292,12 @@ static NSString *const kEntityName = @"StatusObject";
                 atIndexPath:(NSIndexPath *)indexPath
                  withStatus:(StatusObject *)status
 {
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    
+    if ([cellIndexPath compare:indexPath] != NSOrderedSame) {
+        return;
+    }
+    
     cell.collectionView.hidden = status.photoCount.intValue == 0;
     cell.dummyDataCount = status.photoCount.integerValue;
     
@@ -317,6 +323,12 @@ static NSString *const kEntityName = @"StatusObject";
                           atIndexpath:(NSIndexPath *)indexPath
                            withStatus:(StatusObject *)status
 {
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    
+    if ([cellIndexPath compare:indexPath] != NSOrderedSame) {
+        return nil;
+    }
+    
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
     [query whereKey:DDPhotoIdKey equalTo:status.photoID];
     [query whereKey:DDIsHighResKey equalTo:@NO];

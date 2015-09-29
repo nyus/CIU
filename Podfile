@@ -9,6 +9,7 @@ target 'DaDa' do
   pod 'Facebook-iOS-SDK', '~> 3.23'
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'CrittercismSDK', '~> 5.2'
+  pod 'Parse', '~> 1.8.0'
   pod 'FlurrySDK', '~> 6.5'
   pod 'SVPullToRefresh'
   pod 'ELCImagePickerController', '~> 0.2'
