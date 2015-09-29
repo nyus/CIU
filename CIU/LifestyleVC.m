@@ -221,9 +221,9 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     }
     
     vc.hidesBottomBarWhenPushed = YES;
-    vc.edgesForExtendedLayout=UIRectEdgeNone;
-    vc.extendedLayoutIncludesOpaqueBars=NO;
-    vc.automaticallyAdjustsScrollViewInsets=NO;
+    vc.edgesForExtendedLayout = UIRectEdgeNone;
+    vc.extendedLayoutIncludesOpaqueBars = NO;
+    vc.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.navigationController pushViewController:vc
                                          animated:YES];

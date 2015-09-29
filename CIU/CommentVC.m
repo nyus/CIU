@@ -133,9 +133,19 @@ static UIImage *defaultAvatar;
                 
                 PFPush *push = [[PFPush alloc] init];
                 [push setQuery:pushQuery];
-                [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise", [PFUser currentUser][DDFirstNameKey], [PFUser currentUser][DDLastNameKey]]];
+                
+                if (_anonymousSwitch.on) {
+                    [push setMessage:@"Someone commented on your surprise"];
+                } else {
+                    [push setMessage:[NSString stringWithFormat:@"%@ %@ commented on your surprise",
+                                      [PFUser currentUser][DDFirstNameKey],
+                                      [PFUser currentUser][DDLastNameKey]]];
+                }
+                
                 [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    
+                    if (error) {
+                        NSLog(@"Failed to send push notification with error:%@", error)
+                    }
                 }];
                 
                 //increase comment count on Status object
