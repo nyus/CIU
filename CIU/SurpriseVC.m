@@ -18,7 +18,7 @@
 #import "CommentVC.h"
 #import <CoreData/CoreData.h>
 #import "SharedDataManager.h"
-#import "StatusObject.h"
+#import "StatusObject+CoreDataProperties.h"
 #import "ComposeSurpriseVC.h"
 #import "SpinnerImageView.h"
 #import "NSPredicate+Utilities.h"
@@ -306,7 +306,7 @@ static NSString *const kEntityName = @"StatusObject";
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
                                                                          totalCount:status.photoCount.intValue
                                                                           isHighRes:NO];
-        [cell setDataSourceWithImages:[postImages copy]];
+        cell.imageView.image = postImages.firstObject;
         
         if (postImages.count != status.photoCount.intValue) {
             
@@ -329,28 +329,52 @@ static NSString *const kEntityName = @"StatusObject";
         return nil;
     }
     
+    if (status.imageData) {
+        cell.imageView.image = [UIImage imageWithData:status.imageData];
+        
+        return nil;
+    }
+    
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
     [query whereKey:DDPhotoIdKey equalTo:status.photoID];
     [query whereKey:DDIsHighResKey equalTo:@NO];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        if (error) {
+    
+     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+         if (error) {
             NSLog(@"failed to find post images with error: %@", error);
-        } else {
-            NSMutableArray *array = [NSMutableArray arrayWithCapacity:objects.count];
-            
-            for (int i = 0; i < objects.count; i++) {
-                PFObject *photoObject = objects[i];
-                PFFile *file = photoObject[DDImageKey];
-                
+         } else {
+             PFFile *file = objects.firstObject[DDImageDataKey];
                 if (file) {
-                    [array addObject:file];
+                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                        if (error) {
+                            NSLog(@"Get image data failed with error: %@", error);
+                        } else {
+                            status.imageData = data;
+                            UIImage *image = [UIImage imageWithData:status.imageData];
+                            cell.imageView.image = image;
+                        }
+                    }];
                 }
-            }
-            cell.statusPhotoId = status.photoID;
-            [cell setDataSourceWithFiles:[array copy]];
-        }
-    }];
+         }
+     }];
+    
+//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+//        if (error) {
+//            NSLog(@"failed to find post images with error: %@", error);
+//        } else {
+//                PFFile *file = object[DDImageKey];
+//                if (file) {
+//                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                        if (error) {
+//                            NSLog(@"Get image data failed with error: %@", error);
+//                        } else {
+//                            status.imageData = data;
+//                            cell.imageView.image = [UIImage imageWithData:status.imageData];
+//                        }
+//                    }];
+//                }
+//        }
+//    }];
     
     return query;
 }
@@ -453,6 +477,7 @@ static NSString *const kEntityName = @"StatusObject";
             float cellHeight = ORIGIN_Y_CELL_MESSAGE_LABEL + labelHeight + pictureHeight + 40 + 10;//40: 10pixels btw image and flag button and 30 is the flag button height
             
             status.statusCellHeight = [NSNumber numberWithFloat:cellHeight];
+            
             return cellHeight;
         }
     }

@@ -19,6 +19,7 @@ static NSString *const DDTradeAndSellParseClassName = @"Trade";
 static NSString *const DDNameKey = @"name";
 static NSString *const DDIsHighResKey = @"isHighRes";
 static NSString *const DDImageKey = @"image";
+static NSString *const DDImageDataKey = @"imageData";
 static NSString *const DDFirstNameKey = @"firstName";
 static NSString *const DDLastNameKey = @"lastName";
 static NSString *const DDIsAdminKey = @"isAdmin";

@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
 
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, assign) DataSourceType dataSourceType;
-
+@property (nonatomic, assign) BOOL isFetching;
 @end
 
 @implementation SurpriseTableViewCell
@@ -100,6 +100,7 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
                 [Helper saveImageToLocal:data
                             forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
                                isHighRes:NO];
+                
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     //Run UI Updates
                     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
@@ -153,7 +154,43 @@ typedef NS_ENUM(NSInteger, DataSourceType) {
     // Clear out old image first
     
     if (self.dataSource && self.dataSource.count > 0) {
-        collectionViewCell.imageView.image = [self imageForCellAtIndexPath:indexPath];
+        
+        
+        if (_dataSourceType == DataSourceTypeFile) {
+            PFFile *file = _dataSource[indexPath.row];
+            
+            if (file.isDataAvailable) {
+                
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                    //Background Thread
+                    NSData *data = file.getData;
+                    NSLog(@"save 1");
+                    [Helper saveImageToLocal:data
+                                forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
+                                   isHighRes:NO];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^(void){
+                        collectionViewCell.imageView.image = [UIImage imageWithData:data];
+                    });
+                });
+            } else {
+                
+                [file fetchImageWithCompletionBlock:^(BOOL completed, NSData *data) {
+                    if (completed) {
+                        NSLog(@"save 2");
+                        [Helper saveImageToLocal:data
+                                    forImageName:FSTRING(@"%@%d", self.statusPhotoId, (int)indexPath.row)
+                                       isHighRes:NO];
+                        dispatch_async(dispatch_get_main_queue(), ^(void){
+                            collectionViewCell.imageView.image = [UIImage imageWithData:data];
+                        });
+                    }
+                }];
+            }
+        } else if (_dataSourceType == DataSourceTypeImage) {
+            
+            collectionViewCell.imageView.image = _dataSource[indexPath.row];
+        }
     } else {
         collectionViewCell.imageView.image = nil;
     }

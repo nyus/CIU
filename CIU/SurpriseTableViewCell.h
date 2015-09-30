@@ -42,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *flagButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 
 @property (nonatomic, copy) NSArray *imagesArray;

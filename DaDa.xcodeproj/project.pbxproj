@@ -60,6 +60,8 @@
 		506BF2841B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
+		508108E81BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		508108E91BBB54F400AB7C4C /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E71BBB54F400AB7C4C /* StatusObject.m */; settings = {ASSET_TAGS = (); }; };
 		5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */; };
 		5086CBF51B33069D00EAECD9 /* libPods-DaDa-Bolts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */; };
 		5086CBF61B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */; };
@@ -92,7 +94,6 @@
 		50F5F6FB19AEAA0000DC9735 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F6FA19AEAA0000DC9735 /* Reachability.m */; };
 		50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F5F9B51A34F7300001CF42 /* StatusObject+Utilities.m */; };
 		50FBFFCD1A7E30860090EE4B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFCC1A7E30860090EE4B /* Event.m */; };
-		50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FBFFD21A7E31120090EE4B /* StatusObject.m */; };
 		50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FF0B2E19D2533A0023A669 /* LocationManager.m */; };
 		652BAB81199D3CCA009F5F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB80199D3CCA009F5F5A /* Foundation.framework */; };
 		652BAB83199D3CCA009F5F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652BAB82199D3CCA009F5F5A /* CoreGraphics.framework */; };
@@ -226,6 +227,11 @@
 		506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SegmentedControl.m"; sourceTree = "<group>"; };
 		506D69501AB5CC65006EDDCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		507312511A01C36000E3533E /* ciu logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ciu logo.png"; sourceTree = "<group>"; };
+		508108DD1BBB51D700AB7C4C /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		508108E41BBB54F400AB7C4C /* StatusObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatusObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		508108E61BBB54F400AB7C4C /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
+		508108E71BBB54F400AB7C4C /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
 		5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Bolts.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Bolts.a"; sourceTree = "<group>"; };
 		5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-ELCImagePickerController.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-ELCImagePickerController.a"; sourceTree = "<group>"; };
@@ -285,8 +291,6 @@
 		50FBFFCA1A7E30440090EE4B /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		50FBFFCB1A7E30860090EE4B /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		50FBFFCC1A7E30860090EE4B /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		50FBFFD11A7E31120090EE4B /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
-		50FBFFD21A7E31120090EE4B /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		50FF0B2D19D2533A0023A669 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		50FF0B2E19D2533A0023A669 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		54966BA00A1121B9C484BD38 /* Pods-DaDa Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -507,8 +511,6 @@
 			children = (
 				5048A4881B28FD750096F346 /* DDCopiableLabel.h */,
 				5048A4891B28FD750096F346 /* DDCopiableLabel.m */,
-				50FBFFD11A7E31120090EE4B /* StatusObject.h */,
-				50FBFFD21A7E31120090EE4B /* StatusObject.m */,
 				50FBFFCB1A7E30860090EE4B /* Event.h */,
 				50FBFFCC1A7E30860090EE4B /* Event.m */,
 				504AE5881A2241C7000C62D9 /* LifestyleObject.h */,
@@ -717,6 +719,10 @@
 				6564F1F8199D4CAF00629B48 /* TabbarController.m */,
 				65D93E5219C239170044A48A /* AboutUsVC.h */,
 				65D93E5319C239170044A48A /* AboutUsVC.m */,
+				508108E41BBB54F400AB7C4C /* StatusObject+CoreDataProperties.h */,
+				508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */,
+				508108E61BBB54F400AB7C4C /* StatusObject.h */,
+				508108E71BBB54F400AB7C4C /* StatusObject.m */,
 				501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */,
 			);
 			name = DaDa;
@@ -969,8 +975,8 @@
 				6564F1FC199E3E8D00629B48 /* GenericTableVC.m in Sources */,
 				50E8DAD31BA465B50065E543 /* JobVC.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
-				50FBFFD31A7E31120090EE4B /* StatusObject.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
+				508108E91BBB54F400AB7C4C /* StatusObject.m in Sources */,
 				65D93E6D19C73AD70044A48A /* ComposeJobOrTradeVC.m in Sources */,
 				6564F1F9199D4CAF00629B48 /* TabbarController.m in Sources */,
 				501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */,
@@ -1017,6 +1023,7 @@
 				65C4F10F19AFBD21004452C3 /* LogInVC.m in Sources */,
 				65C4F0BA19AFB21D004452C3 /* SurpriseTableViewCell.m in Sources */,
 				505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */,
+				508108E81BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m in Sources */,
 				501A5E4F19A5756D0050BFA6 /* LifestyleVC.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				503F627F1B8783C8008EC323 /* PFFile+Utilities.m in Sources */,
@@ -1273,11 +1280,12 @@
 		501A5E5419A579C70050BFA6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				508108DD1BBB51D700AB7C4C /* Model 4.xcdatamodel */,
 				0B5635821B9785C6002474F1 /* Model 3.xcdatamodel */,
 				50FBFFCA1A7E30440090EE4B /* Model 2.xcdatamodel */,
 				501A5E5519A579C70050BFA6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 0B5635821B9785C6002474F1 /* Model 3.xcdatamodel */;
+			currentVersion = 508108DD1BBB51D700AB7C4C /* Model 4.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

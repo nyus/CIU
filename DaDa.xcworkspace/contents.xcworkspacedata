@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CIU/StatusObject+CoreDataProperties.h">
+   </FileRef>
+   <FileRef
+      location = "group:CIU/StatusObject+CoreDataProperties.m">
+   </FileRef>
+   <FileRef
       location = "group:Royal Oak (1).gpx">
    </FileRef>
    <FileRef
