@@ -979,8 +979,8 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <constraints>
                                         <constraint firstItem="lhh-29-ejL" firstAttribute="leading" secondItem="t9M-GW-Lb4" secondAttribute="leading" id="LPk-EV-UI5"/>
                                         <constraint firstItem="lhh-29-ejL" firstAttribute="top" secondItem="t9M-GW-Lb4" secondAttribute="bottom" id="P4F-wZ-y5Q"/>
+                                        <constraint firstItem="t9M-GW-Lb4" firstAttribute="leading" secondItem="V8k-3C-chC" secondAttribute="leadingMargin" constant="12" id="SVK-Et-oW2"/>
                                         <constraint firstItem="t9M-GW-Lb4" firstAttribute="top" secondItem="V8k-3C-chC" secondAttribute="top" constant="5" id="dtb-L2-vQ9"/>
-                                        <constraint firstItem="t9M-GW-Lb4" firstAttribute="leading" secondItem="V8k-3C-chC" secondAttribute="leading" constant="20" id="eTg-Tf-uhU"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -996,13 +996,13 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="(313) 333-3333, (313) 333-3333, (313) 333-3333" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POk-yV-zwR">
-                                            <rect key="frame" x="8" y="15" width="304" height="30"/>
+                                            <rect key="frame" x="14" y="14.5" width="292" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebn-5Y-ILh" userLabel="title">
-                                            <rect key="frame" x="13" y="5" width="48" height="15"/>
+                                            <rect key="frame" x="20" y="5" width="47.5" height="14.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                                             <color key="textColor" red="0.63921568630000003" green="0.87058823529999996" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
@@ -1010,11 +1010,11 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="POk-yV-zwR" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" id="5R9-lx-DO0"/>
                                         <constraint firstItem="POk-yV-zwR" firstAttribute="top" secondItem="ebn-5Y-ILh" secondAttribute="bottom" constant="-5" id="Bca-dS-rLq"/>
                                         <constraint firstItem="POk-yV-zwR" firstAttribute="centerX" secondItem="Lqd-5p-uN4" secondAttribute="centerX" id="Z2x-8u-Zmc"/>
-                                        <constraint firstItem="ebn-5Y-ILh" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" constant="5" id="f1a-DN-kPG"/>
+                                        <constraint firstItem="POk-yV-zwR" firstAttribute="leading" secondItem="ebn-5Y-ILh" secondAttribute="leading" constant="-6" id="dBZ-QT-80M"/>
                                         <constraint firstItem="ebn-5Y-ILh" firstAttribute="top" secondItem="Lqd-5p-uN4" secondAttribute="topMargin" constant="-3" id="qr8-XA-bwo"/>
+                                        <constraint firstItem="ebn-5Y-ILh" firstAttribute="leading" secondItem="Lqd-5p-uN4" secondAttribute="leadingMargin" constant="12" id="wQk-dW-hhk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1472,11 +1472,11 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     <outlet property="commentCountLabel" destination="tO5-pW-olH" id="nVx-uS-VCn"/>
                                     <outlet property="contentContainerView" destination="UdE-hF-gNT" id="0i8-cw-vqI"/>
                                     <outlet property="flagButton" destination="Dc6-vF-VGG" id="u0k-LH-5Fl"/>
-                                    <outlet property="imageView" destination="K9E-nl-EzN" id="681-sy-405"/>
                                     <outlet property="statusCellAvatarImageView" destination="e3g-LQ-3Oo" id="eLu-ze-v45"/>
                                     <outlet property="statusCellDateLabel" destination="eDb-hJ-x8y" id="ODh-1u-U3g"/>
                                     <outlet property="statusCellMessageLabel" destination="kLv-8s-Ntf" id="bbt-gQ-lL4"/>
                                     <outlet property="statusCellUsernameLabel" destination="vth-Qq-CBS" id="qw7-rb-5v0"/>
+                                    <outlet property="statusImageView" destination="K9E-nl-EzN" id="s9j-HF-gmN"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

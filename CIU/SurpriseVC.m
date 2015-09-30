@@ -46,8 +46,11 @@ static NSString *const kEntityName = @"StatusObject";
 
 @property (nonatomic, strong) NSMutableDictionary *avatarQueries;
 @property (nonatomic, strong) NSMutableDictionary *postImageQueries;
+@property (nonatomic, strong) NSMutableDictionary *fileByStatusObjectId;
+@property (nonatomic, strong) NSMutableDictionary *photoQueryByStatusObjectId;
 @property (nonatomic, strong) NSMutableDictionary *surpriseImagesArrayByIndexPath;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSCache *cache;
 
 @end
 
@@ -61,6 +64,9 @@ static NSString *const kEntityName = @"StatusObject";
         self.surpriseImagesArrayByIndexPath = [NSMutableDictionary dictionary];
         self.avatarQueries = [NSMutableDictionary dictionary];
         self.postImageQueries = [NSMutableDictionary dictionary];
+        self.fileByStatusObjectId = [NSMutableDictionary dictionary];
+        self.photoQueryByStatusObjectId = [NSMutableDictionary dictionary];
+        self.cache = [NSCache new];
         defaultAvatar = [UIImage imageNamed:@"default-user-icon-profile.png"];
     }
     
@@ -283,7 +289,7 @@ static NSString *const kEntityName = @"StatusObject";
                                              }];
         
         if (query) {
-            [self.avatarQueries setObject:query forKey:indexPath];
+            self.avatarQueries[status.objectId] = query;
         }
     }
 }
@@ -306,33 +312,38 @@ static NSString *const kEntityName = @"StatusObject";
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
                                                                          totalCount:status.photoCount.intValue
                                                                           isHighRes:NO];
-        cell.imageView.image = postImages.firstObject;
+        cell.statusImageView.image = postImages.firstObject;
         
         if (postImages.count != status.photoCount.intValue) {
             
-            PFQuery *query = [self getServerPostImageForCell:cell
-                                                 atIndexpath:indexPath
-                                                  withStatus:status];
-            [self.postImageQueries setObject:query
-                                      forKey:indexPath];
+            [self getServerPostImageForCell:cell
+                                atIndexpath:indexPath
+                                 withStatus:status];
+            
         }
     }
 }
 
--(PFQuery *)getServerPostImageForCell:(SurpriseTableViewCell *)cell
+-(void)getServerPostImageForCell:(SurpriseTableViewCell *)cell
                           atIndexpath:(NSIndexPath *)indexPath
                            withStatus:(StatusObject *)status
 {
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     
     if ([cellIndexPath compare:indexPath] != NSOrderedSame) {
-        return nil;
+        return;
     }
     
-    if (status.imageData) {
-        cell.imageView.image = [UIImage imageWithData:status.imageData];
+    UIImage *cacheImage = [self.cache objectForKey:status.objectId];
+    
+    if (cacheImage) {
+        cell.statusImageView.image = cacheImage;
         
-        return nil;
+        return;
+    }
+    
+    if(self.photoQueryByStatusObjectId[status.objectId]) {
+        return;
     }
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:DDPhotoParseClassName];
@@ -343,40 +354,31 @@ static NSString *const kEntityName = @"StatusObject";
          if (error) {
             NSLog(@"failed to find post images with error: %@", error);
          } else {
-             PFFile *file = objects.firstObject[DDImageDataKey];
-                if (file) {
-                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                        if (error) {
-                            NSLog(@"Get image data failed with error: %@", error);
-                        } else {
-                            status.imageData = data;
-                            UIImage *image = [UIImage imageWithData:status.imageData];
-                            cell.imageView.image = image;
-                        }
-                    }];
-                }
+             
+             if (!self.fileByStatusObjectId[status.objectId]) {
+                 PFFile *file = objects.firstObject[DDImageKey];
+                 self.fileByStatusObjectId[status.objectId] = file;
+                 
+                 if (file) {
+
+                     [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                         
+                         if (error) {
+                             NSLog(@"Get image data failed with error: %@", error);
+                         } else {
+                             status.imageData = data;
+                             UIImage *image = [UIImage imageWithData:status.imageData];
+                             cell.statusImageView.image = image;
+                             [self.cache setObject:image forKey:status.objectId];
+                         }
+                     }];
+                 }
+             }
          }
      }];
     
-//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-//        if (error) {
-//            NSLog(@"failed to find post images with error: %@", error);
-//        } else {
-//                PFFile *file = object[DDImageKey];
-//                if (file) {
-//                    [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-//                        if (error) {
-//                            NSLog(@"Get image data failed with error: %@", error);
-//                        } else {
-//                            status.imageData = data;
-//                            cell.imageView.image = [UIImage imageWithData:status.imageData];
-//                        }
-//                    }];
-//                }
-//        }
-//    }];
-    
-    return query;
+    [self.postImageQueries setObject:query
+                              forKey:status.objectId];
 }
 
 #pragma mark - UITableViewDelete
@@ -420,6 +422,7 @@ static NSString *const kEntityName = @"StatusObject";
     
     //Post image
     
+    cell.statusImageView.hidden = !(status.photoCount.intValue > 0);
     [self setPostImagesOnCell:(SurpriseTableViewCell *)cell atIndexPath:indexPath withStatus:status];
     
     return cell;
@@ -498,17 +501,31 @@ static NSString *const kEntityName = @"StatusObject";
 }
 
 -(void)cancelNetworkRequestForCellAtIndexPath:(NSIndexPath *)indexPath{
-    PFQuery *avatarQ = [self.avatarQueries objectForKey:indexPath];
-    PFQuery *postimageQ = [self.postImageQueries objectForKey:indexPath];
+    StatusObject *status = self.dataSource[indexPath.row];
+    
+    PFQuery *avatarQ = self.avatarQueries[status.objectId];
+    PFQuery *postimageQ = self.postImageQueries[status.objectId];
+    PFFile *file = self.fileByStatusObjectId[status.objectId];
+    PFQuery *photoQ = self.photoQueryByStatusObjectId[status.objectId];
     
     if (avatarQ) {
         [avatarQ cancel];
-        [self.avatarQueries removeObjectForKey:indexPath];
+        [self.avatarQueries removeObjectForKey:status.objectId];
     }
     
     if (postimageQ) {
         [postimageQ cancel];
-        [self.postImageQueries removeObjectForKey:indexPath];
+        [self.postImageQueries removeObjectForKey:status.objectId];
+    }
+    
+    if (file) {
+        [file cancel];
+        [self.fileByStatusObjectId removeObjectForKey:status.objectId];
+    }
+    
+    if (photoQ) {
+        [photoQ cancel];
+        [self.photoQueryByStatusObjectId removeObjectForKey:status.objectId];
     }
 }
 

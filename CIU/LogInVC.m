@@ -94,6 +94,7 @@ static NSString *const kUsernameKey = @"username";
                                                       otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             } else {
+                NSLog(@"Log in facebook failed with error %@", error);
                 [TSMessage showNotificationInViewController:self
                                                       title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
                                                    subtitle:nil
