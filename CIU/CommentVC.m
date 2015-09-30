@@ -63,7 +63,7 @@ static UIImage *defaultAvatar;
 
 - (void)handleBackButton:(id)sender
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

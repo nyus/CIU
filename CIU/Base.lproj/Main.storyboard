@@ -634,7 +634,7 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-Pj-Hzv">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Text View"/>
                                 <string key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
@@ -655,10 +655,10 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Wtk-N7-yiT" firstAttribute="top" secondItem="B6r-Pj-Hzv" secondAttribute="bottom" id="25f-af-bzZ"/>
-                            <constraint firstAttribute="width" secondItem="B6r-Pj-Hzv" secondAttribute="width" id="VZB-nf-VBb"/>
-                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="top" secondItem="PKM-ta-mkN" secondAttribute="bottom" constant="-64" id="a7U-Ej-lhw"/>
-                            <constraint firstAttribute="centerX" secondItem="B6r-Pj-Hzv" secondAttribute="centerX" id="anT-Ro-umq"/>
+                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="top" secondItem="PKM-ta-mkN" secondAttribute="bottom" id="kFD-6M-j3p"/>
+                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="leading" secondItem="RJR-sE-ANi" secondAttribute="leading" id="lJI-pn-XBa"/>
+                            <constraint firstAttribute="trailing" secondItem="B6r-Pj-Hzv" secondAttribute="trailing" id="wnH-i2-SR8"/>
+                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="bottom" secondItem="Wtk-N7-yiT" secondAttribute="top" id="zkp-nd-Kr1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Terms of Use" id="ywz-Kv-4S1"/>
@@ -676,11 +676,11 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         <viewControllerLayoutGuide type="bottom" id="Huc-V1-zIL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Wx-wM-xhz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Qs-1q-qbg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Text View"/>
                                 <string key="text">This policy details how data about you is collected/used/disclosed when you visit our websites/App and services (together, "DaDa") or otherwise interact with us. If we update it, we will revise the date, place notices on DaDa if a change is material, and/or obtain your consent as required by law.
@@ -717,12 +717,13 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Huc-V1-zIL" firstAttribute="top" secondItem="8Qs-1q-qbg" secondAttribute="bottom" constant="-1" id="0hb-EA-GLm"/>
-                            <constraint firstItem="8Qs-1q-qbg" firstAttribute="top" secondItem="041-Qe-ger" secondAttribute="bottom" constant="-64" id="2dG-QM-9KW"/>
-                            <constraint firstAttribute="width" secondItem="8Qs-1q-qbg" secondAttribute="width" id="EjB-Tv-22g"/>
-                            <constraint firstAttribute="centerX" secondItem="8Qs-1q-qbg" secondAttribute="centerX" id="ouA-br-LnN"/>
+                            <constraint firstAttribute="trailing" secondItem="8Qs-1q-qbg" secondAttribute="trailing" id="FG9-fe-LLC"/>
+                            <constraint firstItem="8Qs-1q-qbg" firstAttribute="leading" secondItem="9Wx-wM-xhz" secondAttribute="leading" id="b7j-J6-uON"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="8Qs-1q-qbg" secondAttribute="bottom" id="lFs-B2-7O6"/>
+                            <constraint firstItem="8Qs-1q-qbg" firstAttribute="top" secondItem="041-Qe-ger" secondAttribute="bottom" id="oLE-bF-Udq"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Privacy Policy" id="q3r-aR-rQe"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -765,7 +766,6 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                             <constraint firstAttribute="width" secondItem="YWx-tf-pFF" secondAttribute="width" id="MEP-Rp-JLz"/>
                             <constraint firstAttribute="height" secondItem="YWx-tf-pFF" secondAttribute="height" constant="64" id="Ntu-Na-jMr"/>
                             <constraint firstItem="YWx-tf-pFF" firstAttribute="top" secondItem="Hhn-85-hzE" secondAttribute="bottom" constant="-64" id="Szi-w3-5Un"/>
-                            <constraint firstItem="YWx-tf-pFF" firstAttribute="top" secondItem="Hhn-85-hzE" secondAttribute="bottom" constant="-64" id="gpg-fi-Bjh"/>
                             <constraint firstAttribute="centerX" secondItem="YWx-tf-pFF" secondAttribute="centerX" id="qGa-cO-4cb"/>
                         </constraints>
                     </view>
@@ -1090,7 +1090,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                             <rect key="frame" x="24" y="12" width="8" height="8"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQP-hb-Ada">
-                                            <rect key="frame" x="28" y="185" width="264" height="1"/>
+                                            <rect key="frame" x="20" y="185" width="292" height="1"/>
                                             <color key="backgroundColor" red="0.77254901960784317" green="0.77254901960784317" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="OYl-sP-h20"/>
@@ -1112,7 +1112,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="OQP-hb-Ada" secondAttribute="trailing" constant="20" id="2aL-aZ-7fP"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="OQP-hb-Ada" secondAttribute="trailing" id="2aL-aZ-7fP"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="7dE-Js-y0f" secondAttribute="bottom" constant="2" id="5Dk-nQ-cfp"/>
                                         <constraint firstItem="mmD-a5-jYq" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="Ciw-B8-oPV"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="leading" secondItem="aQ4-lY-R2B" secondAttribute="leading" id="Kju-df-Jgj"/>
@@ -1124,7 +1124,7 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                                         <constraint firstItem="aQ4-lY-R2B" firstAttribute="top" secondItem="hDl-1d-VoP" secondAttribute="bottom" priority="900" constant="5" id="hsZ-1l-ifn"/>
                                         <constraint firstItem="nKt-Wv-nPC" firstAttribute="top" secondItem="ThS-qo-8Bc" secondAttribute="topMargin" constant="4" id="k5z-Kf-zgg"/>
                                         <constraint firstItem="hDl-1d-VoP" firstAttribute="top" secondItem="hI7-qU-Wjm" secondAttribute="bottom" priority="990" constant="5" id="mg1-MA-unL"/>
-                                        <constraint firstItem="OQP-hb-Ada" firstAttribute="leading" secondItem="ThS-qo-8Bc" secondAttribute="leadingMargin" constant="20" id="tIm-ex-eP6"/>
+                                        <constraint firstItem="OQP-hb-Ada" firstAttribute="leading" secondItem="ThS-qo-8Bc" secondAttribute="leadingMargin" constant="12" id="tIm-ex-eP6"/>
                                         <constraint firstAttribute="bottom" secondItem="OQP-hb-Ada" secondAttribute="bottom" id="uhg-0h-q2i"/>
                                         <constraint firstItem="hI7-qU-Wjm" firstAttribute="top" secondItem="ThS-qo-8Bc" secondAttribute="top" constant="5" id="wAz-QJ-tmJ"/>
                                     </constraints>

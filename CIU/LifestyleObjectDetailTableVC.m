@@ -30,18 +30,11 @@ NSString *const kIntroductionKey = @"Introduction";
 
 @implementation LifestyleObjectDetailTableVC
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     if ([self.lifestyleObject.category isEqualToString:@"Supermarket"]) {
         [[GAnalyticsManager shareManager] trackScreen:@"Supermarket Detail"];
     } else {
@@ -50,6 +43,17 @@ NSString *const kIntroductionKey = @"Introduction";
 
     [self buildDataSource];
     [self syncWithServer];
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
+                                                             style:UIBarButtonItemStylePlain 
+                                                            target:self 
+                                                            action:@selector(handleBackButton:)];
+    self.navigationItem.leftBarButtonItem = back;
+}
+
+- (void)handleBackButton:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)syncWithServer{

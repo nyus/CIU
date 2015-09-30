@@ -70,15 +70,17 @@ static NSString *const kCategoryName = @"Jobs";
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(handleBackButton:)];
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(handleBackButton:)];
     self.navigationItem.leftBarButtonItem = back;
 }
 
 - (void)handleBackButton:(id)sender
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

@@ -9,7 +9,7 @@
 #import "Masonry.h"
 #import "JobTradeTableViewCell.h"
 
-static CGFloat const kContentTextViewLeadingSpace = 15.0;
+static CGFloat const kContentTextViewLeadingSpace = 20.0;
 static CGFloat const kContentTextViewTopSpace = 10.0;
 static CGFloat const kContentTextViewTrailingSpace = 15.0;
 
