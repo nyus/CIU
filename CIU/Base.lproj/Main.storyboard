@@ -633,10 +633,8 @@ Technology Inquiry: Sihang@8MileTech.com  Business Inquiry: Ronan@8MileT
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6r-Pj-Hzv">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <accessibility key="accessibilityConfiguration" label="Text View"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nlG-PT-5Nb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <string key="text">WELCOME TO DaDa. We hope you live better with DaDa. By accessing our servers, websites, or content therefrom (together, "DaDa"), you agree to these Terms of Use ("TOU"), last updated December 07, 2014.
 LICENSE. If you are 18 or older, we grant you a limited, revocable, nonexclusive, nonassignable, nonsublicensable license to access DaDa in compliance with the TOU; unlicensed access is unauthorized. You agree not to license, distribute, make derivative works, display, sell, or "frame" content from DaDa, excluding content you create and sharing with friends/family. You grant us a perpetual, irrevocable, unlimited, worldwide, fully paid/sublicensable license to use, copy, perform, display, distribute, and make derivative works from content you post.
 USE. You agree not to use or provide software (except for general purpose web browsers and email clients, or software expressly licensed by us) or services that interact or interoperate with DaDa, e.g. for downloading, uploading, posting, flagging, emailing, search, or mobile use. Robots, spiders, scripts, scrapers, crawlers, etc. are prohibited, as are misleading, unsolicited, unlawful, and/or spam postings/email. You agree not to collect users' personal and/or contact information ("PI").
@@ -655,10 +653,10 @@ DaDa哒哒 application icons and the anonymous profile icons are designed by Fre
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="top" secondItem="PKM-ta-mkN" secondAttribute="bottom" id="kFD-6M-j3p"/>
-                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="leading" secondItem="RJR-sE-ANi" secondAttribute="leading" id="lJI-pn-XBa"/>
-                            <constraint firstAttribute="trailing" secondItem="B6r-Pj-Hzv" secondAttribute="trailing" id="wnH-i2-SR8"/>
-                            <constraint firstItem="B6r-Pj-Hzv" firstAttribute="bottom" secondItem="Wtk-N7-yiT" secondAttribute="top" id="zkp-nd-Kr1"/>
+                            <constraint firstItem="nlG-PT-5Nb" firstAttribute="leading" secondItem="RJR-sE-ANi" secondAttribute="leading" id="4em-qF-YZP"/>
+                            <constraint firstAttribute="trailing" secondItem="nlG-PT-5Nb" secondAttribute="trailing" id="JIX-Kc-nay"/>
+                            <constraint firstItem="nlG-PT-5Nb" firstAttribute="top" secondItem="RJR-sE-ANi" secondAttribute="top" id="Ljw-rM-g2K"/>
+                            <constraint firstItem="nlG-PT-5Nb" firstAttribute="bottom" secondItem="Wtk-N7-yiT" secondAttribute="top" id="Y9s-UN-t2J"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Terms of Use" id="ywz-Kv-4S1"/>
