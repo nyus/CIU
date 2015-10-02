@@ -371,7 +371,7 @@ static NSString *const kEntityName = @"StatusObject";
                              UIImage *image = [UIImage imageWithData:status.imageData];
                              [self.cache setObject:image forKey:status.objectId];
                              [Helper saveImageToLocal:data
-                                         forImageName:FSTRING(@"%@%d", status.photoID, (int)indexPath.row)
+                                         forImageName:FSTRING(@"%@%d", status.photoID, 0)
                                             isHighRes:NO];
                              dispatch_async(dispatch_get_main_queue(), ^{
                                  cell.statusImageView.image = image;

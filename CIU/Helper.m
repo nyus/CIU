@@ -227,6 +227,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
     
     return array;
 }
+
 //Map
 +(MKCoordinateRegion)fetchDataRegionWithCenter:(CLLocationCoordinate2D)center radius:(NSNumber *)radius{
     //1 mile = 1609 meters
