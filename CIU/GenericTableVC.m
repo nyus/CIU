@@ -278,6 +278,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt < %@", lesserValue];
     } else if (greaterValue && lesserValue) {
         datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterValue, lesserValue];
+    } else {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt != nil"];
     }
     
     return datePredicate;
