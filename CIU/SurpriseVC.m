@@ -302,22 +302,33 @@ static NSString *const kEntityName = @"StatusObject";
         return;
     }
     
-    cell.collectionView.hidden = status.photoCount.intValue == 0;
-    cell.dummyDataCount = status.photoCount.integerValue;
+    UIImage *cacheImage = [self.cache objectForKey:status.objectId];
     
-    if (status.photoCount.intValue > 0) {
+    if (cacheImage) {
+        cell.statusImageView.image = cacheImage;
         
+        return;
+    }
+    
+    cell.statusImageView.image = nil;
+    
+    if (!status.photoID) {
+        return;
+    }
+    
+    if (self.isInternetPresentOnLaunch) {
+        [self getServerPostImageForCell:cell
+                            atIndexpath:indexPath
+                             withStatus:status];
+    } else {
         NSMutableArray *postImages = [Helper fetchLocalPostImagesWithGenericPhotoID:status.photoID
                                                                          totalCount:status.photoCount.intValue
                                                                           isHighRes:NO];
-        cell.statusImageView.image = postImages.firstObject;
         
-        if (postImages.count != status.photoCount.intValue) {
-            
-            [self getServerPostImageForCell:cell
-                                atIndexpath:indexPath
-                                 withStatus:status];
-            
+        if (postImages.count > 0) {
+            UIImage *image = postImages.firstObject;
+            cell.statusImageView.image = image;
+            [self.cache setObject:image forKey:status.objectId];
         }
     }
 }
@@ -329,14 +340,6 @@ static NSString *const kEntityName = @"StatusObject";
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     
     if ([cellIndexPath compare:indexPath] != NSOrderedSame) {
-        return;
-    }
-    
-    UIImage *cacheImage = [self.cache objectForKey:status.objectId];
-    
-    if (cacheImage) {
-        cell.statusImageView.image = cacheImage;
-        
         return;
     }
     
@@ -366,8 +369,13 @@ static NSString *const kEntityName = @"StatusObject";
                          } else {
                              status.imageData = data;
                              UIImage *image = [UIImage imageWithData:status.imageData];
-                             cell.statusImageView.image = image;
                              [self.cache setObject:image forKey:status.objectId];
+                             [Helper saveImageToLocal:data
+                                         forImageName:FSTRING(@"%@%d", status.photoID, (int)indexPath.row)
+                                            isHighRes:NO];
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 cell.statusImageView.image = image;
+                             });
                          }
                      }];
                  }

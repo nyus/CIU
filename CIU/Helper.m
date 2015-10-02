@@ -202,7 +202,9 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
     });
 }
 
-+(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId totalCount:(int)totalCount isHighRes:(BOOL)isHighRes{
++(NSMutableArray *)fetchLocalPostImagesWithGenericPhotoID:(NSString *)photoId
+                                               totalCount:(int)totalCount
+                                                isHighRes:(BOOL)isHighRes{
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = paths[0];
