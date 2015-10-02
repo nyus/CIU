@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "LocationManager.h"
 #import <Parse/Parse.h>
-//#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "GAI.h"
 #import "Crittercism.h"
@@ -55,7 +55,7 @@
     [Parse setApplicationId:@"dREZy34PedC54NzkwKdzw9InfmkPFCZ3kNmj8TNB"
                   clientKey:@"urvgpguNb8wja2nX8wyHe5h8SfD0DCQB7WdTZSZg"];
 #endif
-//    [PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebook];
     
     [Crittercism enableWithAppID:@"54ccf13951de5e9f042ed3f9"];
     
@@ -80,41 +80,42 @@
 // ****************************************************************************
 // App switching methods to support Facebook Single Sign-On.
 // ****************************************************************************
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    return [FBAppCall handleOpenURL:url
-//                  sourceApplication:sourceApplication
-//                        withSession:[PFFacebookUtils session]];
-//}
-//
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//    // Store the deviceToken in the current installation and save it to Parse.
-//    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-//    [FPLogger record:[NSString stringWithFormat:@"App delegate: currentInstallation is %@", currentInstallation]];
-//    [currentInstallation setDeviceTokenFromData:deviceToken];
-//    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            [FPLogger record:@"App delegate: currentInstallation save success"];
-//            [self storeUserOnInstallation:[PFUser currentUser]];
-//        } else {
-//            [FPLogger record:@"App delegate: currentInstallation save failure"];
-//        }
-//    }];
-//}
-//
-//- (void)applicationDidBecomeActive:(UIApplication *)application {
-//    /*
-//     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//     */
-//    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-//    
-//}
-//
-//- (void)applicationWillTerminate:(UIApplication *)application {
-//    /*
-//     Called when the application is about to terminate.
-//     Save data if appropriate.
-//     See also applicationDidEnterBackground:.
-//     */
-//    [[PFFacebookUtils session] close];
-//}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [FPLogger record:[NSString stringWithFormat:@"App delegate: currentInstallation is %@", currentInstallation]];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [FPLogger record:@"App delegate: currentInstallation save success"];
+            [self storeUserOnInstallation:[PFUser currentUser]];
+        } else {
+            [FPLogger record:@"App delegate: currentInstallation save failure"];
+        }
+    }];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    /*
+     Called when the application is about to terminate.
+     Save data if appropriate.
+     See also applicationDidEnterBackground:.
+     */
+    [[PFFacebookUtils session] close];
+}
+
 @end

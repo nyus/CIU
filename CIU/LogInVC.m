@@ -8,7 +8,7 @@
 
 #import "LogInVC.h"
 #import <Parse/Parse.h>
-//#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "SignUpVC.h"
 #import "Helper.h"
 #import "UIResponder+Utilities.h"
@@ -81,104 +81,104 @@ static NSString *const kUsernameKey = @"username";
     // Set permissions required from the facebook user account
     NSArray *permissionsArray = @[@"public_profile"];
     
-//    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-//        
-//        if (!user) {
-//            [self.activityIndicator stopAnimating];
-//            
-//            if (!error) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-//                                                                message:@"You've cancelled the Facebook login."
-//                                                               delegate:nil
-//                                                      cancelButtonTitle:nil
-//                                                      otherButtonTitles:@"Dismiss", nil];
-//                [alert show];
-//            } else {
-//                NSLog(@"Log in facebook failed with error %@", error);
-//                [TSMessage showNotificationInViewController:self
-//                                                      title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
-//                                                   subtitle:nil
-//                                                       type:TSMessageNotificationTypeError
-//                                         accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
-//            }
-//            
-//        } else {
-//            
-//            FBRequest *request = [FBRequest requestForMe];
-//            [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//                
-//                if (error) {
-//                    [TSMessage showNotificationInViewController:self
-//                                                          title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
-//                                                       subtitle:nil
-//                                                           type:TSMessageNotificationTypeError
-//                                             accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
-//                } else {
-//                    NSDictionary *userData = (NSDictionary *)result;
-//                    NSString *facebookID = userData[@"id"];
-//                    NSString *firstName = userData[@"first_name"];
-//                    NSString *lastName = userData[@"last_name"];
-//                    NSString *gender = userData[@"gender"];
-//                    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
-//                    
-//                    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-//                    [NSURLConnection sendAsynchronousRequest:urlRequest
-//                                                       queue:[NSOperationQueue mainQueue]
-//                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//                                               if (!connectionError && data) {
-//                                                   [Helper saveAvatar:data
-//                                                              forUser:user.username
-//                                                            isHighRes:YES
-//                                                           completion:^(BOOL completed, NSError *error)
-//                                                   {
-//                                                       if (error) {
-//                                                           NSLog(@"Save high res avatar failed with error: %@", error);
-//                                                       } else {
-//                                                           UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data]
-//                                                                                          downToSize:CGSizeMake(70, 70)];
-//                                                           [Helper saveAvatar:UIImagePNGRepresentation(scaledImage)
-//                                                                      forUser:user.username 
-//                                                                    isHighRes:NO
-//                                                                   completion:^(BOOL completed, NSError *error) {
-//                                                               
-//                                                           }];
-//                                                       }
-//                                                   }];
-//                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
-//                                               }
-//                                           }];
-//                    
-//                    PFUser *me = [PFUser currentUser];
-//                    if (facebookID) {
-//                        [me setObject:facebookID forKey:@"facebookID"];
-//                    }
-//                    if (firstName) {
-//                        [me setObject:firstName forKey:@"firstName"];
-//                    }
-//                    if (lastName) {
-//                        [me setObject:lastName forKey:@"lastName"];
-//                    }
-//                    if (gender) {
-//                        [me setObject:gender forKey:@"gender"];
-//                    }
-//                    me[DDIsAdminKey] = @NO;
-//                    me[DDIsFacebookUserKey] = @YES;
-//                    [me saveEventually:^(BOOL succeeded, NSError *error) {
-//                        if(succeeded){
-//                            //set user on PFInstallation object so that we can send out targeted pushes
-//                            [FPLogger record:[NSString stringWithFormat:@"Log in VC:FB call storeUserOnInstallation with user:%@",me]];
-//                            [self storeUserOnInstallation:me];
-//                        }
-//                    }];
-//                    
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
-//                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
-//                }
-//                
-//                [self.activityIndicator stopAnimating];
-//            }];
-//        }
-//    }];
+    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+        
+        if (!user) {
+            [self.activityIndicator stopAnimating];
+            
+            if (!error) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"You've cancelled the Facebook login."
+                                                               delegate:nil
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"Dismiss", nil];
+                [alert show];
+            } else {
+                NSLog(@"Log in facebook failed with error %@", error);
+                [TSMessage showNotificationInViewController:self
+                                                      title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                   subtitle:nil
+                                                       type:TSMessageNotificationTypeError
+                                         accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
+            }
+            
+        } else {
+            
+            FBRequest *request = [FBRequest requestForMe];
+            [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                
+                if (error) {
+                    [TSMessage showNotificationInViewController:self
+                                                          title:NSLocalizedString(@"Oops Something Went Wrong\nPlease Try Again Later", nil)
+                                                       subtitle:nil
+                                                           type:TSMessageNotificationTypeError
+                                             accessibilityLabel:kSomethingWentWrongAccessibilityLabel];
+                } else {
+                    NSDictionary *userData = (NSDictionary *)result;
+                    NSString *facebookID = userData[@"id"];
+                    NSString *firstName = userData[@"first_name"];
+                    NSString *lastName = userData[@"last_name"];
+                    NSString *gender = userData[@"gender"];
+                    NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+                    
+                    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+                    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                       queue:[NSOperationQueue mainQueue]
+                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                               if (!connectionError && data) {
+                                                   [Helper saveAvatar:data
+                                                              forUser:user.username
+                                                            isHighRes:YES
+                                                           completion:^(BOOL completed, NSError *error)
+                                                   {
+                                                       if (error) {
+                                                           NSLog(@"Save high res avatar failed with error: %@", error);
+                                                       } else {
+                                                           UIImage *scaledImage = [Helper scaleImage:[UIImage imageWithData:data]
+                                                                                          downToSize:CGSizeMake(70, 70)];
+                                                           [Helper saveAvatar:UIImagePNGRepresentation(scaledImage)
+                                                                      forUser:user.username 
+                                                                    isHighRes:NO
+                                                                   completion:^(BOOL completed, NSError *error) {
+                                                               
+                                                           }];
+                                                       }
+                                                   }];
+                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"downloadFacebookProfilePicComplete" object:nil];
+                                               }
+                                           }];
+                    
+                    PFUser *me = [PFUser currentUser];
+                    if (facebookID) {
+                        [me setObject:facebookID forKey:@"facebookID"];
+                    }
+                    if (firstName) {
+                        [me setObject:firstName forKey:@"firstName"];
+                    }
+                    if (lastName) {
+                        [me setObject:lastName forKey:@"lastName"];
+                    }
+                    if (gender) {
+                        [me setObject:gender forKey:@"gender"];
+                    }
+                    me[DDIsAdminKey] = @NO;
+                    me[DDIsFacebookUserKey] = @YES;
+                    [me saveEventually:^(BOOL succeeded, NSError *error) {
+                        if(succeeded){
+                            //set user on PFInstallation object so that we can send out targeted pushes
+                            [FPLogger record:[NSString stringWithFormat:@"Log in VC:FB call storeUserOnInstallation with user:%@",me]];
+                            [self storeUserOnInstallation:me];
+                        }
+                    }];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissLogin" object:nil];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }
+                
+                [self.activityIndicator stopAnimating];
+            }];
+        }
+    }];
 }
 
 - (IBAction)logInButtonTapped:(id)sender {

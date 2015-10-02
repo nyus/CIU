@@ -13,7 +13,7 @@
 #import "LifestyleDetailVC.h"
 #import "LifestyleTableViewCell.h"
 #import "LifestyleCategory+Utilities.h"
-//#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "RestaurantVC.h"
 #import "RestaurantTableVC.h"
 #import "SupermarketTableVC.h"
@@ -44,24 +44,24 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     self.tableView.contentInset = inset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    PFUser *user = [PFUser currentUser];
-//    if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
-//        [self showLoginViewController];
-//    }
-//    
-//    FBRequest *request = [FBRequest requestForMe];
-//    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//        if (!error) {
-//            // handle successful response
-//        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
-//                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
-//            NSLog(@"The facebook session was invalidated");
-//            
-//            [self showLoginViewController];
-//        } else {
-//            NSLog(@"Some other error: %@", error);
-//        }
-//    }];
+    PFUser *user = [PFUser currentUser];
+    if (!(user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])) {
+        [self showLoginViewController];
+    }
+    
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // handle successful response
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+            NSLog(@"The facebook session was invalidated");
+            
+            [self showLoginViewController];
+        } else {
+            NSLog(@"Some other error: %@", error);
+        }
+    }];
     
     if ([Reachability canReachInternet]) {
         [self pullDataFromServer];
