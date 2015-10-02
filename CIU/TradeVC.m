@@ -225,8 +225,8 @@ static NSString *const kCategoryName = @"Trade";
                                              [self badLocalContentPredicate],
                                              [self tradeCategoryTypePredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
+                                                                                lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -251,8 +251,8 @@ static NSString *const kCategoryName = @"Trade";
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self tradeCategoryTypePredicate],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                          lesserOrEqualTo:self.lesserValue]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:nil
+                                                                                lesserOrEqualTo:self.lesserValue]]];
     }
 }
 

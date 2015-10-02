@@ -261,8 +261,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     return predicate;
 }
 
-- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
-                                        lesserOrEqualTo:(id)lesserValue
+- (NSPredicate *)createDateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                              lesserOrEqualTo:(id)lesserValue
 {
     if ([greaterValue compare:lesserValue] == NSOrderedDescending) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
@@ -280,6 +280,30 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         datePredicate = [NSPredicate predicateWithFormat:@"(self.createdAt > %@) AND (self.createdAt < %@)", greaterValue, lesserValue];
     } else {
         datePredicate = [NSPredicate predicateWithFormat:@"self.createdAt != nil"];
+    }
+    
+    return datePredicate;
+}
+
+- (NSPredicate *)eventDateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                             lesserOrEqualTo:(id)lesserValue
+{
+    if ([greaterValue compare:lesserValue] == NSOrderedDescending) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"greaterValue cannot be smaller than lesserValue"
+                                     userInfo:nil];
+    }
+    
+    NSPredicate *datePredicate = nil;
+    
+    if (greaterValue && !lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.eventDate > %@", greaterValue];
+    } else if (!greaterValue && lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.eventDate < %@", lesserValue];
+    } else if (greaterValue && lesserValue) {
+        datePredicate = [NSPredicate predicateWithFormat:@"(self.eventDate > %@) AND (self.eventDate < %@)", greaterValue, lesserValue];
+    } else {
+        datePredicate = [NSPredicate predicateWithFormat:@"self.eventDate != nil"];
     }
     
     return datePredicate;

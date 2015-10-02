@@ -79,8 +79,11 @@
 
 - (NSArray *)objectIdsToExclude;
 
-- (NSPredicate *)dateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
-                                        lesserOrEqualTo:(id)lesserValue;
+- (NSPredicate *)createDateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                              lesserOrEqualTo:(id)lesserValue;
+
+- (NSPredicate *)eventDateRnagePredicateWithgreaterOrEqualTo:(id)greaterValue
+                                             lesserOrEqualTo:(id)lesserValue;
 
 - (NSPredicate *)geoBoundPredicateWithFetchRadius:(CGFloat)fetchRadius;
 

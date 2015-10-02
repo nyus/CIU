@@ -89,7 +89,6 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -119,10 +118,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self eventDateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
+                                                                               lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -208,10 +206,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
-                                                                          lesserOrEqualTo:self.lesserValue]]];
+                                             [self eventDateRnagePredicateWithgreaterOrEqualTo:[NSDate date]
+                                                                               lesserOrEqualTo:self.lesserValue]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -233,10 +230,9 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:greaterDate
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self eventDateRnagePredicateWithgreaterOrEqualTo:greaterDate
+                                                                               lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount

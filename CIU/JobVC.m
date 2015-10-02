@@ -41,7 +41,6 @@ static NSString *const kCategoryName = @"Jobs";
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -67,7 +66,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+                                             [self jobCategoryTypePredicate]]];
     }
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
@@ -159,9 +158,8 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
+                                                                                lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -185,9 +183,8 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
-                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                          lesserOrEqualTo:self.lesserValue]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:nil
+                                                                                lesserOrEqualTo:self.lesserValue]]];
     }
 }
 

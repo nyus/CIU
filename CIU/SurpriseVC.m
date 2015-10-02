@@ -132,10 +132,9 @@ static NSString *const kEntityName = @"StatusObject";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:nil
-                                                                          lesserOrEqualTo:self.lesserValue]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:nil
+                                                                                lesserOrEqualTo:self.lesserValue]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -152,10 +151,9 @@ static NSString *const kEntityName = @"StatusObject";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
-                                             [self dateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
-                                                                          lesserOrEqualTo:nil]]];
+                                             [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
+                                                                                lesserOrEqualTo:nil]]];
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount
@@ -245,8 +243,8 @@ static NSString *const kEntityName = @"StatusObject";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self stickyPostPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+
     } else {
         [self fetchServerDataWithParseClassName:self.serverDataParseClassName
                                      fetchLimit:self.serverFetchCount

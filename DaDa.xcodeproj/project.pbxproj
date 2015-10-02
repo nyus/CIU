@@ -54,6 +54,8 @@
 		505286E21B3C3A890094F533 /* LifestyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286E11B3C3A890094F533 /* LifestyleTest.m */; };
 		505286E41B3C3E490094F533 /* SideMenuTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 505286E31B3C3E490094F533 /* SideMenuTest.m */; };
 		505B504C1A1916A9000300ED /* UIColor+CIUColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 505B504B1A1916A9000300ED /* UIColor+CIUColors.m */; };
+		505E21D11BBEC46A002B61B7 /* GenericTableVC.h in Sources */ = {isa = PBXBuildFile; fileRef = 6564F1FA199E3E8D00629B48 /* GenericTableVC.h */; };
+		505E21D21BBEC46A002B61B7 /* GenericTableViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 5092160919AA45AD00304EDD /* GenericTableViewCell.h */; };
 		5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5063E9DC1A64C1C800275F2B /* GAnalyticsManager.m */; };
 		506BF27B1B3F489100585564 /* LifestyleLevel2Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF27A1B3F489100585564 /* LifestyleLevel2Test.m */; };
 		506BF2811B3F4BEA00585564 /* KIFUITestActor+Stepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF2801B3F4BEA00585564 /* KIFUITestActor+Stepper.m */; };
@@ -932,6 +934,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505E21D11BBEC46A002B61B7 /* GenericTableVC.h in Sources */,
+				505E21D21BBEC46A002B61B7 /* GenericTableViewCell.h in Sources */,
 				5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */,
 				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
