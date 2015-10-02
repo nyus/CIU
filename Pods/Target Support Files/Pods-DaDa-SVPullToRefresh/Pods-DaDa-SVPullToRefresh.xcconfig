@@ -1,1 +1,0 @@
-PODS_DADA_SVPULLTOREFRESH_OTHER_LDFLAGS = -framework "QuartzCore"

@@ -6,18 +6,6 @@
     <dict>
         <key>NSExceptionDomains</key>
         <dict>
-            <key>files.parsetfss.com</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSIncludeSubdomains</key>
-                <true/>
-            </dict>
-        </dict>
-    </dict>
-    <dict>
-        <key>NSExceptionDomains</key>
-        <dict>
             <key>facebook.com</key>
             <dict>
                 <key>NSIncludesSubdomains</key>
@@ -38,6 +26,19 @@
                 <true/>
                 <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
                 <false/>
+            </dict>
+        </dict>
+    </dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>files.parsetfss.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSIncludeSubdomains</key>
+                <true/>
             </dict>
         </dict>
     </dict>

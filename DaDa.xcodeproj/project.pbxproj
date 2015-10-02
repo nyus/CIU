@@ -63,13 +63,6 @@
 		508108E81BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		508108E91BBB54F400AB7C4C /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E71BBB54F400AB7C4C /* StatusObject.m */; settings = {ASSET_TAGS = (); }; };
 		5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */; };
-		5086CBF51B33069D00EAECD9 /* libPods-DaDa-Bolts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */; };
-		5086CBF61B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */; };
-		5086CBF71B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */; };
-		5086CBF81B33069D00EAECD9 /* libPods-DaDa-Masonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */; };
-		5086CBF91B33069D00EAECD9 /* libPods-DaDa-Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */; };
-		5086CBFA1B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */; };
-		5086CBFB1B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */; };
 		5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091FAF11B10C74E00523183 /* UIFont+Utilities.m */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };
 		5092160E19AA463700304EDD /* LifestyleObjectDetailTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160D19AA463700304EDD /* LifestyleObjectDetailTableVC.m */; };
@@ -233,13 +226,6 @@
 		508108E61BBB54F400AB7C4C /* StatusObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusObject.h; sourceTree = "<group>"; };
 		508108E71BBB54F400AB7C4C /* StatusObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusObject.m; sourceTree = "<group>"; };
 		5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
-		5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Bolts.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Bolts.a"; sourceTree = "<group>"; };
-		5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-ELCImagePickerController.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-ELCImagePickerController.a"; sourceTree = "<group>"; };
-		5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Facebook-iOS-SDK.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Facebook-iOS-SDK.a"; sourceTree = "<group>"; };
-		5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Masonry.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Masonry.a"; sourceTree = "<group>"; };
-		5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-Parse.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-Parse.a"; sourceTree = "<group>"; };
-		5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-ParseFacebookUtils.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-ParseFacebookUtils.a"; sourceTree = "<group>"; };
-		5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DaDa-SVPullToRefresh.a"; path = "Pods/../build/Debug-iphoneos/libPods-DaDa-SVPullToRefresh.a"; sourceTree = "<group>"; };
 		5091FAF01B10C74E00523183 /* UIFont+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Utilities.h"; sourceTree = "<group>"; };
 		5091FAF11B10C74E00523183 /* UIFont+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Utilities.m"; sourceTree = "<group>"; };
 		5092160919AA45AD00304EDD /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
@@ -368,13 +354,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5086CBF51B33069D00EAECD9 /* libPods-DaDa-Bolts.a in Frameworks */,
-				5086CBF61B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a in Frameworks */,
-				5086CBF71B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a in Frameworks */,
-				5086CBF81B33069D00EAECD9 /* libPods-DaDa-Masonry.a in Frameworks */,
-				5086CBF91B33069D00EAECD9 /* libPods-DaDa-Parse.a in Frameworks */,
-				5086CBFA1B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a in Frameworks */,
-				5086CBFB1B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a in Frameworks */,
 				503B67391B32784C00E4DEB5 /* Accounts.framework in Frameworks */,
 				503B67371B32784500E4DEB5 /* Social.framework in Frameworks */,
 				506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */,
@@ -667,13 +646,6 @@
 		652BAB7F199D3CCA009F5F5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5086CBEE1B33069D00EAECD9 /* libPods-DaDa-Bolts.a */,
-				5086CBEF1B33069D00EAECD9 /* libPods-DaDa-ELCImagePickerController.a */,
-				5086CBF01B33069D00EAECD9 /* libPods-DaDa-Facebook-iOS-SDK.a */,
-				5086CBF11B33069D00EAECD9 /* libPods-DaDa-Masonry.a */,
-				5086CBF21B33069D00EAECD9 /* libPods-DaDa-Parse.a */,
-				5086CBF31B33069D00EAECD9 /* libPods-DaDa-ParseFacebookUtils.a */,
-				5086CBF41B33069D00EAECD9 /* libPods-DaDa-SVPullToRefresh.a */,
 				5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */,
 				503B67381B32784C00E4DEB5 /* Accounts.framework */,
 				503B67361B32784500E4DEB5 /* Social.framework */,

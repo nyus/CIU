@@ -12,7 +12,7 @@
 #import <Parse/Parse.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <StoreKit/StoreKit.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+//#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 NS_ENUM(NSUInteger, SideBarStatus){
     SideBarStatusClosed=0,
@@ -196,21 +196,21 @@ static CGFloat leadingSpace;
         c.delegate = self;
         
         PFUser *user = [PFUser currentUser];
-        if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-            [Helper getAvatarForUser:[PFUser currentUser].username
-                           isHighRes:NO completion:^(NSError *error, UIImage *image) {
-                if (error) {
-                    NSLog(@"Get avartar for %@ failed with error %@", [PFUser currentUser].username, error);
-                } else {
-                    c.avatarImageView.image = image;
-                    c.backgroundColor = [UIColor clearColor];
-                }
-            }];
-            c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
-            
-        } else {
-            c.usernameLabel.text = @"";
-        }
+//        if (user || [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+//            [Helper getAvatarForUser:[PFUser currentUser].username
+//                           isHighRes:NO completion:^(NSError *error, UIImage *image) {
+//                if (error) {
+//                    NSLog(@"Get avartar for %@ failed with error %@", [PFUser currentUser].username, error);
+//                } else {
+//                    c.avatarImageView.image = image;
+//                    c.backgroundColor = [UIColor clearColor];
+//                }
+//            }];
+//            c.usernameLabel.text = [NSString stringWithFormat:@"%@ %@",[[PFUser currentUser] objectForKey:@"firstName"],[[PFUser currentUser] objectForKey:@"lastName"]];
+//            
+//        } else {
+//            c.usernameLabel.text = @"";
+//        }
         
         c.usernameLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
         c.usernameLabel.textColor = [UIColor themeTextGrey];
@@ -275,7 +275,7 @@ static CGFloat leadingSpace;
     
     //share this app
     else if(indexPath.row == 4){
-        [self shareToFacebook];
+//        [self shareToFacebook];
     }
     //Terms of Use
     else if (indexPath.row == 5){
@@ -302,6 +302,7 @@ static CGFloat leadingSpace;
     cell.selected = NO;
 }
 
+/*
 -(void)shareToFacebook{
     // Check if the Facebook app is installed and we can present the share dialog
     FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
@@ -366,8 +367,8 @@ static CGFloat leadingSpace;
                                                       }
                                                   }];
     }
-
 }
+*/
 
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];

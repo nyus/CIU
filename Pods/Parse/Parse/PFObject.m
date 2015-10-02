@@ -103,7 +103,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     // Guards basically all of the variables below.
     NSObject *lock;
 
-    PFObjectState *_state;
+    PFObjectState *_pfinternal_state;
 
     PFObjectEstimatedData *_estimatedData;
     NSMutableSet *_availableKeys; // TODO: (nlutsenko) Maybe decouple this further.
@@ -233,32 +233,32 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     if ([node isKindOfClass:[NSArray class]]) {
         for (id elem in node) {
             @autoreleasepool {
-                [PFObject collectDirtyChildren:elem
-                                      children:dirtyChildren
-                                         files:dirtyFiles
-                                          seen:seen
-                                       seenNew:seenNew
-                                   currentUser:currentUser];
+                [self collectDirtyChildren:elem
+                                  children:dirtyChildren
+                                     files:dirtyFiles
+                                      seen:seen
+                                   seenNew:seenNew
+                               currentUser:currentUser];
             }
         }
     } else if ([node isKindOfClass:[NSDictionary class]]) {
         [node enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [PFObject collectDirtyChildren:obj
-                                  children:dirtyChildren
-                                     files:dirtyFiles
-                                      seen:seen
-                                   seenNew:seenNew
-                               currentUser:currentUser];
+            [self collectDirtyChildren:obj
+                              children:dirtyChildren
+                                 files:dirtyFiles
+                                  seen:seen
+                               seenNew:seenNew
+                           currentUser:currentUser];
         }];
     } else if ([node isKindOfClass:[PFACL class]]) {
         PFACL *acl = (PFACL *)node;
         if ([acl hasUnresolvedUser]) {
-            [PFObject collectDirtyChildren:currentUser
-                                  children:dirtyChildren
-                                     files:dirtyFiles
-                                      seen:seen
-                                   seenNew:seenNew
-                               currentUser:currentUser];
+            [self collectDirtyChildren:currentUser
+                              children:dirtyChildren
+                                 files:dirtyFiles
+                                  seen:seen
+                               seenNew:seenNew
+                           currentUser:currentUser];
         }
 
     } else if ([node isKindOfClass:[PFObject class]]) {
@@ -288,12 +288,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             // Recurse into this object's children looking for dirty children.
             // We only need to look at the child object's current estimated data,
             // because that's the only data that might need to be saved now.
-            [PFObject collectDirtyChildren:object->_estimatedData.dictionaryRepresentation
-                                  children:dirtyChildren
-                                     files:dirtyFiles
-                                      seen:seen
-                                   seenNew:seenNew
-                               currentUser:currentUser];
+            [self collectDirtyChildren:object->_estimatedData.dictionaryRepresentation
+                              children:dirtyChildren
+                                 files:dirtyFiles
+                                  seen:seen
+                               seenNew:seenNew
+                           currentUser:currentUser];
 
             if ([object isDirty:NO]) {
                 [dirtyChildren addObject:object];
@@ -314,12 +314,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
                     children:(NSMutableSet *)dirtyChildren
                        files:(NSMutableSet *)dirtyFiles
                  currentUser:(PFUser *)currentUser {
-    [PFObject collectDirtyChildren:child
-                          children:dirtyChildren
-                             files:dirtyFiles
-                              seen:[NSSet set]
-                           seenNew:[NSSet set]
-                       currentUser:currentUser];
+    [self collectDirtyChildren:child
+                      children:dirtyChildren
+                         files:dirtyFiles
+                          seen:[NSSet set]
+                       seenNew:[NSSet set]
+                   currentUser:currentUser];
 }
 
 // Returns YES if the given object can be serialized for saving as a value
@@ -335,7 +335,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         if (!object.objectId && ![saved containsObject:object]) {
             if (error) {
                 *error = [PFErrorUtilities errorWithCode:kPFErrorInvalidPointer
-                                                message:@"Pointer to an unsaved object."];
+                                                 message:@"Pointer to an unsaved object."];
             }
             return NO;
         }
@@ -385,87 +385,13 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             ![saved containsObject:user]) {
             if (error) {
                 *error = [PFErrorUtilities errorWithCode:kPFErrorInvalidACL
-                                                message:@"User associated with ACL must be signed up."];
+                                                 message:@"User associated with ACL must be signed up."];
             }
             return NO;
         }
 
         return YES;
     }
-}
-
-// Delete all objects in the array.
-+ (BFTask *)deleteAllAsync:(NSArray *)objects withSessionToken:(NSString *)sessionToken {
-    if ([objects count] == 0) {
-        return [BFTask taskWithResult:@YES];
-    }
-
-    return [[[BFTask taskFromExecutor:[BFExecutor defaultPriorityBackgroundExecutor] withBlock:^id{
-        return [PFObject _enqueue:^BFTask *(BFTask *toAwait) {
-            NSMutableSet *uniqueObjects = [NSMutableSet set];
-            NSMutableArray *commands = [NSMutableArray arrayWithCapacity:[objects count]];
-            for (PFObject *object in objects) {
-                @synchronized (object->lock) {
-                    //Just continue, there is no action to be taken here
-                    if (!object.objectId) {
-                        continue;
-                    }
-
-                    NSString *uniqueCheck = [NSString stringWithFormat:@"%@-%@",
-                                             object.parseClassName,
-                                             [object objectId]];
-                    if (![uniqueObjects containsObject:uniqueCheck]) {
-                        [object checkDeleteParams];
-
-                        [commands addObject:[object _currentDeleteCommandWithSessionToken:sessionToken]];
-                        [uniqueObjects addObject:uniqueCheck];
-                    }
-                }
-            }
-
-            // Batch requests have currently a limit of 50 packaged requests per single request
-            // This splitting will split the overall array into segments of upto 50 requests
-            // and execute them concurrently with a wrapper task for all of them.
-            NSArray *commandBatches = [PFInternalUtils arrayBySplittingArray:commands
-                                             withMaximumComponentsPerSegment:PFRESTObjectBatchCommandSubcommandsLimit];
-            NSMutableArray *tasks = [NSMutableArray arrayWithCapacity:[commandBatches count]];
-            for (NSArray *commandBatch in commandBatches) {
-                PFRESTCommand *command = [PFRESTObjectBatchCommand batchCommandWithCommands:commandBatch
-                                                                               sessionToken:sessionToken];
-                BFTask *task = [[[Parse _currentManager].commandRunner runCommandAsync:command withOptions:0]
-                                continueAsyncWithSuccessBlock:^id(BFTask *task) {
-                                    NSArray *results = [task.result result];
-                                    for (NSDictionary *result in results) {
-                                        NSDictionary *errorResult = result[@"error"];
-                                        if (errorResult) {
-                                            NSError *error = [PFErrorUtilities errorFromResult:errorResult];
-                                            return [BFTask taskWithError:error];
-                                        }
-                                    }
-
-                                    return task;
-                                }];
-                [tasks addObject:task];
-            }
-            return [BFTask taskForCompletionOfAllTasks:tasks];
-        } forObjects:objects];
-    }] continueWithBlock:^id(BFTask *task) {
-        if (!task.exception) {
-            return task;
-        }
-
-        // Return the first exception, instead of the aggregated one
-        // for the sake of compatability with old versions
-
-        if ([task.exception.name isEqualToString:BFTaskMultipleExceptionsException]) {
-            NSException *firstException = [task.exception.userInfo[@"exceptions"] firstObject];
-            if (firstException) {
-                return [BFTask taskWithException:firstException];
-            }
-        }
-
-        return task;
-    }] continueWithSuccessResult:@YES];
 }
 
 // This saves all of the objects and files reachable from the given object.
@@ -476,7 +402,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
     NSMutableSet *uniqueObjects = [NSMutableSet set];
     NSMutableSet *uniqueFiles = [NSMutableSet set];
-    [PFObject collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
+    [self collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
     for (PFFile *file in uniqueFiles) {
         task = [task continueAsyncWithSuccessBlock:^id(BFTask *task) {
             return [[file saveInBackground] continueAsyncWithBlock:^id(BFTask *task) {
@@ -484,7 +410,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
                 // saves with an error when a file save inside it is cancelled.
                 if (task.isCancelled) {
                     NSError *newError = [PFErrorUtilities errorWithCode:kPFErrorUnsavedFile
-                                                               message:@"A file save was cancelled."];
+                                                                message:@"A file save was cancelled."];
                     return [BFTask taskWithError:newError];
                 }
                 return task;
@@ -544,12 +470,13 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             NSMutableArray *tasks = [NSMutableArray arrayWithCapacity:[objectBatches count]];
 
             for (NSArray *objectBatch in objectBatches) {
-                BFTask *batchTask = [PFObject _enqueue:^BFTask *(BFTask *toAwait) {
+                BFTask *batchTask = [self _enqueue:^BFTask *(BFTask *toAwait) {
                     return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
                         NSMutableArray *commands = [NSMutableArray arrayWithCapacity:[objectBatch count]];
                         for (PFObject *object in objectBatch) {
                             PFRESTCommand *command = nil;
                             @synchronized ([object lock]) {
+                                [object _objectWillSave];
                                 [object _checkSaveParametersWithCurrentUser:currentUser];
                                 command = [object _constructSaveCommandForChanges:[object unsavedChanges]
                                                                      sessionToken:sessionToken
@@ -645,7 +572,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     return [BFTask taskFromExecutor:[BFExecutor defaultExecutor] withBlock:^id{
         NSMutableSet *uniqueObjects = [NSMutableSet set];
         NSMutableSet *uniqueFiles = [NSMutableSet set];
-        [PFObject collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
+        [self collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
         for (PFFile *file in uniqueFiles) {
             if (!file.url) {
                 NSException *exception = [NSException exceptionWithName:NSInternalInconsistencyException
@@ -715,9 +642,9 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 - (BFTask *)_saveChildrenInBackgroundWithCurrentUser:(PFUser *)currentUser sessionToken:(NSString *)sessionToken {
     @synchronized (lock) {
-        return [PFObject _deepSaveAsync:_estimatedData.dictionaryRepresentation
-                        withCurrentUser:currentUser
-                           sessionToken:sessionToken];
+        return [[self class] _deepSaveAsync:_estimatedData.dictionaryRepresentation
+                            withCurrentUser:currentUser
+                               sessionToken:sessionToken];
     }
 }
 
@@ -731,19 +658,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         if (self._state.deleted || dirty || [self _hasChanges]) {
             return YES;
         }
+
         if (considerChildren) {
-            // We only need to consider the currently estimated children here,
-            // because they're the only ones that might need to be saved in a
-            // subsequent call to save, which is the meaning of "dirtiness".
-            __block BOOL retValue = NO;
-            [_estimatedData enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-                if ([obj isKindOfClass:[PFObject class]] && [obj isDirty]) {
-                    retValue = YES;
-                    *stop = YES;
-                }
-            }];
-            return retValue;
+            NSMutableSet *seen = [NSMutableSet set];
+            return [self _areChildrenDirty:seen];
         }
+
         return NO;
     }
 }
@@ -751,6 +671,32 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 - (void)_setDirty:(BOOL)aDirty {
     @synchronized (lock) {
         dirty = aDirty;
+    }
+}
+
+- (BOOL)_areChildrenDirty:(NSMutableSet *)seenObjects {
+    if ([seenObjects containsObject:self]) {
+        return NO;
+    }
+    [seenObjects addObject:self];
+
+    @synchronized(lock) {
+        [self checkpointAllMutableContainers];
+        if (self._state.deleted || dirty || [self _hasChanges]) {
+            return YES;
+        }
+
+        // We only need to consider the currently estimated children here,
+        // because they're the only ones that might need to be saved in a
+        // subsequent call to save, which is the meaning of "dirtiness".
+        __block BOOL retValue = NO;
+        [_estimatedData enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if ([obj isKindOfClass:[PFObject class]] && [obj _areChildrenDirty:seenObjects]) {
+                retValue = YES;
+                *stop = YES;
+            }
+        }];
+        return retValue;
     }
 }
 
@@ -818,7 +764,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 - (void)setHasBeenFetched:(BOOL)fetched {
     @synchronized (lock) {
         if (self._state.complete != fetched) {
-            PFMutableObjectState *state = [_state mutableCopy];
+            PFMutableObjectState *state = [_pfinternal_state mutableCopy];
             state.complete = fetched;
             self._state = state;
         }
@@ -828,7 +774,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 - (void)_setDeleted:(BOOL)deleted {
     @synchronized (lock) {
         if (self._state.deleted != deleted) {
-            PFMutableObjectState *state = [_state mutableCopy];
+            PFMutableObjectState *state = [_pfinternal_state mutableCopy];
             state.deleted = deleted;
             self._state = state;
         }
@@ -852,11 +798,6 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 #pragma mark - Validations
 ///--------------------------------------
 
-// Validations that are done on delete. For now, there is nothing.
-- (void)checkDeleteParams {
-    return;
-}
-
 // Validations that are done on save. For now, there is nothing.
 - (void)_checkSaveParametersWithCurrentUser:(PFUser *)currentUser {
     return;
@@ -869,7 +810,6 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     PFParameterAssert(className, @"Class name can't be 'nil'.");
     PFParameterAssert(![className hasPrefix:@"_"], @"Invalid class name. Class names cannot start with an underscore.");
 }
-
 
 ///--------------------------------------
 #pragma mark - Serialization helpers
@@ -1111,6 +1051,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
                     [localOperationSet.updatedAt compare:remoteOperationSet.updatedAt] != NSOrderedAscending) {
                     [localOperationSet mergeOperationSet:remoteOperationSet];
                 } else {
+                    PFConsistencyAssert(remoteOperationSet, @"'remoteOperationSet' should not be nil.");
                     NSUInteger index = [operationSetQueue indexOfObject:localOperationSet];
                     [remoteOperationSet mergeOperationSet:localOperationSet];
                     [operationSetQueue replaceObjectAtIndex:index withObject:remoteOperationSet];
@@ -1203,6 +1144,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             return [self _validateSaveEventuallyAsync];
         }] continueWithSuccessBlock:^id(BFTask *task) {
             @synchronized (lock) {
+                [self _objectWillSave];
                 if (![self isDirty:NO]) {
                     return [BFTask taskWithResult:@YES];
                 }
@@ -1210,7 +1152,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
             BFTask *saveChildrenTask = nil;
             if (saveChildren) {
-                saveChildrenTask = [PFObject _enqueueSaveEventuallyChildrenOfObject:self currentUser:currentUser];
+                saveChildrenTask = [[self class] _enqueueSaveEventuallyChildrenOfObject:self currentUser:currentUser];
             } else {
                 saveChildrenTask = [BFTask taskWithResult:nil];
             }
@@ -1439,9 +1381,21 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             if ([key isEqualToString:PFObjectObjectIdRESTKey]) {
                 state.objectId = obj;
             } else if ([key isEqualToString:PFObjectCreatedAtRESTKey]) {
-                [state setCreatedAtFromString:obj];
+                // These dates can be passed in as NSDate or as NSString,
+                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                if ([obj isKindOfClass:[NSDate class]]) {
+                    state.createdAt = obj;
+                } else {
+                    [state setCreatedAtFromString:obj];
+                }
             } else if ([key isEqualToString:PFObjectUpdatedAtRESTKey]) {
-                [state setUpdatedAtFromString:obj];
+                // These dates can be passed in as NSDate or as NSString,
+                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                if ([obj isKindOfClass:[NSDate class]]) {
+                    state.updatedAt = obj;
+                } else {
+                    [state setUpdatedAtFromString:obj];
+                }
             } else if ([key isEqualToString:PFObjectACLRESTKey]) {
                 PFACL *acl = [PFACL ACLWithDictionary:obj];
                 [state setServerDataObject:acl forKey:key];
@@ -1527,6 +1481,8 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
                     return [BFTask taskWithResult:@YES];
                 }
 
+                [self _objectWillSave];
+
                 // Snapshot the current set of changes, and push a new changeset into the queue.
                 PFOperationSet *changes = [self unsavedChanges];
 
@@ -1561,25 +1517,19 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 - (BFTask *)fetchAsync:(BFTask *)toAwait {
     PFCurrentUserController *controller = [[self class] currentUserController];
-    @weakify(self);
     return [[controller getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
         return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
-            @strongify(self);
             return [[[self class] objectController] fetchObjectAsync:self withSessionToken:sessionToken];
         }];
     }];
 }
 
 - (BFTask *)deleteAsync:(BFTask *)toAwait {
-    [self checkDeleteParams];
-
     PFCurrentUserController *controller = [[self class] currentUserController];
-    @weakify(self);
     return [[controller getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
         return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
-            @strongify(self);
             return [[[self class] objectController] deleteObjectAsync:self withSessionToken:sessionToken];
         }];
     }];
@@ -1611,11 +1561,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 }
 
 - (PFRESTCommand *)_currentDeleteCommandWithSessionToken:(NSString *)sessionToken {
-    @synchronized (lock) {
-        [self checkDeleteParams];
-        return [PFRESTObjectCommand deleteObjectCommandForObjectState:self._state
-                                                     withSessionToken:sessionToken];
-    }
+    return [PFRESTObjectCommand deleteObjectCommandForObjectState:self._state withSessionToken:sessionToken];
 }
 
 ///--------------------------------------
@@ -1718,7 +1664,6 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 @implementation PFObject
 
-@synthesize _state = _state;
 @synthesize _availableKeys = _availableKeys;
 
 ///--------------------------------------
@@ -1729,26 +1674,26 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     self = [super init];
     if (!self) return nil;
 
-    if (!_state) {
+    if (!_pfinternal_state) {
         PFConsistencyAssert([self conformsToProtocol:@protocol(PFSubclassing)],
                             @"Can only call -[PFObject init] on subclasses conforming to PFSubclassing.");
         [PFObject assertSubclassIsRegistered:[self class]];
-        _state = [[self class] _newObjectStateWithParseClassName:[[self class] parseClassName]
-                                                        objectId:nil
-                                                      isComplete:YES];
+        _pfinternal_state = [[self class] _newObjectStateWithParseClassName:[[self class] parseClassName]
+                                                                   objectId:nil
+                                                                 isComplete:YES];
     }
-    [[self class] _assertValidInstanceClassName:_state.parseClassName];
+    [[self class] _assertValidInstanceClassName:_pfinternal_state.parseClassName];
 
     lock = [[NSObject alloc] init];
     operationSetQueue = [NSMutableArray arrayWithObject:[[PFOperationSet alloc] init]];
-    _estimatedData = [PFObjectEstimatedData estimatedDataFromServerData:_state.serverData
+    _estimatedData = [PFObjectEstimatedData estimatedDataFromServerData:_pfinternal_state.serverData
                                                       operationSetQueue:operationSetQueue];
     _availableKeys = [NSMutableSet set];
     hashedObjectsCache = [[NSMutableDictionary alloc] init];
     self.taskQueue = [[PFTaskQueue alloc] init];
     _eventuallyTaskQueue = [[PFTaskQueue alloc] init];
 
-    if (_state.complete) {
+    if (_pfinternal_state.complete) {
         dirty = YES;
         [self setDefaultValues];
     }
@@ -1762,7 +1707,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 }
 
 - (instancetype)initWithObjectState:(PFObjectState *)state {
-    _state = state;
+    _pfinternal_state = state;
     return [self init];
 }
 
@@ -1841,10 +1786,31 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     return [PFObjectState stateWithParseClassName:className objectId:objectId isComplete:complete];
 }
 
-#pragma mark Validation
+///--------------------------------------
+#pragma mark - Validation
+///--------------------------------------
 
-- (BFTask *)_validateSaveEventuallyAsync {
+- (BFTask PF_GENERIC(PFVoid) *)_validateFetchAsync {
+    if (!self._state.objectId) {
+        NSError *error = [PFErrorUtilities errorWithCode:kPFErrorMissingObjectId
+                                                 message:@"Can't fetch an object that hasn't been saved to the server."];
+        return [BFTask taskWithError:error];
+    }
     return [BFTask taskWithResult:nil];
+}
+
+- (BFTask PF_GENERIC(PFVoid) *)_validateDeleteAsync {
+    return [BFTask taskWithResult:nil];
+}
+
+- (BFTask PF_GENERIC(PFVoid) *)_validateSaveEventuallyAsync {
+    return [BFTask taskWithResult:nil];
+}
+
+#pragma mark Object Will Save
+
+- (void)_objectWillSave {
+    // Do nothing.
 }
 
 ///--------------------------------------
@@ -1853,12 +1819,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 - (void)set_state:(PFObjectState *)state {
     @synchronized(lock) {
-        NSString *oldObjectId = _state.objectId;
+        NSString *oldObjectId = _pfinternal_state.objectId;
         if (self._state != state) {
-            _state = [state copy];
+            _pfinternal_state = [state copy];
         }
 
-        NSString *newObjectId = _state.objectId;
+        NSString *newObjectId = _pfinternal_state.objectId;
         if (![PFObjectUtilities isObject:oldObjectId equalToObject:newObjectId]) {
             [self _notifyObjectIdChangedFrom:oldObjectId toObjectId:newObjectId];
         }
@@ -1867,7 +1833,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 - (PFObjectState *)_state {
     @synchronized(lock) {
-        return _state;
+        return _pfinternal_state;
     }
 }
 
@@ -1888,7 +1854,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
         PFMutableObjectState *state = [self._state mutableCopy];
         state.objectId = objectId;
-        _state = state;
+        _pfinternal_state = state;
 
         [self _notifyObjectIdChangedFrom:oldObjectId toObjectId:objectId];
     }
@@ -1957,13 +1923,13 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 + (PFQuery *)query {
     PFConsistencyAssert([self conformsToProtocol:@protocol(PFSubclassing)],
                         @"+[PFObject query] can only be called on subclasses conforming to PFSubclassing.");
-    [PFObject assertSubclassIsRegistered:[self class]];
+    [PFObject assertSubclassIsRegistered:self];
     return [PFQuery queryWithClassName:[(id<PFSubclassing>)self parseClassName]];
 }
 
 + (PFQuery *)queryWithPredicate:(NSPredicate *)predicate {
-    NSAssert([self conformsToProtocol:@protocol(PFSubclassing)],
-             @"+[PFObject queryWithPredicate:] can only be called on subclasses conforming to PFSubclassing.");
+    PFConsistencyAssert([self conformsToProtocol:@protocol(PFSubclassing)],
+                        @"+[PFObject queryWithPredicate:] can only be called on subclasses conforming to PFSubclassing.");
     [PFObject assertSubclassIsRegistered:[self class]];
     return [PFQuery queryWithClassName:[(id<PFSubclassing>)self parseClassName] predicate:predicate];
 }
@@ -1974,7 +1940,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         Class registration = [[self subclassingController] subclassForParseClassName:[subclass parseClassName]];
 
         // It's OK to subclass a subclass (i.e. custom PFUser implementation)
-        PFConsistencyAssert(registration && (registration == subclass || [registration isKindOfClass:subclass]),
+        PFConsistencyAssert(registration && (registration == subclass || [registration isSubclassOfClass:subclass]),
                             @"The class %@ must be registered with registerSubclass before using Parse.", subclass);
     }
 }
@@ -2050,9 +2016,10 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 - (BFTask *)deleteEventually {
     return [[[_eventuallyTaskQueue enqueue:^BFTask *(BFTask *toAwait) {
         NSString *sessionToken = [PFUser currentSessionToken];
-        return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
+        return [[toAwait continueAsyncWithBlock:^id(BFTask *task) {
+            return [self _validateDeleteAsync];
+        }] continueWithSuccessBlock:^id(BFTask *task) {
             @synchronized (lock) {
-                [self checkDeleteParams];
                 _deletingEventually += 1;
 
                 PFOfflineStore *store = [Parse _currentManager].offlineStore;
@@ -2103,12 +2070,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     return self._state.complete;
 }
 
-- (void)refresh {
-    [self fetch];
+- (instancetype)refresh {
+    return [self fetch];
 }
 
-- (void)refresh:(NSError **)error {
-    [self fetch:error];
+- (instancetype)refresh:(NSError **)error {
+    return [self fetch:error];
 }
 
 - (void)refreshInBackgroundWithTarget:(id)target selector:(SEL)selector {
@@ -2119,18 +2086,19 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     [self fetchInBackgroundWithBlock:block];
 }
 
-- (void)fetch {
-    [self fetch:nil];
+- (instancetype)fetch {
+    return [self fetch:nil];
 }
 
-- (void)fetch:(NSError **)error {
-    [[self fetchInBackground] waitForResult:error];
+- (instancetype)fetch:(NSError **)error {
+    return [[self fetchInBackground] waitForResult:error];
 }
 
 - (BFTask *)fetchInBackground {
-    //TODO: (nlutsenko) Replace with an error?
-    @synchronized (lock) {
-        PFParameterAssert(self._state.objectId, @"Can't refresh an object that hasn't been saved to the server.");
+    if (!self._state.objectId) {
+        NSError *error = [PFErrorUtilities errorWithCode:kPFErrorMissingObjectId
+                                                 message:@"Can't refresh an object that hasn't been saved to the server."];
+        return [BFTask taskWithError:error];
     }
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
         return [self fetchAsync:toAwait];
@@ -2147,11 +2115,11 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     }];
 }
 
-- (PFObject *)fetchIfNeeded {
+- (instancetype)fetchIfNeeded {
     return [self fetchIfNeeded:nil];
 }
 
-- (PFObject *)fetchIfNeeded:(NSError **)error {
+- (instancetype)fetchIfNeeded:(NSError **)error {
     return [[self fetchIfNeededInBackground] waitForResult:error];
 }
 
@@ -2176,20 +2144,20 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 #pragma mark - Fetching Many Objects
 ///--------------------------------------
 
-+ (void)fetchAll:(NSArray *)objects {
-    [PFObject fetchAll:objects error:nil];
++ (NSArray *)fetchAll:(NSArray *)objects {
+    return [self fetchAll:objects error:nil];
 }
 
-+ (void)fetchAllIfNeeded:(NSArray *)objects {
-    [PFObject fetchAllIfNeeded:objects error:nil];
++ (NSArray *)fetchAllIfNeeded:(NSArray *)objects {
+    return [self fetchAllIfNeeded:objects error:nil];
 }
 
-+ (void)fetchAll:(NSArray *)objects error:(NSError **)error {
-    [[self fetchAllInBackground:objects] waitForResult:error];
++ (NSArray *)fetchAll:(NSArray *)objects error:(NSError **)error {
+    return [[self fetchAllInBackground:objects] waitForResult:error];
 }
 
-+ (void)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error {
-    [[self fetchAllIfNeededInBackground:objects] waitForResult:error];
++ (NSArray *)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error {
+    return [[self fetchAllIfNeededInBackground:objects] waitForResult:error];
 }
 
 + (BFTask *)fetchAllInBackground:(NSArray *)objects {
@@ -2250,12 +2218,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 #pragma mark - Fetch From Local Datastore
 ///--------------------------------------
 
-- (void)fetchFromLocalDatastore {
-    [self fetchFromLocalDatastore:nil];
+- (instancetype)fetchFromLocalDatastore {
+    return [self fetchFromLocalDatastore:nil];
 }
 
-- (void)fetchFromLocalDatastore:(NSError **)error {
-    [[self fetchFromLocalDatastoreInBackground] waitForResult:error];
+- (instancetype)fetchFromLocalDatastore:(NSError **)error {
+    return [[self fetchFromLocalDatastoreInBackground] waitForResult:error];
 }
 
 - (void)fetchFromLocalDatastoreInBackgroundWithBlock:(PFObjectResultBlock)block {
@@ -2314,6 +2282,38 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         if ([self objectForKey:key]) {
             PFDeleteOperation *operation = [[PFDeleteOperation alloc] init];
             [self performOperation:operation forKey:key];
+        }
+    }
+}
+
+- (void)revert {
+    @synchronized (self.lock) {
+        if ([self isDirty]) {
+            NSMutableSet *persistentKeys = [NSMutableSet setWithArray:[self._state.serverData allKeys]];
+
+            PFOperationSet *unsavedChanges = [self unsavedChanges];
+            for (PFOperationSet *operationSet in operationSetQueue) {
+                if (operationSet != unsavedChanges) {
+                    [persistentKeys addObjectsFromArray:[operationSet.keyEnumerator allObjects]];
+                }
+            }
+
+            [unsavedChanges removeAllObjects];
+            [_availableKeys intersectSet:persistentKeys];
+
+            [self rebuildEstimatedData];
+            [self checkpointAllMutableContainers];
+        }
+    }
+}
+
+- (void)revertObjectForKey:(NSString *)key {
+    @synchronized (self.lock) {
+        if ([self isDirtyForKey:key]) {
+            [[self unsavedChanges] removeObjectForKey:key];
+            [self rebuildEstimatedData];
+            [_availableKeys removeObject:key];
+            [self checkpointAllMutableContainers];
         }
     }
 }
@@ -2466,11 +2466,30 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     return [[[self deleteAllInBackground:objects] waitForResult:error] boolValue];
 }
 
-+ (BFTask *)deleteAllInBackground:(NSArray *)objects {
-    return [[[self currentUserController] getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
++ (BFTask PF_GENERIC(NSNumber *) *)deleteAllInBackground:(NSArray *)objects {
+    NSArray *deleteObjects = [objects copy]; // Snapshot the objects.
+    if (deleteObjects.count == 0) {
+        return [BFTask PF_GENERIC(NSNumber *) taskWithResult:@YES];
+    }
+    return [[[[self currentUserController] getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
-        return [PFObject deleteAllAsync:objects withSessionToken:sessionToken];
-    }];
+
+        NSArray *uniqueObjects = [PFObjectBatchController uniqueObjectsArrayFromArray:deleteObjects usingFilter:^BOOL(PFObject *object) {
+            return (object.objectId != nil);
+        }];
+        NSMutableArray PF_GENERIC(BFTask <PFVoid> *) *validationTasks = [NSMutableArray array];
+        for (PFObject *object in uniqueObjects) {
+            [validationTasks addObject:[object _validateDeleteAsync]];
+        }
+        return [[BFTask taskForCompletionOfAllTasks:validationTasks] continueWithSuccessBlock:^id(BFTask *task) {
+            return [self _enqueue:^BFTask *(BFTask *toAwait) {
+                return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
+                    return [[self objectBatchController] deleteObjectsAsync:uniqueObjects
+                                                           withSessionToken:sessionToken];
+                }];
+            } forObjects:uniqueObjects];
+        }];
+    }] continueWithSuccessResult:@YES];
 }
 
 + (void)deleteAllInBackground:(NSArray *)objects target:(id)target selector:(SEL)selector {
@@ -2641,7 +2660,7 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 }
 
 - (BFTask *)unpinInBackgroundWithName:(NSString *)name {
-    return [PFObject unpinAllInBackground:@[ self ] withName:name];
+    return [[self class] unpinAllInBackground:@[ self ] withName:name];
 }
 
 - (void)unpinInBackgroundWithName:(NSString *)name block:(PFBooleanResultBlock)block {

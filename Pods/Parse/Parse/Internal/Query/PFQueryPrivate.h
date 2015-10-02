@@ -9,11 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IPHONE
 #import <Parse/PFQuery.h>
-#else
-#import <ParseOSX/PFQuery.h>
-#endif
 
 #import "PFQueryState.h"
 
@@ -43,7 +39,7 @@ extern NSString *const PFQueryOptionKeyMaxDistance;
 extern NSString *const PFQueryOptionKeyBox;
 extern NSString *const PFQueryOptionKeyRegexOptions;
 
-@class BFTask;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFObject;
 
 @interface PFQuery ()
