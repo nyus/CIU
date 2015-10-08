@@ -433,15 +433,7 @@ static NSString *const kLifeStyleObjectClassName = @"kLifeStyleObjectClassName";
 
 + (NSString *)randomAnonymousImageName
 {
-    int random = rand() % kTotalAnonymousAvatarCount;
-    
-    for (int i = 0 ; i < (rand() % 21); i++) {
-        random = rand() % kTotalAnonymousAvatarCount;
-    }
-    
-    while (random == 0) {
-        random = rand() % kTotalAnonymousAvatarCount;
-    }
+    int random = arc4random_uniform(kTotalAnonymousAvatarCount) + 1;
     
     NSLog(@"random number is %d", random);
 

@@ -448,7 +448,9 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             //construct array of indexPath and store parse data to local
             NSMutableArray *indexpathArray = [NSMutableArray array];
             
-            if (objects.count > 0) {
+            if (objects.count == 0) {
+                NSLog(@"No results");
+            } else {
                 
                 NSMutableArray *array = nil;
                 NSInteger originalCount = self.dataSource.count;

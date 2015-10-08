@@ -24,6 +24,7 @@
 		501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6A19A6B10D0050BFA6 /* Query.m */; };
 		501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6D19A6B1F40050BFA6 /* FPLogger.m */; };
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
+		502026F61BC027A100310AF6 /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 502026F51BC027A100310AF6 /* StatusObject+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD51ACECB8E00945D04 /* EulaVC.m */; };
 		50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD81ACECFF600945D04 /* UIViewController+EULA.m */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
@@ -165,6 +166,9 @@
 		501A5E6D19A6B1F40050BFA6 /* FPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLogger.m; sourceTree = "<group>"; };
 		501A5E6F19A6CBE00050BFA6 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		501A5E7019A6CBE00050BFA6 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		502026F41BC027A100310AF6 /* StatusObject+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StatusObject+CoreDataProperties.h"; sourceTree = "<group>"; };
+		502026F51BC027A100310AF6 /* StatusObject+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StatusObject+CoreDataProperties.m"; sourceTree = "<group>"; };
+		502026F91BC0288800310AF6 /* DataFetchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetchDataSource.h; sourceTree = "<group>"; };
 		50203CD41ACECB8E00945D04 /* EulaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EulaVC.h; sourceTree = "<group>"; };
 		50203CD51ACECB8E00945D04 /* EulaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EulaVC.m; sourceTree = "<group>"; };
 		50203CD71ACECFF600945D04 /* UIViewController+EULA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+EULA.h"; sourceTree = "<group>"; };
@@ -427,6 +431,29 @@
 			name = Lifestyle;
 			sourceTree = "<group>";
 		};
+		502026F71BC027BF00310AF6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				501A5E5919A57B4D0050BFA6 /* SharedDataManager.h */,
+				501A5E5A19A57B4D0050BFA6 /* SharedDataManager.m */,
+				50FBFFCB1A7E30860090EE4B /* Event.h */,
+				50FBFFCC1A7E30860090EE4B /* Event.m */,
+				504AE5881A2241C7000C62D9 /* LifestyleObject.h */,
+				504AE5891A2241C7000C62D9 /* LifestyleObject.m */,
+				502026F41BC027A100310AF6 /* StatusObject+CoreDataProperties.h */,
+				502026F51BC027A100310AF6 /* StatusObject+CoreDataProperties.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		502026F81BC0283400310AF6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				502026F91BC0288800310AF6 /* DataFetchDataSource.h */,
+			);
+			name = Protocol;
+			sourceTree = "<group>";
+		};
 		503AF34119BB67680023EC02 /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,12 +519,6 @@
 			children = (
 				5048A4881B28FD750096F346 /* DDCopiableLabel.h */,
 				5048A4891B28FD750096F346 /* DDCopiableLabel.m */,
-				50FBFFCB1A7E30860090EE4B /* Event.h */,
-				50FBFFCC1A7E30860090EE4B /* Event.m */,
-				504AE5881A2241C7000C62D9 /* LifestyleObject.h */,
-				504AE5891A2241C7000C62D9 /* LifestyleObject.m */,
-				501A5E5919A57B4D0050BFA6 /* SharedDataManager.h */,
-				501A5E5A19A57B4D0050BFA6 /* SharedDataManager.m */,
 				501A5E6219A57D800050BFA6 /* LifestyleCategory.h */,
 				501A5E6319A57D800050BFA6 /* LifestyleCategory.m */,
 				50FBFFC71A7DCC270090EE4B /* APIConstants.h */,
@@ -677,6 +698,8 @@
 		652BAB86199D3CCA009F5F5A /* DaDa */ = {
 			isa = PBXGroup;
 			children = (
+				502026F81BC0283400310AF6 /* Protocol */,
+				502026F71BC027BF00310AF6 /* CoreData */,
 				5092160F19AA479B00304EDD /* Classes */,
 				50B28C5019A8FA2100398BA4 /* Category */,
 				503AF34119BB67680023EC02 /* Event */,
@@ -940,6 +963,7 @@
 				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
+				502026F61BC027A100310AF6 /* StatusObject+CoreDataProperties.m in Sources */,
 				50E8DAE61BA501FC0065E543 /* SupermarketVC.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentVC.m in Sources */,
 				652BAB91199D3CCA009F5F5A /* AppDelegate.m in Sources */,
