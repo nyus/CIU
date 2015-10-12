@@ -34,7 +34,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         self.wifiReachability = [Reachability reachabilityForLocalWiFi];
         self.locationManager = [Helper initLocationManagerWithDelegate:self];
         self.dataSource = [NSMutableArray array];
-//        [self addMenuButton];
     }
     
     return self;
@@ -201,7 +200,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
     return nil;
 }
 
-- (void)addMenuButton{
+- (void)addMenuButton
+{
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"3menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonTapped:)];
     menuButton.accessibilityLabel = kMenuButtonAccessibilityLabel;
     self.navigationItem.leftBarButtonItem = menuButton;

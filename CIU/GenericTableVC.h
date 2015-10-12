@@ -93,4 +93,6 @@
 
 - (NSPredicate *)badContentPredicate;
 
+- (void)addMenuButton;
+
 @end

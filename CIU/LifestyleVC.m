@@ -86,6 +86,8 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     //add right bar item(compose)
     UITabBarController *tab=self.navigationController.viewControllers[0];
     tab.navigationItem.rightBarButtonItem = nil;
+    
+    [self addMenuButton];
 }
 
 - (void)didReceiveMemoryWarning

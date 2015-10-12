@@ -275,7 +275,7 @@ static CGFloat leadingSpace;
     
     //share this app
     else if(indexPath.row == 4){
-//        [self shareToFacebook];
+        [self shareToFacebook];
     }
     //Terms of Use
     else if (indexPath.row == 5){
