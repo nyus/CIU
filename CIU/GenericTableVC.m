@@ -403,6 +403,11 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         }
         
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    } else {
+        [TSMessage showNotificationWithTitle:@"No Results Based on The Searching Criterion"
+                                    subtitle:nil
+                                        type:TSMessageNotificationTypeMessage
+                          accessibilityLabel:@"noResultsLabel"];
     }
     
     [self.tableView.infiniteScrollingView stopAnimating];
