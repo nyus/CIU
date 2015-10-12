@@ -344,6 +344,16 @@ static NSString *const kCategoryName = @"Trade";
                                                        cellWidth:CGRectGetWidth(tableView.frame)];
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return self.headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40.0f;
+}
+
 #pragma mark - JobTradeTableViewCellDelegate
 
 - (void)flagBadContentButtonTappedOnCell:(JobTradeTableViewCell *)cell{

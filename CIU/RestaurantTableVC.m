@@ -37,19 +37,6 @@ static NSString *const kNameAndAddressCellReuseID = @"kNameAndAddressCellReuseID
 
 @implementation RestaurantTableVC
 
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self) {
-        // So that there is navigation back button
-        
-//        self.navigationItem.leftBarButtonItem = nil;
-    }
-    
-    return self;
-}
-
 - (NSNumber *)restaurantDataRadius
 {
     NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kRestaurantDataRadiusKey];

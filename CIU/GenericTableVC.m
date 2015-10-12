@@ -450,6 +450,10 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             
             if (objects.count == 0) {
                 NSLog(@"No results");
+                [TSMessage showNotificationWithTitle:@"No Results Based on The Searching Criterion"
+                                            subtitle:nil
+                                                type:TSMessageNotificationTypeMessage
+                                  accessibilityLabel:@"noResultsLabel"];
             } else {
                 
                 NSMutableArray *array = nil;
