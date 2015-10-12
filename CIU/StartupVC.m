@@ -302,7 +302,7 @@ static CGFloat leadingSpace;
     cell.selected = NO;
 }
 
-/*
+
 -(void)shareToFacebook{
     // Check if the Facebook app is installed and we can present the share dialog
     FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
@@ -368,7 +368,7 @@ static CGFloat leadingSpace;
                                                   }];
     }
 }
-*/
+
 
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
