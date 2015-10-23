@@ -140,7 +140,8 @@ static NSString *const kEntityName = @"StatusObject";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:self.lesserValue];
+                                lesserOrEqualTo:self.lesserValue
+                                    reloadStyle:TableReloadStyleInsert];
     }
 }
 
@@ -159,7 +160,8 @@ static NSString *const kEntityName = @"StatusObject";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:self.greaterValue
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleInsert];
     }
 }
 
@@ -250,7 +252,8 @@ static NSString *const kEntityName = @"StatusObject";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleInsert];
     }
 }
 

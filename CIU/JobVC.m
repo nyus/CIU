@@ -60,7 +60,8 @@ static NSString *const kCategoryName = @"Jobs";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleInsert];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
@@ -165,7 +166,8 @@ static NSString *const kCategoryName = @"Jobs";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:self.greaterValue
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleInsert];
     }
 }
 
@@ -176,7 +178,8 @@ static NSString *const kCategoryName = @"Jobs";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:self.lesserValue];
+                                lesserOrEqualTo:self.lesserValue
+                                    reloadStyle:TableReloadStyleInsert];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount

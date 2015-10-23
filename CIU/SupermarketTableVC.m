@@ -109,7 +109,8 @@ static NSString *const kCategoryName = @"Supermarket";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleInsert];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
@@ -154,7 +155,8 @@ static NSString *const kCategoryName = @"Supermarket";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:nil];
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleReload];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount
@@ -209,7 +211,8 @@ static NSString *const kCategoryName = @"Supermarket";
                                      fetchLimit:self.serverFetchCount
                                     fetchRadius:self.dataFetchRadius
                                greaterOrEqualTo:nil
-                                lesserOrEqualTo:self.lesserValue];
+                                lesserOrEqualTo:self.lesserValue
+                                    reloadStyle:TableReloadStyleInsert];
     } else {
         [self fetchLocalDataWithEntityName:kEntityName
                                 fetchLimit:self.localFetchCount

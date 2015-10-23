@@ -10,6 +10,11 @@
 #import <Parse/Parse.h>
 #import "SharedDataManager.h"
 
+typedef NS_OPTIONS(NSInteger, TableReloadStyle) {
+    TableReloadStyleInsert,
+    TableReloadStyleReload
+};
+
 @interface GenericTableVC : UITableViewController
 {
     @protected
@@ -64,7 +69,8 @@
                               fetchLimit:(NSUInteger)fetchLimit
                              fetchRadius:(CGFloat)fetchRadius
                         greaterOrEqualTo:(id)greaterValue
-                         lesserOrEqualTo:(id)lesserValue;
+                         lesserOrEqualTo:(id)lesserValue
+                             reloadStyle:(TableReloadStyle)reloadStyle;
 
 - (void)setupServerQueryWithClassName:(NSString *)className
                            fetchLimit:(NSUInteger)fetchLimit

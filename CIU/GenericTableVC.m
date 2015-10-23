@@ -403,11 +403,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
         }
         
         [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    } else {
-        [TSMessage showNotificationWithTitle:@"No Results Based on The Searching Criterion"
-                                    subtitle:nil
-                                        type:TSMessageNotificationTypeMessage
-                          accessibilityLabel:@"noResultsLabel"];
     }
     
     [self.tableView.infiniteScrollingView stopAnimating];
@@ -429,7 +424,8 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                               fetchLimit:(NSUInteger)fetchLimit
                              fetchRadius:(CGFloat)fetchRadius
                         greaterOrEqualTo:(id)greaterValue
-                         lesserOrEqualTo:(id)lesserValue{
+                         lesserOrEqualTo:(id)lesserValue
+                             reloadStyle:(TableReloadStyle)reloadStyle{
     
     [self setupServerQueryWithClassName:parseClassName
                              fetchLimit:fetchLimit
@@ -455,10 +451,6 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
             
             if (objects.count == 0) {
                 NSLog(@"No results");
-                [TSMessage showNotificationWithTitle:@"No Results Based on The Searching Criterion"
-                                            subtitle:nil
-                                                type:TSMessageNotificationTypeMessage
-                                  accessibilityLabel:@"noResultsLabel"];
             } else {
                 
                 NSMutableArray *array = nil;
@@ -544,7 +536,11 @@ static const CGFloat kLocationNotifyThreshold = 1.0;
                         
                         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                     } else {
-                        [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                        if (reloadStyle == TableReloadStyleReload) {
+                            [self.tableView reloadData];
+                        } else {
+                            [self.tableView insertRowsAtIndexPaths:indexpathArray withRowAnimation:UITableViewRowAnimationFade];
+                        }
                     }
                 });
             }
