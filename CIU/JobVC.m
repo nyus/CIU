@@ -7,6 +7,7 @@
 //
 
 #import "JobVC.h"
+#import "DisplayPeripheralHeaderView.h"
 #import "JobTradeTableViewCell.h"
 #import "Helper.h"
 #import "LifestyleObject+Utilities.h"
@@ -14,6 +15,7 @@
 
 static CGFloat const kServerFetchCount = 50.0;
 static CGFloat const kLocalFetchCount = 50.0;
+static NSString *const kJobDataRadiusKey = @"kJobDataRadiusKey";
 static NSString *const kEntityName = @"LifestyleObject";
 static NSString *const kJobAndTradeCellReuseID = @"kJobAndTradeCellReuseID";
 static NSString *const kCategoryName = @"Jobs";
@@ -21,6 +23,7 @@ static NSString *const kCategoryName = @"Jobs";
 @interface JobVC () <JobTradeTableViewCellDelegate>
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) DisplayPeripheralHeaderView *headerView;
 
 @end
 
@@ -39,6 +42,51 @@ static NSString *const kCategoryName = @"Jobs";
     }
     
     return self;
+}
+
+- (NSNumber *)jobDataRadius
+{
+    NSNumber *radius = [[NSUserDefaults standardUserDefaults] objectForKey:kJobDataRadiusKey];
+    
+    if (!radius) {
+        [self setJobDataRadius:@5];
+        
+        return @5;
+    } else {
+        return radius;
+    }
+}
+
+- (void)setJobDataRadius:(NSNumber *)newRadius
+{
+    [[NSUserDefaults standardUserDefaults] setObject:newRadius forKey:kJobDataRadiusKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (DisplayPeripheralHeaderView *)headerView
+{
+    if (!_headerView) {
+        NSNumber *radius = [self jobDataRadius];
+        _headerView = [[DisplayPeripheralHeaderView alloc] initWithCurrentValue:radius
+                                                                      stepValue:@(5.0)
+                                                                   minimunValue:@(5.0)
+                                                                   maximunValue:@(30.0)
+                                                                    contentMode:ContentModeLeft
+                                                                    actionBlock:^(double newValue) {
+                                                                        
+                                                                        self.greaterValue = nil;
+                                                                        self.lesserValue = nil;
+                                                                        
+                                                                        [self setJobDataRadius:@(newValue)];
+                                                                        [self handleDataDisplayPeripheral];
+                                                                        
+                                                                        NSString *label = @"Job";
+                                                                        [[GAnalyticsManager shareManager] trackUIAction:@"change display radius" label:label value:@(newValue)];
+                                                                        [Flurry logEvent:[NSString stringWithFormat:@"%@ change display radius", label] withParameters:@{@"radius":@(newValue)}];
+                                                                    }];
+    }
+    
+    return _headerView;
 }
 
 - (void)viewDidLoad {
@@ -67,7 +115,8 @@ static NSString *const kCategoryName = @"Jobs";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
-                                             [self jobCategoryTypePredicate]]];
+                                             [self jobCategoryTypePredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
@@ -107,6 +156,28 @@ static NSString *const kCategoryName = @"Jobs";
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+-(void)handleDataDisplayPeripheral{
+    
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    
+    if (self.isInternetPresentOnLaunch) {
+        [self fetchServerDataWithParseClassName:self.serverDataParseClassName
+                                     fetchLimit:self.serverFetchCount
+                                    fetchRadius:self.dataFetchRadius
+                               greaterOrEqualTo:nil
+                                lesserOrEqualTo:nil
+                                    reloadStyle:TableReloadStyleReload];
+    } else {
+        [self fetchLocalDataWithEntityName:kEntityName
+                                fetchLimit:self.localFetchCount
+                                predicates:@[[self badContentPredicate],
+                                             [self badLocalContentPredicate],
+                                             [self jobCategoryTypePredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
+    }
+}
+
 #pragma mark - Helper
 
 - (NSPredicate *)jobCategoryTypePredicate
@@ -128,7 +199,7 @@ static NSString *const kCategoryName = @"Jobs";
 
 - (float)dataFetchRadius
 {
-    return 0;
+    return [self jobDataRadius].floatValue;
 }
 
 - (float)serverFetchCount
@@ -159,6 +230,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                                 lesserOrEqualTo:nil]]];
     } else {
@@ -185,6 +257,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 fetchLimit:self.localFetchCount
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
+                                             [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self jobCategoryTypePredicate],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:nil
                                                                                 lesserOrEqualTo:self.lesserValue]]];
@@ -252,12 +325,12 @@ static NSString *const kCategoryName = @"Jobs";
 
 #pragma mark - UITableView Delegate
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.dataSource.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.dataSource[indexPath.row];
     
@@ -271,12 +344,22 @@ static NSString *const kCategoryName = @"Jobs";
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     LifestyleObject *object = self.dataSource[indexPath.row];
     
     return [JobTradeTableViewCell heightForCellWithContentString:object.content
                                                        cellWidth:CGRectGetWidth(tableView.frame)];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return self.headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 40.0f;
 }
 
 #pragma mark - JobTradeTableViewCellDelegate

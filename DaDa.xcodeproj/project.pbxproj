@@ -24,7 +24,7 @@
 		501A5E6B19A6B10D0050BFA6 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6A19A6B10D0050BFA6 /* Query.m */; };
 		501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E6D19A6B1F40050BFA6 /* FPLogger.m */; };
 		501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E7019A6CBE00050BFA6 /* Helper.m */; };
-		502026F61BC027A100310AF6 /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 502026F51BC027A100310AF6 /* StatusObject+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		502026F61BC027A100310AF6 /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 502026F51BC027A100310AF6 /* StatusObject+CoreDataProperties.m */; };
 		50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD51ACECB8E00945D04 /* EulaVC.m */; };
 		50203CD91ACECFF600945D04 /* UIViewController+EULA.m in Sources */ = {isa = PBXBuildFile; fileRef = 50203CD81ACECFF600945D04 /* UIViewController+EULA.m */; };
 		5022BE781A0574CE0017170E /* DisplayPeripheralHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022BE771A0574CE0017170E /* DisplayPeripheralHeaderView.m */; };
@@ -63,8 +63,8 @@
 		506BF2841B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BF2831B3F51AE00585564 /* KIFUITestActor+SegmentedControl.m */; };
 		506D69511AB5CC65006EDDCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D69501AB5CC65006EDDCE /* StoreKit.framework */; };
 		507312521A01C36000E3533E /* ciu logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 507312511A01C36000E3533E /* ciu logo.png */; };
-		508108E81BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		508108E91BBB54F400AB7C4C /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E71BBB54F400AB7C4C /* StatusObject.m */; settings = {ASSET_TAGS = (); }; };
+		508108E81BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E51BBB54F400AB7C4C /* StatusObject+CoreDataProperties.m */; };
+		508108E91BBB54F400AB7C4C /* StatusObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 508108E71BBB54F400AB7C4C /* StatusObject.m */; };
 		5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5086CBEC1B327C8D00EAECD9 /* dsym_upload.sh */; };
 		5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091FAF11B10C74E00523183 /* UIFont+Utilities.m */; };
 		5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5092160A19AA45AD00304EDD /* GenericTableViewCell.m */; };

@@ -95,7 +95,9 @@ static NSString *const kCategoryName = @"Trade";
     
     self.title = @"Trade & Sell";
     self.navigationItem.leftBarButtonItem.accessibilityLabel = @"Back";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                               target:self
+                                                                               action:@selector(addButtonTapped:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     [self.tableView registerClass:[JobTradeTableViewCell class] forCellReuseIdentifier:kJobAndTradeCellReuseID];
     
@@ -118,7 +120,9 @@ static NSString *const kCategoryName = @"Trade";
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(handleBackButton:)];
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self action:@selector(handleBackButton:)];
     self.navigationItem.leftBarButtonItem = back;
 }
 
