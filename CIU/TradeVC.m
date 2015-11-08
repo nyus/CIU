@@ -117,6 +117,7 @@ static NSString *const kCategoryName = @"Trade";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self tradeCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
     
@@ -174,6 +175,7 @@ static NSString *const kCategoryName = @"Trade";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self tradeCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -183,6 +185,26 @@ static NSString *const kCategoryName = @"Trade";
 - (NSPredicate *)tradeCategoryTypePredicate
 {
     return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
+}
+
+- (NSPredicate *)sixtyDaysToNowPredicate
+{
+    return [NSPredicate predicateWithFormat:@"self.createdAt > %@", [self dateOfSixtyDatsToNow]];
+}
+
+- (NSDate *)dateOfSixtyDatsToNow
+{
+    NSDate *today = [[NSDate alloc] init];
+    NSLog(@"%@", today);
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-3];
+    NSDate *threeMonthsAgo = [gregorian dateByAddingComponents:offsetComponents
+                                                        toDate:today
+                                                       options:0];
+    NSLog(@"past date: %@", threeMonthsAgo);
+    
+    return threeMonthsAgo;
 }
 
 #pragma mark - Override
@@ -231,6 +253,7 @@ static NSString *const kCategoryName = @"Trade";
                                              [self badLocalContentPredicate],
                                              [self tradeCategoryTypePredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
+                                             [self sixtyDaysToNowPredicate],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                                 lesserOrEqualTo:nil]]];
     } else {
@@ -259,6 +282,7 @@ static NSString *const kCategoryName = @"Trade";
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self tradeCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:nil
                                                                                 lesserOrEqualTo:self.lesserValue]]];
     }
@@ -313,6 +337,9 @@ static NSString *const kCategoryName = @"Trade";
         [self.fetchQuery whereKey:DDCreatedAtKey
                          lessThan:lesserValue];
     }
+    
+    [self.fetchQuery whereKey:DDCreatedAtKey
+         greaterThanOrEqualTo:[self dateOfSixtyDatsToNow]];
     
     self.fetchQuery.limit = fetchLimit;
 }

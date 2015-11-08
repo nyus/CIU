@@ -116,6 +116,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
     
@@ -174,6 +175,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius]]];
     }
 }
@@ -183,6 +185,26 @@ static NSString *const kCategoryName = @"Jobs";
 - (NSPredicate *)jobCategoryTypePredicate
 {
     return [NSPredicate predicateWithFormat:@"self.category MATCHES[cd] %@", kCategoryName];
+}
+
+- (NSPredicate *)sixtyDaysToNowPredicate
+{
+    return [NSPredicate predicateWithFormat:@"self.createdAt > %@", [self dateOfSixtyDatsToNow]];
+}
+
+- (NSDate *)dateOfSixtyDatsToNow
+{
+    NSDate *today = [[NSDate alloc] init];
+    NSLog(@"%@", today);
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:-3];
+    NSDate *threeMonthsAgo = [gregorian dateByAddingComponents:offsetComponents
+                                                        toDate:today
+                                                       options:0];
+    NSLog(@"past date: %@", threeMonthsAgo);
+    
+    return threeMonthsAgo;
 }
 
 #pragma mark - Override
@@ -230,6 +252,7 @@ static NSString *const kCategoryName = @"Jobs";
                                 predicates:@[[self badContentPredicate],
                                              [self badLocalContentPredicate],
                                              [self jobCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:self.greaterValue
                                                                                 lesserOrEqualTo:nil]]];
@@ -259,6 +282,7 @@ static NSString *const kCategoryName = @"Jobs";
                                              [self badLocalContentPredicate],
                                              [self geoBoundPredicateWithFetchRadius:self.dataFetchRadius],
                                              [self jobCategoryTypePredicate],
+                                             [self sixtyDaysToNowPredicate],
                                              [self createDateRnagePredicateWithgreaterOrEqualTo:nil
                                                                                 lesserOrEqualTo:self.lesserValue]]];
     }
@@ -313,6 +337,9 @@ static NSString *const kCategoryName = @"Jobs";
         [self.fetchQuery whereKey:DDCreatedAtKey
                          lessThan:lesserValue];
     }
+    
+    [self.fetchQuery whereKey:DDCreatedAtKey
+         greaterThanOrEqualTo:[self dateOfSixtyDatsToNow]];
     
     self.fetchQuery.limit = fetchLimit;
 }

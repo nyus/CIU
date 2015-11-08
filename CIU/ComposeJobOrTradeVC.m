@@ -61,7 +61,7 @@
     [object setObject:@NO forKey:DDIsBadContentKey];
     
     NSDictionary *userLocation = [Helper userLocation];
-    if (self.categoryType == DDCategoryTypeTradeAndSell && userLocation) {
+    if (userLocation) {
         object[DDLatitudeKey] = userLocation[DDLatitudeKey];
         object[DDLongitudeKey] = userLocation[DDLongitudeKey];
     }
