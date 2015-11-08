@@ -308,6 +308,8 @@ const float kOptionsTBViewHeight = 280.0;
             }];
         } else {
             
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            
             //publish
             PFObject *event = [[PFObject alloc] initWithClassName:DDEventParseClassName];
             [event setObject:_eventName forKey:DDEventNameKey];
@@ -329,6 +331,9 @@ const float kOptionsTBViewHeight = 280.0;
             event[DDIsStickyPostKey] = [[PFUser currentUser] objectForKey:DDIsAdminKey];
             
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                
+                self.navigationItem.rightBarButtonItem.enabled = YES;
+                
                 if (succeeded) {
                     [TSMessage showNotificationInViewController:self.parentViewController
                                                           title:NSLocalizedString(@"Event Successfully Published", nil)
