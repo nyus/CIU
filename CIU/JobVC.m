@@ -363,7 +363,11 @@ static NSString *const kCategoryName = @"Jobs";
     
     JobTradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kJobAndTradeCellReuseID forIndexPath:indexPath];
     cell.delegate = self;
-    cell.contentTextView.text = nil;
+    
+    // HAX: TextView would detect wrong content to be a hyperlink. Reset does the trick.
+    cell.contentTextView.selectable = NO;
+    cell.contentTextView.selectable = YES;
+    
     cell.contentTextView.text = object.content;
     cell.flagButton.enabled = !object.isBadContent.boolValue;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

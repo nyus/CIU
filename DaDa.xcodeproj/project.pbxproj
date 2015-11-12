@@ -78,6 +78,7 @@
 		50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C44A2219C28EAC00DF50D8 /* HitTestView.m */; };
 		50CFC9761AFE261A005EBAE4 /* StarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CFC9751AFE261A005EBAE4 /* StarRatingView.m */; };
 		50D69F371BA8FB5200E3AC49 /* UIImage+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D69F361BA8FB5200E3AC49 /* UIImage+Utilities.m */; };
+		50E622411BF4BBFE0007288B /* eventJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 50E622401BF4BBFE0007288B /* eventJson.json */; };
 		50E8DAD01BA465A50065E543 /* SupermarketTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */; };
 		50E8DAD31BA465B50065E543 /* JobVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD21BA465B50065E543 /* JobVC.m */; };
 		50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E8DAD51BA465C20065E543 /* TradeVC.m */; };
@@ -257,6 +258,7 @@
 		50D69F361BA8FB5200E3AC49 /* UIImage+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utilities.m"; sourceTree = "<group>"; };
 		50E45BC71B3999B300EC12CC /* DaDa Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DaDa Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E45BCA1B3999B300EC12CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50E622401BF4BBFE0007288B /* eventJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eventJson.json; sourceTree = "<group>"; };
 		50E8DACE1BA465A50065E543 /* SupermarketTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupermarketTableVC.h; sourceTree = "<group>"; };
 		50E8DACF1BA465A50065E543 /* SupermarketTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupermarketTableVC.m; sourceTree = "<group>"; };
 		50E8DAD11BA465B50065E543 /* JobVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobVC.h; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 		652BAB74199D3CCA009F5F5A = {
 			isa = PBXGroup;
 			children = (
+				50E622401BF4BBFE0007288B /* eventJson.json */,
 				0BA84E7A1AD2CF6A00380DF5 /* Images */,
 				50A0AAE01ACC2E75009FFC0B /* 8mile_icon_about.png */,
 				507312511A01C36000E3533E /* ciu logo.png */,
@@ -849,6 +852,7 @@
 				503F62411B81299F008EC323 /* ReadMe in Resources */,
 				5086CBED1B327C8D00EAECD9 /* dsym_upload.sh in Resources */,
 				652BAB99199D3CCA009F5F5A /* Images.xcassets in Resources */,
+				50E622411BF4BBFE0007288B /* eventJson.json in Resources */,
 				65C4F0C419AFB6AE004452C3 /* camera.png in Resources */,
 				0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */,
 				65C4F0BC19AFB240004452C3 /* default-user-icon-profile.png in Resources */,

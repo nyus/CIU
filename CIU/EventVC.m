@@ -321,6 +321,11 @@ static NSString *const kLastFetchDateKey = @"lastFetchEventDate";
     cell.eventNameLabel.text = event.eventName;
     cell.eventDateLabel.text = [self.dateFormatter stringFromDate:event.eventDate];
     cell.eventLocationLabel.text = event.eventLocation;
+    
+    // HAX: TextView would detect wrong content to be a hyperlink. Reset does the trick.
+    cell.eventDescriptionTextView.selectable = NO;
+    cell.eventDescriptionTextView.selectable = YES;
+    
     cell.eventDescriptionTextView.text = event.eventContent;
     
     return cell;

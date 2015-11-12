@@ -31,10 +31,45 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
 
 @implementation LifestyleVC
 
+- (void)foo {
+    NSError *error = nil;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"eventJson" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *events = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM dd,yyyy,H:mm"];
+    int i = 0;
+    for (NSDictionary *dict in events) {
+
+        PFObject *event = [[PFObject alloc] initWithClassName:@"Event"];
+        event[DDEventContentKey] = dict[DDEventContentKey];
+        event[DDEventNameKey] = dict[DDEventNameKey];
+        NSDate *date = [formatter dateFromString:dict[DDEventDateKey]];
+        event[DDEventDateKey] = date;
+        event[DDEventLocationKey] = dict[DDEventLocationKey];
+        event[DDSenderFirstNameKey] = dict[DDSenderFirstNameKey];
+        event[DDSenderLastNameKey] = dict[DDSenderLastNameKey];
+        event[DDIsStickyPostKey] = dict[DDIsStickyPostKey];
+        event[DDSenderUserNameKey] = dict[DDSenderUserNameKey];
+        event[DDLatitudeKey] = dict[DDLatitudeKey];
+        event[DDLongitudeKey] = dict[DDLongitudeKey];
+        event[DDIsBadContentKey] = dict[DDIsBadContentKey];
+        i++;
+        [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"Saved successfully");
+            }
+        }];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    [self foo];
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.clearsSelectionOnViewWillAppear = YES;
     
@@ -65,8 +100,6 @@ static NSString *LifestyleCategoryName = @"LifestyleCategory";
     
     if ([Reachability canReachInternet]) {
         [self pullDataFromServer];
-    } else {
-        
     }
     
     [self pullDataFromLocal];
