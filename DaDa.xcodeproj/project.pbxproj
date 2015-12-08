@@ -20,6 +20,7 @@
 		0B85864A1C17424A00438A58 /* EventEndTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586491C17424A00438A58 /* EventEndTimeTableViewCell.m */; };
 		0B85864D1C17425600438A58 /* EventAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */; };
 		0B8586501C17425F00438A58 /* EventEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */; };
+		0B8586531C17608000438A58 /* VerifyAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586521C17608000438A58 /* VerifyAddressVC.m */; };
 		0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleVC.m */; };
@@ -167,6 +168,8 @@
 		0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B85864E1C17425F00438A58 /* EventEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventEmailTableViewCell.h; sourceTree = "<group>"; };
 		0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventEmailTableViewCell.m; sourceTree = "<group>"; };
+		0B8586511C17608000438A58 /* VerifyAddressVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyAddressVC.h; sourceTree = "<group>"; };
+		0B8586521C17608000438A58 /* VerifyAddressVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyAddressVC.m; sourceTree = "<group>"; };
 		0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestarauntAndMarketTableViewCell.h; sourceTree = "<group>"; };
 		0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestarauntAndMarketTableViewCell.m; sourceTree = "<group>"; };
 		0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */,
 				0B85864E1C17425F00438A58 /* EventEmailTableViewCell.h */,
 				0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */,
+				0B8586511C17608000438A58 /* VerifyAddressVC.h */,
+				0B8586521C17608000438A58 /* VerifyAddressVC.m */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -1048,6 +1053,7 @@
 				0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */,
 				50E8DAE01BA4F8E00065E543 /* RestaurantMapVC.m in Sources */,
 				5092160B19AA45AD00304EDD /* GenericTableViewCell.m in Sources */,
+				0B8586531C17608000438A58 /* VerifyAddressVC.m in Sources */,
 				0B03B4781A8272CD00526A37 /* UIAlertView+Blocks.m in Sources */,
 				65C4F0E319AFBBB9004452C3 /* UITextView+Utilities.m in Sources */,
 				501A5E6E19A6B1F40050BFA6 /* FPLogger.m in Sources */,

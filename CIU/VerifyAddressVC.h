@@ -1,5 +1,5 @@
 //
-//  EventEmailTableViewCell.h
+//  VerifyAddressVC.h
 //  DaDa
 //
 //  Created by Sihang Huang on 12/8/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventEmailTableViewCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@interface VerifyAddressVC : UIViewController
 
 @end

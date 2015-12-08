@@ -35,6 +35,7 @@ static NSInteger kRowCountAddress = 1;
 static NSInteger kRowCountEmail = 1;
 static NSInteger kTitleTextFieldTag = 99;
 static NSInteger kAddressTextFieldTag = 98;
+static NSInteger kEmailTextFieldTag = 97;
 
 typedef NS_ENUM(NSInteger, SectionType) {
     SectionTypeInformation,
@@ -48,7 +49,9 @@ typedef NS_ENUM(NSInteger, SectionType) {
     NSString *_eventName;
     NSString *_eventContent;
     NSDate *_eventDate;
+    NSData *_eventEndDate;
     NSString *_eventLocation;
+    NSString *_eventEmail;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -80,6 +83,7 @@ typedef NS_ENUM(NSInteger, SectionType) {
     [super viewDidLoad];
     [[GAnalyticsManager shareManager] trackScreen:@"Create Event"];
     self.dataSource = [NSArray arrayWithObjects:@"Event Name",@"Event Location",@"Event Description",@"Event Date and Time", nil];
+    self.tableview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -201,6 +205,7 @@ typedef NS_ENUM(NSInteger, SectionType) {
                 return cell;
             } else if (indexPath.row == 1) {
                 EventDescriptionTableViewCell *cell = (EventDescriptionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kDescriptionCellReuseId forIndexPath:indexPath];
+                cell.descriptionTextView.textColor = [UIColor lightGrayColor];
                 
                 return cell;
             } else {
@@ -222,13 +227,13 @@ typedef NS_ENUM(NSInteger, SectionType) {
             }
         } else if (indexPath.section == SectionTypeAddress) {
             EventAddressTableViewCell *cell = (EventAddressTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kAddressCellReuseId forIndexPath:indexPath];
-            cell.addressTextField.tag = kAddressTextFieldTag;
-            cell.addressTextField.returnKeyType = UIReturnKeyDone;
             
             return cell;
         } else {
             EventEmailTableViewCell *cell = (EventEmailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kContactCellReuseId forIndexPath:indexPath];
-            cell.emailLabel.text = nil;
+            cell.textField.returnKeyType = UIReturnKeyDone;
+            cell.textField.tag = kEmailTextFieldTag;
+            cell.textField.keyboardType = UIKeyboardTypeEmailAddress;
             
             return cell;
         }
@@ -241,13 +246,6 @@ typedef NS_ENUM(NSInteger, SectionType) {
         CGRect rect = [string boundingRectWithSize:CGSizeMake(tableView.frame.size.width-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:NULL];
         return rect.size.height + 20;
     }else{
-//        if (indexPath.section==0 || indexPath.section == 1) {
-//            return 55.0f;
-//        }else if (indexPath.section == 2){
-//            return 175.0f;
-//        }else{
-//            return 190.0f;
-//        }
         if (indexPath.section == SectionTypeInformation) {
             if (indexPath.row == 0) {
                 return 44.0;
@@ -465,14 +463,10 @@ typedef NS_ENUM(NSInteger, SectionType) {
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (tableView==self.optionsTBView) {
-//        self.locationValidated = YES;
-//        self.selectedPlaceMarkIndexPath = indexPath;
-//        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-//        locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
-//        _eventLocation = self.optionsTBViewDatasource[indexPath.row];
-//        [self hideOptionsTBViewShadow];
-//    }
+    
+    if (indexPath.section == SectionTypeTime) {
+        
+    }
 }
 
 -(void)hideOptionsTBViewShadow{
@@ -506,6 +500,15 @@ typedef NS_ENUM(NSInteger, SectionType) {
     
     return YES;
 }
+
+#pragma mark - Helper
+
+- (BOOL)isEmailValid:(NSString *)emailString
+{
+
+    return NO;
+}
+
 #pragma mark - event table view cell delegate
 
 -(void)nameTextFieldEdited:(UITextField *)textField{
@@ -534,12 +537,27 @@ typedef NS_ENUM(NSInteger, SectionType) {
     return YES;
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == kEmailTextFieldTag) {
+        textField.textColor = [UIColor blackColor];
+    }
+    
+    return YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField.tag == kTitleTextFieldTag) {
+        _eventName = textField.text;
+    }  else if (textField.tag == kEmailTextFieldTag) {
+        // Validate email address. If not valid, turn text color to red
         
-    } else if (textField.tag == kAddressTextFieldTag) {
-    
+        if ([self isEmailValid:textField.text]) {
+            _eventEmail = textField.text;
+        } else {
+            textField.textColor = [UIColor redColor];
+        }
     }
 }
 
@@ -549,6 +567,26 @@ typedef NS_ENUM(NSInteger, SectionType) {
 {
     [textView resignFirstResponder];
     return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    textView.textColor = [UIColor blackColor];
+    textView.text = nil;
+    
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    // Put placeholder text back in
+    
+    if ([textView.text isEqualToString:@""] || !textView.text) {
+        textView.text = @"Describe the event";
+        textView.textColor = [UIColor lightGrayColor];
+    } else {
+        _eventContent = textView.text;
+    }
 }
 
 @end
