@@ -13,6 +13,13 @@
 		0B0D53FD19ED617B00B0C24C /* SurpriseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0D53FC19ED617B00B0C24C /* SurpriseVC.m */; };
 		0B3FA5FD1AFC0E2E00E11E1F /* NameAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */; };
 		0B525D991A1265AC00F2AE72 /* companyLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B525D981A1265AC00F2AE72 /* companyLogo.png */; };
+		0B85863E1C17422100438A58 /* EventTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B85863D1C17422100438A58 /* EventTitleTableViewCell.m */; };
+		0B8586411C17422E00438A58 /* EventDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586401C17422E00438A58 /* EventDescriptionTableViewCell.m */; };
+		0B8586441C17423600438A58 /* EventImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586431C17423600438A58 /* EventImageTableViewCell.m */; };
+		0B8586471C17423E00438A58 /* EventStartTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586461C17423E00438A58 /* EventStartTimeTableViewCell.m */; };
+		0B85864A1C17424A00438A58 /* EventEndTimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8586491C17424A00438A58 /* EventEndTimeTableViewCell.m */; };
+		0B85864D1C17425600438A58 /* EventAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */; };
+		0B8586501C17425F00438A58 /* EventEmailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */; };
 		0BEB35121B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */; };
 		2273D60D35FC33627CE4A769 /* libPods-DaDa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1412C6AB7D611E27F513F1 /* libPods-DaDa.a */; };
 		501A5E4F19A5756D0050BFA6 /* LifestyleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A5E4E19A5756D0050BFA6 /* LifestyleVC.m */; };
@@ -146,6 +153,20 @@
 		0B3FA5FC1AFC0E2E00E11E1F /* NameAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameAddressTableViewCell.m; sourceTree = "<group>"; };
 		0B525D981A1265AC00F2AE72 /* companyLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = companyLogo.png; sourceTree = "<group>"; };
 		0B5635821B9785C6002474F1 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		0B85863C1C17422100438A58 /* EventTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTitleTableViewCell.h; sourceTree = "<group>"; };
+		0B85863D1C17422100438A58 /* EventTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTitleTableViewCell.m; sourceTree = "<group>"; };
+		0B85863F1C17422E00438A58 /* EventDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDescriptionTableViewCell.h; sourceTree = "<group>"; };
+		0B8586401C17422E00438A58 /* EventDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDescriptionTableViewCell.m; sourceTree = "<group>"; };
+		0B8586421C17423600438A58 /* EventImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventImageTableViewCell.h; sourceTree = "<group>"; };
+		0B8586431C17423600438A58 /* EventImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventImageTableViewCell.m; sourceTree = "<group>"; };
+		0B8586451C17423E00438A58 /* EventStartTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventStartTimeTableViewCell.h; sourceTree = "<group>"; };
+		0B8586461C17423E00438A58 /* EventStartTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventStartTimeTableViewCell.m; sourceTree = "<group>"; };
+		0B8586481C17424A00438A58 /* EventEndTimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventEndTimeTableViewCell.h; sourceTree = "<group>"; };
+		0B8586491C17424A00438A58 /* EventEndTimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventEndTimeTableViewCell.m; sourceTree = "<group>"; };
+		0B85864B1C17425600438A58 /* EventAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventAddressTableViewCell.h; sourceTree = "<group>"; };
+		0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventAddressTableViewCell.m; sourceTree = "<group>"; };
+		0B85864E1C17425F00438A58 /* EventEmailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventEmailTableViewCell.h; sourceTree = "<group>"; };
+		0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventEmailTableViewCell.m; sourceTree = "<group>"; };
 		0BEB35101B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestarauntAndMarketTableViewCell.h; sourceTree = "<group>"; };
 		0BEB35111B8B7EBA003EC7FA /* RestarauntAndMarketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestarauntAndMarketTableViewCell.m; sourceTree = "<group>"; };
 		0F287E06AA704B666E5A33BB /* Pods-DaDa Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaDa Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DaDa Tests/Pods-DaDa Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -463,6 +484,20 @@
 				503AF35019BB7F970023EC02 /* EventTableViewCell.m */,
 				503AF35219BB80B40023EC02 /* CreateEventVC.h */,
 				503AF35319BB80B40023EC02 /* CreateEventVC.m */,
+				0B85863C1C17422100438A58 /* EventTitleTableViewCell.h */,
+				0B85863D1C17422100438A58 /* EventTitleTableViewCell.m */,
+				0B85863F1C17422E00438A58 /* EventDescriptionTableViewCell.h */,
+				0B8586401C17422E00438A58 /* EventDescriptionTableViewCell.m */,
+				0B8586421C17423600438A58 /* EventImageTableViewCell.h */,
+				0B8586431C17423600438A58 /* EventImageTableViewCell.m */,
+				0B8586451C17423E00438A58 /* EventStartTimeTableViewCell.h */,
+				0B8586461C17423E00438A58 /* EventStartTimeTableViewCell.m */,
+				0B8586481C17424A00438A58 /* EventEndTimeTableViewCell.h */,
+				0B8586491C17424A00438A58 /* EventEndTimeTableViewCell.m */,
+				0B85864B1C17425600438A58 /* EventAddressTableViewCell.h */,
+				0B85864C1C17425600438A58 /* EventAddressTableViewCell.m */,
+				0B85864E1C17425F00438A58 /* EventEmailTableViewCell.h */,
+				0B85864F1C17425F00438A58 /* EventEmailTableViewCell.m */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -963,6 +998,7 @@
 				5091FAF21B10C74E00523183 /* UIFont+Utilities.m in Sources */,
 				6564F1F6199D422A00629B48 /* StartupVC.m in Sources */,
 				50C2FBE619A92701009395A0 /* NSPredicate+Utilities.m in Sources */,
+				0B8586471C17423E00438A58 /* EventStartTimeTableViewCell.m in Sources */,
 				502026F61BC027A100310AF6 /* StatusObject+CoreDataProperties.m in Sources */,
 				50E8DAE61BA501FC0065E543 /* SupermarketVC.m in Sources */,
 				65C4F0C719AFB792004452C3 /* CommentVC.m in Sources */,
@@ -973,6 +1009,7 @@
 				501A5E5619A579C70050BFA6 /* Model.xcdatamodeld in Sources */,
 				65C4F10C19AFBC7E004452C3 /* SpinnerImageView.m in Sources */,
 				6564F1FC199E3E8D00629B48 /* GenericTableVC.m in Sources */,
+				0B85864A1C17424A00438A58 /* EventEndTimeTableViewCell.m in Sources */,
 				50E8DAD31BA465B50065E543 /* JobVC.m in Sources */,
 				501A5E6419A57D800050BFA6 /* LifestyleCategory.m in Sources */,
 				50203CD61ACECB8E00945D04 /* EulaVC.m in Sources */,
@@ -988,10 +1025,13 @@
 				65C4F0C219AFB67C004452C3 /* ComposeSurpriseVC.m in Sources */,
 				501A5E6819A583B10050BFA6 /* LifestyleCategory+Utilities.m in Sources */,
 				503AF34E19BB6D660023EC02 /* Event+Utilities.m in Sources */,
+				0B85864D1C17425600438A58 /* EventAddressTableViewCell.m in Sources */,
 				50E8DAD61BA465C20065E543 /* TradeVC.m in Sources */,
+				0B8586501C17425F00438A58 /* EventEmailTableViewCell.m in Sources */,
 				504AE58D1A225397000C62D9 /* JobTradeTableViewCell.m in Sources */,
 				5048A48A1B28FD750096F346 /* DDCopiableLabel.m in Sources */,
 				50F5F9B61A34F7300001CF42 /* StatusObject+Utilities.m in Sources */,
+				0B8586411C17422E00438A58 /* EventDescriptionTableViewCell.m in Sources */,
 				65C4F0DD19AFBB94004452C3 /* AvatarAndUsernameTableViewCell.m in Sources */,
 				65C4F0E619AFBBD8004452C3 /* ComposeSurprisePhotoCollectionViewCell.m in Sources */,
 				50B83F9A19A97A90007BE9F7 /* CustomMKPointAnnotation.m in Sources */,
@@ -1017,6 +1057,7 @@
 				65C4F0DA19AFBB2B004452C3 /* ImageCollectionViewCell.m in Sources */,
 				50FF0B2F19D2533A0023A669 /* LocationManager.m in Sources */,
 				50FBFFCD1A7E30860090EE4B /* Event.m in Sources */,
+				0B85863E1C17422100438A58 /* EventTitleTableViewCell.m in Sources */,
 				65D93E5419C239170044A48A /* AboutUsVC.m in Sources */,
 				50C44A2319C28EAC00DF50D8 /* HitTestView.m in Sources */,
 				5063E9DD1A64C1C800275F2B /* GAnalyticsManager.m in Sources */,
@@ -1027,6 +1068,7 @@
 				501A5E4F19A5756D0050BFA6 /* LifestyleVC.m in Sources */,
 				501A5E7119A6CBE00050BFA6 /* Helper.m in Sources */,
 				503F627F1B8783C8008EC323 /* PFFile+Utilities.m in Sources */,
+				0B8586441C17423600438A58 /* EventImageTableViewCell.m in Sources */,
 				501A5E5B19A57B4D0050BFA6 /* SharedDataManager.m in Sources */,
 				503AF35419BB80B40023EC02 /* CreateEventVC.m in Sources */,
 				0B03B47B1A82764700526A37 /* UIViewController+Utilities.m in Sources */,

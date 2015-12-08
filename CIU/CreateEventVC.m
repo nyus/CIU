@@ -12,11 +12,39 @@
 #import "HitTestView.h"
 #import "Helper.h"
 #import "NSString+Utilities.h"
+#import "EventTitleTableViewCell.h"
+#import "EventDescriptionTableViewCell.h"
+#import "EventImageTableViewCell.h"
+#import "EventStartTimeTableViewCell.h"
+#import "EventEndTimeTableViewCell.h"
+#import "EventAddressTableViewCell.h"
+#import "EventEmailTableViewCell.h"
 
 const float kHorizontalMarginLeft = 20.0;
 const float kOptionsTBViewHeight = 280.0;
+static NSString *kTitleCellReuseId = @"titleCellReuseId";
+static NSString *kDescriptionCellReuseId = @"descriptionCellReuseId";
+static NSString *kImageCellReuseId = @"imageCellReuseId";
+static NSString *kStartTimeCellReuseId = @"startTimeCellReuseId";
+static NSString *kEndTimeReuseId = @"endTimeReuseId";
+static NSString *kContactCellReuseId = @"contactCellReuseId";
+static NSString *kAddressCellReuseId = @"addressCellReuseId";
+static NSInteger kRowCountInformation = 3;
+static NSInteger kRowCountTime = 2;
+static NSInteger kRowCountAddress = 1;
+static NSInteger kRowCountEmail = 1;
+static NSInteger kTitleTextFieldTag = 99;
+static NSInteger kAddressTextFieldTag = 98;
 
-@interface CreateEventVC()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate>{
+typedef NS_ENUM(NSInteger, SectionType) {
+    SectionTypeInformation,
+    SectionTypeTime,
+    SectionTypeAddress,
+    SectionTypeEmail,
+    SectionTypeCount
+};
+
+@interface CreateEventVC()<UITableViewDelegate,UITableViewDataSource, EventTableViewCellDelegate,UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate>{
     NSString *_eventName;
     NSString *_eventContent;
     NSDate *_eventDate;
@@ -86,31 +114,50 @@ const float kOptionsTBViewHeight = 280.0;
     [self.view layoutIfNeeded];
 }
 
+#pragma mark - UITableViewDelegate
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView==self.optionsTBView) {
-        return 1;
-    }else{
-        return self.dataSource.count;
-    }
+//    if (tableView==self.optionsTBView) {
+//        return 1;
+//    }else{
+//        return self.dataSource.count;
+//    }
+    
+    return SectionTypeCount;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView==self.optionsTBView) {
-        return self.optionsTBViewDatasource.count;
-    }else{
-        return 1;
+//    if (tableView==self.optionsTBView) {
+//        return self.optionsTBViewDatasource.count;
+//    }else{
+//        return 1;
+//    }
+    switch (section) {
+        case SectionTypeInformation:
+            return kRowCountInformation;
+            break;
+        case SectionTypeTime:
+            return kRowCountTime;
+            break;
+        case SectionTypeAddress:
+            return kRowCountAddress;
+        case SectionTypeEmail:
+            return kRowCountEmail;
+        default:
+            return 0;
+            break;
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (tableView==self.optionsTBView) {
-        
-        return @"Did you mean?";
-    }else{
-        
-        return self.dataSource[section];
-    }
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    if (tableView==self.optionsTBView) {
+//        
+//        return @"Did you mean?";
+//    }else{
+//        
+//        return self.dataSource[section];
+//    }
+//}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -123,28 +170,68 @@ const float kOptionsTBViewHeight = 280.0;
         cell.textLabel.text = self.optionsTBViewDatasource[indexPath.row];
         return cell;
     }else{
-        EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.dataSource[indexPath.section] forIndexPath:indexPath];
-        if (indexPath.section == 0) {
-            //this is because when we show options tb view, we first dismiss keyboard, then call layout if needed, and tableview gets reloaded, so keyboard will come up again.
-            if(self.optionsTBViewShadow.alpha==0.0f){
-                [cell.nameTextField becomeFirstResponder];
+//        EventTableViewCell *cell = (EventTableViewCell *)[tableView dequeueReusableCellWithIdentifier:self.dataSource[indexPath.section] forIndexPath:indexPath];
+//        if (indexPath.section == 0) {
+//            //this is because when we show options tb view, we first dismiss keyboard, then call layout if needed, and tableview gets reloaded, so keyboard will come up again.
+//            if(self.optionsTBViewShadow.alpha==0.0f){
+//                [cell.nameTextField becomeFirstResponder];
+//            }
+//        }else if (indexPath.section == 1){
+//            
+//            
+//        }else if (indexPath.section == 2){
+//            cell.descriptionTextView.layer.cornerRadius = 3.0f;
+//            cell.descriptionTextView.layer.borderWidth = 0.5f;
+//            cell.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//        }else{
+//            
+//            cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-15552000];//0];
+//            cell.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:15552000];//half a year from now
+//        }
+//        
+//        cell.delegate = self;
+//        
+//        return cell;
+        if (indexPath.section == SectionTypeInformation) {
+            if (indexPath.row == 0) {
+                EventTitleTableViewCell *cell = (EventTitleTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTitleCellReuseId forIndexPath:indexPath];
+                cell.titleTextField.tag = kTitleTextFieldTag;
+                cell.titleTextField.returnKeyType = UIReturnKeyDone;
+                
+                return cell;
+            } else if (indexPath.row == 1) {
+                EventDescriptionTableViewCell *cell = (EventDescriptionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kDescriptionCellReuseId forIndexPath:indexPath];
+                
+                return cell;
+            } else {
+                EventImageTableViewCell *cell = (EventImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kImageCellReuseId forIndexPath:indexPath];
+                
+                return cell;
             }
-        }else if (indexPath.section == 1){
+        } else if (indexPath.section == SectionTypeTime) {
+            if (indexPath.row == 0) {
+                EventStartTimeTableViewCell *cell = (EventStartTimeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kStartTimeCellReuseId forIndexPath:indexPath];
+                cell.startTimeLabel.text = [[NSDate date] description];
+                
+                return cell;
+            } else {
+                EventEndTimeTableViewCell *cell = (EventEndTimeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kEndTimeReuseId forIndexPath:indexPath];
+                cell.endTimeLabel.text = [[NSDate date] description];
+                
+                return cell;
+            }
+        } else if (indexPath.section == SectionTypeAddress) {
+            EventAddressTableViewCell *cell = (EventAddressTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kAddressCellReuseId forIndexPath:indexPath];
+            cell.addressTextField.tag = kAddressTextFieldTag;
+            cell.addressTextField.returnKeyType = UIReturnKeyDone;
             
+            return cell;
+        } else {
+            EventEmailTableViewCell *cell = (EventEmailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kContactCellReuseId forIndexPath:indexPath];
+            cell.emailLabel.text = nil;
             
-        }else if (indexPath.section == 2){
-            cell.descriptionTextView.layer.cornerRadius = 3.0f;
-            cell.descriptionTextView.layer.borderWidth = 0.5f;
-            cell.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        }else{
-            
-            cell.datePicker.minimumDate = [NSDate dateWithTimeIntervalSinceNow:-15552000];//0];
-            cell.datePicker.maximumDate = [NSDate dateWithTimeIntervalSinceNow:15552000];//half a year from now
+            return cell;
         }
-        
-        cell.delegate = self;
-        
-        return cell;
     }
 }
 
@@ -154,12 +241,27 @@ const float kOptionsTBViewHeight = 280.0;
         CGRect rect = [string boundingRectWithSize:CGSizeMake(tableView.frame.size.width-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:NULL];
         return rect.size.height + 20;
     }else{
-        if (indexPath.section==0 || indexPath.section == 1) {
-            return 55.0f;
-        }else if (indexPath.section == 2){
-            return 175.0f;
-        }else{
-            return 190.0f;
+//        if (indexPath.section==0 || indexPath.section == 1) {
+//            return 55.0f;
+//        }else if (indexPath.section == 2){
+//            return 175.0f;
+//        }else{
+//            return 190.0f;
+//        }
+        if (indexPath.section == SectionTypeInformation) {
+            if (indexPath.row == 0) {
+                return 44.0;
+            } else if (indexPath.row == 1){
+                return 152.0;
+            } else {
+                return 152.0;
+            }
+        } else if (indexPath.section == SectionTypeTime) {
+            return 44.0;
+        } else if (indexPath.section == SectionTypeAddress) {
+            return 44.0;
+        } else {
+            return 44.0;
         }
     }
 }
@@ -363,14 +465,14 @@ const float kOptionsTBViewHeight = 280.0;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView==self.optionsTBView) {
-        self.locationValidated = YES;
-        self.selectedPlaceMarkIndexPath = indexPath;
-        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-        locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
-        _eventLocation = self.optionsTBViewDatasource[indexPath.row];
-        [self hideOptionsTBViewShadow];
-    }
+//    if (tableView==self.optionsTBView) {
+//        self.locationValidated = YES;
+//        self.selectedPlaceMarkIndexPath = indexPath;
+//        EventTableViewCell *locationCell = (EventTableViewCell *)[self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//        locationCell.locationTextField.text = self.optionsTBViewDatasource[indexPath.row];
+//        _eventLocation = self.optionsTBViewDatasource[indexPath.row];
+//        [self hideOptionsTBViewShadow];
+//    }
 }
 
 -(void)hideOptionsTBViewShadow{
@@ -422,4 +524,31 @@ const float kOptionsTBViewHeight = 280.0;
     self.locationValidated = NO;
     _eventLocation = textField.text;
 }
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == kTitleTextFieldTag) {
+        
+    } else if (textField.tag == kAddressTextFieldTag) {
+    
+    }
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    [textView resignFirstResponder];
+    return YES;
+}
+
 @end
